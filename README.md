@@ -1,5 +1,5 @@
 # agenda-ervsvp
-> Desenvolvimento de uma aplicação para gerenciar agendamentos dos espaço físico da empresa para eventos.
+> Desenvolvimento de uma aplicação para gerenciar agendamentos dos espaços físico da empresa para eventos.
 - [ ] - Tela de Login
 - [ ] - Tela de Cadastro (novo usuário)
 - [ ] - Tela da aplicação Principal (onde será a tela de seleção dos itens)
