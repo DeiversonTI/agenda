@@ -12,22 +12,23 @@
              
                 <div class=" sm:w-full bg-gray-50 h-full sm:rounded-r-lg sm:rounded-bl-none rounded-b-lg ">
                     
-                        <form class="bg-white rounded-lg px-6 pt-6 pb-6 mb-4 w-full">
+                        <form  class="bg-white rounded-lg px-6 pt-6 pb-6 mb-4 w-full">
                             <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                                Login
+                               Email
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Nome, email ou cpf">
+                            <input v-model="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Nome, email ou cpf">
                             </div>
+
                             <div class="mb-6">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                                 Senha
                             </label>
-                            <input class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua senha">
+                            <input v-model="password" required class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua senha">
                             <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
                             </div>
                             <div class="flex items-center justify-between">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                            <button @click.prevent="login()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
                                 Logar
                             </button>
                             <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
@@ -40,3 +41,41 @@
             </div>
     </div>
 </template>
+<script>
+
+import * as firebase from "firebase/app"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
+
+export default {
+    name:"login",
+    data(){
+        return{
+            email:'',
+            password:'',
+            
+        }
+    },
+    methods:{
+         async login(){
+                firebase
+                    const dev = getAuth()
+                   await createUserWithEmailAndPassword(dev, this.email, this.password)
+                    .then (() =>{
+                        this.$swal({
+                            icon:"success",
+                            title:"Login realizado com Sucesso!",
+                        })
+                    })
+                    .then(() => {
+                        setTimeout(() =>{
+                            
+                        }, 1000)
+                    })
+                    .catch(error => {
+                        this.error = error.message;
+                    });
+       },
+        
+    }
+}
+</script>

@@ -4,7 +4,7 @@
 - [ ] - Tela de Cadastro (novo usuário)
 - [ ] - Tela da aplicação Principal (onde será a tela de seleção dos itens)
 - [ ] - Banco de Dados
-- [ ] - Desenvolvimento do DB com PHP
+- [ ] - Desenvolvimento do DB com firebase
 - [ ] - Tela de envio da aplicação após enviar o formulário
 
 ## Project setup
