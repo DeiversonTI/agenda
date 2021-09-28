@@ -113,15 +113,39 @@ export default {
                                     title:'Usuário não encontrado!',
                                 })
                                 break
-                                 case "auth/email-already-exists":
+                                case "auth/email-already-exists":
                                 this.$swal({
                                     icon:'error',
                                     title:'Email já existe, tente outro',
                                 })
                                 break
+                                 case "auth/wrong-password":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Senha Incorreta!',
+                                })
+                                break
+                                case "auth/null-user":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Usuário Nulo!',
+                                })
+                                break
+                                 case "auth/invalid-claims":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Usuário Claims!',
+                                })
+                                break
+                                  case "auth/too-many-requests":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Solicitação bloqueadas, tente mas tarde!',
+                                })
+                                break
                                 
-                                // default:
-                                //     this.error = error.message
+                                default:
+                                    this.error = error.message
                                     // then(()=>{
                                     //     this.$swal({
                                     //         icon:'success',
