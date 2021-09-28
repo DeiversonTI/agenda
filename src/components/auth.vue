@@ -3,7 +3,7 @@
     <div class="bg-gray-50 w-full" >
         <!-- botão de logout -->
         <div class="flex justify-end items-center py-1 pr-2 bg-gray-200">
-            <h1 class="text-center text-lg pr-4 font-thin text-black ">Bem vindo(a), {{nome}}</h1>
+            <h1 class="text-center text-md pr-4 font-thin text-black" >Bem vindo(a), {{email}}  </h1>
             <button @click="signUp()" class="flex p-1   bg-red-500 rounded-md text-gray-50 px-2 ">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -23,7 +23,7 @@
         </div>
         <!-- Main -->
         <div class=" mt-4 w-full h-screen">
-            <div class="flex flex-col justify-start  "> 
+            <div class="container mx-auto flex flex-col justify-start  "> 
                 <div class="mb-4">
                         <h1 class="text-center font-sans text-2xl text-gray-800">Cadastro de Eventos</h1>
                 </div>
@@ -99,22 +99,27 @@
 </template>
 <script>
 import { getAuth, signOut } from "firebase/auth";
+// import {initializeApp} from "firebase/app";
+
+
 export default {
+    name:"auth",
     data(){
-        return{
-            nome:"Jaspion",
+        return{           
+           email: null
         }
-    },
+    }, 
     methods:{
         signUp(){
-
             const auth = getAuth();
-            
             signOut(auth)
             .then(() => {
                 this.$swal({
                     icon:'success',
                     title: 'Desconectado com sucesso!!',
+                    text: 'Obrigado, volte sempre!!!!',
+                    showConfirmButton: false,
+                    timer: 2000
                 })
                 .then(()=>{
                     setTimeout(() => {
@@ -123,28 +128,24 @@ export default {
                 })
             // Sign-out successful.
             }).catch((error) => {
-                this.error = error.message
+                this.erro = error.message
             });
         },
-    //       resetPass() {
-    //             const auth = getAuth();
-    //             const user = auth.currentUser;
-    //             const newPassword = getASecureRandomPassword();
+        
+    },
+    created(){
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if(user !== true){
+            this.email = user.email;
+        }
 
-    //             updatePassword(user, newPassword)
-    //                 .then(() => {
-    //                 console.log("Email enviado!");
-    //                 // Password reset email sent!
-    //                 // ..
-    //                 })
-    //                 .catch((error) => {
-    //                 this.error = error.code;
-    //                 this.error = error.message;
-    //                 // ..
-    //                 });
-    // },
+
+        // const auth = initializeApp().getAuth().currentUser;
+        // this.email = auth.email   
+  
     }
-    
+     
 }
 </script>
 

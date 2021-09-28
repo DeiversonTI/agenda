@@ -32,7 +32,7 @@
                             <button @click.prevent="login()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
                                 Logar
                             </button>
-                            <p class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                            <p class=" cursor-pointer inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" @click.prevent="reset()">
                                 Esqueceu a senha?
                             </p>
                             </div>
@@ -52,7 +52,7 @@
 <script>
 
 import * as firebase from "firebase/app"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth"
 
 
 export default {
@@ -65,15 +65,17 @@ export default {
         }
     },
     methods:{
-         async login(){
-             try{
+        async login(){
+            try{
                 firebase
                     const dev = getAuth()
                    await signInWithEmailAndPassword(dev, this.email, this.password)
                     .then(()=>{
                         this.$swal({
                         icon:'success',
-                        title: "conectado com sucesso!"
+                        title: "conectado com sucesso!",
+                        showConfirmButton:false,
+                        timer:2000
                              })
                         })
                         .then(()=>{
@@ -89,9 +91,7 @@ export default {
                 //    })
                 //    this.$router.push({name: 'Auth'})
                    
-                    }catch(error)
-                    
-                    {
+            }catch(error){
 
                         const erro = error.code
                         switch(erro){
@@ -113,12 +113,12 @@ export default {
                                     title:'Usuário não encontrado!',
                                 })
                                 break
-                                //  case "auth/email-already-exists":
-                                // this.$swal({
-                                //     icon:'error',
-                                //     title:'Email já existe, tente outro',
-                                // })
-                                // break
+                                 case "auth/email-already-exists":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Email já existe, tente outro',
+                                })
+                                break
                                 
                                 // default:
                                 //     this.error = error.message
@@ -135,11 +135,61 @@ export default {
                                     // })
                                     // this.$router.push({name: 'Auth'})
                                 
-                            }
+                                }
                     }
                      
-       },
+        },
+        // Código de reset de senha
+         async reset(){
+            try{
+               
+            const auth = getAuth();
+           await sendPasswordResetEmail(auth, this.email)
+           .then(()=>{
+                this.$swal({
+                    icon:'success',
+                    title:'foi enviado uma notificação para seu email!',
+                    showConfirmButton: false,
+                    timer: 2500
+
+                    })
+           
+                 })
+                 
+            }catch(error){
+                const erro = error.code
+                switch (erro) {
+                    case "auth/invalid-email":
+                        this.$swal({
+                        icon:'error',
+                        title:'Email Inválido!',
+                        })                       
+                        break;
+                    case "auth/user-not-found":
+                        this.$swal({
+                        icon:'error',
+                        title:'Usuário não encontrado!',
+                        })                       
+                        break;
+                       
+                
+                    default:
+                        this.error = error.message
+                        break;
+                }
+                
+                
+
+            }
+           
+        //     .catch((error) => {
+        //         this.error = error.code;
+        //  });
+        }
+
         
     }
 }
 </script>
+
+ 

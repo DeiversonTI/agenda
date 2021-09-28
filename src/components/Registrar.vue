@@ -77,7 +77,7 @@ export default {
                     const dev = getAuth()
                    await createUserWithEmailAndPassword(dev, this.email, this.password)
                     .then (() =>{
-                        this.$swal({icon:"success",title:"Registrado com sucesso!",})
+                        this.$swal({icon:"success",title:"Registrado com sucesso!", showConfirmButton: false, timer: 2000})
                     })
                     .then(()=>{
                         setTimeout(() => {
