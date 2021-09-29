@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import Registrar from "../components/Registrar.vue"
 import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
+import Action from "../views/actionTela.vue"
+import User from "../views/userTela.vue"
 
 const routes = [
   {
@@ -25,6 +27,17 @@ const routes = [
     name: 'Auth',
     component: Auth
   },
+  {
+    path:'/actionTela',
+    name: 'actiontela',
+    component: Action
+
+  },
+  {
+    path:'/userTela',
+    name:'usertela',
+    component:User
+  }
 
  
    

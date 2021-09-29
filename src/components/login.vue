@@ -80,7 +80,7 @@ export default {
                         })
                         .then(()=>{
                             setTimeout(() => {
-                                this.$router.replace({name: 'Auth'})
+                                this.$router.replace({name: 'actiontela'})
                         }, 2000);
                      })
                 //    .then(()=>{
