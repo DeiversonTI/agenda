@@ -9,6 +9,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import {initializeApp} from "firebase/app"
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     
@@ -21,7 +22,9 @@ const firebaseConfig = {
   };
   
   // Initialize Firebase
+   
   initializeApp(firebaseConfig);
-
+  getFirestore();
+  
 
 createApp(App).use(VueSweetalert2).use(store).use(router).mount('#app')

@@ -22,80 +22,78 @@
           </h1>
         </div>
       </div>
-     
     </section>
     <section>
-        <!-- body aplicação -->
+      <!-- body aplicação -->
       <div class="w-full bg-gray-50">
         <div>
           <div class="container mx-auto">
-              <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="py-8 font-thin text-5xl text-blue-600">Agendamento</h1>
-                </div>
-                <div class="flex items-center">
-                    <h1 class="font-thin text-xl">Bem vindo(a), <span class="font-bold text-lg">Verônica</span></h1>
-                   
-                    <h1 class="border-2 py-1 px-1 ml-2 bg-blue-600 rounded-md text-white">logout</h1>
-                
-                </div>
-                
+            <div class="flex items-center justify-between">
+              <div>
+                <h1 class="py-8 font-thin text-5xl text-blue-600">
+                  Agendamento
+                </h1>
               </div>
-              
-
-            <table class="table-auto w-full bg-gray-50 border-collapse border border-gray-800 text-center text-lg">
-              <thead class="bg-gray-200">
-                <tr class="border border-gray-800">
-                  <th class="w-1/12 border border-gray-800">Nome</th>
-                  <th class="w-1/12 border border-gray-800 ...">Dia</th>
-                  <th class="w-1/12 border border-gray-800 ...">Horário</th>
-                  <th class="w-1/12 border border-gray-800 ...">Local</th>
-                  <th class="w-1/12 border border-gray-800 ...">Setor</th>
-                  <th class="w-1/1 border border-gray-800 ...">Motivo</th>
-                  <th class="w-1/12 border border-gray-800 ...">Upload</th>
-                  <th class="w-1/12 border  border-gray-800">Link</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="border border-gray-800">Verônica</td>
-                  <td class="border border-gray-800">31/02/2025</td>
-                  <td class="border border-gray-800">08h/10h10</td>
-                  <td class="border border-gray-800">Salão</td>
-                  <td class="border border-gray-800">Professor</td>
-                  <td class="border border-gray-800">Vou precisar do salão para projetar um projeto para os alunos do 8º e 9º ano.</td>
-                  <td class="border border-gray-800">Sem upload</td>
-                  <td class="border border-gray-800">http://oi.com.br</td>
-                 
-                </tr>
-                 <tr>
-                  <td class="border border-gray-800">Verônica</td>
-                  <td class="border border-gray-800">31/02/2025</td>
-                  <td class="border border-gray-800">08h/10h10</td>
-                  <td class="border border-gray-800">Salão</td>
-                  <td class="border border-gray-800">Professor</td>
-                  <td class="border border-gray-800">Vou precisar do salão para projetar um projeto para os alunos do 8º e 9º ano.</td>
-                  <td class="border border-gray-800">Sem upload</td>
-                  <td class="border border-gray-800">http://oi.com.br</td>
-                 
-                </tr>
-                 <tr>
-                  <td class="border border-gray-800">Verônica</td>
-                  <td class="border border-gray-800">31/02/2025</td>
-                  <td class="border border-gray-800">08h/10h10</td>
-                  <td class="border border-gray-800">Salão</td>
-                  <td class="border border-gray-800">Professor</td>
-                  <td class="border border-gray-800">Vou precisar do salão para projetar um projeto para os alunos do 8º e 9º ano.</td>
-                  <td class="border border-gray-800">Sem upload</td>
-                  <td class="border border-gray-800">http://oi.com.br</td>
-                 
-                </tr>
-               
-              </tbody>
-            </table>
+              <div class="flex items-center">
+                <Logado />
+              </div>
+            </div>
+            <!-- <ul class="h-40 rounded-md py-4">
+              <h2 class="font-thin text-2xl mb-4">Lista de Usuários</h2>
+              <li v-for="agendas in agenda" :key="agendas.id">
+                {{ agendas.id }} | {{ agendas.nomeUser }} |
+                {{ agendas.setorUser }} | {{ agendas.funcaoUser }}
+              </li>
+            </ul> -->
           </div>
         </div>
       </div>
     </section>
   </div>
 </template>
+
+<script>
+import Logado from "../components/compLogado/userLogado.vue"
+import {  getDocs, collection, getFirestore} from "firebase/firestore"
+
+
+export default {
+    name: "userLogado",
+    data(){
+      return{
+        agenda:[ ]
+      }
+    },
+  
+    components:{
+      Logado
+    },
+      async created(){
+      try{
+      const db = getFirestore();
+      const querySnapshot =  await getDocs(collection(db, "agenda"));
+        querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data().funcao}`);
+      });
+      }catch(error){
+        this.error = error.message;
+      }
+      // const usar = await getDocs(collection(db, 'agenda'));    
+      // usar.querySnapshot((doc) => {
+      //    console.log(doc)
+      //   const user = 
+      //  {
+      //       'id':doc.id,
+      //       'nomeUser':doc.data().nome,
+      //       'funcaoUser':doc.data().funcao,
+      //       'setorUser':doc.data().setor,
+            
+      //  }
+      
+      //  this.agenda.push(user);
+      // })  
+      
+      }
+}
+      
+</script>
