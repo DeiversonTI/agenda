@@ -28,54 +28,43 @@
       <div class="w-full bg-gray-50">
         <div>
           <div class="container mx-auto">
-            <div class="flex items-center justify-between">
-              <div>
-                <h1 class="py-8 font-thin text-5xl text-blue-600">
-                  Agendamento
-                </h1>
-              </div>
-              <div class="flex items-center">
-                <h1 class="text-lg font-thin mr-4">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
+            <div class="w-full flex md:flex flex-col   items-center justify-center">
+              
                 <div>
-                  <Logado />
+                  <h1 class="py-8 sm:text-3xl font-thin text-5xl text-blue-600">
+                    Agendamento
+                  </h1>
                 </div>
-                
-              </div>
+                <div class=" flex items-center justify-center ">
+                  <h1 class="text-base font-thin mr-2 ">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
+                  <div>
+                    <Logado />
+                  </div>
+                  
+                </div>
+              
             </div>
            
-                <div class=" bg-gray-100 w-full p-4">
-                   <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button>
-                   <h1 class="font-thin text-4xl mb-8">Lista de Usuários</h1>
+                <div class=" bg-gray-100 w-full  border-t-2 mt-4">
+                   <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
+                   <h1 class="font-thin text-4xl mb-4 mt-2 text-center"> Agendamentos </h1>
                  
-                      <div class="md:px-32 py-8 w-full">
-                        <div>
-                          <table v-for="agendas in agenda" :key="agendas.id">
-                            <thead class="bg-gray-800 text-white ">
-                              <tr>
-                                <th class="  w-auto text-left py-3 px-4 uppercase font-semibold text-sm">Data</th>
-                                <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Horário</th>
-                                <th class=" w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Responsável</th>
-                                <th class=" w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Local</th>
-                                <th class=" w-auto text-left py-3 px-4 uppercase font-semibold text-sm">Assunto</th>
-                                <th class=" w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Upload</th>
-                                <th class=" w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Link</th>
-                                
-                              </tr>
-                            </thead>
-                          <tbody class="text-gray-700">
-                            <tr>
-                              <td class=" w-auto text-left py-3 px-4 border-2">{{agendas.dia}}</td>
-                              <td class="w-1/3 text-left py-3 px-4 border-2">{{agendas.horario}}</td>
-                              <td class="w-1/3 text-left py-3 px-4 border-2">{{agendas.responsavel}}</td>
-                              <td class="w-1/3 text-left py-3 px-4 border-2">{{agendas.situacao}}</td>
-                              <td class="w-auto text-left py-3 px-4 border-2">{{agendas.motivo}}</td>
-                              <td class="w-1/3 text-left py-3 px-4 border-2">{{agendas.arquivo}}</td>
-                              <td class="w-1/3 text-left py-3 px-4 border-2">{{agendas.link}}</td>    
-                            </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                      <div class="w-full flex flex-col mt-4 px-2 py-4 bg-gray-200 rounded-lg shadow-md" v-for="agendas in agenda" :key="agendas.id">
+                     
+                              <ul class="flex flex-col font-sans text-lg text-gray-900 space-y-1">
+                                                             
+                                  <li class=""><span class="text-xl font-bold">Dia: </span> {{agendas.dia}}</li>
+                                  <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
+                                  <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
+                                  <li class=""><span class="text-xl font-bold">Setor: </span> {{agendas.situacao}}</li>
+                                  <li class=""><span class="text-xl font-bold">Motivo: </span> {{agendas.motivo}}</li>
+                                  <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li>
+                                  <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>    
+                              </ul>
+                       
                       </div>
+                         
+                        
           </div>
         </div>
       </div>
@@ -86,7 +75,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, collection, addDoc, getFirestore } from "firebase/firestore";
+import { getDocs, collection,  getFirestore } from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
@@ -130,22 +119,6 @@ export default {
       
     });
   },
-  methods: {
-    async clicar() {
-      // db
-      //  firebase
-      const dbUser = getFirestore();
-      const docRef = await addDoc(collection(dbUser, "agenda"), {
-        dia: "Rodrigo Pederneiras",
-        horario: "Analista de Projetos",
-        responsavel: "Assitente Social",
-        situacao: "Assitente Social",
-        motivo: "Não sei você, mas quero ir embora!",
-        arquivo: "arquivos",
-        link: "outro link",
-      });
-      console.log("Documento foi adicionado com Id: ", docRef.id);
-    },
-  },
+  
 };
 </script>
