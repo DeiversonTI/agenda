@@ -30,7 +30,7 @@
                             </div>
                             <div class="flex items-center justify-between sm:pt-1 xl:mt-8">
                             <button @click.prevent="login()"  class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
-                                Logar
+                                Cadastrar
                             </button>
                             <p class="flex justify-center items-center mr-4 font-bold text-md text-blue-500 hover:text-blue-800 2xl:text-lg">
                                 

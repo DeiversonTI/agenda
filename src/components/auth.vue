@@ -1,8 +1,15 @@
 <template>
 <div class="bg-gray-500 w-full h-screen">
     <div class="bg-gray-50 w-full" >
+          <div class="flex items-center justify-end">
+                <h1 class="text-lg font-thin mr-4">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
+                <div>
+                  <Logado />
+                </div>
+                
+              </div>
         <!-- botão de logout -->
-        <User/>
+        <!-- <User/> -->
 
         <!-- Navbar -->
         <div class="h-40 bg-blue-200 shadow-lg border-b-2 border-gray-300">
@@ -61,7 +68,7 @@
 </div>
 </template>
 <script>
-import User from "./compLogado/userLogado.vue"
+
 import Data from "./compLogado/dataLogado.vue"
 import Horario from "./compLogado/horarioLogado.vue"
 import Setor from "./compLogado/setorLogado.vue"
@@ -69,20 +76,39 @@ import Situacao from "./compLogado/situacaoLogado.vue"
 import Motivo from "./compLogado/motivoLogado.vue"
 import Upload from "./compLogado/uploadLogado.vue"
 import Link from "./compLogado/linkLogado.vue"
+import Logado from "../components/compLogado/userLogado.vue"
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import * as firebase from "firebase/app";
+import db from "../components/db/dbConfig";
 
 export default {
     name:"auth",
+    data(){
+        return{
+            email:'',
+        }
+    },
     components:{
-        User,
+        
         Data,
         Horario,
         Setor,
         Situacao,
         Motivo,
         Upload,
-        Link
+        Link,
+        Logado,
 
     },
+    async created(){
+        firebase;
+        db;
+         const dbuser = getAuth();
+            await onAuthStateChanged(dbuser, (user) => {
+            this.email = user.email;             
+           
+    }); 
+    }
       
 }
 </script>

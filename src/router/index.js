@@ -5,6 +5,7 @@ import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
+import Teste from "../components/teste.vue"
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path:'/userTela',
     name:'usertela',
     component:User
+  },
+  {
+    path:"/teste",
+    name:"teste",
+    component: Teste
   }
 
  
