@@ -1,77 +1,64 @@
 <template>
   <div class="bg-gray-500 w-full h-screen">
     <div class="bg-gray-50 w-full">
+      
       <div class="flex items-center justify-end">
-        <h1 class="text-lg font-thin mr-4">
+        <h1 class="text-base font-thin mr-4 px-4">
           Olá
           <span class="font-bold text-red-600 px-1">{{ this.email }}</span> seja
           bem vindo(a)
         </h1>
-        <div>
-          <Logado />
-        </div>
+          <div>
+            <Logado />
+          </div>
       </div>
       <!-- botão de logout -->
       <!-- <User/> -->
 
       <!-- Navbar -->
-      <div class="h-40 bg-blue-200 shadow-lg border-b-2 border-gray-300">
-        <div
-          class="
-            flex flex-col
-            justify-center
-            items-center
-            container
-            w-full
-            m-auto
-            h-36
-          "
-        >
-          <div class="flex justify-center items-center w-full flex-wrap">
-            <img src="../assets/escola.png" alt="" class="w-80 ml-1 mt-4" />
-            <p class="text-center w-full font-sans text-3xl mt-4">
-              Agenda
-              <span
-                class="
-                  text-white
-                  border
-                  bg-red-500
-                  px-2
-                  rounded-full
-                  font-extrabold font-sans
-                  text-3xl
-                  pb-2
-                "
-                >on</span
-              >line
-            </p>
-          </div>
+      <div class="bg-blue-300 py-8 shadow-md">
+        <div class="flex justify-around items-center">
+          
+          
+            <div class="ml-2">
+             <img src="../assets/escola.png" alt="" class="w-64 "/>
+            </div>
+            <div class="font-thin text-2xl text-blue-900 mt-4 text-center">
+              Agenda ONLINE
+            </div>
+          
         </div>
       </div>
+     
 
       <!-- Main -->
-      <div class="mt-4 w-full h-screen">
-        <div class="container mx-auto flex flex-col justify-start">
+      <div class="  flex mt-4 w-full h-screen">
+        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-aut xl:container  xl:w-2/5 xl:rounded-xl xl:border-2 h-screen flex flex-col justify-start">
           <!-- Cabeçalho do formulário -->
-          <div class="mb-4">
-            <h1 class="text-center font-sans text-2xl text-gray-800">
+          <div class="mb-4 mt-8">
+            <h1 class="text-center font-sans text-3xl">
               Cadastro de Eventos
             </h1>
           </div>
           <!-- formulario de arquivos logado -->
-          <div class="space-y-4 ml-2 font-thin text-lg">
+          <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4">
             <form @submit.prevent="clicar" class="space-y-6">
               <!-- Data do Evento-->
+              <div>               
+                   <label for="nameConnect">Nome: </label>
+                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" >
+              </div>
               <div>
                 Data do Evento:
-                <input id="date" type="date" v-model="form.dia" />
+                <input id="date" type="date" v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
               </div>
               <!-- <Data/> -->
 
               <!-- Horário do Evento -->
+            
               <div>
                 <label for="hora">Horário do Evento: </label>
-                <select id="hora" name="hora" v-model="form.horario">
+                <select id="hora" name="hora" v-model="form.horario" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="07h20/8h">07h20/8h</option>
                   <option value="08h/8h40">08h/8h40</option>
                   <option value="09h30/10h10">09h30/10h10</option>
@@ -82,25 +69,30 @@
                            -->
               <!-- Seleção da Situação -->
               <div>
-                <label for="action">Situação: </label>
-                <select id="action" name="action" v-model="form.situacao">
+                <label for="action">Local ou Equipamento: </label>
+                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="salão">Salão</option>
-                  <option value="monitor">Monitor</option>
+                  <option value="Jardim">Jardim Sensorial</option>
                   <option value="agendamento">Agendamento</option>
                   <option value="trator">Trator</option>
+                  <option value="gourmet">Área Gourmet</option>
+                 
                 </select>
               </div>
               <!-- <Situacao/> -->
 
               <!-- Setor -->
               <div>
-                <label for="setor">Setor: </label>
-                <select id="setor" name="setor" v-model="form.responsavel">
+                <label for="setor">Responsável: </label>
+                <select id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="diretoria">Diretoria</option>
                   <option value="assistente social">Assistente Social</option>
                   <option value="coord-fundI">Coord-FundI</option>
                   <option value="coord-fundII">Coord-FundII</option>
                   <option value="coord-edinf">Coord-EdInf</option>
+                  <option value="professor">Professor</option>
+                  <option value="Secretaria">Secretaria</option>
+                  <option value="Tesouraria">Tesouraria</option>
                 </select>
               </div>
               <!-- <Setor/> -->
@@ -113,8 +105,9 @@
                   name="motivo"
                   rows="4"
                   cols="41"
-                  class="border border-gray-300 pl-1"
+                  class="  border-2 border-gray-400 w-full rounded-md" 
                   v-model="form.motivo"
+                  
                 ></textarea>
               </div>
               <!-- <Motivo/> -->
@@ -135,7 +128,7 @@
                   name="linkEnviar"
                   id="linkEnviar"
                   placeholder="cole seu link aqui!"
-                  class="border border-gray-300 px-1 rounded-sm w-10/12"
+                  class=" border-gray-300 px-1   border-2  w-full rounded-md"
                   v-model="form.link"
                 />
               </div>
@@ -145,7 +138,7 @@
                 <input
                   type="submit"
                   value="Enviar"
-                  class="p-2 bg-red-600 text-gray-50 rounded-md"
+                  class="py-3  bg-red-600 text-gray-50 rounded-md cursor-pointer px-8"
                 />
               </div>
             </form>
@@ -160,19 +153,25 @@
 
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
-// import db from "../components/db/dbConfig";
+import db from "../components/db/dbConfig";
 import {  collection, addDoc, getFirestore } from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
+// import Data from "../components/compLogado/dataLogado.vue"
 
 export default {
     name:"auth",
     components:{
-        Logado
+        Logado,
+        // Data,
+        
     },
+   
+    
     data(){
         return{
             email:'',
             form:{                    
+                    nome:'',
                     dia: null,
                     horario:null,
                     responsavel: null,
@@ -184,53 +183,62 @@ export default {
         }
             
     },
+     async created(){
+            // firebase;
+            db;
+            const dbuser = getAuth();
+                await onAuthStateChanged(dbuser, (user) => {
+                this.email = user.email;
+                console.log(user)             
+              
+            });
+      },
     
      methods: {
     async clicar() {
-        try{
-      const dbUser = getFirestore();
-     await addDoc(collection(dbUser, "agenda"), {
+       try{
+     const dbUser = getFirestore();
+     const authentication = getAuth();
+     const userConnected = authentication.currentUser.uid; 
+    
+    
+        const usuarioDb = {
+        user_id:userConnected,
+        nome:this.form.nome,
         dia: this.form.dia,
         horario: this.form.horario,
         responsavel: this.form.responsavel,
         situacao: this.form.situacao,
         motivo: this.form.motivo,
         link: this.form.link,
-      }).then(() =>{
+       }
+
+       console.log(usuarioDb)
+
+       await addDoc(collection(dbUser, "usuarios"), usuarioDb)
+   
+      .then(() =>{
           this.$swal({
             icon:'success',
             text:'Enviado com Sucesso!',
             showConfirmButton: false,
             timer: 2500,
-
           })
           .then(()=>{
               setTimeout(() => {
                   this.$router.replace({name: 'usertela'})
-              }, 2000);
-              
+              }, 5000);
           })
           
-      })}catch(error){
-              this.error = error.message;
+        })}catch(error){
+                  this.error = error.message;
           }
-      console.log("Documento foi adicionado");
-    },
+    }
     
-  },
-  async created(){
-        // firebase;
-        // db;
-         const dbuser = getAuth();
-            await onAuthStateChanged(dbuser, (user) => {
-            this.email = user.email;             
-           
-    }); 
-    },
+    
+  }
+     
       
 }
 
 </script>
-
-
-  

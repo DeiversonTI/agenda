@@ -45,14 +45,14 @@
               
             </div>
            
-                <div class=" bg-gray-100 w-full  border-t-2 mt-4">
+                <div v-if="isLoggedIn" class=" bg-gray-100 w-full  border-t-2 mt-4">
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
                    <h1 class="font-thin text-4xl mb-4 mt-2 text-center"> Agendamentos </h1>
                  
-                      <div class="w-full flex flex-col mt-4 px-2 py-4 bg-gray-200 rounded-lg shadow-md" v-for="agendas in agenda" :key="agendas.id">
+                      <div  class="w-full flex flex-col mt-4 px-2 py-4 bg-gray-200 rounded-lg shadow-md" v-for="agendas in agenda" :key="agendas.id">
                      
                               <ul class="flex flex-col font-sans text-lg text-gray-900 space-y-1">
-                                                             
+                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Dia: </span> {{agendas.dia}}</li>
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
                                   <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
@@ -77,8 +77,8 @@
 import Logado from "../components/compLogado/userLogado.vue";
 import { getDocs, collection,  getFirestore } from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
-import * as firebase from "firebase/app";
-import db from "../components/db/dbConfig";
+// import * as firebase from "firebase/app";
+// import db from "../components/db/dbConfig";
 
 export default {
   name: "userLogado",
@@ -86,39 +86,59 @@ export default {
     return {
       agenda: [],
       email: '',
+      isLoggedIn: false,
     };
   },
 
   components: {
     Logado,
   },
-  async created() {
-    firebase;
-    db;
 
-     const dbuser = getAuth();
-            await onAuthStateChanged(dbuser, (user) => {
-            this.email = user.email;             
-           
-    }); 
-    const dbUser = getFirestore();
-    const user = await getDocs(collection(dbUser, "agenda"));
-    user.forEach((doc) => {
-      const dbMonitor = {
-      
+
+  // COMANDO DE USUÁRIO LOGADO
+  async created() {
+  const dbuser = getAuth();
+  onAuthStateChanged(dbuser, (user) => {
+   
+        this.email = user.email;    
+
+  });
+
+
+  // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
+  const dbUser = getFirestore();
+  
+  const user = await getDocs(collection(dbUser, "usuarios"));
+  user.forEach((doc) => {
+
+    const dbAuth = getAuth().currentUser.uid;
+    const userTeste = doc.data().user_id;
+
+      if(userTeste === dbAuth){
+
+        const dbMonitor = {
+        user_id: userTeste,
+        nome:doc.data().nome,
         dia: doc.data().dia,
         horario: doc.data().horario,
         responsavel: doc.data().responsavel,
         situacao: doc.data().situacao,
         motivo: doc.data().motivo,
-        arquivo: doc.data().arquivo,
+        // arquivo: doc.data().arquivo,
         link: doc.data().link,
-      };
+        };
 
-      this.agenda.push(dbMonitor);
-      
-    });
-  },
+          this.agenda.push(dbMonitor);
+     
+    }
+   
+  });
   
-};
+  const verUser = dbuser.currentUser
+    if(verUser.uid){
+     this.isLoggedIn =  true;
+  }
+
+  }
+  }
 </script>
