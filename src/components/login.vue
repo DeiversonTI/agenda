@@ -73,7 +73,7 @@ export default {
                     .then(()=>{
                         this.$swal({
                         icon:'success',
-                        title: "conectado com sucesso!",
+                        title: "Conectado com Sucesso!",
                         showConfirmButton:false,
                         timer:2000
                              })

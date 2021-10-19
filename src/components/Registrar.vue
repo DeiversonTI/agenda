@@ -77,7 +77,14 @@ export default {
                     const dev = getAuth()
                    await createUserWithEmailAndPassword(dev, this.email, this.password)
                     .then (() =>{
-                        this.$swal({icon:"success",title:"Registrado com sucesso!", showConfirmButton: false, timer: 2000})
+               
+
+                        this.$swal({
+                            icon:"success",
+                            title:"Registrado com Sucesso!", 
+                            showConfirmButton: false, 
+                            timer: 2000});
+                        
                     })
                     .then(()=>{
                         setTimeout(() => {
@@ -92,10 +99,29 @@ export default {
 
             }catch(error)
             {
-                 this.error = error.message;
+                 
+                   const erro = error.code
+                        switch(erro){
+                            case "auth/email-already-in-use":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Email em uso, tente outro!',
+                                    showConfirmButton:false,
+                                    timer: 2000,
+                                })
+                                break
+                           
+                                default:
+                                    this.$swal({
+                                        icon: 'error',
+                                        title: 'Digite uma senha válida!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+
+                                    })
             }
-       },
-        
+       } 
+         }
     }
 }
 </script>

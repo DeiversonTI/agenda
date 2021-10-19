@@ -85,14 +85,15 @@
               <div>
                 <label for="setor">Responsável: </label>
                 <select id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="diretoria">Diretoria</option>
-                  <option value="assistente social">Assistente Social</option>
+                  <option value="Diretoria">Diretoria</option>
+                  <option value="Ass_Social">Assistente Social</option>
                   <option value="coord-fundI">Coord-FundI</option>
                   <option value="coord-fundII">Coord-FundII</option>
-                  <option value="coord-edinf">Coord-EdInf</option>
+                  <option value="Ccoord-edinf">Coord-EdInf</option>
                   <option value="professor">Professor</option>
                   <option value="Secretaria">Secretaria</option>
                   <option value="Tesouraria">Tesouraria</option>
+                   <option value="TI">TI</option>
                 </select>
               </div>
               <!-- <Setor/> -->
@@ -170,6 +171,7 @@ export default {
     data(){
         return{
             email:'',
+            
             form:{                    
                     nome:'',
                     dia: null,
@@ -192,6 +194,15 @@ export default {
                 console.log(user)             
               
             });
+
+         
+            
+            // const userId = dbuser.currentUser;
+            // if(userId !== null){
+            //   userId.providerData.forEach((profile)=>{
+            //     console.log(profile)
+            //   })
+            // }
       },
     
      methods: {

@@ -75,7 +75,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, collection,  getFirestore } from "firebase/firestore";
+import { getDocs, collection,  getFirestore, orderBy, limit } from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 // import db from "../components/db/dbConfig";
@@ -108,13 +108,36 @@ export default {
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
   
-  const user = await getDocs(collection(dbUser, "usuarios"));
+  const user = await getDocs(collection(dbUser, "usuarios"), orderBy("dia"), limit(10));
   user.forEach((doc) => {
 
     const dbAuth = getAuth().currentUser.uid;
     const userTeste = doc.data().user_id;
+    const emailUser = getAuth().currentUser.email;
 
-      if(userTeste === dbAuth){
+   
+
+    // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
+    if(emailUser === "informatica@ersvp.g12.br"){
+    
+        const dbMonitorUser = {
+        user_id: userTeste,
+        nome:doc.data().nome,
+        dia: doc.data().dia,
+        horario: doc.data().horario,
+        responsavel: doc.data().responsavel,
+        situacao: doc.data().situacao,
+        motivo: doc.data().motivo,
+        // arquivo: doc.data().arquivo,
+        link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+   
+    }  
+
+    // USUÁRIO RESTRITOR - IRÃO VER SOMENTE SUAS PUBLICAÇÕES
+      else if(userTeste === dbAuth){
 
         const dbMonitor = {
         user_id: userTeste,
