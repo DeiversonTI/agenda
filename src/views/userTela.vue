@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-screen bg-gray-50">
-    <section class="bg-blue-100">
+    <section class="bg-blue-100 border-b-2 border-blue-200 py-3">
       <!--navbar -->
       <div
         class="
@@ -10,12 +10,15 @@
           items-center
           justify-between
           py-2
-          sm:flex
+          sm:flex 
         "
       >
+      <router-link to="/">
         <div class="flex items-center justify-center">
           <img src="../assets/escola.png" alt="" class="w-72" />
         </div>
+      </router-link>
+
         <div class="flex justify-center items-center">
           <h1 class="font-medium text-3xl text-gray-700 text-center">
             Agenda-Online
@@ -27,42 +30,63 @@
       <!-- body aplicação -->
       <div class="w-full bg-gray-50">
         <div>
-          <div class="container mx-auto">
-            <div class="w-full flex md:flex flex-col   items-center justify-center">
+          <div class="">
+
+            <!-- AGENDAMENTO E LOGADO -->
+            <div class="w-full flex md:flex flex-col items-center justify-center">
               
-                <div>
+                <!-- <div>
                   <h1 class="py-8 sm:text-3xl font-thin text-5xl text-blue-600">
                     Agendamento
                   </h1>
-                </div>
-                <div class=" flex items-center justify-center ">
-                  <h1 class="text-base font-thin mr-2 ">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
-                  <div>
-                    <Logado />
+                </div> -->
+                <div class=" flex flex-col  sm:w-full items-center justify-center mt-7 ">
+                  <div class="2xl:flex 2xl:items-center  xl:flex lg:flex lg:items-center xl:items-center md:items-center md:flex sm:items-center sm:flex ">
+
+                      <h1 class="text-sm font-thin 2xl:mr-2 2xl:text-lg md:text-lg lg:text-lg xl:text-lg xl:mr-2 lg:mr-2 md:mr-2 sm:mr-2 mb-2">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
+
+                    <div class="flex justify-center items-center  ">
+                    <router-link to="/Auth">
+                        <div title="Volta para a tela de cadastro" class="bg-blue-700 text-white flex items-center font-thin text-xs justify-center py-1 px-2 rounded-md cursor-pointer
+                        shadow-md mr-2 ">
+                        
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                          </svg>
+                          VOLTAR
+                          
+                        </div>
+                    </router-link>
+                        <div title="Desconectar usuário ">
+                          <Logado />
+                        </div>
+                      </div>
                   </div>
-                  
                 </div>
               
             </div>
            
-                <div v-if="isLoggedIn" class=" bg-gray-100 w-full  border-t-2 mt-4">
+                <div v-if="isLoggedIn" class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center
+                flex-col ">
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
-                   <h1 class="font-thin text-4xl mb-4 mt-2 text-center"> Agendamentos </h1>
-                 
-                      <div  class="w-full flex flex-col mt-4 px-2 py-4 bg-gray-200 rounded-lg shadow-md" v-for="agendas in agenda" :key="agendas.id">
+                   <div>
+                   <h1 class="text-red-700 font-sans text-5xl mb-6 mt-6  text-center"> Agendamentos </h1>
+                  </div>
+                      <div  class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id">
                      
-                              <ul class="flex flex-col font-sans text-lg text-gray-900 space-y-1">
-                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
-                                  <li class=""><span class="text-xl font-bold">Dia: </span> {{agendas.dia}}</li>
+                              <ul class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
+                                  <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
+                                  <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-1/6 rounded-md px-1"><span class="text-xl font-extrabold">Dia: </span> {{agendas.dia}}</li>
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
                                   <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
                                   <li class=""><span class="text-xl font-bold">Setor: </span> {{agendas.situacao}}</li>
-                                  <li class=""><span class="text-xl font-bold">Motivo: </span> {{agendas.motivo}}</li>
-                                  <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li>
+                                  <li class=""><span class="text-xl font-bold">Seguimento: </span> {{agendas.seguimento}}</li>
+                                  <li class="break-words"><span class="text-xl font-bold">Motivo: </span> {{agendas.motivo}}</li>
+                                  <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
                                   <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>    
                               </ul>
                        
-                      </div>
+                  </div>
                          
                         
           </div>
@@ -75,7 +99,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, collection,  getFirestore, orderBy, limit } from "firebase/firestore";
+import { getDocs, collection,  getFirestore} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 // import db from "../components/db/dbConfig";
@@ -108,14 +132,25 @@ export default {
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
   
-  const user = await getDocs(collection(dbUser, "usuarios"), orderBy("dia"), limit(10));
+  const user = await getDocs(collection(dbUser, "usuarios"));
   user.forEach((doc) => {
 
     const dbAuth = getAuth().currentUser.uid;
+    
+   const dataUser = doc.data();
+   
+
     const userTeste = doc.data().user_id;
     const emailUser = getAuth().currentUser.email;
 
-   
+          // console.log(dataUser.responsavel);
+          // console.log(dataUser.situacao);
+          // console.log(dataUserSit);
+          
+          
+
+
+
 
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
     if(emailUser === "informatica@ersvp.g12.br"){
@@ -126,6 +161,7 @@ export default {
         dia: doc.data().dia,
         horario: doc.data().horario,
         responsavel: doc.data().responsavel,
+        seguimento: doc.data().seguimento,
         situacao: doc.data().situacao,
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
@@ -136,6 +172,112 @@ export default {
    
     }  
 
+  //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
+    else if(emailUser === "asocial@ersvp.g12.br" && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Assistente-Social" ){
+      
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          horario: doc.data().horario,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
+    //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
+    else if(emailUser === "coordenadorafund1@ersvp.g12.br" && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Professor" ){
+      
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          horario: doc.data().horario,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
+     //COORDENAÇÃO FUNDAMENTAL II -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
+    else if(emailUser === "coordenadorafund2@ersvp.g12.br" && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" ){
+      
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          horario: doc.data().horario,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
+     //COORDENAÇÃO EDUCAÇÃO INFANTIL -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
+    else if(emailUser === "coordenadoraedinf@ersvp.g12.br" && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" ){
+      
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          horario: doc.data().horario,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
+    // DIRETORIA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
+    else if(emailUser === "diretoria@ersvp.g12.br" && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" ){
+      
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          horario: doc.data().horario,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          link: doc.data().link,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
+
     // USUÁRIO RESTRITOR - IRÃO VER SOMENTE SUAS PUBLICAÇÕES
       else if(userTeste === dbAuth){
 
@@ -145,6 +287,7 @@ export default {
         dia: doc.data().dia,
         horario: doc.data().horario,
         responsavel: doc.data().responsavel,
+        seguimento: doc.data().seguimento,
         situacao: doc.data().situacao,
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,

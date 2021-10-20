@@ -46,7 +46,7 @@
               <!-- Data do Evento-->
               <div>               
                    <label for="nameConnect">Nome: </label>
-                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" >
+                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" required >
               </div>
               <div>
                 Data do Evento:
@@ -71,11 +71,11 @@
               <div>
                 <label for="action">Local ou Equipamento: </label>
                 <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="salão">Salão</option>
-                  <option value="Jardim">Jardim Sensorial</option>
-                  <option value="agendamento">Agendamento</option>
-                  <option value="trator">Trator</option>
-                  <option value="gourmet">Área Gourmet</option>
+                  <option value="Salao">Salão</option>
+                  <option value="Jardim_Sensorial">Jardim Sensorial</option>
+                  <option value="Agendamento">Agendamento</option>
+                  <option value="Trator">Trator</option>
+                  <option value="Área_Gourmet">Área Gourmet</option>
                  
                 </select>
               </div>
@@ -83,14 +83,14 @@
 
               <!-- Setor -->
               <div>
-                <label for="setor">Responsável: </label>
+                <label for="setor">Setor Responsável: </label>
                 <select id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="Diretoria">Diretoria</option>
-                  <option value="Ass_Social">Assistente Social</option>
-                  <option value="coord-fundI">Coord-FundI</option>
-                  <option value="coord-fundII">Coord-FundII</option>
-                  <option value="Ccoord-edinf">Coord-EdInf</option>
-                  <option value="professor">Professor</option>
+                  <option value="Assistente-Social">Assistente Social</option>
+                  <option value="Coord-fundI">Coord-FundI</option>
+                  <option value="Coord-fundII">Coord-FundII</option>
+                  <option value="Coord-edinf">Coord-EdInf</option>
+                  <option value="Professor">Professor</option>
                   <option value="Secretaria">Secretaria</option>
                   <option value="Tesouraria">Tesouraria</option>
                    <option value="TI">TI</option>
@@ -98,15 +98,27 @@
               </div>
               <!-- <Setor/> -->
 
+                   <!-- Seleção de Seguimento -->
+              <div>
+                <label for="seg">Seguimento: </label>
+                <select id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" >
+                  <option value="Fundamental-I">Fundamental I</option>
+                  <option value="Fundamental-II">Fundamental II</option>
+                  <option value="Edu-Infantil">Educação Infantil</option>
+                 
+                 
+                </select>
+              </div>
+
               <!-- Motivo -->
-              <div class="border-gray-800">
+              <div class="border-gray-800 w-full">
                 <label for="motivo">Motivo: </label>
                 <textarea
                   id="motivo"
                   name="motivo"
                   rows="4"
                   cols="41"
-                  class="  border-2 border-gray-400 w-full rounded-md" 
+                  class=" border-2 border-gray-400 w-full rounded-md pl-2 pt-1" 
                   v-model="form.motivo"
                   
                 ></textarea>
@@ -173,14 +185,16 @@ export default {
             email:'',
             
             form:{                    
-                    nome:'',
+                    nome:null,
                     dia: null,
                     horario:null,
                     responsavel: null,
                     situacao: null,
+                    seguimento:null,
                     motivo: null,
                     arquivo: null,
                     link:null,
+
             }
         }
             
@@ -220,6 +234,7 @@ export default {
         horario: this.form.horario,
         responsavel: this.form.responsavel,
         situacao: this.form.situacao,
+        seguimento:this.form.seguimento,
         motivo: this.form.motivo,
         link: this.form.link,
        }

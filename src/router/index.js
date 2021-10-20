@@ -5,22 +5,22 @@ import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
-import {getAuth} from "firebase/auth"
+// import {getAuth} from "firebase/auth"
 
 
 const routes = [
 
   // OBS.: Necessário criar tela de erro para usuario que digitar alguma rota errada navegador.
  
-  { path: '/:pathMatch(.*)*', name: 'Login' , component: Login },
+  // { path: '/:pathMatch(.*)*', name: 'Login' , component: Login },
 
   {
     path: '/',
     name: 'Home',
     component: Home,
-    meta:{
-      requiresAuth: true
-    }
+    // meta:{
+    //   requiresAuth: true
+    // }
   },
   {
     path:'/registrar',
@@ -36,27 +36,27 @@ const routes = [
     path:'/auth',
     name: 'Auth',
     component: Auth,
-    meta:{
-      requiresAuth: true
-    }
+    // meta:{
+    //   requiresAuth: true
+    // }
    
   },
   {
     path:'/actionTela',
     name: 'actiontela',
     component: Action,
-    meta:{
-      requiresAuth: true
-    }
+    // meta:{
+    //   requiresAuth: true
+    // }
 
   },
   {
     path:'/userTela',
     name:'usertela',
     component:User,
-    meta:{
-      requiresAuth: true
-    }
+    // meta:{
+    //   requiresAuth: true
+    // }
   },
   
 
@@ -78,13 +78,13 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next)=>{
-  const currentUser = getAuth().currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+// router.beforeEach((to, from, next)=>{
+//   const currentUser = getAuth().currentUser;
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-  if(requiresAuth && !currentUser) next('Login');
-  else if(!requiresAuth && currentUser) next('Auth');
-  else next();
-} )
+//   if(requiresAuth && !currentUser) next('Login');
+//   else if(!requiresAuth && currentUser) next('Auth');
+//   else next();
+// })
 
 export default router
