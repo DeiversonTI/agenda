@@ -76,14 +76,15 @@
                      
                               <ul class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
-                                  <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-1/6 rounded-md px-1"><span class="text-xl font-extrabold">Dia: </span> {{agendas.dia}}</li>
+                                  <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-80 rounded-md px-1"><span class="text-xl font-extrabold">Dia do Evento: </span> {{agendas.dia}}</li>
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
                                   <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
                                   <li class=""><span class="text-xl font-bold">Setor: </span> {{agendas.situacao}}</li>
                                   <li class=""><span class="text-xl font-bold">Seguimento: </span> {{agendas.seguimento}}</li>
                                   <li class="break-words"><span class="text-xl font-bold">Motivo: </span> {{agendas.motivo}}</li>
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
-                                  <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>    
+                                  <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>
+                                  <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
                               </ul>
                        
                   </div>
@@ -95,6 +96,9 @@
       </div>
     </section>
   </div>
+  <!-- <div class="w-full bg-gray-600 text-gray-50 ">
+    <h3> Todos Diretos Reservados &copy; - {{new Date().getFullYear()}}  </h3>
+  </div> -->
 </template>
 
 <script>
@@ -104,6 +108,7 @@ import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 // import db from "../components/db/dbConfig";
 
+
 export default {
   name: "userLogado",
   data() {
@@ -111,6 +116,9 @@ export default {
       agenda: [],
       email: '',
       isLoggedIn: false,
+      enviar:'',
+
+      
     };
   },
 
@@ -127,13 +135,24 @@ export default {
         this.email = user.email;    
 
   });
+  function inData(data = new Date()){
+  const ano = data.getFullYear()
+  return ano
+
+  
+  
+  }
+  console.log(inData())
 
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
   
   const user = await getDocs(collection(dbUser, "usuarios"));
+  
   user.forEach((doc) => {
+
+    
 
     const dbAuth = getAuth().currentUser.uid;
     
@@ -153,7 +172,7 @@ export default {
 
 
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
-    if(emailUser === "informatica@ersvp.g12.br"){
+    if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
     
         const dbMonitorUser = {
         user_id: userTeste,
@@ -166,12 +185,13 @@ export default {
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
+        data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
    
     }  
-
+  
   //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
     else if(emailUser === "asocial@ersvp.g12.br" && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Assistente-Social" ){
       
@@ -187,6 +207,7 @@ export default {
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
+          data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -208,6 +229,7 @@ export default {
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
+          data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -229,6 +251,7 @@ export default {
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
+          data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -250,6 +273,7 @@ export default {
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
+          data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -271,6 +295,7 @@ export default {
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
+          data:doc.data().data,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -292,6 +317,7 @@ export default {
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
+        data:doc.data().data,
         };
 
           this.agenda.push(dbMonitor);
@@ -304,6 +330,10 @@ export default {
     if(verUser.uid){
      this.isLoggedIn =  true;
   }
+
+  
+
+
 
   }
   }

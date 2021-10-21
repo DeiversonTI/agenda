@@ -46,11 +46,14 @@
               <!-- Data do Evento-->
               <div>               
                    <label for="nameConnect">Nome: </label>
-                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" required >
+                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" />
+                   
               </div>
               <div>
-                Data do Evento:
-                <input id="date" type="date" v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
+                <label for="date">Data do Evento:</label> 
+                <input  id="date" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
+               
+                
               </div>
               <!-- <Data/> -->
 
@@ -167,9 +170,11 @@
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
-import {  collection, addDoc, getFirestore } from "firebase/firestore";
+import {  collection, addDoc, getFirestore} from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 // import Data from "../components/compLogado/dataLogado.vue"
+// import DataUser from "../components/compLogado/dataUser"
+import dataUser from '../components/compLogado/dataUser';
 
 export default {
     name:"auth",
@@ -184,9 +189,11 @@ export default {
         return{
             email:'',
             
+            
+            
             form:{                    
                     nome:null,
-                    dia: null,
+                    dia: '',
                     horario:null,
                     responsavel: null,
                     situacao: null,
@@ -205,28 +212,30 @@ export default {
             const dbuser = getAuth();
                 await onAuthStateChanged(dbuser, (user) => {
                 this.email = user.email;
-                console.log(user)             
+                          
               
             });
-
-         
+        
             
-            // const userId = dbuser.currentUser;
-            // if(userId !== null){
-            //   userId.providerData.forEach((profile)=>{
-            //     console.log(profile)
-            //   })
-            // }
+
       },
     
      methods: {
     async clicar() {
-       try{
+       
+    try{
+      
+    
+      
+              
+      // const authUser  = dataUser();
      const dbUser = getFirestore();
      const authentication = getAuth();
      const userConnected = authentication.currentUser.uid; 
-    
-    
+
+     
+           
+
         const usuarioDb = {
         user_id:userConnected,
         nome:this.form.nome,
@@ -237,11 +246,14 @@ export default {
         seguimento:this.form.seguimento,
         motivo: this.form.motivo,
         link: this.form.link,
+        data:dataUser,
+        
        }
-
-       console.log(usuarioDb)
+       
 
        await addDoc(collection(dbUser, "usuarios"), usuarioDb)
+       
+      
    
       .then(() =>{
           this.$swal({
@@ -259,6 +271,7 @@ export default {
         })}catch(error){
                   this.error = error.message;
           }
+         
     }
     
     
