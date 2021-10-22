@@ -74,7 +74,7 @@
                   </div>
                       <div  class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id">
                      
-                              <ul class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
+                              <ul  class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-80 rounded-md px-1"><span class="text-xl font-extrabold">Dia do Evento: </span> {{agendas.dia}}</li>
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
@@ -86,7 +86,11 @@
                                   <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
                               </ul>
-                       
+                       <div>
+                         <button @click.prevent="deleteUser()" class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button>
+                         <input  type="submit" value="Esconder" class="py-2 px-4 bg-blue-600 text-white rounded-md mt-4 cursor-pointer"/>
+                        
+                       </div>
                   </div>
                          
                         
@@ -117,6 +121,7 @@ export default {
       email: '',
       isLoggedIn: false,
       enviar:'',
+      esconder: true,
 
       
     };
@@ -125,6 +130,17 @@ export default {
   components: {
     Logado,
   },
+
+  methods:{
+     async deleteUser(){
+      
+      
+    }
+
+  },
+
+
+  
 
 
   // COMANDO DE USUÁRIO LOGADO
@@ -135,14 +151,18 @@ export default {
         this.email = user.email;    
 
   });
-  function inData(data = new Date()){
-  const ano = data.getFullYear()
-  return ano
+
+
+
 
   
-  
-  }
-  console.log(inData())
+
+    
+  // function inData(data = new Date()){
+  // const ano = data.getFullYear()
+  // return ano
+  // }
+  // console.log(inData())
 
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
@@ -153,25 +173,34 @@ export default {
   user.forEach((doc) => {
 
     
+     
 
     const dbAuth = getAuth().currentUser.uid;
     
    const dataUser = doc.data();
    
+   
 
     const userTeste = doc.data().user_id;
+    // const userData = doc.data().dia;
     const emailUser = getAuth().currentUser.email;
 
           // console.log(dataUser.responsavel);
           // console.log(dataUser.situacao);
-          // console.log(dataUserSit);
+         
           
           
 
-
+    const social = process.env.VUE_APP_FIREBASE_EMAIL_SOCIAL
+    const fundi = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALI
+    const fundii = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALII
+    const infantil = process.env.VUE_APP_FIREBASE_EMAIL_INFANTIL
+    const diretora = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORIA
+   
 
 
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
+    
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
     
         const dbMonitorUser = {
@@ -193,7 +222,7 @@ export default {
     }  
   
   //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
-    else if(emailUser === "asocial@ersvp.g12.br" && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Assistente-Social" ){
+    else if(emailUser === social && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
@@ -215,7 +244,7 @@ export default {
     }
 
     //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === "coordenadorafund1@ersvp.g12.br" && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Professor" ){
       
 
           const dbMonitorUser = {
@@ -237,7 +266,7 @@ export default {
     }
 
      //COORDENAÇÃO FUNDAMENTAL II -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === "coordenadorafund2@ersvp.g12.br" && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" ){
       
 
           const dbMonitorUser = {
@@ -259,7 +288,7 @@ export default {
     }
 
      //COORDENAÇÃO EDUCAÇÃO INFANTIL -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === "coordenadoraedinf@ersvp.g12.br" && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" ){
       
 
           const dbMonitorUser = {
@@ -281,7 +310,7 @@ export default {
     }
 
     // DIRETORIA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
-    else if(emailUser === "diretoria@ersvp.g12.br" && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" ){
+    else if(emailUser === diretora && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" ){
       
 
           const dbMonitorUser = {

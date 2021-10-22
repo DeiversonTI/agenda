@@ -170,11 +170,14 @@
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
-import {  collection, addDoc, getFirestore} from "firebase/firestore";
+import {  collection,  getFirestore, addDoc} from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 // import Data from "../components/compLogado/dataLogado.vue"
 // import DataUser from "../components/compLogado/dataUser"
+
 import dataUser from '../components/compLogado/dataUser';
+// import getUser from "../components/db/getUser"
+
 
 export default {
     name:"auth",
@@ -193,7 +196,7 @@ export default {
             
             form:{                    
                     nome:null,
-                    dia: '',
+                    dia: null,
                     horario:null,
                     responsavel: null,
                     situacao: null,
@@ -215,13 +218,55 @@ export default {
                           
               
             });
+
+            // AMBIENTE DE TESTE
+          // const dbUserNow = getFirestore();
+          // console.log(this.form.nome)
+          // const user = await getDocs(collection(dbUserNow, "usuarios"));
+  
+          // user.forEach((doc) => {
+
+          //   if(doc.data().dia === this.form.dia){
+
+          //     console.log("usado já")
+
+          //   }else{
+          //      console.log(doc.data().dia)
+
+          //   }
+         
+
+          //   });
+
+            // console.log(getUser)
         
             
 
       },
     
      methods: {
-    async clicar() {
+     async clicar() {
+
+      // const dbUserNow = getFirestore();
+      //    const user =   await getDocs(collection(dbUserNow, "usuarios"));
+  
+      //     user.forEach((doc) => {
+      //       if(this.form.dia === doc.data().dia){
+      //             this.$swal({
+      //               icon: 'error',
+      //               title: 'Data em uso!',
+      //               showConfirmButton: false,
+      //               timer: 1500,     
+      //             })
+
+      //             setTimeout(()=>{
+      //             this.$router.go({name :'Auth'})
+      //           }, 2000)
+
+      //       }
+      //       console.log("Try")
+
+      //       });
        
     try{
       
@@ -233,8 +278,6 @@ export default {
      const authentication = getAuth();
      const userConnected = authentication.currentUser.uid; 
 
-     
-           
 
         const usuarioDb = {
         user_id:userConnected,
