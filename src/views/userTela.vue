@@ -66,14 +66,14 @@
               
             </div>
            
-                <div v-if="isLoggedIn" class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center
+                <div  class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center
                 flex-col ">
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
                    <div>
                    <h1 class="text-red-700 font-sans text-5xl mb-6 mt-6  text-center"> Agendamentos </h1>
                   </div>
-                      <div  class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id">
-                     
+                      <div class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
+                          <div>
                               <ul  class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-80 rounded-md px-1"><span class="text-xl font-extrabold">Dia do Evento: </span> {{agendas.dia}}</li>
@@ -85,9 +85,13 @@
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
                                   <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
+                              
+                                
                               </ul>
+                          </div>
                        <div>
-                         <button @click.prevent="deleteUser()" class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button>
+                         
+                         <!-- <button    class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button> -->
                          <input  type="submit" value="Esconder" class="py-2 px-4 bg-blue-600 text-white rounded-md mt-4 cursor-pointer"/>
                         
                        </div>
@@ -109,6 +113,7 @@
 import Logado from "../components/compLogado/userLogado.vue";
 import { getDocs, collection,  getFirestore} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+
 // import * as firebase from "firebase/app";
 // import db from "../components/db/dbConfig";
 
@@ -121,7 +126,8 @@ export default {
       email: '',
       isLoggedIn: false,
       enviar:'',
-      esconder: true,
+      // esconder: true,
+      
 
       
     };
@@ -131,17 +137,64 @@ export default {
     Logado,
   },
 
-  methods:{
-     async deleteUser(){
+  // methods:{
+
+    // esconderUser(){
+
+    //   this.esconder = !this.esconder;
+
+    // },
+
+// ============|||||||||||| O CÓDIGO NÃO DEU CERTO, FICARÁ PARA FUTURAS ATUALIZÇÕES||||||||||||||||||| ==============
+
+      // async deleteUser(){
+      //   const db = getFirestore();
+      //   const userId = getAuth().currentUser.uid;
+      //   const querySnapshot = await getDocs(collection(db, "usuarios"));
+      //   querySnapshot.forEach((daora) => {
+         
+         
+      //     const userDb = daora._document.key.path.segments
+          
+      //     if(userDb[6] != userId){
+      //       console.log("Lógica")
+
+      //     }else{
+      //       console.log("Não Lógico")
+      //     }
+
+        //  console.log(userDb[6])
+
+          // console.log(user)
+        
+          // console.log(userDb)
+         
+
+          // deleteDoc(doc(db, "usuarios", `${userDb[6]}`));
+          // doc.data() is never undefined for query doc snapshots
+          // console.log(doc.id, " => ", doc.data());
+        // });
+        
+        // deleteDoc(doc(db, "usuarios", buscar))
+
+     
+     
       
-      
-    }
 
-  },
+    
+      //  for(let index = 0; index < this.agenda.length; index++ ){
+      //    if(id == this.agenda[index].id){
 
+      //      deleteDoc(doc(db, "usuarios", id))
+      //      this.agenda.splice(index,1);
+      //    }
+      //  }
+      //     console.log("excluido!")
+          
+  //   }
+   
 
-  
-
+  // },
 
   // COMANDO DE USUÁRIO LOGADO
   async created() {
@@ -152,12 +205,6 @@ export default {
 
   });
 
-
-
-
-  
-
-    
   // function inData(data = new Date()){
   // const ano = data.getFullYear()
   // return ano
@@ -167,19 +214,11 @@ export default {
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
-  
   const user = await getDocs(collection(dbUser, "usuarios"));
-  
   user.forEach((doc) => {
-
-    
-     
-
-    const dbAuth = getAuth().currentUser.uid;
-    
-   const dataUser = doc.data();
-   
-   
+ 
+  const dbAuth = getAuth().currentUser.uid;
+  const dataUser = doc.data(); 
 
     const userTeste = doc.data().user_id;
     // const userData = doc.data().dia;
@@ -188,19 +227,13 @@ export default {
           // console.log(dataUser.responsavel);
           // console.log(dataUser.situacao);
          
-          
-          
-
     const social = process.env.VUE_APP_FIREBASE_EMAIL_SOCIAL
     const fundi = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALI
     const fundii = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALII
     const infantil = process.env.VUE_APP_FIREBASE_EMAIL_INFANTIL
     const diretora = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORIA
    
-
-
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
-    
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
     
         const dbMonitorUser = {

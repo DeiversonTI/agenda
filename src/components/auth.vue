@@ -5,8 +5,8 @@
       <div class="flex items-center justify-end">
         <h1 class="text-base font-thin mr-4 px-4">
           Olá
-          <span class="font-bold text-red-600 px-1">{{ this.email }}</span> seja
-          bem vindo(a)
+          <span class="font-bold text-red-600 px-1">{{ this.email }}</span> Seja
+          Bem Vindo(a)
         </h1>
           <div>
             <Logado />
@@ -42,7 +42,7 @@
           </div>
           <!-- formulario de arquivos logado -->
           <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4">
-            <form @submit.prevent="clicar" class="space-y-6">
+            <form @submit.prevent="clicar()" class="space-y-6">
               <!-- Data do Evento-->
               <div>               
                    <label for="nameConnect">Nome: </label>
@@ -50,8 +50,8 @@
                    
               </div>
               <div>
-                <label for="date">Data do Evento:</label> 
-                <input  id="date" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
+                <label for="data">Data do Evento:</label> 
+                <input  id="data" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
                
                 
               </div>
@@ -60,8 +60,8 @@
               <!-- Horário do Evento -->
             
               <div>
-                <label for="hora">Horário do Evento: </label>
-                <select id="hora" name="hora" v-model="form.horario" class="border-2 border-gray-400 w-full rounded-md" >
+                <label  for="hora">Horário do Evento: </label>
+                <select   id="hora" name="hora" v-model="form.horario" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="07h20/8h">07h20/8h</option>
                   <option value="08h/8h40">08h/8h40</option>
                   <option value="09h30/10h10">09h30/10h10</option>
@@ -73,7 +73,7 @@
               <!-- Seleção da Situação -->
               <div>
                 <label for="action">Local ou Equipamento: </label>
-                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
+                <select  id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="Salao">Salão</option>
                   <option value="Jardim_Sensorial">Jardim Sensorial</option>
                   <option value="Agendamento">Agendamento</option>
@@ -87,7 +87,7 @@
               <!-- Setor -->
               <div>
                 <label for="setor">Setor Responsável: </label>
-                <select id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
+                <select @click="pegarData()" id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="Diretoria">Diretoria</option>
                   <option value="Assistente-Social">Assistente Social</option>
                   <option value="Coord-fundI">Coord-FundI</option>
@@ -170,12 +170,12 @@
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
-import {  collection,  getFirestore, addDoc} from "firebase/firestore";
+import {  collection,  getFirestore, addDoc, getDocs} from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 // import Data from "../components/compLogado/dataLogado.vue"
 // import DataUser from "../components/compLogado/dataUser"
 
-import dataUser from '../components/compLogado/dataUser';
+// import dataUser from '../components/compLogado/dataUser';
 // import getUser from "../components/db/getUser"
 
 
@@ -191,8 +191,6 @@ export default {
     data(){
         return{
             email:'',
-            
-            
             
             form:{                    
                     nome:null,
@@ -213,7 +211,7 @@ export default {
             // firebase;
             db;
             const dbuser = getAuth();
-                await onAuthStateChanged(dbuser, (user) => {
+                onAuthStateChanged(dbuser, (user) => {
                 this.email = user.email;
                           
               
@@ -239,47 +237,88 @@ export default {
           //   });
 
             // console.log(getUser)
-        
-            
 
+           
+           
       },
-    
+
+      
      methods: {
+       async pegarData(){
+         const dbUser = getFirestore();
+        //  const userId = getAuth().currentUser.uid;
+          const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
+          querySnapshot.forEach((doc) => {
+            
+            let dia = doc.data().dia;
+            let hora = doc.data().horario;
+            // let idUser = doc.data().user_id;
+            let sitUser = doc.data().situacao;
+           
+           
+                      if(!this.form.dia){
+
+                        console.log("clicou")
+
+                      }
+                          else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
+                                                              
+                           
+                              this.$swal({
+                                icon:'error',
+                                title: 'Data em uso e hora em uso!!'
+
+                              })
+                           
+                              setTimeout(() => {
+                                 this.$router.go({name:'auth'})
+                                
+                              }, 5000);
+                               
+
+                          }else if(this.form.dia != dia){
+
+                             console.log("2º if")
+                        
+                          }else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
+                            console.log("3º if")
+                          }else{
+                            console.log("deu muito ruim")
+                          }
+                      
+                   
+                     
+
+// // ****************************************************************
+          
+          })
+
+       },
+
      async clicar() {
-
-      // const dbUserNow = getFirestore();
-      //    const user =   await getDocs(collection(dbUserNow, "usuarios"));
-  
-      //     user.forEach((doc) => {
-      //       if(this.form.dia === doc.data().dia){
-      //             this.$swal({
-      //               icon: 'error',
-      //               title: 'Data em uso!',
-      //               showConfirmButton: false,
-      //               timer: 1500,     
-      //             })
-
-      //             setTimeout(()=>{
-      //             this.$router.go({name :'Auth'})
-      //           }, 2000)
-
-      //       }
-      //       console.log("Try")
-
-      //       });
-       
     try{
-      
-    
-      
-              
-      // const authUser  = dataUser();
+
+    //  const authUser  = dataUser;
      const dbUser = getFirestore();
      const authentication = getAuth();
      const userConnected = authentication.currentUser.uid; 
 
+// *********************************************************************************
+// AMBIENTE PARA TESTE
+
+             
+        
+         
+
+
+
+
+
+// *********************************************************************************
+
 
         const usuarioDb = {
+
         user_id:userConnected,
         nome:this.form.nome,
         dia: this.form.dia,
@@ -289,36 +328,66 @@ export default {
         seguimento:this.form.seguimento,
         motivo: this.form.motivo,
         link: this.form.link,
-        data:dataUser,
+        data:new Date().toLocaleString(),
         
-       }
+        }
        
-
-       await addDoc(collection(dbUser, "usuarios"), usuarioDb)
-       
-      
-   
-      .then(() =>{
-          this.$swal({
-            icon:'success',
-            text:'Enviado com Sucesso!',
-            showConfirmButton: false,
-            timer: 2500,
-          })
+      //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
+        
+      // addDoc(collection(dbUser, "usuarios"), usuarioDb)
+     
+       this.$swal({
+        title: 'Tem certeza que as informações estão completas?',
+        showCancelButton: true,
+        confirmButtonText: 'Salvar',
+        
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          addDoc(collection(dbUser, "usuarios"), usuarioDb)
           .then(()=>{
-              setTimeout(() => {
-                  this.$router.replace({name: 'usertela'})
-              }, 5000);
+            setTimeout(() => {
+              this.$router.replace({name: 'usertela'})
+             
+            }, 1500);
           })
+          console.log("Salvo")
+          // this.$swal('Saved!', '', 'success')
+        } else if (result.isDenied) {
+         
+          this.$swal('Não foi salvo', '', 'info')
           
-        })}catch(error){
+        }
+        
+      })
+      // .then(()=>{
+      //         setTimeout(() => {
+      //             this.$router.replace({name: 'usertela'})
+      //         }, 2000);
+      //     })
+      // .then(() =>{
+      //     this.$swal({
+      //       icon:'success',
+      //       text:'Enviado com Sucesso!',
+      //       showConfirmButton: false,
+      //       timer: 2500,
+      //     })
+      //     .then(()=>{
+      //         setTimeout(() => {
+      //             this.$router.replace({name: 'usertela'})
+      //         }, 5000);
+      //     })
+          
+      //   })
+      }catch(error){
                   this.error = error.message;
-          }
+        }
          
     }
     
     
-  }
+    
+     }
      
       
 }
