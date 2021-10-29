@@ -32,8 +32,8 @@
      
 
       <!-- Main -->
-      <div class="  flex mt-4 w-full h-screen">
-        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-aut xl:container  xl:w-2/5 xl:rounded-xl xl:border-2 h-screen flex flex-col justify-start">
+      <div class="  flex mt-4 w-full h-auto ">
+        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-aut xl:container  xl:w-2/5 xl:rounded-xl xl:border-2  flex flex-col justify-start">
           <!-- Cabeçalho do formulário -->
           <div class="mb-4 mt-8">
             <h1 class="text-center font-sans text-3xl">
@@ -41,54 +41,55 @@
             </h1>
           </div>
           <!-- formulario de arquivos logado -->
-          <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4">
-            <form @submit.prevent="clicar()" class="space-y-6">
+          <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
+            <form @submit.prevent="clicar()" class="space-y-6 ">
               <!-- Data do Evento-->
+
               <div>               
                    <label for="nameConnect">Nome: </label>
-                   <input type="text" id="nameConnect" v-model="form.nome" class="border-2 border-gray-400 w-full rounded-md" />
+                   <input placeholder="Nome do Coperador" type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
                    
               </div>
               <div>
                 <label for="data">Data do Evento:</label> 
-                <input  id="data" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
-               
-                
+                <input   id="data" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
               </div>
               <!-- <Data/> -->
 
               <!-- Horário do Evento -->
-            
               <div>
                 <label  for="hora">Horário do Evento: </label>
-                <select   id="hora" name="hora" v-model="form.horario" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="07h20/8h">07h20/8h</option>
-                  <option value="08h/8h40">08h/8h40</option>
-                  <option value="09h30/10h10">09h30/10h10</option>
-                  <option value="10h50/11h30">10h50/11h30</option>
-                </select>
+                <input type="time" id="hora" v-model="form.horario" name="hora" min="07:10" max="19:00" class=" flex border-2 border-gray-400 w-1/3 rounded-md " required>
+                <p class=" text-base font-bold text-red-600 ">Os eventos terão a duração de 40min, exceto, agendamentos.</p>
+               
               </div>
+
+              
+
+
               <!-- <Horario/>
                            -->
               <!-- Seleção da Situação -->
-              <div>
-                <label for="action">Local ou Equipamento: </label>
-                <select  id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="Salao">Salão</option>
+                <div>
+                <label  for="action">Local ou Equipamento: </label>
+                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
+                  <option   value="Salao">Salão</option>
                   <option value="Jardim_Sensorial">Jardim Sensorial</option>
                   <option value="Agendamento">Agendamento</option>
                   <option value="Trator">Trator</option>
                   <option value="Área_Gourmet">Área Gourmet</option>
                  
                 </select>
-              </div>
+              </div> 
               <!-- <Situacao/> -->
 
               <!-- Setor -->
-              <div>
+
+              <!-- TIREI O pegarData() , tenho que devolver novamente -->
+              <div  >
                 <label for="setor">Setor Responsável: </label>
-                <select @click="pegarData()" id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="Diretoria">Diretoria</option>
+                <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md"  >
+                  <option  value="Diretoria">Diretoria</option>
                   <option value="Assistente-Social">Assistente Social</option>
                   <option value="Coord-fundI">Coord-FundI</option>
                   <option value="Coord-fundII">Coord-FundII</option>
@@ -98,16 +99,18 @@
                   <option value="Tesouraria">Tesouraria</option>
                    <option value="TI">TI</option>
                 </select>
-              </div>
+              </div> 
               <!-- <Setor/> -->
 
                    <!-- Seleção de Seguimento -->
               <div>
                 <label for="seg">Seguimento: </label>
-                <select id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" >
+                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" >
                   <option value="Fundamental-I">Fundamental I</option>
                   <option value="Fundamental-II">Fundamental II</option>
                   <option value="Edu-Infantil">Educação Infantil</option>
+                  <option value="Diretoria">Diretoria</option>
+                  <option value="Secretaria">Secretaria</option>
                  
                  
                 </select>
@@ -117,7 +120,7 @@
               <div class="border-gray-800 w-full">
                 <label for="motivo">Motivo: </label>
                 <textarea
-                  id="motivo"
+                  id="motivo" 
                   name="motivo"
                   rows="4"
                   cols="41"
@@ -143,18 +146,20 @@
                   type="text"
                   name="linkEnviar"
                   id="linkEnviar"
-                  placeholder="cole seu link aqui!"
+                  placeholder="Adicione seu link aqui..."
                   class=" border-gray-300 px-1   border-2  w-full rounded-md"
                   v-model="form.link"
                 />
               </div>
 
               <!-- Botão de submit -->
-              <div class="flex pt-12 w-full items-center justify-center">
+              <div class="flex pt-8 w-full items-center justify-center">
                 <input
+                  title="Enviar formulário"
+
                   type="submit"
                   value="Enviar"
-                  class="py-3  bg-red-600 text-gray-50 rounded-md cursor-pointer px-8"
+                  class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8 mb-8 "
                 />
               </div>
             </form>
@@ -167,7 +172,7 @@
 <script>
 
 
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {getAuth, onAuthStateChanged } from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
 import {  collection,  getFirestore, addDoc, getDocs} from "firebase/firestore";
@@ -191,6 +196,9 @@ export default {
     data(){
         return{
             email:'',
+            disabled: true,
+            
+            
             
             form:{                    
                     nome:null,
@@ -208,92 +216,73 @@ export default {
             
     },
      async created(){
-            // firebase;
+          //  APRESENTA NA TELA O USUÁRIO CONECTADO
             db;
             const dbuser = getAuth();
                 onAuthStateChanged(dbuser, (user) => {
-                this.email = user.email;
-                          
-              
+                this.email = user.email;           
             });
 
-            // AMBIENTE DE TESTE
-          // const dbUserNow = getFirestore();
-          // console.log(this.form.nome)
-          // const user = await getDocs(collection(dbUserNow, "usuarios"));
-  
-          // user.forEach((doc) => {
+            // AREA DE TESTE
 
-          //   if(doc.data().dia === this.form.dia){
+       
+           
 
-          //     console.log("usado já")
-
-          //   }else{
-          //      console.log(doc.data().dia)
-
-          //   }
+            
          
 
-          //   });
 
-            // console.log(getUser)
+            
+           
 
-           
-           
-      },
+    },
+    
+   
+     methods: {
 
       
-     methods: {
+        clicado(){
+
+        this.disabledUser = !this.disabledUser;
+
+      },
+      
+
+      //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
-         const dbUser = getFirestore();
-        //  const userId = getAuth().currentUser.uid;
-          const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
-          querySnapshot.forEach((doc) => {
+            const dbUser = getFirestore();
+            const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
+            querySnapshot.forEach((doc) => {
             
             let dia = doc.data().dia;
             let hora = doc.data().horario;
-            // let idUser = doc.data().user_id;
             let sitUser = doc.data().situacao;
            
            
-                      if(!this.form.dia){
-
-                        console.log("clicou")
-
-                      }
-                          else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
-                                                              
-                           
-                              this.$swal({
-                                icon:'error',
-                                title: 'Data em uso e hora em uso!!'
-
-                              })
-                           
-                              setTimeout(() => {
-                                 this.$router.go({name:'auth'})
-                                
-                              }, 5000);
+            if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
+              this.$swal({
+              icon:'error',
+              title: 'Data em uso e hora em uso!!'
+              })
+              setTimeout(() => {
+                this.$router.go({name:'auth'})
+              }, 2500);
                                
+            }else if(this.form.dia != dia){
 
-                          }else if(this.form.dia != dia){
+              console.log("Continua o fluxo")
+            //   console.log("2º if")
+            // }else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
+            //   console.log("3º if")
+            }
+            else{
+              console.log("deu muito ruim")
+            }
+      })
 
-                             console.log("2º if")
-                        
-                          }else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
-                            console.log("3º if")
-                          }else{
-                            console.log("deu muito ruim")
-                          }
-                      
-                   
-                     
+    },
 
-// // ****************************************************************
-          
-          })
-
-       },
+   
 
      async clicar() {
     try{

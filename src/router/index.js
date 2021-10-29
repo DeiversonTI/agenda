@@ -5,6 +5,7 @@ import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
+import Teste from "../components/teste.vue"
 // import {getAuth} from "firebase/auth"
 
 
@@ -54,6 +55,14 @@ const routes = [
     path:'/userTela',
     name:'usertela',
     component:User,
+    // meta:{
+    //   requiresAuth: true
+    // }
+  },
+  {
+    path:'/teste',
+    name:'teste',
+    component:Teste,
     // meta:{
     //   requiresAuth: true
     // }

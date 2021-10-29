@@ -32,7 +32,9 @@
                             <p class=" text-3xl font-extrabold text-green-700 ">Agenda on-line</p>
                             <p class="text-gray-900 text-justify text-lg font-thin mt-4">Acesse seus cadastro e fique sempre atualizado com seus eventos!
                             </p>
-                            <button class="text-gray-50 bg-green-700 py-2 px-12 rounded-xl mt-8 text-lg hover:bg-green-800 border-4 hover:border-4 hover:border-green-300 "><router-link to="/userTela">Entrar</router-link></button>
+                            <router-link to="/userTela">
+                            <button class="text-gray-50 bg-green-700 py-2 px-12 rounded-xl mt-8 text-lg hover:bg-green-800 border-4 hover:border-4 hover:border-green-300 ">Entrar</button>
+                            </router-link>
                         </div>
                     </div>
                </div>

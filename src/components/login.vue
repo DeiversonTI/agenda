@@ -4,9 +4,9 @@
             <div class="lg:px-40 xl:px-56 lg:h-80 md:h-80 sm:h-80 xl:h-80 xl:w-3/4 2xl:h-80  2xl:w-3/5 sm:px-11 w-full mx-4 sm:flex sm:justify-center sm:items-center  ">
                 <div>
                   
-                    <div>
+                    <!-- <div>
                         <h1 class="text-center text-white text-2xl">Bem Vindo ao PlaAg</h1>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-400 sm:w-2/4 h-full rounded-t-lg ">
@@ -25,7 +25,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                                Email
                             </label>
-                            <input v-model="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Nome, email ou cpf">
+                            <input v-model="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Entre com o e-mail">
                             </div>
 
                             <div class="mb-6 sm:mb-2">
@@ -43,9 +43,9 @@
                                 Esqueceu a senha?
                             </p>
                             </div>
-                            <div class="text-gray-900 flex text-center w-full justify-start items-center sm:mt-3 mt-8 2xl:mt-5">
+                            <div  class="text-gray-900 flex text-center w-full justify-start items-center sm:mt-3 mt-8 2xl:mt-5">
                                     <span class="mr-2 font-sans font-bold text-sm text-gray-700 2xl:text-lg">Não é cadastrado? </span>
-                                    <p class="text-red-600 font-bold text-lg"><router-link to="/Registrar"> Cadastre-se!!</router-link></p>
+                                    <p class="  text-red-600 font-bold text-lg" ><router-link to="/Registrar"  > Cadastre-se!!</router-link></p>
                             </div>
                             
                         </form>
@@ -68,6 +68,7 @@ export default {
         return{
             email:'',
             password:'',
+            isDesabled: true,
             
         }
     },
