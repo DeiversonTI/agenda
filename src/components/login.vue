@@ -79,17 +79,44 @@ export default {
                     const dev = getAuth()
                    await signInWithEmailAndPassword(dev, this.email, this.password)
                     .then(()=>{
+
+                        const userGet = dev.currentUser.emailVerified
+
+                        if(userGet === false){
+
                         this.$swal({
-                        icon:'success',
-                        title: "Conectado com Sucesso!",
-                        showConfirmButton:false,
-                        timer:2000
-                             })
+                            icon:'warning',
+                            title: "NEGADO! Verifique seu email!",
+                            showConfirmButton:false,
+                            timer:2500
                         })
-                        .then(()=>{
-                            setTimeout(() => {
-                                this.$router.replace({name: 'actiontela'})
+
+
+                        }else if(userGet != false){
+
+                        this.$swal({
+                            icon:'success',
+                            title: "Conectado com Sucesso!!!",
+                            showConfirmButton:false,
+                            timer:2500
+                        })
+                                                
+                        setTimeout(() => {
+                            this.$router.replace({name: 'actiontela'})
                         }, 2000);
+                       
+                        }else{
+
+                            alert("Por favor, entre em contato com o suporte!")
+
+
+
+                        }
+
+
+                        
+                        
+                       
                      })
                 //    .then(()=>{
                 //        this.$swal({

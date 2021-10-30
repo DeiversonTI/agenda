@@ -88,11 +88,11 @@ const router = createRouter({
 })
 
 // router.beforeEach((to, from, next)=>{
-//   const currentUser = getAuth().currentUser;
+//   const userConnected = getAuth().currentUser;
 //   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-//   if(requiresAuth && !currentUser) next('Login');
-//   else if(!requiresAuth && currentUser) next('Auth');
+//   if(requiresAuth && !userConnected) next('Login');
+//   else if(!requiresAuth && userConnected) next('Home');
 //   else next();
 // })
 

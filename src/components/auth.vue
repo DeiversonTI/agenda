@@ -46,38 +46,36 @@
               <!-- Data do Evento-->
 
               <div>               
-                   <label for="nameConnect">Nome: </label>
-                   <input placeholder="Nome do Coperador" type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
+                   <label for="nameConnect">Nome do Colaborador: </label>
+                   <input placeholder="Nome do colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
                    
               </div>
               <div>
                 <label for="data">Data do Evento:</label> 
-                <input   id="data" type="date"  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
+                <input   id="data" type="date" required  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  />
               </div>
               <!-- <Data/> -->
 
               <!-- Horário do Evento -->
               <div>
                 <label  for="hora">Horário do Evento: </label>
-                <input type="time" id="hora" v-model="form.horario" name="hora" min="07:10" max="19:00" class=" flex border-2 border-gray-400 w-1/3 rounded-md " required>
+                <input type="time" id="hora"  v-model="form.horario" name="hora" min="07:10" max="19:00" class=" flex border-2 border-gray-400 w-1/3 rounded-md " required>
                 <p class=" text-base font-bold text-red-600 ">Os eventos terão a duração de 40min, exceto, agendamentos.</p>
                
               </div>
-
-              
-
 
               <!-- <Horario/>
                            -->
               <!-- Seleção da Situação -->
                 <div>
                 <label  for="action">Local ou Equipamento: </label>
-                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option   value="Salao">Salão</option>
-                  <option value="Jardim_Sensorial">Jardim Sensorial</option>
+                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
+                  <option   value="Salão">Salão</option>
+                  <option value="Jardim Sensorial">Jardim Sensorial</option>
                   <option value="Agendamento">Agendamento</option>
                   <option value="Trator">Trator</option>
-                  <option value="Área_Gourmet">Área Gourmet</option>
+                  <option value="Área Gourmet">Área Gourmet</option>
+                  <option value="Outros">Outros</option>
                  
                 </select>
               </div> 
@@ -85,30 +83,30 @@
 
               <!-- Setor -->
 
-              <!-- TIREI O pegarData() , tenho que devolver novamente -->
+             
               <div  >
-                <label for="setor">Setor Responsável: </label>
-                <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md"  >
-                  <option  value="Diretoria">Diretoria</option>
+                <label for="setor">Função do Colaborador: </label>
+                <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
+                  <option value="Diretoria">Diretora</option>
                   <option value="Assistente-Social">Assistente Social</option>
-                  <option value="Coord-fundI">Coord-FundI</option>
-                  <option value="Coord-fundII">Coord-FundII</option>
-                  <option value="Coord-edinf">Coord-EdInf</option>
+                  <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
+                  <option value="Coordenadora Fundamental-II">Coordenadora Fundamental-II</option>
+                  <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
                   <option value="Professor">Professor</option>
                   <option value="Secretaria">Secretaria</option>
                   <option value="Tesouraria">Tesouraria</option>
-                   <option value="TI">TI</option>
+                   <option value="Setor-TI">Setor de TI</option>
                 </select>
               </div> 
               <!-- <Setor/> -->
 
                    <!-- Seleção de Seguimento -->
               <div>
-                <label for="seg">Seguimento: </label>
-                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" >
-                  <option value="Fundamental-I">Fundamental I</option>
-                  <option value="Fundamental-II">Fundamental II</option>
-                  <option value="Edu-Infantil">Educação Infantil</option>
+                <label for="seg">Seguimento ou Setor: </label>
+                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" required >
+                  <option value="Fundamental I">Fundamental I</option>
+                  <option value="Fundamental II">Fundamental II</option>
+                  <option value="Educação Infantil">Educação Infantil (Mini-Maternal até Turma 13)</option>
                   <option value="Diretoria">Diretoria</option>
                   <option value="Secretaria">Secretaria</option>
                  
@@ -126,7 +124,7 @@
                   cols="41"
                   class=" border-2 border-gray-400 w-full rounded-md pl-2 pt-1" 
                   v-model="form.motivo"
-                  
+                  required
                 ></textarea>
               </div>
               <!-- <Motivo/> -->
@@ -223,18 +221,6 @@ export default {
                 this.email = user.email;           
             });
 
-            // AREA DE TESTE
-
-       
-           
-
-            
-         
-
-
-            
-           
-
     },
     
    
@@ -262,7 +248,7 @@ export default {
             if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
               this.$swal({
               icon:'error',
-              title: 'Data em uso e hora em uso!!'
+              title: 'Data ou Hora já em uso!!'
               })
               setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -271,9 +257,7 @@ export default {
             }else if(this.form.dia != dia){
 
               console.log("Continua o fluxo")
-            //   console.log("2º if")
-            // }else if(this.form.dia === dia && hora === this.form.horario && this.form.situacao === sitUser){
-            //   console.log("3º if")
+             
             }
             else{
               console.log("deu muito ruim")
@@ -292,18 +276,7 @@ export default {
      const authentication = getAuth();
      const userConnected = authentication.currentUser.uid; 
 
-// *********************************************************************************
-// AMBIENTE PARA TESTE
 
-             
-        
-         
-
-
-
-
-
-// *********************************************************************************
 
 
         const usuarioDb = {
@@ -326,7 +299,7 @@ export default {
       // addDoc(collection(dbUser, "usuarios"), usuarioDb)
      
        this.$swal({
-        title: 'Tem certeza que as informações estão completas?',
+        title: 'As informações estão completas?',
         showCancelButton: true,
         confirmButtonText: 'Salvar',
         
@@ -349,28 +322,10 @@ export default {
         }
         
       })
-      // .then(()=>{
-      //         setTimeout(() => {
-      //             this.$router.replace({name: 'usertela'})
-      //         }, 2000);
-      //     })
-      // .then(() =>{
-      //     this.$swal({
-      //       icon:'success',
-      //       text:'Enviado com Sucesso!',
-      //       showConfirmButton: false,
-      //       timer: 2500,
-      //     })
-      //     .then(()=>{
-      //         setTimeout(() => {
-      //             this.$router.replace({name: 'usertela'})
-      //         }, 5000);
-      //     })
-          
-      //   })
+      
       }catch(error){
                   this.error = error.message;
-        }
+      }
          
     }
     

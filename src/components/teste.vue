@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {getAuth,  createUserWithEmailAndPassword} from "firebase/auth"
+import {getAuth,  createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth"
 // import {getFirebase} from "firebase/firestore"
 
 export default {
@@ -53,14 +53,65 @@ export default {
 
                 async enviar(){
 
-                       const userNovo = getAuth();
+                       const userId = getAuth()
 
-                        await createUserWithEmailAndPassword(userNovo, this.email, this.senha)
-                        .then(() => {
+                        await createUserWithEmailAndPassword(userId, this.email, this.password)
+                    .then(()=>{
 
-                                alert("Enviado com sucesso!!")
+                        const userGet = userId.currentUser
+                        
+                        const actionCodeSettings = {
+                          
+                            url: 'http://localhost:8080/#/',
+                            // url: 'https://ersvp.g12.br/agenda/#/'
 
-                        })
+                        }
+
+                        sendEmailVerification(userGet, actionCodeSettings)
+                        .then(()=>{
+
+                            alert("Enviamos uma CONFIRMAÇÃO para seu email!")
+
+                            // this.$swal({
+                            // icon:"success",
+                            // title:"Enviamos uma CONFIRMAÇÃO para seu email!", 
+                            // showConfirmButton: false, 
+                            // timer: 3000
+                            })
+
+                             .then(()=>{
+                                setTimeout(() => {
+                                    this.$router.go({name: 'Home'})
+                                }, 2000)
+                            })
+
+
+
+                    .catch((error)=>{
+                 
+                   const erro = error.code
+                        switch(erro){
+                            case "auth/email-already-in-use":
+                                this.$swal({
+                                    icon:'error',
+                                    title:'Email em uso, tente outro!',
+                                    showConfirmButton:false,
+                                    timer: 2000,
+                                })
+                                break
+                           
+                                default:
+                                    this.$swal({
+                                        icon: 'error',
+                                        title: 'Digite uma senha válida!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+
+                                    })
+                          }
+                     })
+
+                     })
                 }
         }
         

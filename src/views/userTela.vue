@@ -75,8 +75,8 @@
                       <div class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
                           <div>
                               <ul  class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
-                                  <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-80 rounded-md px-1"><span class="text-xl font-extrabold">Dia do Evento: </span> {{agendas.dia}}</li>
+                                  <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
                                   <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
                                   <li class=""><span class="text-xl font-bold">Setor: </span> {{agendas.situacao}}</li>
@@ -215,6 +215,7 @@ export default {
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
   const user = await getDocs(collection(dbUser, "usuarios"));
+  
   user.forEach((doc) => {
  
   const dbAuth = getAuth().currentUser.uid;
