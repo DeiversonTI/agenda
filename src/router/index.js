@@ -6,7 +6,8 @@ import Auth from "../components/auth.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
 import Teste from "../components/teste.vue"
-// import {getAuth} from "firebase/auth"
+import { getAuth } from "firebase/auth"
+import Footer from "../components/footer.vue"
 
 
 const routes = [
@@ -19,9 +20,9 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    // meta:{
-    //   requiresAuth: true
-    // }
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path:'/registrar',
@@ -37,27 +38,27 @@ const routes = [
     path:'/auth',
     name: 'Auth',
     component: Auth,
-    // meta:{
-    //   requiresAuth: true
-    // }
+    meta:{
+      requiresAuth: true
+    }
    
   },
   {
     path:'/actionTela',
     name: 'actiontela',
     component: Action,
-    // meta:{
-    //   requiresAuth: true
-    // }
+    meta:{
+      requiresAuth: true
+    }
 
   },
   {
     path:'/userTela',
     name:'usertela',
     component:User,
-    // meta:{
-    //   requiresAuth: true
-    // }
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path:'/teste',
@@ -66,6 +67,14 @@ const routes = [
     // meta:{
     //   requiresAuth: true
     // }
+  },
+  {
+    path: '/footer',
+    name: 'footer',
+    component: Footer,
+    meta:{
+      requiresAuth: true
+    }
   },
   
 
@@ -87,13 +96,16 @@ const router = createRouter({
   routes
 })
 
-// router.beforeEach((to, from, next)=>{
-//   const userConnected = getAuth().currentUser;
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+router.beforeEach((to, from, next)=>{
+  const userConnected = getAuth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-//   if(requiresAuth && !userConnected) next('Login');
-//   else if(!requiresAuth && userConnected) next('Home');
-//   else next();
-// })
+  if (requiresAuth && !userConnected) next();
+  else if (!requiresAuth && userConnected) next();
+
+  // if(requiresAuth && !userConnected) next('Login');
+  // else if(!requiresAuth && userConnected) next('Home');
+  else next();
+})
 
 export default router

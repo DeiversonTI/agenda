@@ -28,7 +28,7 @@
                             <div class="flex items-center justify-between sm:pt-1 xl:mt-8">
 
                             <div>
-                                <input type="submit" value="Cadastrar" class="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <input type="submit" value="Cadastrar" class="cursor-pointer bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                             </div>
                           
                             <!-- <p class="flex justify-center items-center mr-4 font-bold text-md text-blue-500 hover:text-blue-800 2xl:text-lg">
@@ -92,9 +92,11 @@ export default {
                         const userGet = userId.currentUser
                         
                         const actionCodeSettings = {
+
+                            // PRECISA SER ALTERADO SEMPRE ANTES DO BUILD
                           
-                            url: 'http://localhost:8080/#/',
-                            // url: 'https://ersvp.g12.br/agenda/#/'
+                            // url: 'http://localhost:8080/#/',
+                            url: 'https://ersvp.g12.br/agenda/#/'
 
                         }
 
@@ -104,6 +106,8 @@ export default {
                             this.$swal({
                             icon:"success",
                             title:"Enviamos uma CONFIRMAÇÃO para seu email!", 
+                            footer:'<a href="https://www.ersvp.g12.br:2096/">Acessar Webmail da Escola - <strong style="color:red">CLICK AQUI!</strong></a>'
+                            
                             
                             })
 

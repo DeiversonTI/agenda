@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-screen bg-gray-50">
-    <section class="bg-blue-100 border-b-2 border-blue-200 py-3">
+  <div class="w-full h-full bg-gray-50">
+    <section class="bg-blue-100 border-b-2 border-blue-200 ">
       <!--navbar -->
       <div
         class="
@@ -9,19 +9,18 @@
           mx-auto
           items-center
           justify-between
-          py-2
           sm:flex 
         "
       >
       <router-link to="/">
-        <div class="flex items-center justify-center">
-          <img src="../assets/escola.png" alt="" class="w-72" />
+        <div class="flex items-center justify-center pt-4 ">
+          <img src="../assets/escola.png" alt="" class="w-48 sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64" />
         </div>
       </router-link>
 
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center pt-4 pb-2 ">
           <h1 class="font-medium text-3xl text-gray-700 text-center">
-            Agenda-Online
+            <img src="../assets/Agendamentos.png" alt="" class="w-36 sm:w-44 md:w-44 lg:w-44 xl:w-44 2xl:w-44 "/>
           </h1>
         </div>
       </div>
@@ -70,20 +69,20 @@
                 flex-col ">
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
                    <div>
-                   <h1 class="text-red-700 font-sans text-5xl mb-6 mt-6  text-center"> Agendamentos </h1>
+                   <h1 class="text-red-700 font-sans text-4xl mb-6 mt-6  text-center"> Agendamentos </h1>
                   </div>
-                      <div class=" mb-1 border-2 border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-full flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
+                      <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
                           <div>
                               <ul  class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
-                                  <li class="bg-blue-200 border-2 font-extrabold text-blue-600 border-blue-300 py-1  w-80 rounded-md px-1"><span class="text-xl font-extrabold">Dia do Evento: </span> {{agendas.dia}}</li>
+                                  <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}} de {{agendas.mes}} de {{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
-                                  <li class=""><span class="text-xl font-bold">Responsável: </span> {{agendas.responsavel}}</li>
-                                  <li class=""><span class="text-xl font-bold">Setor: </span> {{agendas.situacao}}</li>
+                                  <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>
+                                  <li class=""><span class="text-xl font-bold">Local: </span> {{agendas.situacao}}</li>
                                   <li class=""><span class="text-xl font-bold">Seguimento: </span> {{agendas.seguimento}}</li>
-                                  <li class="break-words"><span class="text-xl font-bold">Motivo: </span> {{agendas.motivo}}</li>
+                                  <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
-                                  <li class=""><span class="text-xl font-bold">Link: </span> {{agendas.link}}</li>
+                                  <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
                               
                                 
@@ -92,7 +91,7 @@
                        <div>
                          
                          <!-- <button    class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button> -->
-                         <input  type="submit" value="Esconder" class="py-2 px-4 bg-blue-600 text-white rounded-md mt-4 cursor-pointer"/>
+                         <!-- <input  type="submit" value="Esconder" class="py-2 px-4 bg-blue-600 text-white rounded-md mt-4 cursor-pointer"/> -->
                         
                        </div>
                   </div>
@@ -107,12 +106,16 @@
   <!-- <div class="w-full bg-gray-600 text-gray-50 ">
     <h3> Todos Diretos Reservados &copy; - {{new Date().getFullYear()}}  </h3>
   </div> -->
+  <div class="relative bottom-0 mt-2 ">
+    <Footer/>
+  </div>
 </template>
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
 import { getDocs, collection,  getFirestore} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import Footer from "../components/footer.vue"
 
 // import * as firebase from "firebase/app";
 // import db from "../components/db/dbConfig";
@@ -135,6 +138,7 @@ export default {
 
   components: {
     Logado,
+    Footer,
   },
 
   // methods:{
@@ -225,6 +229,15 @@ export default {
     // const userData = doc.data().dia;
     const emailUser = getAuth().currentUser.email;
 
+
+
+    // TRATAMENTO DA DATA PARA FORMATO BRASILEIRO
+   
+
+
+
+   
+
           // console.log(dataUser.responsavel);
           // console.log(dataUser.situacao);
          
@@ -241,6 +254,8 @@ export default {
         user_id: userTeste,
         nome:doc.data().nome,
         dia: doc.data().dia,
+        mes: doc.data().mes,
+        ano: doc.data().ano,
         horario: doc.data().horario,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
@@ -256,13 +271,15 @@ export default {
     }  
   
   //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
-    else if(emailUser === social && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Assistente-Social" ){
+    else if(emailUser === social && dataUser.situacao === "Agendamentos" && dataUser.responsavel === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
           nome:doc.data().nome,
           dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
           horario: doc.data().horario,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
@@ -285,6 +302,8 @@ export default {
           user_id: userTeste,
           nome:doc.data().nome,
           dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
           horario: doc.data().horario,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
@@ -307,6 +326,8 @@ export default {
           user_id: userTeste,
           nome:doc.data().nome,
           dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
           horario: doc.data().horario,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
@@ -329,6 +350,8 @@ export default {
           user_id: userTeste,
           nome:doc.data().nome,
           dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
           horario: doc.data().horario,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
@@ -351,6 +374,8 @@ export default {
           user_id: userTeste,
           nome:doc.data().nome,
           dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
           horario: doc.data().horario,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
@@ -373,6 +398,8 @@ export default {
         user_id: userTeste,
         nome:doc.data().nome,
         dia: doc.data().dia,
+        mes: doc.data().mes,
+        ano: doc.data().ano,
         horario: doc.data().horario,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
