@@ -2,9 +2,9 @@
       <div class="bg-gray-900 w-screen h-screen flex justify-center items-center">
        
             <div class="lg:px-40 xl:px-56 lg:h-80 md:h-80 sm:h-80 xl:h-80 xl:w-3/4 2xl:h-80  2xl:w-3/5 sm:px-11 w-full mx-4 sm:flex sm:justify-center sm:items-center  ">
-                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-700 sm:w-2/4 h-full rounded-t-lg ">
+                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-300 sm:w-2/4 h-full rounded-t-lg ">
                     <div class=" justify-center items-center py-1 ">
-                        <img src="../assets/escola1.png" alt="" class="w-44 2xl:w-full md:w-full lg:w-full sm:w-full xl:w-full">
+                        <img src="../assets/Agendamentos.png" alt="" class="w-44 2xl:w-full md:w-full lg:w-full sm:w-full xl:w-full">
                         
                     </div>
 

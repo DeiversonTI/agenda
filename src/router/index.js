@@ -8,6 +8,7 @@ import User from "../views/userTela.vue"
 import Teste from "../components/teste.vue"
 import { getAuth } from "firebase/auth"
 import Footer from "../components/footer.vue"
+import Start from "../components/start.vue"
 
 
 const routes = [
@@ -75,6 +76,12 @@ const routes = [
     meta:{
       requiresAuth: true
     }
+  },
+  {
+    path: '/start',
+    name: 'start',
+    component: Start,
+
   },
   
 

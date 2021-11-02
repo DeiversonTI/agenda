@@ -9,9 +9,9 @@
                     </div> -->
                 </div>
 
-                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-400 sm:w-2/4 h-full rounded-t-lg ">
+                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-200 sm:w-2/4 h-full rounded-t-lg ">
                     <div class=" justify-center items-center py-1 ">
-                        <img src="../assets/escola1.png" alt="" class="w-44 2xl:w-full md:w-full lg:w-full sm:w-full xl:w-full">
+                        <img src="../assets/Agendamentos.png" alt="" class="w-44 2xl:w-full md:w-full lg:w-full sm:w-full xl:w-full">
                         
                     </div>
 
