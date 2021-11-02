@@ -1,6 +1,6 @@
 <template>
     <!-- ADICIONAR AQUI OS LINKS DE WEBMAIL E AGENDA -->
-    <div class="bg-blue-300 w-full h-screen flex items-center">
+    <div class="bg-blue-400 w-full h-screen flex items-center">
         
         
         <div class="mx-auto container   w-full  ">
@@ -29,9 +29,9 @@
                 </router-link>
 
                 
-                <div class=" px-16  py-11 cursor-pointer p-6 rounded-3xl bg-blue-50 border-r-4 border-b-4 border-gray-400 shadow-xl">
-                    <h3 class="text-blue-700 font-sans text-5xl">Webmail</h3>
-                    <!-- <a href="https://ersvp.g12.br"><img src="@/assets/escola.png" alt="" title="Acesse o webmail" class="w-52"></a> -->
+                <div class=" px-16  py-9 cursor-pointer p-6 rounded-3xl bg-blue-50 border-r-4 border-b-4 border-gray-400 shadow-xl">
+                    <!-- <a href="https://ersvp.g12.br"><h3 class="text-blue-700 font-sans text-5xl">Webmail</h3></a> -->
+                    <a href="https://ersvp.g12.br"><img src="@/assets/webmail.png" alt="" title="Acesse o webmail" class="w-52"></a>
                 </div>
 
             </div>
