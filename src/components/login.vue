@@ -25,14 +25,14 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                                Email
                             </label>
-                            <input v-model="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Entre com o e-mail">
+                            <input v-model="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Entre com o Email">
                             </div>
 
                             <div class="mb-6 sm:mb-2">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
                                 Senha
                             </label>
-                            <input v-model="password" required class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua senha">
+                            <input v-model="password" required class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua Senha">
                             <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
                             </div>
                             <div class="flex items-center justify-between sm:pt-1">
@@ -145,13 +145,13 @@ export default {
                              case "auth/user-not-found":
                                 this.$swal({
                                     icon:'error',
-                                    title:'Usuário não encontrado!',
+                                    title:'Usuário Não Encontrado!',
                                 })
                                 break
                                 case "auth/email-already-exists":
                                 this.$swal({
                                     icon:'error',
-                                    title:'Email já existe, tente outro',
+                                    title:'Email já existe!',
                                 })
                                 break
                                  case "auth/wrong-password":
@@ -175,7 +175,7 @@ export default {
                                   case "auth/too-many-requests":
                                 this.$swal({
                                     icon:'error',
-                                    title:'Solicitação bloqueadas, tente mas tarde!',
+                                    title:'Solicitação Bloqueadas, tente mas tarde!',
                                 })
                                 break
                                 

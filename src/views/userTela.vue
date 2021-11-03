@@ -73,7 +73,7 @@
                   </div>
                       <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
                           <div>
-                              <ul  class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
+                              <ul   class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}} de {{agendas.mes}} de {{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
@@ -84,7 +84,9 @@
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
                                   <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
-                              
+                                  <!-- <div >
+                                     <button @click.prevent="deletar()"  class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button>
+                                  </div> -->
                                 
                               </ul>
                           </div>
@@ -130,6 +132,7 @@ export default {
       isLoggedIn: false,
       enviar:'',
       // esconder: true,
+
       
 
       
@@ -140,6 +143,11 @@ export default {
     Logado,
     Footer,
   },
+   
+
+    
+
+  
 
   // methods:{
 
@@ -426,5 +434,6 @@ export default {
 
 
   }
+ 
   }
 </script>

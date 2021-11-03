@@ -16,13 +16,13 @@
                             <h2 class="py-1 text-center text-3xl font-thin text-gray-700 sm:mb-2 2xl:text-xl 2xl:mb-3 mt-3">CADASTRO</h2>
                             <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                            <input v-model="email" type="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  placeholder="Entre com seu email xxx@ersvp.g12.br" pattern=".+@ersvp\.g12\.br">
+                            <input v-model="email" type="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  placeholder="Seu Email @ersvp.g12.br" pattern=".+@ersvp\.g12\.br">
                             </div>
                            
 
                             <div class="mb-6 sm:mb-2">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Senha</label>
-                            <input  v-model="password" required  class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua senha">
+                            <input  v-model="password" required  class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua Senha">
                              </div>
                              
                             <div class="flex items-center justify-between sm:pt-1 xl:mt-8">

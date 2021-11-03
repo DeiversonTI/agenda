@@ -3,7 +3,7 @@
     <div class="bg-blue-400 w-full h-screen flex items-center">
         
         
-        <div class="mx-auto container   w-full  ">
+        <div class="mx-auto container   w-full h-screen ">
             <div class="flex flex-col py-24 items-center justify-center text-gray-50 ">
                 <div class="mb-4">
                     <img src="@/assets/logo.png" alt="" class="w-60 sm:w-80 ">
