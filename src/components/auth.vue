@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="bg-gray-500 w-full h-auto">
     <div class="bg-gray-50 w-full">
       
@@ -41,13 +42,13 @@
             </h1>
           </div>
           <!-- formulario de arquivos logado -->
-          <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
+          <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
             <form @submit.prevent="clicar()" class="space-y-6 ">
               <!-- Data do Evento-->
 
               <div>               
                    <label class="flex" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                   <input placeholder="Nome do colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
+                   <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
                    
               </div>
               <div>
@@ -140,13 +141,14 @@
                            -->
               <!-- Seleção da Situação -->
                 <div>
-                <label class="flex"  for="action">Local ou Equipamento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <label class="flex"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                 <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
-                  <option   value="Salão">Salão</option>
+                  <option value="Salão">Salão</option>
                   <option value="Jardim Sensorial">Jardim Sensorial</option>
                   <option value="Agendamentos">Agendamentos</option>
                   <option value="Ranchinho de Maria">Ranchinho de Maria</option>
                   <option value="Área Gourmet">Área Gourmet</option>
+                  <option value="Sala Informática">Sala Informática</option>
                   <option value="Outros">Outros</option>
                  
                 </select>
@@ -157,10 +159,10 @@
 
              
               <div  >
-                <label class="flex" for="setor">Função ou Setor:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <label class="flex" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                 <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
                   <option value="Diretoria">Diretora</option>
-                  <option value="Assistente-Social">Assistente Social</option>
+                  <option value="Assistente-Social">Assistente-Social</option>
                   <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
                   <option value="Coordenadora Fundamental-II">Coordenadora Fundamental-II</option>
                   <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
@@ -174,13 +176,16 @@
 
                    <!-- Seleção de Seguimento -->
               <div>
-                <label class="flex" for="seg">Seguimento ou Setor:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" required >
+                <label class="flex" for="seg">Seguimento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
                   <option value="Fundamental-I">Fundamental-I</option>
                   <option value="Fundamental-II">Fundamental-II</option>
                   <option value="Edu-Infantil">Edu-Infantil</option>
                   <option value="Diretoria">Diretoria</option>
                   <option value="Secretaria">Secretaria</option>
+                  <option value="Setot-TI">Setor de TI</option>
+                  <option value="Todos-Seguimentos">Todos-Seguimentos</option>
+                   <option value="Assistente-Social">Assistente-Social</option>
                  
                  
                 </select>
@@ -188,7 +193,7 @@
 
               <!-- Motivo -->
               <div class="border-gray-800 w-full">
-                <label class="flex" for="motivo">Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <label class="flex" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                 <textarea
                   id="motivo" 
                   name="motivo"
@@ -244,6 +249,7 @@
   <div class="relative bottom-0">
     <Footer/>
   </div>
+  </div>
 </template>
 <script>
 
@@ -279,6 +285,7 @@ export default {
             
             
             form:{                    
+                    
                     nome:null,
                     dia: null,
                     mes:null,

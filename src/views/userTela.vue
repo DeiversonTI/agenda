@@ -1,17 +1,11 @@
 <template>
+<div>
   <div class="w-full h-full bg-gray-50">
     <section class="bg-blue-100 border-b-2 border-blue-200 ">
       <!--navbar -->
       <div
-        class="
-          w-full
-          container
-          mx-auto
-          items-center
-          justify-between
-          sm:flex 
-        "
-      >
+        class="w-full container mx-auto items-center justify-between sm:flex">
+
       <router-link to="/">
         <div class="flex items-center justify-center pt-4 ">
           <img src="../assets/escola.png" alt="" class="w-48 sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64" />
@@ -33,12 +27,7 @@
 
             <!-- AGENDAMENTO E LOGADO -->
             <div class="w-full flex md:flex flex-col items-center justify-center">
-              
-                <!-- <div>
-                  <h1 class="py-8 sm:text-3xl font-thin text-5xl text-blue-600">
-                    Agendamento
-                  </h1>
-                </div> -->
+                            
                 <div class=" flex flex-col  sm:w-full items-center justify-center mt-7 ">
                   <div class="2xl:flex 2xl:items-center  xl:flex lg:flex lg:items-center xl:items-center md:items-center md:flex sm:items-center sm:flex ">
 
@@ -65,14 +54,21 @@
               
             </div>
            
-                <div  class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center
-                flex-col ">
+                <div  class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
+                  
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
-                   <div>
-                   <h1 class="text-red-700 font-sans text-4xl mb-6 mt-6  text-center"> Agendamentos </h1>
+                  <div class="flex flex-col  w-11/12 md:w-8/12 2xl:w-1/2   mx-auto container ">
+                    <div class="py-6">
+                      <h1 class="text-red-700 font-sans text-4xl text-center"> Agendamentos </h1>
+                    </div>
+                    
+                    <div class="flex justify-end ">
+                      <p class="font-sans text-lg">Pesquisar:</p> <input   type="search"  class=" ml-2 pl-2 border-2 border-gray-400 rounded-md   " placeholder="Pesquisar...">
+                    </div>
                   </div>
-                      <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-6 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
-                          <div>
+                      <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
+                      
+                        <div>
                               <ul   class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}} de {{agendas.mes}} de {{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
@@ -84,44 +80,34 @@
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
                                   <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
-                                  <!-- <div >
-                                     <button @click.prevent="deletar()"  class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button>
-                                  </div> -->
-                                
+                                  
+                                 <div>
+                                  <button @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
+                                </div>
                               </ul>
+                             
                           </div>
-                       <div>
-                         
-                         <!-- <button    class="py-2 px-4 bg-red-600 text-white rounded-md mt-4 mr-2">Excluir</button> -->
-                         <!-- <input  type="submit" value="Esconder" class="py-2 px-4 bg-blue-600 text-white rounded-md mt-4 cursor-pointer"/> -->
-                        
+                          <div>
                        </div>
                   </div>
-                         
-                        
           </div>
         </div>
       </div>
       </div>
     </section>
   </div>
-  <!-- <div class="w-full bg-gray-600 text-gray-50 ">
-    <h3> Todos Diretos Reservados &copy; - {{new Date().getFullYear()}}  </h3>
-  </div> -->
+  
   <div class="relative bottom-0 mt-2 ">
-    <Footer/>
+    <Footer />
+  </div>
   </div>
 </template>
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, collection,  getFirestore} from "firebase/firestore";
+import { getDocs,  collection,  getFirestore, doc, deleteDoc} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Footer from "../components/footer.vue"
-
-// import * as firebase from "firebase/app";
-// import db from "../components/db/dbConfig";
-
 
 export default {
   name: "userLogado",
@@ -131,10 +117,6 @@ export default {
       email: '',
       isLoggedIn: false,
       enviar:'',
-      // esconder: true,
-
-      
-
       
     };
   },
@@ -143,72 +125,38 @@ export default {
     Logado,
     Footer,
   },
-   
 
+  methods:{
+    async deletar(id){
+
+    const db = getFirestore();
+
+    deleteDoc(doc(db, "usuarios", id))
+     .then(()=>{
+       this.$swal({
+         icon:'success',
+         title: 'Excluido com Sucesso!',
+
+       })
+        
+      .then(()=>{
+        setTimeout(() => {
+
+          this.$router.go({name:'usertela'})
+          
+        }, 1000);
+      })
+     })
+
+    },
+    // FINAL DO DELETAR
     
+   
 
   
-
-  // methods:{
-
-    // esconderUser(){
-
-    //   this.esconder = !this.esconder;
-
-    // },
-
-// ============|||||||||||| O CÓDIGO NÃO DEU CERTO, FICARÁ PARA FUTURAS ATUALIZÇÕES||||||||||||||||||| ==============
-
-      // async deleteUser(){
-      //   const db = getFirestore();
-      //   const userId = getAuth().currentUser.uid;
-      //   const querySnapshot = await getDocs(collection(db, "usuarios"));
-      //   querySnapshot.forEach((daora) => {
-         
-         
-      //     const userDb = daora._document.key.path.segments
-          
-      //     if(userDb[6] != userId){
-      //       console.log("Lógica")
-
-      //     }else{
-      //       console.log("Não Lógico")
-      //     }
-
-        //  console.log(userDb[6])
-
-          // console.log(user)
-        
-          // console.log(userDb)
-         
-
-          // deleteDoc(doc(db, "usuarios", `${userDb[6]}`));
-          // doc.data() is never undefined for query doc snapshots
-          // console.log(doc.id, " => ", doc.data());
-        // });
-        
-        // deleteDoc(doc(db, "usuarios", buscar))
-
-     
-     
-      
-
-    
-      //  for(let index = 0; index < this.agenda.length; index++ ){
-      //    if(id == this.agenda[index].id){
-
-      //      deleteDoc(doc(db, "usuarios", id))
-      //      this.agenda.splice(index,1);
-      //    }
-      //  }
-      //     console.log("excluido!")
-          
-  //   }
-   
-
-  // },
-
-  // COMANDO DE USUÁRIO LOGADO
+  },
+  
+   // COMANDO DE USUÁRIO LOGADO
   async created() {
   const dbuser = getAuth();
   onAuthStateChanged(dbuser, (user) => {
@@ -217,38 +165,26 @@ export default {
 
   });
 
-  // function inData(data = new Date()){
-  // const ano = data.getFullYear()
-  // return ano
-  // }
-  // console.log(inData())
-
-
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
+  
+
+
   const user = await getDocs(collection(dbUser, "usuarios"));
+
+  
   
   user.forEach((doc) => {
  
   const dbAuth = getAuth().currentUser.uid;
   const dataUser = doc.data(); 
+  
+  
 
     const userTeste = doc.data().user_id;
-    // const userData = doc.data().dia;
     const emailUser = getAuth().currentUser.email;
 
-
-
     // TRATAMENTO DA DATA PARA FORMATO BRASILEIRO
-   
-
-
-
-   
-
-          // console.log(dataUser.responsavel);
-          // console.log(dataUser.situacao);
-         
     const social = process.env.VUE_APP_FIREBASE_EMAIL_SOCIAL
     const fundi = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALI
     const fundii = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALII
@@ -259,7 +195,9 @@ export default {
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
     
         const dbMonitorUser = {
+         
         user_id: userTeste,
+        id:doc.id,
         nome:doc.data().nome,
         dia: doc.data().dia,
         mes: doc.data().mes,
@@ -279,11 +217,12 @@ export default {
     }  
   
   //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
-    else if(emailUser === social && dataUser.situacao === "Agendamentos" && dataUser.responsavel === "Assistente-Social" ){
+    else if(emailUser === social && dataUser.situacao === "Agendamentos" && dataUser.seguimento === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
+          id:doc.id,
           nome:doc.data().nome,
           dia: doc.data().dia,
           mes: doc.data().mes,
@@ -303,11 +242,12 @@ export default {
     }
 
     //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Assistente-Social" || dataUser.responsavel === "Professor"){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
+          id:doc.id,
           nome:doc.data().nome,
           dia: doc.data().dia,
           mes: doc.data().mes,
@@ -327,11 +267,12 @@ export default {
     }
 
      //COORDENAÇÃO FUNDAMENTAL II -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" || dataUser.responsavel === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
+          id:doc.id,
           nome:doc.data().nome,
           dia: doc.data().dia,
           mes: doc.data().mes,
@@ -351,11 +292,12 @@ export default {
     }
 
      //COORDENAÇÃO EDUCAÇÃO INFANTIL -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" ){
+    else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" || dataUser.responsavel === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
+          id:doc.id,
           nome:doc.data().nome,
           dia: doc.data().dia,
           mes: doc.data().mes,
@@ -375,11 +317,12 @@ export default {
     }
 
     // DIRETORIA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
-    else if(emailUser === diretora && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" ){
+    else if(emailUser === diretora && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" || dataUser.responsavel === "Assistente-Social" ){
       
 
           const dbMonitorUser = {
           user_id: userTeste,
+          id:doc.id,
           nome:doc.data().nome,
           dia: doc.data().dia,
           mes: doc.data().mes,
@@ -399,11 +342,12 @@ export default {
     }
 
 
-    // USUÁRIO RESTRITOR - IRÃO VER SOMENTE SUAS PUBLICAÇÕES
+    // USUÁRIO RESTRITO - IRÃO VER SOMENTE SUAS PUBLICAÇÕES
       else if(userTeste === dbAuth){
 
         const dbMonitor = {
         user_id: userTeste,
+        id:doc.id,
         nome:doc.data().nome,
         dia: doc.data().dia,
         mes: doc.data().mes,
@@ -424,16 +368,17 @@ export default {
    
   });
   
+  
   const verUser = dbuser.currentUser
     if(verUser.uid){
      this.isLoggedIn =  true;
   }
-
-  
+ 
 
 
 
   }
+  
  
   }
 </script>

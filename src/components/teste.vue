@@ -15,105 +15,131 @@
         2xl	1536px	@media (min-width: 1536px) { ... } -->
 
 <!-- </div> -->
-
 <div>
-        <div class="w-full h-screen border-2 ">
-
-                <h1 class="text-5xl text-center pt-12 pb-4">Ambiente de Teste</h1>
-                
-                <form @submit.prevent="enviar()" class="bg-gray-300 w-96 border-2 mx-auto container py-4  px-4 mt-4 rounded-md shadow-lg">
-                <h1 class="text-xl pb-4">Cadastro de Usuário</h1>
-                E-mail <input v-model="email" type="email" class="border-2 mb-4 w-80
-                 rounded-md pl-2" pattern=".+@ersvp\.g12\.br"><br>
-                Senha <input v-model="senha" type="password" class="border-2 mb-4 w-80 rounded-md pl-2" ><br>
-                
-                <input type="submit" value="Enviar" class=" mt-8 cursor-pointer bg-blue-600 text-xl text-blue-50 flex container justify-center  mx-auto  py-2 px-4 rounded-md w-1/2">
-                </form>
-
-        </div>
-        
+    <div class="container my-4">
+  <form>  
+    <div class="input-group mb-3">
+    <span class="input-group-text">Nombre</span>
+    <input v-model="usuario.nombre" type="text" class="form-control">
+    </div>
+    <!-- Correo -->
+    <div class="input-group mb-3">
+    <span class="input-group-text">Correo</span>
+    <input v-model="usuario.correo" type="text" class="form-control">
+    </div>
+    <!-- Botone Guardar -->
+    <div class="mt-3">  
+    <button @click.prevent="agregarDato()" 
+            class="btn btn-primary">Guardar
+    </button>
+    </div>
+  </form>
+  </div>
+<div class="container">
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, index) in usuarios" :key="index">
+        <th scope="row">{{index}}</th>
+        <td>{{item.nombre}}</td>
+        <td>{{item.correo}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
 </div>
-</template>
 
+   
+ 
+ 
+</template>
 <script>
-import {getAuth,  createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth"
-// import {getFirebase} from "firebase/firestore"
+// import Navbar from '../components/Navbar'
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+// import { db } from "../main";
+import {db}from "./db/dbConfig";
+
 
 export default {
-        name:'teste',
-        data(){
-                return{
+  name: 'Home',
+  
+  data() {
+    return {
+      usuarios: [],
+      usuario: {
+            nombre: '',
+            correo: ''
+    }
+    }
+  },
+  methods:{
 
-                        email:'',
-                        senha:'',
+      async agregarDato(){
+    const docRef = await addDoc(collection(db, "usuarios"), {
+       
+    nombre: this.usuario.nombre,
+    correo: this.usuario.correo
+  })
+    .then(() => {
+      console.log("Documento añadido");
+    })
+    .catch(function(error) {
+      console.error("Error al añadir el documento: ", error);
+    });
+     console.log(docRef)
+},
+      
+  // GET / OBTENER / Consulta instantánea 
 
-                }
-        },
-        methods:{
-
-                async enviar(){
-
-                       const userId = getAuth()
-
-                        await createUserWithEmailAndPassword(userId, this.email, this.password)
-                    .then(()=>{
-
-                        const userGet = userId.currentUser
-                        
-                        const actionCodeSettings = {
-                          
-                            url: 'http://localhost:8080/#/',
-                            // url: 'https://ersvp.g12.br/agenda/#/'
-
-                        }
-
-                        sendEmailVerification(userGet, actionCodeSettings)
-                        .then(()=>{
-
-                            alert("Enviamos uma CONFIRMAÇÃO para seu email!")
-
-                            // this.$swal({
-                            // icon:"success",
-                            // title:"Enviamos uma CONFIRMAÇÃO para seu email!", 
-                            // showConfirmButton: false, 
-                            // timer: 3000
-                            })
-
-                             .then(()=>{
-                                setTimeout(() => {
-                                    this.$router.go({name: 'Home'})
-                                }, 2000)
-                            })
-
-
-
-                    .catch((error)=>{
-                 
-                   const erro = error.code
-                        switch(erro){
-                            case "auth/email-already-in-use":
-                                this.$swal({
-                                    icon:'error',
-                                    title:'Email em uso, tente outro!',
-                                    showConfirmButton:false,
-                                    timer: 2000,
-                                })
-                                break
-                           
-                                default:
-                                    this.$swal({
-                                        icon: 'error',
-                                        title: 'Digite uma senha válida!',
-                                        showConfirmButton: false,
-                                        timer: 2000,
-
-                                    })
-                          }
-                     })
-
-                     })
-                }
-        }
-        
+  
+    async obtenerDatos () { 
+      const querySnapshot = await getDocs(collection(db, "usuarios"));
+        querySnapshot.forEach((doc) => {
+        let usuario = doc.data()
+        usuario.id = doc.id
+        this.usuarios.push(usuario)
+        console.log(usuario)
+      });
+    },
+  },
+    mounted() {
+      this.obtenerDatos();
+    },
 }
 </script>
+

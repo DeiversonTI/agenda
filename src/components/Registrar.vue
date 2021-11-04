@@ -66,8 +66,12 @@ export default {
     name:"login",
     data(){
         return{
-            email:'',
-            password:'',
+
+            
+                email:'',
+                password:'',
+           
+
 
             
             
