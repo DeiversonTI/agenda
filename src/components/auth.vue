@@ -311,6 +311,7 @@ export default {
             });
 
             
+           
 
     },
     
@@ -328,6 +329,7 @@ export default {
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
             const dbUser = getFirestore();
+           
             const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
             
@@ -372,7 +374,7 @@ export default {
      const authentication = getAuth();
      const userConnected = authentication.currentUser.uid; 
 
-     
+     console.log(dbUser)
 
 
         const usuarioDb = {
@@ -380,6 +382,7 @@ export default {
          
 
         user_id:userConnected,
+        
         nome:this.form.nome,
         dia: this.form.dia,
         mes: this.form.mes,
@@ -408,6 +411,7 @@ export default {
         if (result.isConfirmed) {
           addDoc(collection(dbUser, "usuarios"), usuarioDb)
           .then(()=>{
+            
             setTimeout(() => {
               this.$router.replace({name: 'usertela'})
              

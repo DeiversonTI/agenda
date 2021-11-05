@@ -82,7 +82,7 @@
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
                                   
                                  <div>
-                                  <button @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
+                                  <button  @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
                                 </div>
                               </ul>
                              
@@ -105,7 +105,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs,  collection,  getFirestore, doc, deleteDoc} from "firebase/firestore";
+import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Footer from "../components/footer.vue"
 
@@ -118,6 +118,7 @@ export default {
       isLoggedIn: false,
       enviar:'',
       
+      
     };
   },
 
@@ -129,31 +130,54 @@ export default {
   methods:{
     async deletar(id){
 
-    const db = getFirestore();
+      const db = getFirestore();
+      const userAuth = getAuth().currentUser.uid;
 
-    deleteDoc(doc(db, "usuarios", id))
-     .then(()=>{
-       this.$swal({
-         icon:'success',
-         title: 'Excluido com Sucesso!',
+      const docRef = doc(db, "usuarios", id);
+      const docSnap = await getDoc(docRef);
 
-       })
-        
-      .then(()=>{
-        setTimeout(() => {
+      if (docSnap.exists()) {
 
-          this.$router.go({name:'usertela'})
+        const snapShot = docSnap.data().user_id;
+       
+        if(userAuth === snapShot){
+
+          deleteDoc(doc(db, "usuarios", id))
+          .then(()=>{
+            this.$swal({
+              icon:'success',
+              title: 'Excluido com Sucesso!',
+
+            })
+              
+            .then(()=>{
+              setTimeout(() => {
+
+                this.$router.go({name:'usertela'})
+                
+              }, 1000);
+            })
+          })
           
-        }, 1000);
-      })
-     })
+        }else if(userAuth != snapShot){
+          this.$swal({
+            icon: 'error',
+            title: 'Não tem permissão para excluir!',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+
+        }
+
+      } else {
+       
+       alert("Procure o Suporte Técnico")
+      }
+
 
     },
     // FINAL DO DELETAR
     
-   
-
-  
   },
   
    // COMANDO DE USUÁRIO LOGADO
@@ -317,7 +341,8 @@ export default {
     }
 
     // DIRETORIA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
-    else if(emailUser === diretora && dataUser.situacao === "Agendamento" && dataUser.responsavel === "Diretoria" || dataUser.responsavel === "Assistente-Social" ){
+    else if(emailUser === diretora && dataUser.situacao === "Agendamentos" && dataUser.seguimento === "Diretoria" || dataUser.seguimento === "Assistente-Social"){
+            
       
 
           const dbMonitorUser = {
