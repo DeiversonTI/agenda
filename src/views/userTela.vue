@@ -61,15 +61,19 @@
                     <div class="py-6">
                       <h1 class="text-red-700 font-sans text-4xl text-center"> Agendamentos </h1>
                     </div>
+                    <div class="flex justify-end pl-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg><input v-model="search"    type="search"  class=" w-2/3 md:w-2/5 pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Pesquisar...">
                     
-                    <div class="flex justify-end ">
-                      <p class="font-sans text-lg">Pesquisar:</p> <input   type="search"  class=" ml-2 pl-2 border-2 border-gray-400 rounded-md   " placeholder="Pesquisar...">
                     </div>
+                    <!-- <div v-for="(item, key) in filteredAgendas" :key="key"  class="flex justify-end "></div> -->
                   </div>
-                      <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in agenda" :key="agendas.id" >
+                  
+                      <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in filteredAgendas" :key="agendas.id" >
                       
                         <div>
-                              <ul   class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
+                              <ul class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}} de {{agendas.mes}} de {{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
@@ -86,9 +90,9 @@
                                 </div>
                               </ul>
                              
-                          </div>
-                          <div>
-                       </div>
+                        </div>
+                        
+                         
                   </div>
           </div>
         </div>
@@ -117,6 +121,8 @@ export default {
       email: '',
       isLoggedIn: false,
       enviar:'',
+      search: '',
+      
       
       
     };
@@ -127,7 +133,26 @@ export default {
     Footer,
   },
 
+
+  computed:{
+    // CODIGOS DO SEARCH
+    filteredAgendas: function(){
+
+      var pegar = [];
+      pegar = this.agenda.filter((item)=>{
+        return item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+               item.situacao.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+               item.responsavel.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+               item.dia.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
+        });
+      return pegar
+    }
+    // FIM DO CODIGO SEARCH
+
+  },
+
   methods:{
+    
     async deletar(id){
 
       const db = getFirestore();
@@ -179,6 +204,8 @@ export default {
     // FINAL DO DELETAR
     
   },
+ 
+
   
    // COMANDO DE USUÁRIO LOGADO
   async created() {
