@@ -183,9 +183,10 @@
                   <option value="Edu-Infantil">Edu-Infantil</option>
                   <option value="Diretoria">Diretoria</option>
                   <option value="Secretaria">Secretaria</option>
-                  <option value="Setot-TI">Setor de TI</option>
+                  <option value="Setor-TI">Setor de TI</option>
                   <option value="Todos-Seguimentos">Todos-Seguimentos</option>
                    <option value="Assistente-Social">Assistente-Social</option>
+                   <option value="Tesouraria">Tesouraria</option>
                  
                  
                 </select>

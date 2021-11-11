@@ -141,6 +141,7 @@ export default {
       var pegar = [];
       pegar = this.agenda.filter((item)=>{
         return item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+              item.seguimento.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.situacao.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.responsavel.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.dia.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
@@ -266,6 +267,7 @@ export default {
           this.agenda.push(dbMonitorUser);
    
     }  
+
   
   //ASSISTENTE SOCIAL -  RECEBE AS PUBLICAÇÕES DE AGENDAMETO DA SECRETARIA
     else if(emailUser === social && dataUser.situacao === "Agendamentos" && dataUser.seguimento === "Assistente-Social" ){
@@ -293,7 +295,7 @@ export default {
     }
 
     //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I" && dataUser.responsavel === "Assistente-Social" || dataUser.responsavel === "Professor"){
+    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I"){
       
 
           const dbMonitorUser = {
@@ -318,7 +320,7 @@ export default {
     }
 
      //COORDENAÇÃO FUNDAMENTAL II -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II" && dataUser.responsavel === "Professor" || dataUser.responsavel === "Assistente-Social" ){
+    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II"){
       
 
           const dbMonitorUser = {
@@ -343,7 +345,9 @@ export default {
     }
 
      //COORDENAÇÃO EDUCAÇÃO INFANTIL -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" || dataUser.responsavel === "Assistente-Social" ){
+    // else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" || 
+    //         emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Assistente-Social" ){
+        else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil"){
       
 
           const dbMonitorUser = {
@@ -368,7 +372,8 @@ export default {
     }
 
     // DIRETORIA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
-    else if(emailUser === diretora && dataUser.situacao === "Agendamentos" && dataUser.seguimento === "Diretoria" || dataUser.seguimento === "Assistente-Social"){
+    // else if(emailUser === diretora && dataUser.situacao === "Agendamentos" && dataUser.seguimento === "Diretoria" || dataUser.seguimento === "Assistente-Social")
+    else if(emailUser === diretora){
             
       
 

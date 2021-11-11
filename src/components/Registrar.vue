@@ -2,7 +2,7 @@
       <div class="bg-gray-900 w-screen h-screen flex justify-center items-center">
        
             <div class="lg:px-40 xl:px-56 lg:h-80 md:h-80 sm:h-80 xl:h-80 xl:w-3/4 2xl:h-80  2xl:w-3/5 sm:px-11 w-full mx-4 sm:flex sm:justify-center sm:items-center  ">
-                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-300 sm:w-2/4 h-full rounded-t-lg ">
+                <div class=" sm:py-12 sm:rounded-none sm:rounded-l-lg flex items-center justify-center w-full bg-blue-400 sm:w-2/4 h-full rounded-t-lg ">
                     <div class=" justify-center items-center py-1 ">
                         <img src="../assets/Agendamentos.png" alt="" class="w-44 2xl:w-full md:w-full lg:w-full sm:w-full xl:w-full">
                         
@@ -16,13 +16,13 @@
                             <h2 class="py-1 text-center text-3xl font-thin text-gray-700 sm:mb-2 2xl:text-xl 2xl:mb-3 mt-3">CADASTRO</h2>
                             <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                            <input v-model="email" type="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  placeholder="Seu Email @ersvp.g12.br" pattern=".+@ersvp\.g12\.br">
+                            <input v-model="email" type="email" title="Entre com o email da escola " required class="pl-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  placeholder="Seu Email @ersvp.g12.br" pattern=".+@ersvp\.g12\.br">
                             </div>
                            
 
                             <div class="mb-6 sm:mb-2">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Senha</label>
-                            <input  v-model="password" required  class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Digite sua Senha">
+                            <input  v-model="password" required  class="pl-8 shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" title="Cadastre uma senha no mínimo com 8 digitos" placeholder="Cadastre sua senha com 8 digitos">
                              </div>
                              
                             <div class="flex items-center justify-between sm:pt-1 xl:mt-8">
@@ -66,15 +66,10 @@ export default {
     name:"login",
     data(){
         return{
-
-            
+      
                 email:'',
                 password:'',
            
-
-
-            
-            
         }
     },
 
@@ -108,9 +103,14 @@ export default {
                         .then(()=>{
                            
                             this.$swal({
+                                
+                            html:'<h1 style="font-size:1.4em; font-family:sans-serif;">ACESSE O WEBMAIL</h1>'+
+                            '<a href="https://www.ersvp.g12.br:2096/" target="_blank"><strong style="color:white; font-size:0.9em; background:red; border-radius:5px; padding: 1px 50px;">CLICK AQUI</strong></a>',
+                            showConfirmButton: false,
+                            timer:12000,
                             icon:"success",
-                            title:"Enviamos uma CONFIRMAÇÃO para seu email!", 
-                            footer:'<a href="https://www.ersvp.g12.br:2096/">Acessar Webmail da Escola - <strong style="color:red">CLICK AQUI!</strong></a>'
+                            // text:"Enviamos uma CONFIRMAÇÃO para seu email!", 
+                            footer:'<strong style="color:red">**Enviamos uma CONFIRMAÇÃO para seu email!</strong>'
                             
                             
                             })
@@ -118,6 +118,7 @@ export default {
                              .then(()=>{
                                 setTimeout(() => {
                                     this.$router.go({name: 'Home'})
+                                    
                                 }, 2000)
                             })
                         })
@@ -152,4 +153,23 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+input[type='email']{
+    background-image: url(../assets/mail.png);
+    background-size: 1.2em;
+    background-repeat: no-repeat;
+    background-position: 7px 9px ;
+   
+}
+
+input[type='password']{
+    background-image: url(../assets/cadeado.png);
+    background-size: 1.2em;
+    background-repeat: no-repeat;
+    background-position: 7px 9px ;
+    
+}
+
+</style>
 

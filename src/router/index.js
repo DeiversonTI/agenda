@@ -9,6 +9,7 @@ import Teste from "../components/teste.vue"
 import { getAuth } from "firebase/auth"
 import Footer from "../components/footer.vue"
 import Start from "../components/start.vue"
+import Help from "../components/help.vue"
 
 
 const routes = [
@@ -82,6 +83,11 @@ const routes = [
     name: 'start',
     component: Start,
 
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: Help,
   },
   
 
