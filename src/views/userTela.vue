@@ -84,10 +84,22 @@
                                   <!-- <li class=""><span class="text-xl font-bold">Upload: </span> {{agendas.arquivo}}</li> -->
                                   <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
+                                  <!-- <li class="break-words text-3xl text-red-600 text-center"><span class="text-xl font-bold "></span> {{agendas.verificado}}</li> -->
+                                  <div class="flex  items-center ">
+                                    <div>
+                                      <button  @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
+                                    </div>
+                                        
+                                    <div>
+                                      <button  @click.prevent="marcar(agendas.id)" class=" shadow-md py-1 px-2 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Marcar</button>
                                   
-                                 <div>
-                                  <button  @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
-                                </div>
+                                    </div>
+                                   
+                                    <div class=" py-1 px-2 mt-4 mr-2  w-full text-right">
+                                      <p class="text-2xl text-red-600 ">{{agendas.verificado}}</p>
+                                     
+                                    </div>
+                                  </div>
                               </ul>
                              
                         </div>
@@ -109,7 +121,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc} from "firebase/firestore";
+import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc, updateDoc} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Footer from "../components/footer.vue"
 
@@ -122,6 +134,7 @@ export default {
       isLoggedIn: false,
       enviar:'',
       search: '',
+      nome: false,
       
       
       
@@ -203,7 +216,66 @@ export default {
 
     },
     // FINAL DO DELETAR
-    
+   
+// INICIO VERIFICAR
+// ***********************************************************/
+
+    async marcar(id){
+
+      const db = getFirestore();
+
+      
+      const docRefer = doc(db, "usuarios", id)
+      const pegarUser = await getDoc(docRefer)
+      if(pegarUser.exists()){
+
+        if(pegarUser.data().verificado === null){
+             const washingtonRef = doc(db, "usuarios", id);
+
+            // Set the "capital" field of the city 'DC'
+            await updateDoc(washingtonRef, {
+
+              verificado: "Evento Recebido!"
+                         
+            });
+
+           
+        }
+        this.$swal({
+          icon: 'success',
+          title: 'Marcado com Sucesso!',
+          showConfirmButton:false,
+          timer: 2000,
+        })
+
+        setTimeout(() => {
+
+          this.$router.go({name:'usertela'})
+          
+        }, 2000);
+          
+      }
+
+     
+
+  
+
+
+      // const docRefe = doc(db, "usuarios", verificado)
+      // console.log("docRefe ->", docRefe)
+      // const retorno = await getDoc(docRefe)
+      // console.log("retorno-> ", retorno)
+
+      // if(retorno.exists()){
+      //   console.log("retornou")
+      // }
+
+    //  console.log(nome)
+
+    }
+
+    // FIM DO VERIFICAR
+    //********************************************************/ 
   },
  
 
@@ -219,20 +291,11 @@ export default {
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
-  
-
-
   const user = await getDocs(collection(dbUser, "usuarios"));
-
-  
-  
   user.forEach((doc) => {
  
-  const dbAuth = getAuth().currentUser.uid;
-  const dataUser = doc.data(); 
-  
-  
-
+    const dbAuth = getAuth().currentUser.uid;
+    const dataUser = doc.data(); 
     const userTeste = doc.data().user_id;
     const emailUser = getAuth().currentUser.email;
 
@@ -261,6 +324,8 @@ export default {
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
+        // botão verificado, depois adicionar nos outros usuários
+        verificado:doc.data().verificado,
         data:doc.data().data,
         };
 
@@ -285,6 +350,7 @@ export default {
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
+          verificado:doc.data().verificado,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -310,6 +376,7 @@ export default {
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
+          verificado:doc.data().verificado,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -335,6 +402,7 @@ export default {
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
+          verificado:doc.data().verificado,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -362,6 +430,7 @@ export default {
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
+          verificado:doc.data().verificado,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -390,6 +459,7 @@ export default {
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
+          verificado:doc.data().verificado,
           link: doc.data().link,
           data:doc.data().data,
         };
@@ -416,6 +486,7 @@ export default {
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
+        verificado:doc.data().verificado,
         data:doc.data().data,
         };
 

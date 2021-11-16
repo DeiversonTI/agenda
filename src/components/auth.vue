@@ -127,6 +127,7 @@
                 <!-- <input type="text" v-model="form.dia" id="data" required class="form-control border-2 border-gray-400 w-full rounded-md" placeholder="Ex.: dd/mm/aaaa" data-mask="00/00/0000" maxlength="10" autocomplete="on"> -->
                 <!-- <input   id="data" type="date" required  v-model="form.dia" class="border-2 border-gray-400 w-full rounded-md"  /> -->
               </div>
+             
               <!-- <Data/> -->
 
               <!-- Horário do Evento -->
@@ -230,6 +231,13 @@
               <div>
                 <div class="flex font-bold text-red-500 items-center justif-start"><p class="text-red-500 ml-1 font-extrabold mr-2">*</p> Obrigatório.</div>
               </div>
+              <div class="bg-gray-100">
+                <div>
+                 
+                  <input class="bg-gray-100" v-model.trim="form.verificado" type="text" >
+                  
+                </div>
+              </div>
 
               <!-- Botão de submit -->
               <div class="flex pt-8 w-full items-center justify-center">
@@ -282,6 +290,7 @@ export default {
         return{
             email:'',
             disabled: true,
+            dataDia:[],
             
             
             
@@ -298,6 +307,7 @@ export default {
                     motivo: null,
                     arquivo: null,
                     link:null,
+                    verificado:null
 
             }
         }
@@ -310,9 +320,9 @@ export default {
                 onAuthStateChanged(dbuser, (user) => {
                 this.email = user.email;           
             });
-
-            
            
+            
+           console.log(new Date().getDate())
 
     },
     
@@ -339,6 +349,7 @@ export default {
             let ano = doc.data().ano;
             let hora = doc.data().horario;
             let sitUser = doc.data().situacao;
+          
            
            
             if(this.form.dia === dia && this.form.mes === mes && this.form.ano === ano && hora === this.form.horario && this.form.situacao === sitUser){
@@ -354,9 +365,8 @@ export default {
 
               console.log("Continua o fluxo")
              
-            }
-            else{
-              console.log("deu muito ruim")
+            }else{
+              console.log("Procure o suporte técnico")
             }
       })
 
@@ -394,6 +404,7 @@ export default {
         seguimento:this.form.seguimento,
         motivo: this.form.motivo,
         link: this.form.link,
+        verificado: this.form.verificado,
         data:new Date().toLocaleString(),
         
         }
