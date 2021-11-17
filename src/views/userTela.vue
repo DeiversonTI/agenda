@@ -67,6 +67,13 @@
                       </svg><input v-model="search"    type="search"  class=" w-2/3 md:w-2/5 pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Pesquisar...">
                     
                     </div>
+                    <!-- <div>
+                      <label for="sel">Ordenar por <span>Mais relevante </span></label>
+                      <select name="" id="sel">
+                        <option @click="desc" value="desc">Maior Data</option>
+                        <option @click="asc" value="asc">Menor Data</option>
+                      </select>
+                    </div> -->
                     <!-- <div v-for="(item, key) in filteredAgendas" :key="key"  class="flex justify-end "></div> -->
                   </div>
                   
@@ -91,13 +98,14 @@
                                     </div>
                                         
                                     <div>
-                                      <button  @click.prevent="marcar(agendas.id)" class=" shadow-md py-1 px-2 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Marcar</button>
-                                  
+                                      <button v-if="isClose"  @click.prevent="marcar(agendas.id)" class=" shadow-md py-1 px-2 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Marcar</button>
                                     </div>
                                    
-                                    <div class=" py-1 px-2 mt-4 mr-2  w-full text-right">
-                                      <p class="text-2xl text-red-600 ">{{agendas.verificado}}</p>
-                                     
+                                    <div class=" py-1 px-2 mt-4 mr-2 w-full  text-right">
+                                      <div class="flex justify-end">
+                                        <p class="text-2xl font-bold text-red-600">{{agendas.verificado}}</p>
+                                      </div>
+                                      
                                     </div>
                                   </div>
                               </ul>
@@ -121,7 +129,7 @@
 
 <script>
 import Logado from "../components/compLogado/userLogado.vue";
-import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc, updateDoc} from "firebase/firestore";
+import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc, updateDoc, query, orderBy} from "firebase/firestore";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import Footer from "../components/footer.vue"
 
@@ -135,6 +143,8 @@ export default {
       enviar:'',
       search: '',
       nome: false,
+      isClose:true,
+      
       
       
       
@@ -174,27 +184,19 @@ export default {
 
       const docRef = doc(db, "usuarios", id);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
-
         const snapShot = docSnap.data().user_id;
-       
         if(userAuth === snapShot){
-
           deleteDoc(doc(db, "usuarios", id))
           .then(()=>{
-            this.$swal({
-              icon:'success',
-              title: 'Excluido com Sucesso!',
-
-            })
+              this.$swal({
+                icon:'success',
+                title: 'Excluido com Sucesso!',
               
-            .then(()=>{
-              setTimeout(() => {
-
-                this.$router.go({name:'usertela'})
-                
-              }, 1000);
+              }).then(()=>{
+                setTimeout(() => {
+                  this.$router.go({name:'usertela'})
+                }, 1000);
             })
           })
           
@@ -208,9 +210,8 @@ export default {
 
         }
 
-      } else {
-       
-       alert("Procure o Suporte Técnico")
+      }
+        else {alert("Procure o Suporte Técnico")
       }
 
 
@@ -221,65 +222,40 @@ export default {
 // ***********************************************************/
 
     async marcar(id){
-
       const db = getFirestore();
-
-      
+     
       const docRefer = doc(db, "usuarios", id)
       const pegarUser = await getDoc(docRefer)
       if(pegarUser.exists()){
 
         if(pegarUser.data().verificado === null){
-             const washingtonRef = doc(db, "usuarios", id);
-
-            // Set the "capital" field of the city 'DC'
-            await updateDoc(washingtonRef, {
-
+            // const washingtonRef = doc(db, "usuarios", id);
+            await updateDoc(docRefer, {
               verificado: "Evento Recebido!"
-                         
-            });
-
+        });
            
         }
-        this.$swal({
-          icon: 'success',
-          title: 'Marcado com Sucesso!',
-          showConfirmButton:false,
-          timer: 2000,
-        })
+          this.$swal({
+            icon: 'success',
+            title: 'Marcado com Sucesso!',
+            showConfirmButton:false,
+            timer: 2000,
+          })
 
-        setTimeout(() => {
-
-          this.$router.go({name:'usertela'})
-          
-        }, 2000);
-          
+          setTimeout(() => {
+            this.$router.go({name:'usertela'})
+          }, 2000);
+ 
+      }else{
+        alert("Procurar Suporte Técnico")
       }
-
-     
-
-  
-
-
-      // const docRefe = doc(db, "usuarios", verificado)
-      // console.log("docRefe ->", docRefe)
-      // const retorno = await getDoc(docRefe)
-      // console.log("retorno-> ", retorno)
-
-      // if(retorno.exists()){
-      //   console.log("retornou")
-      // }
-
-    //  console.log(nome)
 
     }
 
     // FIM DO VERIFICAR
     //********************************************************/ 
   },
- 
-
-  
+    
    // COMANDO DE USUÁRIO LOGADO
   async created() {
   const dbuser = getAuth();
@@ -291,7 +267,9 @@ export default {
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
-  const user = await getDocs(collection(dbUser, "usuarios"));
+  const dbMega  = query(collection(dbUser, "usuarios"), orderBy("dia", "asc" ))
+  const user = await getDocs(dbMega);
+  // const user = await getDocs(collection(dbUser, "usuarios"));
   user.forEach((doc) => {
  
     const dbAuth = getAuth().currentUser.uid;

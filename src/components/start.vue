@@ -12,15 +12,15 @@
                     <h1 class=" font-thin text-2xl sm:text-5xl md:text-5xl lg:text-7xl ">Bem Vindos ao Portal Vicentino</h1>
                 </div>
                 <div class="sm:flex items-center justify-center  ">
-                    <router-link to="/Login">
+                    
                     <div  class=" mt-14 mb-4 w-80 sm:ml-2 sm:mr-4 md:mr-4  flex items-center justify-center rounded-3xl   cursor-pointer  border-r-4 border-b-4 border-gray-400  bg-blue-50 shadow-xl  ">
                         <!-- <h3>Agendamentos</h3> -->
-                        <img src="@/assets/Agendamentos.png" alt="" title="Agendamento Vicentino Online" class="w-52 ">
+                        <a href="http://agenda.ersvp.g12.br/" target="_blank"><img src="@/assets/Agendamentos.png" alt="" title="Agendamento Vicentino Online" class="w-52 "></a>
                         
                         
                     </div>
                 
-                    </router-link>
+                  
 
                     
                     <div class=" w-80 py-1 sm:mr-2 mt-10 flex items-center justify-center rounded-3xl cursor-pointer bg-blue-50 border-r-4 border-b-4 border-gray-400 shadow-xl">

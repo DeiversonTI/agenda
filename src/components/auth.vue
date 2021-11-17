@@ -33,8 +33,8 @@
      
 
       <!-- Main -->
-      <div class="  flex mt-4 w-full h-auto ">
-        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-aut xl:container  xl:w-2/5 xl:rounded-xl xl:border-2  flex flex-col justify-start">
+      <div class="   mt-4 w-full h-auto  ">
+        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-xl 2xl:border-2  flex flex-col justify-start">
           <!-- Cabeçalho do formulário -->
           <div class="mb-4 mt-8">
             <h1 class="text-center font-sans text-3xl">
@@ -234,7 +234,7 @@
               <div class="bg-gray-100">
                 <div>
                  
-                  <input class="bg-gray-100" v-model.trim="form.verificado" type="text" >
+                  <input class="bg-gray-100" v-model.trim="form.verificado" type="text" disabled >
                   
                 </div>
               </div>
