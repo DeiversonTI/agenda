@@ -56,7 +56,7 @@
                         <label  for="data" class="flex">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
                   </div>
                   <div class="flex">
-                  <div >
+                  <div>
                     Dia:<select id="data" required class="px-2 border-2 rounded-md mr-2 border-gray-400 " v-model="form.dia">
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -93,25 +93,25 @@
                 </div>
                 <div>
                   Mês:
-                  <select id="data" required class="px-3 border-2 rounded-md mr-2 border-gray-400"  v-model="form.mes">
-                    <option value="Janeiro">Janeiro</option>
-                    <option value="Fevereiro">Fevereiro</option>
-                    <option value="Março">Março</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Maio">Maio</option>
-                    <option value="Junho">Junho</option>
-                    <option value="Julho">Julho</option>
-                    <option value="Agosto">Agosto</option>
-                    <option value="Setembro">Setembro</option>
-                    <option value="Outubro">Outubro</option>
-                    <option value="Novembro">Novembro</option>
-                    <option value="Dezembro">Dezembro</option>
+                  <select  id="data" required class="px-3 border-2 rounded-md mr-2 border-gray-400"  v-model="form.mes">
+                    <option value="01">Janeiro</option>
+                    <option value="02">Fevereiro</option>
+                    <option value="03">Março</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Maio</option>
+                    <option value="06">Junho</option>
+                    <option value="07">Julho</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
                    
                 </select>
                 </div>
                  <div>
                    Ano:
-                  <select id="data" required class="px-2 border-2 rounded-md border-gray-400"  v-model="form.ano">
+                  <select @click.prevent="dataUser()" id="data" required class="px-2 border-2 rounded-md border-gray-400"  v-model="form.ano">
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
@@ -209,10 +209,8 @@
               <!-- <Motivo/> -->
 
               <!-- upload -->
-              <!-- <div class="">
-                <input type="file" id="myFile" name="filename" class="w-full" />
-              </div> -->
-              <!-- <Upload/> -->
+             
+              <!-- <Upload /> -->
 
               <!-- link -->
 
@@ -266,9 +264,10 @@
 import {getAuth, onAuthStateChanged } from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
-import {  collection,  getFirestore, addDoc, getDocs} from "firebase/firestore";
+import {  collection,  getFirestore, addDoc, getDocs, } from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 import Footer from "../components/footer.vue"
+// import Upload from "../components/compLogado/uploadLogado.vue"
 // import Data from "../components/compLogado/dataLogado.vue"
 // import DataUser from "../components/compLogado/dataUser"
 
@@ -281,6 +280,7 @@ export default {
     components:{
         Logado,
         Footer,
+        // Upload,
         // Data,
         
     },
@@ -288,6 +288,7 @@ export default {
     
     data(){
         return{
+         
             email:'',
             disabled: true,
             dataDia:[],
@@ -313,6 +314,7 @@ export default {
         }
             
     },
+   
      async created(){
           //  APRESENTA NA TELA O USUÁRIO CONECTADO
             db;
@@ -322,13 +324,39 @@ export default {
             });
            
             
-           console.log(new Date().getDate())
+          
 
     },
     
    
      methods: {
 
+
+// FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
+       dataUser(){
+        const dataFull =  new Date();
+        const dataDia = dataFull.getDate();
+        const mesDia = dataFull.getMonth()+1
+            
+         if(this.form.dia < dataDia && this.form.mes <= mesDia){
+         
+             this.$swal({
+               icon:'warning',
+               title:'Escolha a Data Recente ou Posterior!',
+            
+             })
+                        
+         }else if(this.form.dia == dataDia && this.form.mes == mesDia){
+         
+             this.$swal({
+               icon:'error',
+               title:'Marcar com 12hs de antecedência!',
+                    
+             })
+            
+         }
+       },
+      // FIM FUNÇÃO BLOQUEIO
       
         clicado(){
 
