@@ -43,7 +43,7 @@
           </div>
           <!-- formulario de arquivos logado -->
           <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
-            <form @submit.prevent="clicar()" class="space-y-6 ">
+            <form @submit.prevent="clicar(), backUp()"  class="space-y-6 ">
               <!-- Data do Evento-->
 
               <div>               
@@ -264,7 +264,7 @@
 import {getAuth, onAuthStateChanged } from "firebase/auth";
 // import * as firebase from "firebase/app";
 import db from "../components/db/dbConfig";
-import {  collection,  getFirestore, addDoc, getDocs, } from "firebase/firestore";
+import {  collection,  getFirestore, addDoc, getDocs } from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 import Footer from "../components/footer.vue"
 // import Upload from "../components/compLogado/uploadLogado.vue"
@@ -450,6 +450,8 @@ export default {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           addDoc(collection(dbUser, "usuarios"), usuarioDb)
+         
+        
           .then(()=>{
             
             setTimeout(() => {
@@ -471,13 +473,39 @@ export default {
                   this.error = error.message;
       }
          
-    }
-    
-    
-    
-     }
-     
-      
-}
+    },
+// *****************************************************************//
+    // BACKUP DO BANCO DE DADOS.
+     async backUp() {
+       
+          const dbUser = getFirestore();
+          const authentication = getAuth();
+          const userConnected = authentication.currentUser.uid; 
+          
+          
+          const usuarioBackup = {
+              user_id:userConnected,
+              nome:this.form.nome,
+              dia: this.form.dia,
+              mes: this.form.mes,
+              ano: this.form.ano,
+              horario: this.form.horario,
+              responsavel: this.form.responsavel,
+              situacao: this.form.situacao,
+              seguimento:this.form.seguimento,
+              motivo: this.form.motivo,
+              link: this.form.link,
+              data:new Date().toLocaleString(),
+        }
 
+        await addDoc(collection(dbUser, "backup"), usuarioBackup)
+    
+      }
+       //  FIM DO BACKUP DO BANCO DE DADOS
+      //  **************************************************************************//
+      
+   }
+ 
+    
+}
 </script>

@@ -45,6 +45,7 @@
                     <button class="text-gray-900"><router-link to="/userTela">Agenda Online</router-link> </button>
                 </div> -->
             </div>
+            <router-link to="/eventos"><button class="text-center w-full mt-4 py-2 text-white ">.</button></router-link> 
         </div>
     </div>
 </template>

@@ -54,7 +54,7 @@
               
             </div>
            
-                <div  class="bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
+                <div  class="  bg-blue-100 w-full   border-t-2 border-blue-200 mt-6 2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
                   
                    <!-- <button @click.prevent="clicar()" class="bg-blue-700 text-white py-2 px-8 mb-8 rounded-lg ml-4">Inserir</button> -->
                   <div class="flex flex-col  w-11/12 md:w-8/12 2xl:w-1/2   mx-auto container ">
@@ -64,23 +64,36 @@
                     <div class="flex justify-end pl-2">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg><input v-model="search"    type="search"  class=" w-2/3 md:w-2/5 pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Pesquisar...">
+                      </svg><input v-model="search"    type="search"  class=" w-2/3 md:w-2/5 pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Pesquise por Data, Nome, Local, horário...">
                     
                     </div>
-                    <!-- <div>
-                      <label for="sel">Ordenar por <span>Mais relevante </span></label>
-                      <select name="" id="sel">
-                        <option @click="desc" value="desc">Maior Data</option>
-                        <option @click="asc" value="asc">Menor Data</option>
-                      </select>
+                    <!-- <div class=" flex  justify-end  font-thin text-lg  ">
+                      <div class="mr-2">
+                          <h2>Ordernar por: </h2>
+                      </div>
+                      <div class="flex flex-col w-48 bg-blue-400  ">
+                        <div  class="flex flex-col   absolute  z-50 " >
+                          <div class="mx-2" @click.prevent="fechamento"><h1>Pesquisa Personalizada</h1></div>
+                          <div class=" px-2 flex flex-col bg-blue-400 w-48  " v-if="isFechar">
+                            <div><button @click="maior()">Maior Data</button></div>
+                            <div><button>Menor Data</button></div>
+                            <div><button>Nome</button></div>
+                            <div><button>Local</button></div>
+                            
+                          </div>
+                        
+                        </div>
+                      </div>
+                     
                     </div> -->
+                   
                     <!-- <div v-for="(item, key) in filteredAgendas" :key="key"  class="flex justify-end "></div> -->
                   </div>
                   
                       <div class=" mb-1 border-2 border-gray-400 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas in filteredAgendas" :key="agendas.id" >
                       
                         <div>
-                              <ul class=" flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
+                              <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}}/{{agendas.mes}}/{{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
                                   <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
@@ -144,6 +157,7 @@ export default {
       search: '',
       nome: false,
       isClose:true,
+      // isFechar:false,
       
       
       
@@ -166,6 +180,7 @@ export default {
         return item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
               item.seguimento.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.situacao.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+               item.horario.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.responsavel.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                item.dia.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
         });
@@ -250,11 +265,55 @@ export default {
         alert("Procurar Suporte Técnico")
       }
 
-    }
+    },
+//      async  maior(){
 
+//             const db = getFirestore();
+//             const docRef = collection(db, "usuarios")
+//             const queryOrder = query(docRef, orderBy("dia", "desc"))
+//             const userQuery = await getDocs(queryOrder)
+//             userQuery.forEach((doc)=>{
+
+//              const userTeste = doc.data().user_id;
+
+//               if (doc.data().dia == "Salão") {
+                
+              
+
+//               const dbMonitorUser = {
+         
+//         user_id: userTeste,
+//         id:doc.id,
+//         nome:doc.data().nome,
+//         dia: doc.data().dia,
+//         mes: doc.data().mes,
+//         ano: doc.data().ano,
+//         horario: doc.data().horario,
+//         responsavel: doc.data().responsavel,
+//         seguimento: doc.data().seguimento,
+//         situacao: doc.data().situacao,
+//         motivo: doc.data().motivo,
+//         // arquivo: doc.data().arquivo,
+//         link: doc.data().link,
+//         // botão verificado, depois adicionar nos outros usuários
+//         verificado:doc.data().verificado,
+//         data:doc.data().data,
+//         };
+
+//           this.agenda.push(dbMonitorUser);
+
+            
+//               }
+           
+// })
+//           },
+          fechamento(){
+            this.isFechar = !this.isFechar
+          }
     // FIM DO VERIFICAR
     //********************************************************/ 
   },
+    
     
    // COMANDO DE USUÁRIO LOGADO
   async created() {
@@ -267,8 +326,12 @@ export default {
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
-  const dbMega  = query(collection(dbUser, "usuarios"), orderBy("dia", "asc" ))
-  const user = await getDocs(dbMega);
+  const colleUser = collection(dbUser, "usuarios")
+  const q = query(colleUser, orderBy("horario", "asc"))
+  
+  
+  // const dbMega  = query(collection(dbUser, "usuarios"), orderBy("dia"), orderBy("horario"))
+  const user = await getDocs(q);
   // const user = await getDocs(collection(dbUser, "usuarios"));
   user.forEach((doc) => {
  
