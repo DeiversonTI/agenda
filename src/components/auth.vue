@@ -112,7 +112,6 @@
                  <div>
                    Ano:
                   <select @click.prevent="dataUser()" id="data" required class="px-2 border-2 rounded-md border-gray-400"  v-model="form.ano">
-                    <option value="2021">2021</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
@@ -133,7 +132,8 @@
               <!-- Horário do Evento -->
               <div>
                 <label class="flex"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <input type="time" id="hora"  v-model="form.horario" name="hora" min="07:10" max="19:00" class=" flex border-2 border-gray-400 w-1/3 rounded-md " required>
+                <input type="time" id="hora"  v-model="form.horario" name="hora" min="07:10" max="19:00" class=" mr-2  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
+                <input type="time" id="hora"  v-model="form.horario_one" name="hora" min="07:10" max="19:00" class="  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
                 <p class=" text-base font-bold text-red-600 ">Os eventos terão a duração de 40min, exceto, agendamentos.</p>
                
               </div>
@@ -149,7 +149,7 @@
                   <option value="Agendamentos">Agendamentos</option>
                   <option value="Ranchinho de Maria">Ranchinho de Maria</option>
                   <option value="Área Gourmet">Área Gourmet</option>
-                  <option value="Sala Informática">Sala Informática</option>
+                  <option value="Sala_Informatica">Sala Informática</option>
                   <option value="Outros">Outros</option>
                  
                 </select>
@@ -231,9 +231,15 @@
               </div>
               <div class="bg-gray-100">
                 <div>
+                  <input class="bg-gray-100" v-model.trim="form.info" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.coordFI" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.coordFII" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.coordEI" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.social" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.diretoria" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.secretaria" type="text" disabled >
+                  <input class="bg-gray-100" v-model.trim="form.tesouraria" type="text" disabled >
                  
-                  <input class="bg-gray-100" v-model.trim="form.verificado" type="text" disabled >
-                  
                 </div>
               </div>
 
@@ -302,13 +308,22 @@ export default {
                     mes:null,
                     ano:null,
                     horario:null,
+                    horario_one:null,
                     responsavel: null,
                     situacao: null,
                     seguimento:null,
                     motivo: null,
                     arquivo: null,
                     link:null,
-                    verificado:null
+                    info:null,
+                    coordFI:null,
+                    coordFII:null,
+                    coordEI:null,
+                    social:null,
+                    diretoria:null,
+                    secretaria:null,
+                    tesouraria:null,
+
 
             }
         }
@@ -316,23 +331,18 @@ export default {
     },
    
      async created(){
-          //  APRESENTA NA TELA O USUÁRIO CONECTADO
+      //  APRESENTA NA TELA O USUÁRIO CONECTADO
             db;
             const dbuser = getAuth();
                 onAuthStateChanged(dbuser, (user) => {
                 this.email = user.email;           
             });
-           
-            
-          
-
-    },
-    
-   
+ 
+      },
+  
      methods: {
 
-
-// FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
+      // FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
        dataUser(){
         const dataFull =  new Date();
         const dataDia = dataFull.getDate();
@@ -356,11 +366,11 @@ export default {
             
          }
        },
+
       // FIM FUNÇÃO BLOQUEIO
-      
         clicado(){
 
-        this.disabledUser = !this.disabledUser;
+          this.disabledUser = !this.disabledUser;
 
       },
       
@@ -377,13 +387,13 @@ export default {
             let ano = doc.data().ano;
             let hora = doc.data().horario;
             let sitUser = doc.data().situacao;
-          
-           
+            
+
            
             if(this.form.dia === dia && this.form.mes === mes && this.form.ano === ano && hora === this.form.horario && this.form.situacao === sitUser){
               this.$swal({
               icon:'error',
-              title: 'Data ou Hora já em uso!!'
+              title: 'Data ou hora em uso!!'
               })
               setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -403,22 +413,13 @@ export default {
    
 
      async clicar() {
-    try{
-
-     
-
-
-    //  const authUser  = dataUser;
-     const dbUser = getFirestore();
-     const authentication = getAuth();
-     const userConnected = authentication.currentUser.uid; 
-
-     console.log(dbUser)
-
+     try{
+   
+          const dbUser = getFirestore();
+          const authentication = getAuth();
+          const userConnected = authentication.currentUser.uid; 
 
         const usuarioDb = {
-
-         
 
         user_id:userConnected,
         
@@ -427,50 +428,54 @@ export default {
         mes: this.form.mes,
         ano: this.form.ano,
         horario: this.form.horario,
+        horario_one: this.form.horario_one,
         responsavel: this.form.responsavel,
         situacao: this.form.situacao,
         seguimento:this.form.seguimento,
         motivo: this.form.motivo,
         link: this.form.link,
-        verificado: this.form.verificado,
+        info:this.form.info,
+        coordFI:this.form.coordFI,
+        coordFII:this.form.coordFII,
+        coordEI:this.form.coordEI,
+        social:this.form.social,
+        diretoria:this.form.diretoria,
+        secretaria:this.form.secretaria,
+        tesouraria:this.form.tesouraria,
         data:new Date().toLocaleString(),
         
         }
        
+      
       //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
         
-      // addDoc(collection(dbUser, "usuarios"), usuarioDb)
-     
        this.$swal({
         title: 'As informações estão completas?',
         showCancelButton: true,
         confirmButtonText: 'Salvar',
         
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
+          if (result.isConfirmed) {
           addDoc(collection(dbUser, "usuarios"), usuarioDb)
-         
         
-          .then(()=>{
-            
-            setTimeout(() => {
-              this.$router.replace({name: 'usertela'})
+       .then(()=>{
+        setTimeout(() => {
+            this.$router.replace({name: 'usertela'})
              
-            }, 1500);
+         }, 1500);
           })
           console.log("Salvo")
           // this.$swal('Saved!', '', 'success')
         } else if (result.isDenied) {
          
-          this.$swal('Não foi salvo', '', 'info')
+            this.$swal('Não foi salvo', '', 'info')
           
         }
         
       })
       
       }catch(error){
-                  this.error = error.message;
+        this.error = error.message;
       }
          
     },
@@ -490,6 +495,7 @@ export default {
               mes: this.form.mes,
               ano: this.form.ano,
               horario: this.form.horario,
+              horario_one: this.form.horario_one,
               responsavel: this.form.responsavel,
               situacao: this.form.situacao,
               seguimento:this.form.seguimento,

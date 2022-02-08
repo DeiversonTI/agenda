@@ -66,24 +66,14 @@ export default {
     name:"login",
     data(){
         return{
-      
-                email:'',
-                password:'',
-           
-        }
+            email:'',
+            password:'',
+         }
     },
-
-  
     methods:{
-
-          
-         async login(){
-
-            
-                firebase;
-                    
-                   
-                    const userId = getAuth()
+        async login(){
+            firebase;
+                     const userId = getAuth()
                     
                     await createUserWithEmailAndPassword(userId, this.email, this.password)
                     .then(()=>{
@@ -95,7 +85,7 @@ export default {
                             // PRECISA SER ALTERADO SEMPRE ANTES DO BUILD
                           
                             // url: 'http://localhost:8080/#/',
-                            url: 'https://ersvp.g12.br/agenda/#/'
+                            url: 'https://agenda.ersvp.g12.br/#/',
 
                         }
 

@@ -61,12 +61,24 @@
                     <div class="py-6">
                       <h1 class="text-red-700 font-sans text-4xl text-center"> Agendamentos </h1>
                     </div>
-                    <div class="flex justify-end pl-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     
+                    <div class=" sm:flex justify-between items-center pl-2">
+                     
+                     <div class="flex justify-start items-center w-full sm:w-4/6 md:w-4/6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg><input v-model="search"    type="search"  class=" w-2/3 md:w-2/5 pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Pesquise por Data, Nome, Local, horário...">
-                    
+                      </svg>
+                      <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full  w-full md:w-full pl-2 border-b-2 border-gray-300 rounded-sm " placeholder="Data, Nome, Local, horário...">
+                     </div>
+                      <div class=" flex justify-end mx-2 mt-1  ">
+                         <span class="text-xs flex items-center justify-end mr-2"><img src="@/assets/lixeira.png" class="w-4 h-5 mr-1" alt=""> Deletar</span>
+                         <span class="text-xs flex items-center justify-end "><img src="@/assets/visto01.png" class="w-4 h-5 mr-1" alt=""> Marcar como recebido</span>
+
+                      </div>
+                     
+                  
                     </div>
+                    
                     <!-- <div class=" flex  justify-end  font-thin text-lg  ">
                       <div class="mr-2">
                           <h2>Ordernar por: </h2>
@@ -96,7 +108,7 @@
                               <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                                   <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dia}}/{{agendas.mes}}/{{agendas.ano}}</li>
                                   <li class=""><span class="text-xl font-bold">Nome: </span> {{agendas.nome}}</li>                           
-                                  <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}}</li>
+                                  <li class=""><span class="text-xl font-bold">Horário: </span> {{agendas.horario}} até {{agendas.horario_one}}</li>
                                   <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>
                                   <li class=""><span class="text-xl font-bold">Local: </span> {{agendas.situacao}}</li>
                                   <li class=""><span class="text-xl font-bold">Seguimento: </span> {{agendas.seguimento}}</li>
@@ -106,17 +118,30 @@
                                   <li class="text-red-600 text-base font-bold text-center bg-gray-200 rounded-md"><span class=" font-bold text-gray-600 ">Data da Publicação :  </span> {{ agendas.data}}</li>        
                                   <!-- <li class="break-words text-3xl text-red-600 text-center"><span class="text-xl font-bold "></span> {{agendas.verificado}}</li> -->
                                   <div class="flex  items-center ">
-                                    <div>
-                                      <button  @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button>
+                                    <div title="Deletar Publicação!">
+                                      <svg @click.prevent="deletar(agendas.id)" class=" cursor-pointer w-8 h-8 shadow-md py-1 px-1 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2" fill="none"  stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                      <!-- <button  @click.prevent="deletar(agendas.id)" class=" shadow-md py-1 px-2 bg-red-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Excluir</button> -->
+                                    </svg>
                                     </div>
                                         
-                                    <div>
-                                      <button v-if="isClose"  @click.prevent="marcar(agendas.id)" class=" shadow-md py-1 px-2 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Marcar</button>
+                                    <div title="Botão de Marcar como Recebido!">
+                                      <svg v-if="isClose"  @click.prevent="marcar(agendas.id)" class="cursor-pointer w-8 h-8 shadow-md py-1 px-1 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                      </svg>
+                                      <!-- <button  v-if="isClose"  @click.prevent="marcar(agendas.id)" class=" shadow-md py-1 px-2 bg-blue-600 text-lg text-gray-50 font-sans rounded-md mt-4 mr-2">Marcar</button> -->
                                     </div>
                                    
                                     <div class=" py-1 px-2 mt-4 mr-2 w-full  text-right">
-                                      <div class="flex justify-end">
-                                        <p class="text-2xl font-bold text-red-600">{{agendas.verificado}}</p>
+                                      <div class=" sm:flex items-center justify-end  ">
+                                        <h1 class="sm:text-lg text-sm font-thin mr-1">Visualizado por: </h1>
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-blue-500">{{agendas.info}}</div> 
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-green-600">{{agendas.secretaria}}</div> 
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-pink-500">{{agendas.coordFI}}</div>
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-purple-500">{{agendas.coordFII}}</div>
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
+                                        <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
+                                       
+                                        <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
                                       </div>
                                       
                                     </div>
@@ -158,9 +183,6 @@ export default {
       nome: false,
       isClose:true,
       // isFechar:false,
-      
-      
-      
       
     };
   },
@@ -228,8 +250,6 @@ export default {
       }
         else {alert("Procure o Suporte Técnico")
       }
-
-
     },
     // FINAL DO DELETAR
    
@@ -238,19 +258,91 @@ export default {
 
     async marcar(id){
       const db = getFirestore();
-     
       const docRefer = doc(db, "usuarios", id)
       const pegarUser = await getDoc(docRefer)
       if(pegarUser.exists()){
 
-        if(pegarUser.data().verificado === null){
-            // const washingtonRef = doc(db, "usuarios", id);
-            await updateDoc(docRefer, {
-              verificado: "Evento Recebido!"
-        });
-           
+        const userName = getAuth()
+        const pegarUserNew = userName.currentUser.email
+        
+
+        if(pegarUser.data().coordFI === null){
+
+            if (pegarUserNew == "coordenadorafund1@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-I" ) {
+               await updateDoc(docRefer, {
+                  coordFI: "Coord. Natália"
+               });
+
         }
-          this.$swal({
+        
+        if (pegarUser.data().info === null) {
+          
+          if(pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Salão" ||
+              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Sala_Informatica" && pegarUser.data().seguimento == "Setor-TI" ) {
+               await updateDoc(docRefer, {
+                  info: "S.T.I"
+             
+               });
+            }
+        }
+        
+        if (pegarUser.data().coordFII === null) {
+          
+          if(pegarUserNew == "coordenadorafund2@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-II" ) {
+               await updateDoc(docRefer, {
+                  coordFII: "Coord. Anamaria"
+               });
+            }
+        }
+        if (pegarUser.data().coordEI === null) {
+           
+           if (pegarUserNew == "coordenadora@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ) {
+               await updateDoc(docRefer, {
+                  coordEI: "Coord. Juliana"
+               });
+              
+            }
+         
+        }
+        if (pegarUser.data().social === null) {
+
+           if (pegarUserNew == "asocial@ersvp.g12.br" && pegarUser.data().seguimento == "Assistente-Social" && pegarUser.data().situacao == "Agendamentos" ) {
+               await updateDoc(docRefer, {
+                  social: "Assit. Social"
+               });
+              
+            }
+        
+        }
+        if (pegarUser.data().secretaria === null) {
+          
+           if (pegarUserNew == "secretaria@ersvp.g12.br" && pegarUser.data().seguimento == "Secretaria" ) {
+               await updateDoc(docRefer, {
+                  secretaria: "Secretaria"
+               });
+              
+            }
+        }
+        if (pegarUser.data().diretoria === null) {
+          
+           if (pegarUserNew == "diretoria@ersvp.g12.br" && pegarUser.data().seguimento == "Diretoria" ) {
+               await updateDoc(docRefer, {
+                  secretaria: "Diretoria"
+               });
+              
+            }
+        }
+         if (pegarUser.data().tesouraria === null) {
+          
+           if (pegarUserNew == "tesouraria@ersvp.g12.br" && pegarUser.data().seguimento == "Tesouraria" ) {
+               await updateDoc(docRefer, {
+                  secretaria: "Tesouraria"
+               });
+              
+            }
+        }
+        
+        this.$swal({
             icon: 'success',
             title: 'Marcado com Sucesso!',
             showConfirmButton:false,
@@ -260,6 +352,15 @@ export default {
           setTimeout(() => {
             this.$router.go({name:'usertela'})
           }, 2000);
+
+
+
+       
+           
+        }else{
+              alert("Sem autorização para marcar essa publicação!")
+        }
+          
  
       }else{
         alert("Procurar Suporte Técnico")
@@ -346,6 +447,14 @@ export default {
     const fundii = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALII
     const infantil = process.env.VUE_APP_FIREBASE_EMAIL_INFANTIL
     const diretora = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORIA
+
+
+    // *********************************************************
+
+
+
+
+    // *******************************************************
    
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
@@ -359,6 +468,7 @@ export default {
         mes: doc.data().mes,
         ano: doc.data().ano,
         horario: doc.data().horario,
+        horario_one: doc.data().horario_one,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
         situacao: doc.data().situacao,
@@ -366,7 +476,14 @@ export default {
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
         // botão verificado, depois adicionar nos outros usuários
-        verificado:doc.data().verificado,
+        social:doc.data().social,
+        coordEI:doc.data().coordEI,
+        coordFI:doc.data().coordFI,
+        coordFII:doc.data().coordFII,
+        info:doc.data().info,
+        diretoria:doc.data().diretoria,
+        tesouraria:doc.data().tesouraria,
+        secretaria:doc.data().secretaria,
         data:doc.data().data,
         };
 
@@ -387,11 +504,19 @@ export default {
           mes: doc.data().mes,
           ano: doc.data().ano,
           horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
-          verificado:doc.data().verificado,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -413,11 +538,19 @@ export default {
           mes: doc.data().mes,
           ano: doc.data().ano,
           horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
-          verificado:doc.data().verificado,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -439,11 +572,19 @@ export default {
           mes: doc.data().mes,
           ano: doc.data().ano,
           horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
-          verificado:doc.data().verificado,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -467,11 +608,19 @@ export default {
           mes: doc.data().mes,
           ano: doc.data().ano,
           horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
-          verificado:doc.data().verificado,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
           // arquivo: doc.data().arquivo,
           link: doc.data().link,
           data:doc.data().data,
@@ -495,12 +644,20 @@ export default {
           mes: doc.data().mes,
           ano: doc.data().ano,
           horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
           responsavel: doc.data().responsavel,
           seguimento: doc.data().seguimento,
           situacao: doc.data().situacao,
           motivo: doc.data().motivo,
           // arquivo: doc.data().arquivo,
-          verificado:doc.data().verificado,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
         };
@@ -521,13 +678,21 @@ export default {
         mes: doc.data().mes,
         ano: doc.data().ano,
         horario: doc.data().horario,
+        horario_one: doc.data().horario_one,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
         situacao: doc.data().situacao,
         motivo: doc.data().motivo,
         // arquivo: doc.data().arquivo,
         link: doc.data().link,
-        verificado:doc.data().verificado,
+        social:doc.data().social,
+        coordEI:doc.data().coordEI,
+        coordFI:doc.data().coordFI,
+        coordFII:doc.data().coordFII,
+        info:doc.data().info,
+        diretoria:doc.data().diretoria,
+        tesouraria:doc.data().tesouraria,
+        secretaria:doc.data().secretaria,
         data:doc.data().data,
         };
 
