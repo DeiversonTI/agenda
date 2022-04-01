@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="w-full h-full bg-gray-50">
+    
     <section class="bg-blue-100 border-b-2 border-blue-200 ">
       <!--navbar -->
       <div
@@ -31,7 +32,7 @@
                 <div class=" flex flex-col  sm:w-full items-center justify-center mt-7 ">
                   <div class="2xl:flex 2xl:items-center  xl:flex lg:flex lg:items-center xl:items-center md:items-center md:flex sm:items-center sm:flex ">
 
-                      <h1 class="text-sm font-thin 2xl:mr-2 2xl:text-lg md:text-lg lg:text-lg xl:text-lg xl:mr-2 lg:mr-2 md:mr-2 sm:mr-2 mb-2">Olá <span class="font-bold text-red-600 px-1">{{this.email}}</span> seja bem vindo(a)</h1>
+                      <h1 class="text-sm font-thin 2xl:mr-2 2xl:text-lg md:text-lg lg:text-lg xl:text-lg xl:mr-2 lg:mr-2 md:mr-2 sm:mr-2 mb-2">Olá <span class="font-bold text-red-600 px-1">{{this.usuario}}</span> seja bem vindo(a)</h1>
 
                     <div class="flex justify-center items-center  ">
                     <router-link to="/Auth">
@@ -140,7 +141,6 @@
                                         <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
                                         <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
                                         <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
-                                       
                                         <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
                                       </div>
                                       
@@ -182,6 +182,7 @@ export default {
       search: '',
       nome: false,
       isClose:true,
+      usuario: ''
       // isFechar:false,
       
     };
@@ -192,9 +193,9 @@ export default {
     Footer,
   },
 
-
+  // CODIGOS DO SEARCH
   computed:{
-    // CODIGOS DO SEARCH
+  
     filteredAgendas: function(){
 
       var pegar = [];
@@ -218,12 +219,19 @@ export default {
 
       const db = getFirestore();
       const userAuth = getAuth().currentUser.uid;
-
+      
       const docRef = doc(db, "usuarios", id);
       const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
+        if (docSnap.exists()) {
         const snapShot = docSnap.data().user_id;
-        if(userAuth === snapShot){
+        const snapShotCoord = docSnap.data().seguimento;
+          if(userAuth === snapShot || userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
+          userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Fundamental-II" ||
+           userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Fundamental-I" || 
+           userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Edu-Infantil" ){
+             console.log(userAuth)
+          console.log(snapShot)
+          console.log(docSnap)
           deleteDoc(doc(db, "usuarios", id))
           .then(()=>{
               this.$swal({
@@ -278,7 +286,7 @@ export default {
         if (pegarUser.data().info === null) {
           
           if(pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Salão" ||
-              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Sala_Informatica" && pegarUser.data().seguimento == "Setor-TI" ) {
+              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Sala_Informatica" ) {
                await updateDoc(docRefer, {
                   info: "S.T.I"
              
@@ -416,21 +424,26 @@ export default {
   },
     
     
-   // COMANDO DE USUÁRIO LOGADO
+   // COMANDO DE USUÁRIO LOGADO - Display name e Email
   async created() {
   const dbuser = getAuth();
   onAuthStateChanged(dbuser, (user) => {
-   
-        this.email = user.email;    
+    console.log(user)
+    if (user) {
+      if (user.displayName === null) {
+        this.usuario = user.email
+      } else {
+        this.usuario = user.displayName
+      }
+  }
 
   });
 
   // COMANDO PARA ADICIONAR TELA FINAL PARA O USUARIO
   const dbUser = getFirestore();
   const colleUser = collection(dbUser, "usuarios")
-  const q = query(colleUser, orderBy("horario", "asc"))
-  
-  
+  const q = query(colleUser, orderBy("data", "asc"))
+      
   // const dbMega  = query(collection(dbUser, "usuarios"), orderBy("dia"), orderBy("horario"))
   const user = await getDocs(q);
   // const user = await getDocs(collection(dbUser, "usuarios"));
@@ -447,6 +460,7 @@ export default {
     const fundii = process.env.VUE_APP_FIREBASE_EMAIL_FUNDAMENTALII
     const infantil = process.env.VUE_APP_FIREBASE_EMAIL_INFANTIL
     const diretora = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORIA
+    const inspetor = process.env.VUE_APP_FIREBASE_EMAIL_INSPETOR
 
 
     // *********************************************************
@@ -665,6 +679,39 @@ export default {
           this.agenda.push(dbMonitorUser);
 
     }
+    // INSPETOR MÁRCIO -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
+        else if(emailUser === inspetor){
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          id:doc.id,
+          nome:doc.data().nome,
+          dia: doc.data().dia,
+          mes: doc.data().mes,
+          ano: doc.data().ano,
+          horario: doc.data().horario,
+          horario_one: doc.data().horario_one,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          // arquivo: doc.data().arquivo,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
+          link: doc.data().link,
+          data:doc.data().data,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+
 
 
     // USUÁRIO RESTRITO - IRÃO VER SOMENTE SUAS PUBLICAÇÕES

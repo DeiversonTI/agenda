@@ -170,7 +170,8 @@
                   <option value="Professor">Professor</option>
                   <option value="Secretaria">Secretaria</option>
                   <option value="Tesouraria">Tesouraria</option>
-                   <option value="Setor-TI">Setor de TI</option>
+                  <option value="Setor-TI">Setor de TI</option>
+                  <option value="Pastoral">Pastoral</option>
                 </select>
               </div> 
               <!-- <Setor/> -->
@@ -188,6 +189,7 @@
                   <option value="Todos-Seguimentos">Todos-Seguimentos</option>
                    <option value="Assistente-Social">Assistente-Social</option>
                    <option value="Tesouraria">Tesouraria</option>
+                   <option value="Pastoral">Pastoral</option>
                  
                  
                 </select>
@@ -244,14 +246,27 @@
               </div>
 
               <!-- Botão de submit -->
-              <div class="flex pt-8 w-full items-center justify-center">
-                <input
-                  title="Enviar formulário"
-
-                  type="submit"
-                  value="Enviar"
-                  class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8 mb-8 "
-                />
+              <div class="flex  w-full items-center justify-center pb-12 ">
+               
+                  
+                     <router-link to="usertela">
+                        <div title="Voltar tela usuário" class="bg-blue-600 flex items-center px-4 py-2 rounded-md mr-4 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                          </svg>
+                        Voltar
+                        </div>
+                     </router-link>
+                 
+                  <div>
+                      <input
+                        title="Enviar formulário"
+                        type="submit"
+                        value="Enviar"
+                        class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
+                      />
+                  </div>
+         
               </div>
             </form>
           </div>

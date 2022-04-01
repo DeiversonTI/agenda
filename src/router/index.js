@@ -11,6 +11,7 @@ import Footer from "../components/footer.vue"
 import Start from "../components/start.vue"
 import Help from "../components/help.vue"
 import Eventos from "../components/eventos.vue"
+import ResetPassword from "../components/ResetPassword.vue"
 
 
 const routes = [
@@ -94,6 +95,11 @@ const routes = [
     path:'/eventos',
     name: 'eventos',
     component: Eventos,
+  },
+  {
+    path:'/ResetPassword',
+    name: 'resetPassword',
+    component: ResetPassword,
   },
   
 

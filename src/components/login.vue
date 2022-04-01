@@ -39,14 +39,16 @@
                             <button @click.prevent="login()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
                                 Logar
                             </button>
-                            <p class=" cursor-pointer inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" @click.prevent="reset()">
-                                Esqueceu a senha?
-                            </p>
+                            <router-link to="resetPassword">
+                                <p class=" cursor-pointer inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                                    Esqueceu a senha?
+                                </p>
+                            </router-link>
                             </div>
                             <div  class="justify-between text-gray-900 items-center flex text-center w-full  sm:mt-3 mt-8 2xl:mt-5">
                                     <div class="flex items-center ">
-                                        <span class="mr-2 font-sans font-bold text-xl text-gray-700 2xl:text-2xl">1º ACESSO? </span>
-                                        <p class="  text-red-600 font-bold text-xl" ><router-link to="/Registrar"  > Cadastre-se!!</router-link></p>
+                                        <span class="mr-2 font-sans font-bold text-lg text-gray-700 2xl:text-md">1º Acesso ? </span>
+                                        <p class="  text-red-600 font-bold text-lg" ><router-link to="/Registrar"  > Cadastre-se!!</router-link></p>
                                     </div>
                                     <div>
                                         <router-link to="/help">
@@ -68,7 +70,7 @@
 <script>
 
 import * as firebase from "firebase/app"
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 
 
 export default {
@@ -207,53 +209,7 @@ export default {
                     }
                      
         },
-        // Código de reset de senha
-         async reset(){
-            try{
-               
-            const auth = getAuth();
-           await sendPasswordResetEmail(auth, this.email)
-           .then(()=>{
-                this.$swal({
-                    icon:'success',
-                    title:'Foi enviado uma notificação para seu email!',
-                    showConfirmButton: false,
-                    timer: 2500
-
-                    })
-           
-                 })
-                 
-            }catch(error){
-                const erro = error.code
-                switch (erro) {
-                    case "auth/invalid-email":
-                        this.$swal({
-                        icon:'error',
-                        title:'Email Inválido!',
-                        })                       
-                        break;
-                    case "auth/user-not-found":
-                        this.$swal({
-                        icon:'error',
-                        title:'Usuário não encontrado!',
-                        })                       
-                        break;
-                       
-                
-                    default:
-                        this.error = error.message
-                        break;
-                }
-                
-                
-
-            }
-           
-        //     .catch((error) => {
-        //         this.error = error.code;
-        //  });
-        }
+      
 
         
     }

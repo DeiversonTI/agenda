@@ -23,7 +23,6 @@ export default {
                 this.$swal({
                     icon:'success',
                     title: 'Desconectado com sucesso!!',
-                    text: 'Obrigado, volte sempre!!!!',
                     showConfirmButton: false,
                     timer: 2000
                 })
