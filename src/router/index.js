@@ -12,6 +12,8 @@ import Start from "../components/start.vue"
 import Help from "../components/help.vue"
 import Eventos from "../components/eventos.vue"
 import ResetPassword from "../components/ResetPassword.vue"
+import EditUser from '../components/editUser.vue'
+
 
 
 const routes = [
@@ -101,6 +103,13 @@ const routes = [
     name: 'resetPassword',
     component: ResetPassword,
   },
+  {
+    path:'/edituser/:docId',
+    name: 'edituser',
+    component: EditUser,
+  },
+  
+  
   
 
  

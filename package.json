@@ -50,5 +50,17 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "> Desenvolvimento de uma aplicação para gerenciar agendamentos dos espaços físico da empresa para eventos.\r - [ ] - Tela de Login\r - [ ] - Tela de Cadastro (novo usuário)\r - [ ] - Tela da aplicação Principal (onde será a tela de seleção dos itens)\r - [ ] - Banco de Dados\r - [ ] - Desenvolvimento do DB com firebase\r - [ ] - Tela de envio da aplicação após enviar o formulário",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeiversonTI/agenda.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeiversonTI/agenda/issues"
+  },
+  "homepage": "https://github.com/DeiversonTI/agenda#readme"
 }

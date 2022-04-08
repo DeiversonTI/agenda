@@ -34,21 +34,21 @@
 
       <!-- Main -->
       <div class="   mt-4 w-full h-auto  ">
-        <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-xl 2xl:border-2  flex flex-col justify-start">
+        <div class=" bg-blue-200 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-xl 2xl:border-2  flex flex-col justify-start">
           <!-- Cabeçalho do formulário -->
           <div class="mb-4 mt-8">
             <h1 class="text-center font-sans text-3xl">
-              Cadastro de Eventos
+              Editar Usuário
             </h1>
           </div>
           <!-- formulario de arquivos logado -->
           <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
-            <form @submit.prevent="clicar(), backUp()"  class="space-y-6 ">
+            <form @submit.prevent="updataUser()"  class="space-y-6 ">
               <!-- Data do Evento-->
 
               <div>               
                    <label class="flex" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                   <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
+                   <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="userGetPost.nome" class="border-2  border-gray-400 w-full rounded-md" />
                    
               </div>
               <div>
@@ -57,7 +57,7 @@
                   </div>
                   <div class="flex">
                   <div>
-                    Dia:<select id="data" required class="px-2 border-2 rounded-md mr-2 border-gray-400 " v-model="form.dia">
+                    Dia:<select id="data" required class="px-2 border-2 rounded-md mr-2 border-gray-400 " v-model="userGetPost.dia">
                     <option value="01">01</option>
                     <option value="02">02</option>
                     <option value="03">03</option>
@@ -93,7 +93,7 @@
                 </div>
                 <div>
                   Mês:
-                  <select  id="data" required class="px-3 border-2 rounded-md mr-2 border-gray-400"  v-model="form.mes">
+                  <select  id="data" required class="px-3 border-2 rounded-md mr-2 border-gray-400"  v-model="userGetPost.mes">
                     <option value="01">Janeiro</option>
                     <option value="02">Fevereiro</option>
                     <option value="03">Março</option>
@@ -111,7 +111,7 @@
                 </div>
                  <div>
                    Ano:
-                  <select @click.prevent="dataUser()" id="data" required class="px-2 border-2 rounded-md border-gray-400"  v-model="form.ano">
+                  <select @click.prevent="dataUser()" id="data" required class="px-2 border-2 rounded-md border-gray-400"  v-model="userGetPost.ano">
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
@@ -132,8 +132,8 @@
               <!-- Horário do Evento -->
               <div>
                 <label class="flex"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <input type="time" id="hora"  v-model="form.horario" name="hora" min="07:10" max="19:00" class=" mr-2  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
-                <input type="time" id="hora"  v-model="form.horario_one" name="hora" min="07:10" max="19:00" class="  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
+                <input type="time" id="hora"  v-model="userGetPost.horario" name="hora" min="07:10" max="19:00" class=" mr-2  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
+                <input type="time" id="hora"  v-model="userGetPost.horario_one" name="hora" min="07:10" max="19:00" class="  border-2 border-gray-400 2xl:w-36 w-1/3 rounded-md " required>
                 <p class=" text-base font-bold text-red-600 ">Os eventos terão a duração de 40min, exceto, agendamentos.</p>
                
               </div>
@@ -143,7 +143,7 @@
               <!-- Seleção da Situação -->
                 <div>
                 <label class="flex"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
+                <select id="action" name="action" v-model="userGetPost.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
                   <option value="Salão">Salão</option>
                   <option value="Jardim Sensorial">Jardim Sensorial</option>
                   <option value="Agendamentos">Agendamentos</option>
@@ -161,7 +161,7 @@
              
               <div  >
                 <label class="flex" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
+                <select  id="setor" name="setor" v-model="userGetPost.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
                   <option value="Diretoria">Diretora</option>
                   <option value="Assistente-Social">Assistente-Social</option>
                   <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
@@ -176,10 +176,10 @@
               </div> 
               <!-- <Setor/> -->
 
-                   <!-- Seleção de Seguimento -->
+              <!-- Seleção de Seguimento -->
               <div>
                 <label class="flex" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select @click="pegarData()" id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
+                <select @click="pegarData()" id="seg" name="seg" v-model="userGetPost.seguimento" class="border-2 border-gray-400 w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
                   <option value="Fundamental-I">Fundamental-I</option>
                   <option value="Fundamental-II">Fundamental-II</option>
                   <option value="Edu-Infantil">Edu-Infantil</option>
@@ -204,19 +204,11 @@
                   rows="4"
                   cols="41"
                   class=" border-2 border-gray-400 w-full rounded-md pl-2 pt-1" 
-                  v-model="form.motivo"
+                  v-model="userGetPost.motivo"
                   required
                 ></textarea>
               </div>
-              <!-- <Motivo/> -->
-
-              <!-- upload -->
              
-              <!-- <Upload /> -->
-
-              <!-- link -->
-
-              <!-- <Link/> -->
               <div>
                 <label for="linkEnviar">Link: </label>
                 <input
@@ -225,48 +217,32 @@
                   id="linkEnviar"
                   placeholder="Adicione seu link aqui..."
                   class=" border-gray-300 px-1   border-2  w-full rounded-md"
-                  v-model="form.link"
+                  v-model="userGetPost.link"
                 />
               </div>
               <div>
                 <div class="flex font-bold text-red-500 items-center justif-start"><p class="text-red-500 ml-1 font-extrabold mr-2">*</p> Obrigatório.</div>
               </div>
-              <div class="bg-gray-100">
-                <div>
-                  <input class="bg-gray-100" v-model.trim="form.info" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.coordFI" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.coordFII" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.coordEI" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.social" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.diretoria" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.secretaria" type="text" disabled >
-                  <input class="bg-gray-100" v-model.trim="form.tesouraria" type="text" disabled >
-                 
-                </div>
-              </div>
 
               <!-- Botão de submit -->
               <div class="flex  w-full items-center justify-center pb-12 ">
-               
-                  
-                     <router-link to="usertela">
-                        <div title="Voltar tela usuário" class="bg-blue-600 flex items-center px-4 py-2 rounded-md mr-4 text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                          </svg>
-                        Voltar
-                        </div>
-                     </router-link>
+                  <router-link :to="{name: 'usertela'}">
+                    <div title="Voltar tela usuário" class="bg-blue-600 flex items-center px-4 py-2 rounded-md mr-4 text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                      </svg>
+                    Voltar
+                    </div>
+                  </router-link>
                  
                   <div>
                       <input
                         title="Enviar formulário"
                         type="submit"
-                        value="Enviar"
+                        value="Salvar"
                         class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
                       />
                   </div>
-         
               </div>
             </form>
           </div>
@@ -281,87 +257,99 @@
 </template>
 <script>
 
-
 import {getAuth, onAuthStateChanged } from "firebase/auth";
-// import * as firebase from "firebase/app";
-import db from "../components/db/dbConfig";
-import {  collection,  getFirestore, addDoc, getDocs } from "firebase/firestore";
+import {  collection,  getFirestore,  getDocs, doc, getDoc,setDoc } from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 import Footer from "../components/footer.vue"
-// import Upload from "../components/compLogado/uploadLogado.vue"
-// import Data from "../components/compLogado/dataLogado.vue"
-// import DataUser from "../components/compLogado/dataUser"
-
-// import dataUser from '../components/compLogado/dataUser';
-// import getUser from "../components/db/getUser"
-
 
 export default {
     name:"auth",
     components:{
         Logado,
         Footer,
-        // Upload,
-        // Data,
-        
     },
-   
-    
+
     data(){
         return{
-         
             email:'',
             disabled: true,
             dataDia:[],
             usuario: '',
-            
-            
-            
-            form:{                    
-                    
-                    nome:null,
-                    dia: null,
-                    mes:null,
-                    ano:null,
-                    horario:null,
-                    horario_one:null,
-                    responsavel: null,
-                    situacao: null,
-                    seguimento:null,
-                    motivo: null,
-                    arquivo: null,
-                    link:null,
-                    info:null,
-                    coordFI:null,
-                    coordFII:null,
-                    coordEI:null,
-                    social:null,
-                    diretoria:null,
-                    secretaria:null,
-                    tesouraria:null,
-
-
+            userId:null,
+            userRef: null,
+            userGetPost:{                    
+              nome:null,
+              dia: null,
+              mes:null,
+              ano:null,
+              horario:null,
+              horario_one:null,
+              responsavel: null,
+              situacao: null,
+              seguimento:null,
+              motivo: null,
+              arquivo: null,
+              link:null,
+              info:null,
+              coordFI:null,
+              coordFII:null,
+              coordEI:null,
+              social:null,
+              diretoria:null,
+              secretaria:null,
+              tesouraria:null,
             }
-        }
-            
+        }            
     },
    
      async created(){
       //  APRESENTA NA TELA O USUÁRIO CONECTADO
-            db;
-            const dbuser = getAuth();
-                onAuthStateChanged(dbuser, (user) => {
-                  if(user.displayName === null){
-                     this.usuario = user.email
-                  }else{
-                    this.usuario = user.displayName
-                  }
-                          
-            });
- 
+      const dbuser = getAuth();
+      onAuthStateChanged(dbuser, (user) => {
+        if(user.displayName === null){
+            this.usuario = user.email
+        }else{
+          this.usuario = user.displayName
+        }
+                    
+      });
+      const db = getFirestore()
+      let cityId = this.$route.params.docId
+      this.userId = cityId
+      console.log("Id Userid", cityId)
+
+      let userRef  = doc(db, "usuarios", this.userId)
+      this.userRef = userRef
+      let user = await getDoc(this.userRef)
+      if (user.exists()) {
+      
+        this.userGetPost = user.data()
+      } else {
+        console.log("Usuario não enconstrado!")
+      }
+      
+      console.log(user.data())
+    
       },
   
      methods: {
+      
+       async updataUser(){
+         
+          const db  = getFirestore()
+            const userGetRef = doc(db, "usuarios", this.userId);
+            await setDoc(userGetRef, this.userGetPost)
+            .then(()=>{
+                alert('Atualizado com Sucesso!')
+              }).then(()=>{
+                setTimeout(() => {
+                  this.$router.push({name: 'usertela'})
+                }, 2000);
+                
+              }).catch((error)=>{
+                    alert(error.message)
+            })
+       },
 
       // FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
        dataUser(){
@@ -369,7 +357,7 @@ export default {
         const dataDia = dataFull.getDate();
         const mesDia = dataFull.getMonth()+1
             
-         if(this.form.dia < dataDia && this.form.mes <= mesDia){
+         if(this.userGetPost.dia < dataDia && this.userGetPost.mes <= mesDia){
          
              this.$swal({
                icon:'warning',
@@ -377,7 +365,7 @@ export default {
             
              })
                         
-         }else if(this.form.dia == dataDia && this.form.mes == mesDia){
+         }else if(this.userGetPost.dia == dataDia && this.userGetPost.mes == mesDia){
          
              this.$swal({
                icon:'error',
@@ -394,7 +382,6 @@ export default {
           this.disabledUser = !this.disabledUser;
 
       },
-      
 
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
@@ -411,7 +398,7 @@ export default {
             
 
            
-            if(this.form.dia === dia && this.form.mes === mes && this.form.ano === ano && hora === this.form.horario && this.form.situacao === sitUser){
+            if(this.userGetPost.dia === dia && this.userGetPost.mes === mes && this.userGetPost.ano === ano && hora === this.userGetPost.horario && this.userGetPost.situacao === sitUser){
               this.$swal({
               icon:'error',
               title: 'Data ou hora em uso!!'
@@ -420,7 +407,7 @@ export default {
                 this.$router.go({name:'auth'})
               }, 2500);
                                
-            }else if(this.form.dia != dia){
+            }else if(this.userGetPost.dia != dia){
 
               console.log("Continua o fluxo")
              
@@ -430,106 +417,6 @@ export default {
       })
 
     },
-
-   
-
-     async clicar() {
-     try{
-   
-          const dbUser = getFirestore();
-          const authentication = getAuth();
-          const userConnected = authentication.currentUser.uid; 
-
-        const usuarioDb = {
-
-        user_id:userConnected,
-        
-        nome:this.form.nome,
-        dia: this.form.dia,
-        mes: this.form.mes,
-        ano: this.form.ano,
-        horario: this.form.horario,
-        horario_one: this.form.horario_one,
-        responsavel: this.form.responsavel,
-        situacao: this.form.situacao,
-        seguimento:this.form.seguimento,
-        motivo: this.form.motivo,
-        link: this.form.link,
-        info:this.form.info,
-        coordFI:this.form.coordFI,
-        coordFII:this.form.coordFII,
-        coordEI:this.form.coordEI,
-        social:this.form.social,
-        diretoria:this.form.diretoria,
-        secretaria:this.form.secretaria,
-        tesouraria:this.form.tesouraria,
-        data:new Date().toLocaleString(),
-        
-        }
-       
-      
-      //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
-        
-       this.$swal({
-        title: 'As informações estão completas?',
-        showCancelButton: true,
-        confirmButtonText: 'Salvar',
-        
-      }).then((result) => {
-          if (result.isConfirmed) {
-          addDoc(collection(dbUser, "usuarios"), usuarioDb)
-        
-       .then(()=>{
-        setTimeout(() => {
-            this.$router.replace({name: 'usertela'})
-             
-         }, 1500);
-          })
-          console.log("Salvo")
-          // this.$swal('Saved!', '', 'success')
-        } else if (result.isDenied) {
-         
-            this.$swal('Não foi salvo', '', 'info')
-          
-        }
-        
-      })
-      
-      }catch(error){
-        this.error = error.message;
-      }
-         
-    },
-// *****************************************************************//
-    // BACKUP DO BANCO DE DADOS.
-     async backUp() {
-       
-          const dbUser = getFirestore();
-          const authentication = getAuth();
-          const userConnected = authentication.currentUser.uid; 
-          
-          
-          const usuarioBackup = {
-              user_id:userConnected,
-              nome:this.form.nome,
-              dia: this.form.dia,
-              mes: this.form.mes,
-              ano: this.form.ano,
-              horario: this.form.horario,
-              horario_one: this.form.horario_one,
-              responsavel: this.form.responsavel,
-              situacao: this.form.situacao,
-              seguimento:this.form.seguimento,
-              motivo: this.form.motivo,
-              link: this.form.link,
-              data:new Date().toLocaleString(),
-        }
-
-        await addDoc(collection(dbUser, "backup"), usuarioBackup)
-    
-      }
-       //  FIM DO BACKUP DO BANCO DE DADOS
-      //  **************************************************************************//
       
    }
  
