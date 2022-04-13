@@ -88,8 +88,43 @@ export default {
                         // this.guarda = cities
                         
                 });
-                console.log(cities)
+                
                  this.guarda = cities
+
+
+
+                 //****************************************************** */
+                        let teste = 
+                        [
+                        {nome: 'Deiverson', cor: '2022/08/02'},
+                        {nome: 'Chaves', cor: '2022/04/01' },
+                        {nome: 'Araujo', cor: '2022/06/04' },
+                        {nome: 'Carlos', cor: '2022/07/12' },
+                        {nome: 'Deiverson', cor: '2022/12/02'},
+                        {nome: 'Chaves', cor: '2022/01/25' },
+                        {nome: 'Araujo', cor: '2022/05/04' },
+                        {nome: 'Carlos', cor: '2022/03/15' },
+
+                        ]
+
+                        
+                        teste.sort((a, b)=>{
+
+                                if(a.cor > b.cor) return 1
+                                if (a.cor < b.cor) return -1
+                                return 0
+                             
+                               
+                                
+                        });
+                       
+                        console.log(teste)
+                      
+
+                        
+                        
+                //************************************************************* */
+
 
         },
         methods:{

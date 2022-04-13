@@ -66,13 +66,9 @@ export default {
                     showConfirmButton: false,
                     timer: 2500
 
-                    })
-                 
-                        this.$router.go({name: 'resetPassword'})
-                  
-                  
-           
-                 })
+                })
+                    this.$router.go({name: 'resetPassword'})
+           })
                  
             }catch(error){
                 const erro = error.code
