@@ -47,15 +47,20 @@
                   
                   <div>
                     <div>
-                      <label  for="data" class="flex">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
-                      <input  type="date" name="" id="data" v-model="form.dataNew" class="px-2 border-2 rounded-md mr-2 border-gray-400 ">
+                      <label   for="data" class="flex">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
+                      <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border-2 rounded-md mr-2 border-gray-400 ">
                     </div>
                   </div>
                   <!-- Horário do Evento -->
                   <div>
+                    
                     <label class="flex"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <div class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                      <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFull" required>
+                   
+                    <!-- <div class=" lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                        <span>Fundamental II</span>
+                      <div v-if="FundII === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                     
+                      <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundii" >
                         <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
                         <option value="07h10-07h55">07h10-07h55</option>
                         <option value="07h55-08h40">07h55-08h40</option>
@@ -65,7 +70,19 @@
                         <option value="10h30-11h15">10h30-11h15</option>
                         <option value="11h15-12h">11h15-12h</option>
                         <option value="12h-12h45">12h-12h45</option>
+                      </select>
+                    </div>
+                      <div v-else>
+                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                          <div>
+                            <div class="text-xl font-medium text-black">Fundamental II - Descupe! Todo o horário da manhã, já está ocupado!</div>
+                          </div>
+                        </div>
+                    </div>
+                     <span>Fundamental I</span>
+                     <div v-if="FundI === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
                       
+                      <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundi" >                    
                         <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
                         <option value="13h15-14h">13h15-14h</option>
                         <option value="14h-14h45">14h-14h45</option>
@@ -73,6 +90,77 @@
                         <option value="14h20-15h15">14h20-15h15</option>
                         <option value="15h10-15h55">15h10-15h55</option>
                         <option value="15h15-15h50">15h15-15h50</option>
+                        <option value="15h15-16h">15h15-16h</option>
+                        <option value="16h-16h45">16h-16h45</option>
+                      </select>
+                    </div>
+                     <div v-else>
+                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                          <div>
+                            <div class="text-xl font-medium text-black">Fundamental I - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
+                          </div>
+                        </div>
+                    </div>
+                  
+                     <span>Edu. Infantil</span>
+                     <div v-if="Inf === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                     
+                      <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosInfantil" >
+                        <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
+                        <option value="12h30-13h15">12h30-13h15</option>
+                        <option value="13h15-14h">13h15-14h</option>
+                        <option value="14h-14h25">14h-14h25</option>
+                        <option value="14h25-15h10">14h25-15h10</option>
+                        <option value="15h10-15h55">15h10-15h55</option>
+                        <option value="15h55-16h40">15h55-16h40</option>
+                      </select>
+                    </div>
+                     <div v-else>
+                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                          <div>
+                            <div class="text-xl font-medium text-black">Infantil  - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
+                          </div>
+                        </div>
+                    </div>
+                    <span>Eventos</span>
+                    <div v-if="Eventos === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                      
+                      <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosEventos" >
+                        <option class="text-lg bg-red-600 text-bold text-white">Eventos</option>
+                        <option value="07h10-12h">07h10-12h</option>
+                        <option value="12h30-17h">12h30-17h</option>
+                        <option value="17h30-21h">17h30-21h</option>
+                        <option value="18h-21h">18h-21h</option>
+                      </select>
+                    </div>
+                     <div v-else>
+                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                          <div>
+                            <div class="text-xl font-medium text-black">Eventos  - Desculpe! Esse horário já está em uso!</div>
+                          </div>
+                        </div>
+                    </div>
+                    </div> -->
+                    
+                    <div  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                      <select @change="getDataNew" name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFull" required>
+                        <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
+                        <option value="07h10-07h55">07h10-07h55</option>
+                        <option value="07h55-08h40">07h55-08h40</option>
+                        <option value="08h40-9h25">08h40-9h25</option>
+                        <option value="09h25-10h10">09h25-10h10</option>
+                        <option value="09h45-10h30">09h45-10h30</option>
+                        <option value="10h30-11h15">10h30-11h15</option>
+                        <option value="11h15-12h">11h15-12h</option>
+                        <option value="12h-12h45">12h-12h45</option>
+                      
+                        <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
+                        <option value="13h15-14h">13h15-14h</option>
+                        <option value="14h-14h45">14h-14h45</option>
+                        <option value="14h25-15h10">14h25-15h10</option>
+                        <option value="14h20-15h15">14h20-15h15</option>
+                        <option value="14h20-15h15">15h05-15h50</option>
+                        <option value="15h10-15h55">15h10-15h55</option>
                         <option value="15h15-16h">15h15-16h</option>
                         <option value="16h-16h45">16h-16h45</option>
                         
@@ -93,9 +181,11 @@
                     </div>
                   </div>
                   <!-- Seleção da Situação -->
+                  <div v-if="getDat === true">
                   <div>
                     <label class="flex"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
+                    <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
+                     <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
                       <option value="Salão">Salão</option>
                       <option value="Jardim Sensorial">Jardim Sensorial</option>
                       <option value="Agendamentos">Agendamentos</option>
@@ -203,6 +293,10 @@
                       />
                     </div>
                   </div>
+                  </div>
+                  <div v-else class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
+                    <h3> A DATA <span style="color:#fff; font-family: sans-serif; font-weight: 600;" >{{form.dataNew}}</span> E O HORÁRIO <span style="color:#fff; font-family: sans-serif; font-weight: 600;">{{form.horariosFundi}}{{form.horariosFundii}}{{form.horariosEventos}}{{form.horariosInfantil}}</span>  JÁ ESTÃO EM USO!</h3>
+                  </div>
                 </form>
               </div>
             </div>
@@ -240,6 +334,14 @@ export default {
             usuario: '',
             fullData: null,
             anoComp:null,
+            getDat: true,
+            FundII: true,
+            FundI: true,
+            Inf: true,
+            Eventos: true,
+            anoFull: null,
+            disabledData: true,
+            disabledDataII: true,
             
 
             form:{                    
@@ -262,6 +364,10 @@ export default {
               secretaria:null,
               tesouraria:null,
               horaEventos:null,
+              // horariosFundi:null,
+              // horariosFundii:null,
+              // horariosInfantil:null,
+              // horariosEventos:null,
               horariosFull:null,
               dataNew:null,
 
@@ -283,20 +389,271 @@ export default {
                   }
                           
             });
+
+            // this.getDataNew();
+            // this.pegarData()
+            // console.log(this.anoFull)
+           
            
             
       },
   
      methods: {
+
+      
+       async getDataNew() { 
+        const dbUser = getFirestore();
+         const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
+            querySnapshot.forEach((doc) => {
+
+            const hFull = doc.data().horariosFull;
+            const sitUser = doc.data().situacao;
+            const getFull = doc.data().dataNew;
+           
+          //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
+          if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
+            
+            alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
+            setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
+                
+                  
+          //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO, CASO ALGUÉM USO A DATA FULL        
+          } else if (this.form.dataNew === getFull && hFull === '07h10-12h' && this.form.situacao === sitUser) {
+              if
+              (
+                this.form.horariosFull === '07h10-07h55' ||
+                this.form.horariosFull === '07h55-08h40' ||
+                this.form.horariosFull === '08h40-9h25' ||
+                this.form.horariosFull === '09h25-10h10' ||
+                this.form.horariosFull === '09h45-10h30' ||
+                this.form.horariosFull === '10h30-11h15' ||
+                this.form.horariosFull === '11h15-12h' ||
+                this.form.horariosFull === '12h-12h45'
+              )
+              {
+                alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - FundII')
+
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+              }, 2500);
+              } 
+            
+          } else if (this.form.dataNew === getFull && hFull === '12h30-17h' && this.form.situacao === sitUser) {
+              if
+              (
+                //FUNDAMENTAL I
+                this.form.horariosFull === '13h15-14h' ||
+                this.form.horariosFull === '14h-14h45' ||
+                this.form.horariosFull === '14h25-15h10' ||
+                this.form.horariosFull === '14h20-15h15' ||
+                this.form.horariosFull === '15h10-15h55' ||
+                this.form.horariosFull === '15h05-15h50' ||
+                this.form.horariosFull === '15h15-16h' ||
+                this.form.horariosFull === '16h-16h45' ||
+                //INFANTIL
+                this.form.horariosFull === '12h30-13h15' ||
+                this.form.horariosFull === '13h15-14h' ||
+                this.form.horariosFull === '14h-14h25' ||
+                this.form.horariosFull === '14h25-15h10' ||
+                this.form.horariosFull === '15h10-15h55' ||
+                this.form.horariosFull === '15h55-16h40' 
+              )
+              {
+                alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
+
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+              }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && this.form.situacao === sitUser &&  this.form.horariosFull === '12h30-17h') {
+              if (
+               //FUNDAMENTAL I
+              hFull === '13h15-14h' ||
+              hFull === '14h-14h45' ||
+              hFull === '14h25-15h10' ||
+              hFull === '14h20-15h15' ||
+              hFull === '15h10-15h55' ||
+              hFull === '15h05-15h50' ||
+              hFull === '15h15-16h' ||
+              hFull === '16h-16h45' ||
+              //INFANTIL
+              hFull === '12h30-13h15' ||
+              hFull === '13h15-14h' ||
+              hFull === '14h-14h25' ||
+              hFull === '14h25-15h10' ||
+              hFull === '15h10-15h55' ||
+              hFull === '15h55-16h40' 
+              )
+              {
+                alert('Desculpa! Horários e datas já em uso!')
+
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull &&  this.form.horariosFull === '07h10-12h' && this.form.situacao === sitUser) {
+            if
+            (
+              hFull === '07h10-07h55' ||
+              hFull === '07h55-08h40' ||
+              hFull === '08h40-09h25' ||
+              hFull === '09h25-10h10' ||
+              hFull === '09h45-10h30' ||
+              hFull === '10h30-11h15' ||
+              hFull === '11h15-12h' ||
+              hFull === '12h-12h45'
+            )
+            {
+              alert('Desculpa! Datas em uso! - FundII')
+
+              setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
+            } 
+            
+          } else if (this.form.dataNew === getFull &&  hFull === '09h25-10h10'  && this.form.situacao === sitUser) {
+            if (this.form.horariosFull === '09h45-10h30')
+            {
+              alert('Desculpa! Data em uso! - FundII ')
+
+              setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
+            } 
+            
+          } else if (this.form.dataNew === getFull &&  hFull === '09h45-10h30'  && this.form.situacao === sitUser) {
+            if (this.form.horariosFull === '09h25-10h10')
+            {
+              alert('Desculpa! Data em uso! - FundII ')
+
+              setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
+            } 
+            //BLOQUEIOS DO FUNDAMENTAL I - MUITOS HORÁRIOS PICADOS
+          } else if (this.form.dataNew === getFull && hFull === '14h-14h45' && this.form.situacao === sitUser) {
+              if ( this.form.horariosFull === '14h25-15h10' || this.form.horariosFull === '14h20-15h15' ) {
+                alert('Data 14h-14h45 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
+              if ( this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
+                alert('Data 14h25-15h10 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && hFull === '14h20-15h15' && this.form.situacao === sitUser) {
+              if (  this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h25-15h10'
+                    ) {
+                alert('Data 14h20-15h15 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
+              if (this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
+                alert('Data 14h25-15h10 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && hFull === '15h10-15h55' && this.form.situacao === sitUser) {
+              if ( this.form.horariosFull === '15h05-15h50' || this.form.horariosFull === '15h15-16h' ) {
+                alert('Data 15h10-15h55 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          }else if (this.form.dataNew === getFull && hFull === '15h05-15h50' && this.form.situacao === sitUser) {
+              if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h15-16h' ) {
+                alert('Data 15h05-15h50 em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          } else if (this.form.dataNew === getFull && hFull === '15h15-16h' && this.form.situacao === sitUser) {
+              if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h05-15h50' ) {
+                alert('Data 15h15-16h em uso!')
+                setTimeout(() => {
+                this.$router.go({name:'auth'})
+                }, 2500);
+              } 
+          }
+          //************************************************************************************************ */
+          //BLOQUEIO FUNDAMETAL I  - HORARIOS PICADOS INVERSO
+          // else if (this.form.dataNew === getFull && this.form.horariosFull === '14h-14h45' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h25-15h10' || hFull === '14h20-15h15' ||
+          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+          //       alert('Data - INVERSA 14h-14h45 em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h25-15h10' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h-14h45' || hFull === '14h20-15h15' ||
+          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+          //       alert('Data   INVERSA 14h25-15h10 em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+          //       alert('Data  INVERSA 14h20-15h15 em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+          //       alert('Data  INVERSA  14h20-15h15 em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '15h10-15h55' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+          //           hFull === '14h20-15h15' || hFull === '15h15-16h') {
+          //       alert('Data  INVERSA 15h10-15h55 em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // }else if (this.form.dataNew === getFull && this.form.horariosFull === '15h15-16h' && this.form.situacao === sitUser) {
+          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+          //           hFull === '14h20-15h15' || hFull === '15h10-15h55') {
+          //       alert('Data   INVERSA 15h15-16h em uso, o restante bloqueado')
+          //       setTimeout(() => {
+          //       this.$router.go({name:'auth'})
+          //       }, 2500);
+          //     } 
+          // }
+           
+        })
+       
+       },
          
         
       // FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
        dataUser(){
-        const dataFull = new Date();
-        const dataDia = dataFull.getDate();
-        const mesDia = dataFull.getMonth()+1
+        // const dataFull = new Date();
+        // const dataDia = dataFull.getDate();
+        // const mesDia = dataFull.getMonth()+1;
+        // const anoFull = dataFull.getFullYear();
+        // const fullData = mesDia+'/'+dataDia+'/'+anoFull;
+        // this.anoFull = fullData;
+        const newData = new Date().toDateString();
+        // console.log(fullData)
+        const dataNew = this.form.dataNew
             
-         if(this.form.dia < dataDia && this.form.mes <= mesDia){
+         if(dataNew <= newData){
          
              this.$swal({
                icon:'warning',
@@ -304,15 +661,16 @@ export default {
             
              })
                         
-         }else if(this.form.dia == dataDia && this.form.mes == mesDia){
-         
-             this.$swal({
-               icon:'error',
-               title:'Marcar com 12hs de antecedência!',
-                    
-             })
-            
          }
+        //  else if(dataNew === fullData){
+         
+        //      this.$swal({
+        //        icon:'error',
+        //        title:'Marcar com 12hs de antecedência!',
+                    
+        //      })
+            
+        //  }
        },
 
       // FIM FUNÇÃO BLOQUEIO
@@ -329,44 +687,34 @@ export default {
            
             const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
-       
-            let horariosFull = doc.data().horariosFull;
+              console.log(doc.data())
+
+            // let horariosEventos = doc.data().horariosEventos;
+            // let horariosFundii = doc.data().horariosFundii;
+            // let horariosFundi = doc.data().horariosFundi;
+            // let horariosInfantil = doc.data().horariosInfantil;
            
-            let sitUser = doc.data().situacao;
+            // let sitUser = doc.data().situacao;
 
-            let getFull = doc.data().dataNew
-            
+            // let getFull = doc.data().dataNew
 
-           
-            // if(this.form.dia === dia && this.form.mes === mes && this.form.ano === ano && hora === this.form.horario && this.form.situacao === sitUser){
-            // if(fullDataInt === this.fullData && 
-            //    horariosFull === this.form.horariosFull &&
-            // this.form.situacao === sitUser)
-            //  if(this.form.dia === dia && this.form.mes === mes && this.form.ano === ano && 
-            //    horariosFull === this.form.horariosFull &&
-            // this.form.situacao === sitUser)
-             if(this.form.dataNew === getFull && 
-               horariosFull === this.form.horariosFull &&
-            this.form.situacao === sitUser)
-            {
-              
-              this.$swal({
-               
-              icon:'error',
-              title: 'Data ou Hora em uso!!'
-               
-              })
-              setTimeout(() => {
-                this.$router.go({name:'auth'})
-              }, 2500);
-                               
-            }else if(this.form.dataNew != getFull){
+            // if(this.form.dataNew == getFull && this.horariosFundii == horariosFundii && this.form.situacao == sitUser || 
+            //     this.form.dataNew === getFull && this.horariosFundii === horariosFundi && this.form.situacao === sitUser ||
+            //     this.form.dataNew === getFull && this.horariosInfantil === horariosInfantil && this.form.situacao === sitUser ||
+            //     this.form.dataNew === getFull && this.horariosEventos === horariosEventos && this.form.situacao === sitUser)
+            // {
+            //    alert(`EVENTOS - Não foi possível reservar a data: ${getFull}, pois os horários e o local: ${sitUser}, já estão em uso! `)
+            //   setTimeout(() => {
+            //     this.$router.go({name:'auth'})
+            //   }, 2500);
+            // }                 
+            // }else if(this.form.dataNew != getFull){
 
-              console.log("Continua o fluxo")
+            //   console.log("Continua o fluxo")
              
-            }else{
-              console.log("Procure o suporte técnico")
-            }
+            // }else{
+            //   console.log("Procure o suporte técnico")
+            // }
       })
 
     },
@@ -386,6 +734,10 @@ export default {
         
         nome:this.form.nome,
         dataAtual: this.fullData,
+        // horariosFundi:this.form.horariosFundi,
+        // horariosFundii:this.form.horariosFundii,
+        // horariosInfantil:this.form.horariosInfantil,
+        // horariosEventos:this.form.horariosEventos,
         horariosFull:this.form.horariosFull,
         // compData:this.form.compData,
         responsavel: this.form.responsavel,
@@ -461,6 +813,10 @@ export default {
               link: this.form.link,
               data:new Date().toLocaleString(),
               horaEventos:this.form.horaEventos,
+              // horariosFundi:this.form.horariosFundi,
+              // horariosFundii:this.form.horariosFundii,
+              // horariosInfantil:this.form.horariosInfantil,
+              // horariosEventos:this.form.horariosEventos,
               horariosFull:this.form.horariosFull,
               // compData:this.form.compData,
               dia:this.form.dia,
@@ -481,3 +837,16 @@ export default {
     
 }
 </script>
+<style scoped>
+.elseMensagem {
+  width: 100%;
+  height: 200px;
+  background-color: red;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+</style>

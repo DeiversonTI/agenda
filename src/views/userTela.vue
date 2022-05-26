@@ -80,7 +80,7 @@
                   <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                       <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dataNew}}</li>
                       <li class=""><span class="text-xl font-bold">Nome: </span>   {{agendas.nome}} </li>
-                      <li class=""><span class="text-xl font-bold">Horário: </span>   {{agendas.horariosFull}} </li>
+                      <li class=""><span class="text-xl font-bold">Horário: </span>   {{agendas.horariosFull}}</li>
                       <!-- <li class=""><span class="text-xl font-bold">Eventos e Encontros: </span> {{agendas.horaEventos}}</li> -->
                       <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>
                       <li class=""><span class="text-xl font-bold">Local: </span> {{agendas.situacao}}</li>
@@ -241,6 +241,10 @@ export default {
         id:doc.id,
         nome:doc.data().nome,
         dataNew:dateString,
+        // horariosFundi:doc.data().horariosFundi,
+        // horariosFundii:doc.data().horariosFundii,
+        // horariosInfantil:doc.data().horariosInfantil,
+        // horariosEventos:doc.data().horariosEventos,
         horariosFull:doc.data().horariosFull,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
