@@ -499,10 +499,13 @@ export default {
         if (docSnap.exists()) {
         const snapShot = docSnap.data().user_id;
         const snapShotCoord = docSnap.data().seguimento;
-          if(userAuth === snapShot || userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
-          userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Fundamental-II" ||
-          userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Fundamental-I" || 
-          userAuth === 'UPRENvEOdPd6Sjru8RD5JjrUEUt2' && snapShotCoord === "Edu-Infantil" )
+          if(userAuth === snapShot ||
+          userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
+          userAuth === 'q3whUxpWc5V8L0hkgoJNsrRZDXt1' && snapShotCoord === "Fundamental-I" || 
+          userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-I" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" )
           {        
             deleteDoc(doc(db, "usuarios", id))
                 .then(()=>{
