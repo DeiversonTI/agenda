@@ -39,6 +39,7 @@
               <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
                 <form @submit.prevent="clicar()" class="space-y-6 ">
                   <!-- Data do Evento-->
+                
 
                   <div>               
                       <label class="flex" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
@@ -261,7 +262,7 @@
                   <div>
                     <div class="flex text-base font-bold text-red-500 items-center justif-start"><p class="text-red-500 ml-1 font-extrabold mr-2">*</p> Itens Obrigatório.</div>
                   </div>
-                  <div class="bg-gray-100">
+                  <!-- <div class="bg-gray-100">
                     <div>
                       <input class="bg-gray-100" v-model.trim="form.info" type="text" disabled >
                       <input class="bg-gray-100" v-model.trim="form.coordFI" type="text" disabled >
@@ -271,8 +272,9 @@
                       <input class="bg-gray-100" v-model.trim="form.diretoria" type="text" disabled >
                       <input class="bg-gray-100" v-model.trim="form.secretaria" type="text" disabled >
                       <input class="bg-gray-100" v-model.trim="form.tesouraria" type="text" disabled >
+                      <input class="bg-gray-100" v-model.trim="form.newDiretora" type="text" disabled >
                     </div>
-                  </div>
+                  </div> -->
 
                   <!-- Botão de submit -->
                   <div class="flex  w-full items-center justify-center pb-12 ">
@@ -346,9 +348,7 @@ export default {
 
             form:{                    
               nome:null,
-              dia: null,
-              mes:null,
-              ano:null,
+              diretora:null,
               responsavel: null,
               situacao: null,
               seguimento:null,
@@ -364,13 +364,8 @@ export default {
               secretaria:null,
               tesouraria:null,
               horaEventos:null,
-              // horariosFundi:null,
-              // horariosFundii:null,
-              // horariosInfantil:null,
-              // horariosEventos:null,
               horariosFull:null,
               dataNew:null,
-
 
             }
         }
@@ -683,11 +678,11 @@ export default {
 
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
-            const dbUser = getFirestore();
+            // const dbUser = getFirestore();
            
-            const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
-            querySnapshot.forEach((doc) => {
-              console.log(doc.data())
+            // const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
+            // querySnapshot.forEach((doc) => {
+            //   console.log(doc.data())
 
             // let horariosEventos = doc.data().horariosEventos;
             // let horariosFundii = doc.data().horariosFundii;
@@ -715,7 +710,7 @@ export default {
             // }else{
             //   console.log("Procure o suporte técnico")
             // }
-      })
+      // })
 
     },
 
@@ -730,36 +725,27 @@ export default {
 
         const usuarioDb = {
 
-        user_id:userConnected,
-        
-        nome:this.form.nome,
-        dataAtual: this.fullData,
-        // horariosFundi:this.form.horariosFundi,
-        // horariosFundii:this.form.horariosFundii,
-        // horariosInfantil:this.form.horariosInfantil,
-        // horariosEventos:this.form.horariosEventos,
-        horariosFull:this.form.horariosFull,
-        // compData:this.form.compData,
-        responsavel: this.form.responsavel,
-        situacao: this.form.situacao,
-        seguimento:this.form.seguimento,
-        motivo: this.form.motivo,
-        link: this.form.link,
-        info:this.form.info,
-        coordFI:this.form.coordFI,
-        coordFII:this.form.coordFII,
-        coordEI:this.form.coordEI,
-        social:this.form.social,
-        diretoria:this.form.diretoria,
-        secretaria:this.form.secretaria,
-        tesouraria:this.form.tesouraria,
-        data:new Date().toLocaleString(),
-        horaEventos:this.form.horaEventos,
-        dia:this.form.dia,
-        mes:this.form.mes,
-        ano:this.form.ano,
-        dataNew:this.form.dataNew,
-        
+          user_id:userConnected,
+          nome:this.form.nome,
+          dataAtual:this.fullData,
+          diretora:this.form.diretora,
+          horariosFull:this.form.horariosFull,
+          responsavel: this.form.responsavel,
+          situacao: this.form.situacao,
+          seguimento:this.form.seguimento,
+          motivo: this.form.motivo,
+          link: this.form.link,
+          info:this.form.info,
+          coordFI:this.form.coordFI,
+          coordFII:this.form.coordFII,
+          coordEI:this.form.coordEI,
+          social:this.form.social,
+          diretoria:this.form.diretoria,
+          secretaria:this.form.secretaria,
+          tesouraria:this.form.tesouraria,
+          data:new Date().toLocaleString(),
+          horaEventos:this.form.horaEventos,
+          dataNew:this.form.dataNew,
         }
        
       
@@ -813,15 +799,7 @@ export default {
               link: this.form.link,
               data:new Date().toLocaleString(),
               horaEventos:this.form.horaEventos,
-              // horariosFundi:this.form.horariosFundi,
-              // horariosFundii:this.form.horariosFundii,
-              // horariosInfantil:this.form.horariosInfantil,
-              // horariosEventos:this.form.horariosEventos,
               horariosFull:this.form.horariosFull,
-              // compData:this.form.compData,
-              dia:this.form.dia,
-              mes:this.form.mes,
-              ano:this.form.ano,
               dataNew:this.form.dataNew,
               
         }

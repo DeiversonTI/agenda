@@ -110,6 +110,7 @@
                                 <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
                                 <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
                                 <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
+                                <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretora}}</div>
                                 <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
                               </div>
                               
@@ -199,6 +200,8 @@ export default {
   const user = await getDocs(q);
   
   user.forEach((doc) => {
+
+    // console.log('TUDO DO BANCO DE DADOS ==> ', doc.data())
  
     //****************************************************************************** */
     //GRAVA O ID DO ARQUIVO GERADO, DENTRO DO BD PARA PODER PEGAR E USAR VIA PARAMETRO
@@ -212,12 +215,14 @@ export default {
     //AS VARIÁVES PEGAM A DATAS DO DB E SÃO CONVERTIDAS PARA APRESENTAR AO USUÁRIO
     //A DATA PADRÃO BRASIL
     //****************************************************************************** */
-    let dia = new Date(doc.data().dataNew).getDate(doc.data().dataNew)+1
-    let mes = new Date(doc.data().dataNew).getMonth(doc.data().dataNew)+1
+    let dia = new Date(doc.data().dataNew).getUTCDate(doc.data().dataNew)
+    // let dia = new Date(doc.data().dataNew).getDate(doc.data().dataNew)+1
+    let mes = new Date(doc.data().dataNew).getUTCMonth(doc.data().dataNew)+1
     let ano = new Date(doc.data().dataNew).getFullYear(doc.data().dataNew)
     let todaData = dia+"/"+mes+"/"+ano
 
-    let dateString = todaData.toLocaleString('pt', {}).replace(/\//g, '/')
+    let dateString = todaData.toLocaleString('pt-BR', {}).replace(/\//g, '/')
+   
 
     //****************************************************************************** */
 
@@ -232,6 +237,8 @@ export default {
     const infantil = process.env.VUE_APP_FIREBASE_EMAIL_INFANTIL
     const diretora = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORIA
     const inspetor = process.env.VUE_APP_FIREBASE_EMAIL_INSPETOR
+    const diretoraNew = process.env.VUE_APP_FIREBASE_EMAIL_DIRETORANEW
+    // console.log(diretoraNew)
    
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
@@ -260,6 +267,7 @@ export default {
         tesouraria:doc.data().tesouraria,
         secretaria:doc.data().secretaria,
         data:doc.data().data,
+        diretora:doc.data().diretora,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -290,6 +298,7 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -319,6 +328,7 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -349,6 +359,7 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -381,6 +392,7 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -411,6 +423,36 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
+        };
+
+          this.agenda.push(dbMonitorUser);
+
+    }
+    // DIRETOR RENATA -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
+     else if(emailUser === diretoraNew){
+
+          const dbMonitorUser = {
+          user_id: userTeste,
+          id:doc.id,
+          nome:doc.data().nome,
+          dataNew:dateString,
+          horariosFull:doc.data().horariosFull,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
+          link: doc.data().link,
+          data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -439,6 +481,7 @@ export default {
           secretaria:doc.data().secretaria,
           link: doc.data().link,
           data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -470,6 +513,7 @@ export default {
         tesouraria:doc.data().tesouraria,
         secretaria:doc.data().secretaria,
         data:doc.data().data,
+        diretora:doc.data().diretora,
         };
 
         this.agenda.push(dbMonitor);
@@ -609,6 +653,15 @@ export default {
           if (pegarUserNew == "tesouraria@ersvp.g12.br" && pegarUser.data().seguimento == "Tesouraria" ) {
                await updateDoc(docRefer, {
                   secretaria: "Tesouraria"
+               });
+              
+            }
+        } if (pegarUser.data().diretora === null) {
+          if (pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ||
+              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-II" ||
+              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-I") {
+               await updateDoc(docRefer, {
+                  diretora: "Dir. Renata"
                });
               
             }
