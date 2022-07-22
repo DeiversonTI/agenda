@@ -14,10 +14,9 @@
 
   <div class="flex justify-center items-center relative z-40">
     <div class="flex gap-4 items-center justify-center w-full">
-      <!-- <div class="lg:px-40 xl:px-56 lg:h-80 md:h-80 sm:h-80 xl:h-80 xl:w-3/4 2xl:h-80  2xl:w-3/5 sm:px-11 w-full mx-4 sm:flex sm:justify-center sm:items-center bg-gray-300  "> -->
       <div class="hidden md:visible md:flex justify-center items-center w-full">
         <div>
-          <img src="../assets/home-logo.jpg" alt="" style="max-width: 95%" />
+          <img src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
         </div>
       </div>
 
@@ -33,7 +32,11 @@
             sm:py-4
             mx-1
             md:mx-8
-            sm:rounded-lg sm:shadow-xl sm:border-l sm:border-t sm:border-opacity-80
+            sm:rounded-lg
+            sm:shadow-xl
+            sm:border-l
+            sm:border-t
+            sm:border-opacity-80
             border-gray-200
           "
         >
@@ -96,10 +99,10 @@
                 type="password"
                 placeholder="Digite sua Senha"
               />
-              <!-- <p class="text-red-500 text-xs italic">Please choose a password.</p> -->
+              
             </div>
             <div class="mb-6">
-                  <div class="w-full text-left">
+              <div class="w-full text-left">
                 <router-link to="resetPassword">
                   <p
                     class="
@@ -107,7 +110,6 @@
                       inline-block
                       align-baseline
                       font-bold
-                      
                       text-xs text-blue-500
                       hover:text-blue-800
                     "
@@ -119,15 +121,15 @@
             </div>
 
             <!-- BOTÕES DO FORMULÁRIO -->
-            
+
             <div
               class="
                 w-full
                 text-center
                 m-auto
-                md:flex md:items-center md:justify-center gap-2
+                md:flex md:items-center md:justify-center
+                gap-2
                 sm:pt-4
-                
               "
             >
               <div>
@@ -148,8 +150,18 @@
                   Logar
                 </button>
               </div>
-             
-               <div class="flex items-center w-full justify-center md:justify-end sm:mt-0 mt-4">
+
+              <div
+                class="
+                  flex
+                  items-center
+                  w-full
+                  justify-center
+                  md:justify-end
+                  sm:mt-0
+                  mt-4
+                "
+              >
                 <p
                   class="
                     text-red-600
@@ -168,45 +180,11 @@
                 </p>
               </div>
             </div>
-            <!-- <div
-              class="
-                justify-evenly
-                sm:justify-between
-                text-gray-900
-                items-center
-                flex
-                text-center
-                w-full
-                sm:mt-3
-                mt-4
-                2xl:mt-5
-              "
-            >
-              <div class="flex items-center w-full justify-end">
-                <p
-                  class="
-                    text-red-600
-                    font-bold
-                    text-md
-                    border
-                    py-1
-                    px-8
-                    border-red-500
-                    rounded-md
-                    shadow-none
-                    hover:bg-red-600 hover:text-white
-                  "
-                >
-                  <router-link to="/Registrar">Cadastrar</router-link>
-                </p>
-              </div>
-            </div> -->
           </form>
         </div>
       </div>
     </div>
   </div>
-  
 
   <svg
     class="z-30 sm:hidden"
@@ -222,25 +200,28 @@
   </svg>
 
   <!-- BOTÃO DE AJUDA -->
-  <router-link class="flex items-center justify-center z-50" style="position:fixed; bottom: 5px; right: 8px;" to="/help">
-  <p class="font-mono text-red-500 font-bold">Ajuda</p>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6  text-red-500 cursor-pointer"
-        title="Ajuda"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-    </router-link>
-  
+  <router-link
+    class="flex items-center justify-center z-50"
+    style="position: fixed; bottom: 5px; right: 8px"
+    to="/help"
+  >
+    <p class="font-mono text-red-500 font-bold">Ajuda</p>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 text-red-500 cursor-pointer"
+      title="Ajuda"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  </router-link>
 </template>
 <script>
 import * as firebase from "firebase/app";
@@ -287,13 +268,7 @@ export default {
             }
           }
         );
-        //    .then(()=>{
-        //        this.$swal({
-        //            icon:'success',
-        //            title: "conectado com sucesso!"
-        //        })
-        //    })
-        //    this.$router.push({name: 'Auth'})
+        
       } catch (error) {
         const erro = error.code;
         switch (erro) {
@@ -348,18 +323,6 @@ export default {
 
           default:
             this.error = error.message;
-          // then(()=>{
-          //     this.$swal({
-          //         icon:'success',
-          //         title: "conectado com sucesso!"
-          //     })
-          // })
-          // .then(()=>{
-          //     setTimeout(() => {
-          //         this.$router.replace({name: 'Auth'})
-          //     }, 2000);
-          // })
-          // this.$router.push({name: 'Auth'})
         }
       }
     },
@@ -373,20 +336,6 @@ export default {
   font-family: Fredoka + One;
   font-weight: 700;
 }
-
-/* input[type="email"] {
-  background-image: url(../assets/mail.png);
-  background-size: 1.2em;
-  background-repeat: no-repeat;
-  background-position: 7px 9px;
-}
-
-input[type="password"] {
-  background-image: url(../assets/cadeado.png);
-  background-size: 1.2em;
-  background-repeat: no-repeat;
-  background-position: 7px 9px;
-} */
 </style>
 
  

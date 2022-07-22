@@ -1,9 +1,10 @@
 <template>
     <div>
-      <div class="bg-gray-500 w-full h-auto">
-        <div class="bg-gray-50 w-full">
-          <div class="flex items-center justify-end">
-            <h1 class="text-base font-thin mr-4 px-4">
+      <div class=" w-full h-auto">
+        <div class=" bg-gray-100 w-full">
+          <!-- botão de logout -->
+          <div class="flex items-center justify-end bg-white ">
+            <h1 class="text-sm sm:text-base font-thin  px-2">
               Olá
             <span class="font-bold text-red-600 px-1">{{ this.usuario }}</span> 
               Seja Bem Vindo(a)
@@ -15,8 +16,8 @@
           <!-- botão de logout -->
     
           <!-- Navbar -->
-          <div class="bg-blue-100 py-8 shadow-md">
-            <div class="flex justify-around items-center">
+          <div class="py-2 md:py-0 bg-Sky-300 ">
+            <div class="flex lg:w-3/6 mx-auto px-2 justify-between items-center">
                 <div class="ml-2">
                   <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>
                 </div>
@@ -27,8 +28,8 @@
           </div>
 
           <!-- Main -->
-          <div class="   mt-4 w-full h-auto  ">
-            <div class=" bg-gray-100 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-xl 2xl:border-2  flex flex-col justify-start">
+          <div class="mt-2 w-full h-auto">
+            <div class=" bg-gray-50 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-md 2xl:border  flex flex-col justify-start">
               <!-- Cabeçalho do formulário -->
               <div class="mb-4 mt-8">
                 <h1 class="text-center font-sans text-3xl">
@@ -42,20 +43,20 @@
                 
 
                   <div>               
-                      <label class="flex" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                      <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border-2  border-gray-400 w-full rounded-md" />
+                      <label class="flex opacity-70 " for="nameConnect"> Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold ">*</p> </label>
+                      <input placeholder=" Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border shadow-sm  w-full rounded-md" />
                   </div>
                   
                   <div>
                     <div>
-                      <label   for="data" class="flex">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
-                      <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border-2 rounded-md mr-2 border-gray-400 ">
+                      <label   for="data" class="flex opacity-70">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
+                      <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2  ">
                     </div>
                   </div>
                   <!-- Horário do Evento -->
                   <div>
                     
-                    <label class="flex"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                    <label class="flex opacity-70"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                    
                     <!-- <div class=" lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
                         <span>Fundamental II</span>
@@ -144,7 +145,7 @@
                     </div> -->
                     
                     <div  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                      <select @change="getDataNew" name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFull" required>
+                      <select @change="getDataNew" name="" id="hora" class="border rounded-md w-auto"  v-model="form.horariosFull" required>
                         <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
                         <option value="07h10-07h55">07h10-07h55</option>
                         <option value="07h55-08h40">07h55-08h40</option>
@@ -184,8 +185,8 @@
                   <!-- Seleção da Situação -->
                   <div v-if="getDat === true">
                   <div>
-                    <label class="flex"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
+                    <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                    <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
                      <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
                       <option value="Salão">Salão</option>
                       <option value="Jardim Sensorial">Jardim Sensorial</option>
@@ -200,8 +201,8 @@
 
                   <!-- Setor -->
                   <div>
-                    <label class="flex" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select  id="setor" name="setor" v-model="form.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
+                    <label class="flex opacity-70" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                    <select  id="setor" name="setor" v-model="form.responsavel" class="border w-full rounded-md" required >
                       <option value="Diretoria">Diretora</option>
                       <option value="Assistente-Social">Assistente-Social</option>
                       <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
@@ -218,8 +219,8 @@
 
                   <!-- Seleção de Seguimento -->
                   <div>
-                    <label class="flex" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select  id="seg" name="seg" v-model="form.seguimento" class="border-2 border-gray-400 w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
+                    <label class="flex opacity-70" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                    <select  id="seg" name="seg" v-model="form.seguimento" class="border w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
                       <option value="Fundamental-I">Fundamental-I</option>
                       <option value="Fundamental-II">Fundamental-II</option>
                       <option value="Edu-Infantil">Edu-Infantil</option>
@@ -235,13 +236,13 @@
 
                   <!-- Motivo -->
                   <div class="border-gray-800 w-full">
-                    <label class="flex" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                    <label class="flex opacity-70" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     <textarea
                       id="motivo" 
                       name="motivo"
                       rows="4"
                       cols="41"
-                      class=" border-2 border-gray-400 w-full rounded-md pl-2 pt-1" 
+                      class=" border w-full rounded-md pl-2 pt-1" 
                       v-model="form.motivo"
                       required>
                     </textarea>
@@ -250,16 +251,16 @@
 
                   <!-- link -->
                   <div>
-                    <label for="linkEnviar">Link: </label>
+                    <label class="opacity-70" for="linkEnviar">Link: </label>
                     <input
                       type="text"
                       name="linkEnviar"
                       id="linkEnviar"
-                      class=" border-gray-300 px-1   border-2  w-full rounded-md"
+                      class="  px-1   border  w-full rounded-md"
                       v-model="form.link"
                     />
                   </div>
-                  <div>
+                  <div class="pb-8">
                     <div class="flex text-base font-bold text-red-500 items-center justif-start"><p class="text-red-500 ml-1 font-extrabold mr-2">*</p> Itens Obrigatório.</div>
                   </div>
                   <!-- <div class="bg-gray-100">
@@ -277,10 +278,10 @@
                   </div> -->
 
                   <!-- Botão de submit -->
-                  <div class="flex  w-full items-center justify-center pb-12 ">
+                  <div class="flex  w-full items-center justify-center pb-4  ">
                     <router-link to="usertela">
-                      <div title="Voltar tela usuário" class="bg-blue-600 flex items-center px-4 py-2 rounded-md mr-4 text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <div title="Voltar tela usuário" class="bg-Sky-600 flex items-center px-4 py-2 rounded-md mr-4 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
                         Voltar
@@ -305,7 +306,7 @@
           </div>
         </div>
       </div>
-      <div class="relative bottom-0">
+      <div class="relative bottom-0 mt-1">
         <Footer/>
       </div>
     </div>
