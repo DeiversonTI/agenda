@@ -108,7 +108,7 @@
     </section>
   </div>
   
-  <div class="relative bottom-0 mt-2 ">
+  <div class="relative bottom-0 mt-1 ">
     <Footer />
   </div>
   </div>

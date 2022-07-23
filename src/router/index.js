@@ -16,6 +16,7 @@ import EditUser from '../components/editUser.vue'
 
 
 
+
 const routes = [
 
   // OBS.: Necessário criar tela de erro para usuario que digitar alguma rota errada navegador.
@@ -58,6 +59,7 @@ const routes = [
     }
 
   },
+  
   {
     path:'/userTela',
     name:'usertela',

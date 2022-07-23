@@ -1,18 +1,12 @@
 <template>
-<div class=" flex justify-center items-center  bg-blue-400  h-auto  w-full ">
-    <div class="bg-Sky-300 w-full mx-auto container">
-        <div class=" flex flex-col items-center justify-center  ">
-            <div class="font-sans text-sm md:text-lg text-blue-50">Agendamento Vicentino Online</div>
-            <div  class="text-sm text-blue-50">Todos os Direitos Reservados &copy; {{new Date().getFullYear()}} - Versão  1.4  </div>
-            <div class="font-thin text-xs text-blue-50  mt-2 py-1 px-1 rounded-md">Desenvolvido pelo Setor de TI - ERVSVP</div>
+
+    <!-- <div class="mx-auto bg-Sky-300  w-full "> -->
+        <div class=" flex flex-col items-center justify-center w-full bg-Sky-300">
+            <div class="text-sm font-medium text-blue-50 w-full text-center ">Agendamento Vicentino Online</div>
+            <div  class="font-medium text-xs text-blue-50 w-full text-center">Todos os Direitos Reservados &copy; {{new Date().getFullYear()}} - Versão  1.4  </div>
+            <div class="text-sm font-mediun text-blue-50  mt-2 py-1 w-full text-center">Desenvolvido pelo Setor de TI - ERVSVP</div>
         </div>
-    </div>
-</div>
+    <!-- </div> -->
+
     
 </template>
-<script>
-export default {
-    name:'rodape',
-
-}
-</script>
