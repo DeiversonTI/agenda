@@ -16,7 +16,7 @@
           <!-- botão de logout -->
     
           <!-- Navbar -->
-          <div class="py-2 md:py-0 bg-Sky-300 ">
+          <div class="py-2 md:py-0 bg-Sky-400 ">
             <div class="flex lg:w-3/6 mx-auto px-2 justify-between items-center">
                 <div class="ml-2">
                   <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>

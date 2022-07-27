@@ -16,12 +16,12 @@
     <div class="flex gap-4 items-center justify-center w-full">
       <div class="hidden md:visible md:flex justify-center items-center w-full">
         <div>
-          <img src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
+          <img  src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
         </div>
       </div>
 
       <div class="w-full h-screen sm:bg-gradient-to-l from-Sky-50">
-        <div class="h-48 mx-auto items-center flex justify-center">
+        <div class="h-48 md:h-2/5 mx-auto items-center flex justify-center">
           <img class="w-52 md:w-2/5" src="../assets/Agendamentos.png" alt="" />
         </div>
 
@@ -42,11 +42,11 @@
         >
           <form>
             <div class="text-center">
-              <p class="text-3xl fonte text-blue-900 pb-6 pt-2">login</p>
+              <p class="text-4xl fonte text-blue-900 pb-6 pt-2">login</p>
             </div>
             <div class="mb-4">
               <label
-                class="block text-Sky-800 text-sm font-bold mb-1"
+                class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
                 for="username"
               >
                 Email
@@ -59,7 +59,7 @@
                   appearance-none
                   rounded
                   w-full
-                  py-2
+                  py-4
                   px-3
                   text-gray-700
                   opacity-80
@@ -74,7 +74,7 @@
 
             <div>
               <label
-                class="block text-Sky-800 text-sm font-bold mb-1"
+                class="block text-Sky-800 ext-md md:text-xl font-bold mb-1"
                 for="password"
               >
                 Senha
@@ -88,7 +88,7 @@
                   focus:border-red-500
                   rounded
                   w-full
-                  py-2
+                  py-4
                   px-3
                   text-gray-700
                   opacity-80
@@ -110,7 +110,7 @@
                       inline-block
                       align-baseline
                       font-bold
-                      text-xs text-blue-500
+                      text-xs md:text-lg  text-blue-500
                       hover:text-blue-800
                     "
                   >
@@ -145,6 +145,7 @@
                     px-16
                     rounded
                     focus:outline-none focus:shadow-outline
+                    hover:bg-gradient-to-l hover:from-Sky-600 hover:to-Sky-400
                   "
                 >
                   Logar
