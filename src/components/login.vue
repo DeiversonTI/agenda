@@ -12,19 +12,73 @@
     />
   </svg>
 
+  <!-- TELA DE LOGIN -->
   <div class="flex justify-center items-center relative z-40">
     <div class="flex gap-4 items-center justify-center w-full">
       <div class="hidden md:visible md:flex justify-center items-center w-full">
         <div>
-          <img  src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
+          <img src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
         </div>
       </div>
 
       <div class="w-full h-screen sm:bg-gradient-to-l from-Sky-50">
-        <div class="h-48 md:h-2/5 mx-auto items-center flex justify-center">
+        <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4 ">
+          
+          <div @click="isViewTrocar()" v-if="isView===true">
+            <p
+              @click.prevent="trocarView()"
+              class="
+                text-Sky-600
+                font-bold
+                sm:text-md
+                text-sm
+                border
+                cursor-pointer
+                sm:py-2
+                py-1
+                sm:px-12
+                px-2
+                border-Sky-500
+                rounded-md
+                shadow-none
+                hover:bg-Sky-600 hover:text-white
+              "
+            >
+              Login
+              
+            </p>
+          </div>
+          <div @click="isViewTrocar()" v-else>            
+            <p
+              @click.prevent="trocarView()"
+              class="
+                text-red-600
+                font-bold
+                sm:text-md
+                text-sm
+                border
+                sm:py-2
+                cursor-pointer
+                py-1
+                sm:px-12
+                px-2
+                border-red-500
+                rounded-md
+                shadow-none
+                hover:bg-red-600 hover:text-white
+              "
+            >
+              Cadastrar
+              
+            </p>
+          </div>
+        </div>
+
+        <div class="h-36 md:h-2/5 mx-auto items-center flex justify-center">
           <img class="w-52 md:w-2/5" src="../assets/Agendamentos.png" alt="" />
         </div>
 
+        <!-- FORMULÁRIO LOGIN -->
         <div
           class="
             sm:bg-white
@@ -40,7 +94,7 @@
             border-gray-200
           "
         >
-          <form>
+          <form v-if="trocar == true">
             <div class="text-center">
               <p class="text-4xl fonte text-blue-900 pb-6 pt-2">login</p>
             </div>
@@ -74,7 +128,7 @@
 
             <div>
               <label
-                class="block text-Sky-800 ext-md md:text-xl font-bold mb-1"
+                class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
                 for="password"
               >
                 Senha
@@ -99,7 +153,6 @@
                 type="password"
                 placeholder="Digite sua Senha"
               />
-              
             </div>
             <div class="mb-6">
               <div class="w-full text-left">
@@ -110,9 +163,10 @@
                       inline-block
                       align-baseline
                       font-bold
-                      text-xs md:text-lg  text-blue-500
-                      hover:text-blue-800
-                    "
+                      text-xs
+                      md:text-lg
+                      text-blue-500
+                      hover:text-blue-800"
                   >
                     Esqueceu a Senha?
                   </p>
@@ -121,13 +175,12 @@
             </div>
 
             <!-- BOTÕES DO FORMULÁRIO -->
-
             <div
               class="
                 w-full
                 text-center
                 m-auto
-                md:flex md:items-center md:justify-center
+                md:flex md:items-center md:justify-start
                 gap-2
                 sm:pt-4
               "
@@ -151,37 +204,13 @@
                   Logar
                 </button>
               </div>
-
-              <div
-                class="
-                  flex
-                  items-center
-                  w-full
-                  justify-center
-                  md:justify-end
-                  sm:mt-0
-                  mt-4
-                "
-              >
-                <p
-                  class="
-                    text-red-600
-                    font-bold
-                    text-md
-                    border
-                    py-2
-                    px-12
-                    border-red-500
-                    rounded-md
-                    shadow-none
-                    hover:bg-red-600 hover:text-white
-                  "
-                >
-                  <router-link to="/Registrar">Cadastrar</router-link>
-                </p>
-              </div>
             </div>
           </form>
+
+          <!-- FORMULÁRIO REGISTRAR -->
+          <div v-if="trocar=== false">
+            <RegisterView />
+          </div>
         </div>
       </div>
     </div>
@@ -227,17 +256,31 @@
 <script>
 import * as firebase from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import RegisterView from "../components/Registrar.vue";
 
 export default {
+  components: {
+    RegisterView,
+  },
   name: "login",
   data() {
     return {
       email: "",
       password: "",
       isDesabled: true,
+      trocar: true,
+      isView: false
     };
   },
   methods: {
+
+    isViewTrocar() {
+      this.isView = !this.isView;
+    },
+
+    trocarView() {
+      this.trocar = !this.trocar;
+    },
     async login() {
       try {
         firebase;
@@ -269,7 +312,6 @@ export default {
             }
           }
         );
-        
       } catch (error) {
         const erro = error.code;
         switch (erro) {
