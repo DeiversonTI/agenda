@@ -1,5 +1,5 @@
 <template>
-        <div class=" text-xs flex justify-end items-center py-1 pr-2 bg-gray-50">
+        <div class=" text-xs flex justify-end items-center py-1 pr-2 ">
             
             <button @click.prevent="signUp()" class="flex items-center py-2 bg-red-500 rounded-md text-gray-50 px-2 ">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -3,20 +3,22 @@
       <div class=" w-full h-auto">
         <div class=" bg-gray-100 w-full">
           <!-- botão de logout -->
-          <div class="flex items-center justify-end bg-white ">
-            <h1 class="text-sm sm:text-base font-thin  px-2">
-              Olá
-            <span class="font-bold text-red-600 px-1">{{ this.usuario }}</span> 
-              Seja Bem Vindo(a)
-            </h1>
-              <div>
-                <Logado />
-              </div>
+          <div class="w-full flex justify-end items-center ">
+            <div class="w-80 wood flex items-center justify-end sm:bg-Orange-200 m-1  ">
+              <h1 class="text-sm sm:text-base font-thin  px-2">
+                Olá
+              <span class="font-bold text-red-600 px-1">{{ this.usuario }}</span> 
+                Seja Bem Vindo(a)
+              </h1>
+                <div>
+                  <Logado />
+                </div>
+            </div>
           </div>
           <!-- botão de logout -->
     
           <!-- Navbar -->
-          <div class="py-2 md:py-0 bg-Sky-400 ">
+          <!-- <div class="py-2 md:py-0 bg-Sky-400 ">
             <div class="flex lg:w-3/6 mx-auto px-2 justify-between items-center">
                 <div class="ml-2">
                   <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>
@@ -25,14 +27,14 @@
                   <img src="../assets/Agendamentos.png" alt="" class="w-24 sm:w-44 md:w-44 lg:w-44 xl:w-44 2xl:w-44 "/>
                 </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Main -->
           <div class="mt-2 w-full h-auto">
             <div class=" bg-gray-50 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-md 2xl:border  flex flex-col justify-start">
               <!-- Cabeçalho do formulário -->
               <div class="mb-4 mt-8">
-                <h1 class="text-center font-sans text-3xl">
+                <h1 class="text-center Poppins text-Sky-600 ">
                   Cadastro de Eventos
                 </h1>
               </div>
@@ -195,6 +197,10 @@
                       <option value="Área Gourmet">Área Gourmet</option>
                       <option value="Sala_Informatica">Sala Informática</option>
                       <option value="Outros">Outros</option>
+                      <option value="Piscina">Piscina</option>
+                      <option value="Quadra">Quadra</option>
+                      <option value="Rancho">Rancho</option>
+
                     </select>
                   </div> 
                   <!-- <Situacao/> -->
@@ -213,6 +219,7 @@
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Setor-TI">Setor de TI</option>
                       <option value="Pastoral">Pastoral</option>
+                      <option value="inspetor">Inspetor</option>
                     </select>
                   </div> 
                   <!-- <Setor/> -->
@@ -231,6 +238,8 @@
                       <option value="Assistente-Social">Assistente-Social</option>
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Pastoral">Pastoral</option>
+                      <option value="Eventos Externos">Eventos Externos</option>
+
                     </select>
                   </div>
 
@@ -817,15 +826,39 @@ export default {
 }
 </script>
 <style scoped>
-.elseMensagem {
-  width: 100%;
-  height: 200px;
-  background-color: red;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
+  .elseMensagem {
+    width: 100%;
+    height: 200px;
+    background-color: red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  .wood::before{
+    content: "";
+    height: 40px;
+    width: 20px;
+    font-size: 2em;
+    right: 23px;
+    position: relative;
+    background-color: rgb(255, 98, 0);
+  }
+  .Poppins{
+    font-family: Poppins, sans;
+    font-weight: 500;
+    font-size: 2.1em;
+  }
+  @media screen and (max-width:640px) {
+      .wood::before{
+      background-color: transparent;
+    }
+    .Poppins{
+      font-size: 1.5em;
+    }
+  }
+
 </style>

@@ -13,11 +13,11 @@
   </svg>
 
   <!-- TELA DE LOGIN -->
-  <div class="flex justify-center items-center relative z-40">
-    <div class="flex gap-4 items-center justify-center w-full">
+  <div class=" flex justify-center items-center relative z-40">
+    <div class="flex gap-4 items-center justify-center w-full lg:h-auto">
       <div class="hidden md:visible md:flex justify-center items-center w-full">
         <div>
-          <img src="../assets/home-logo.jpg" alt="" style="max-width: 94%" />
+          <img src="../assets/home-logo.jpg" alt="" style="max-width: 90%" />
         </div>
       </div>
 
@@ -74,8 +74,8 @@
           </div>
         </div>
 
-        <div class="h-36 md:h-2/5 mx-auto items-center flex justify-center">
-          <img class="w-52 md:w-2/5" src="../assets/Agendamentos.png" alt="" />
+        <div class="h-36 sm:h-7/6 2xl:h-2/5 mx-auto items-center flex justify-center">
+          <img class="w-52 md:w-2/5 " src="../assets/Agendamentos.png" alt="" />
         </div>
 
         <!-- FORMULÁRIO LOGIN -->
@@ -83,7 +83,7 @@
           class="
             sm:bg-white
             px-8
-            sm:py-4
+            sm:py-2
             mx-1
             md:mx-8
             sm:rounded-lg

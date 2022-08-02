@@ -11,9 +11,9 @@
   >
     <form
       @submit.prevent="login()"
-      class="md:bg-white rounded-lg sm:h-80 px-3 pt-2 pb-6 mb-2 w-full h-full"
+      class="md:bg-white rounded-lg sm:h-80 px-3 pt-1 pb-6 mb-2 w-full h-full"
     >
-      <h2 class="text-xl sm:text-3xl fonte text-blue-900 pb-4 pt-2 text-center">
+      <h2 class="text-xl sm:text-2xl fonte text-blue-900 pb-2 pt-1 text-center">
         CADASTRO
       </h2>
       <div class="mb-4">
@@ -218,7 +218,7 @@ export default {
   font-weight: 700;
 }
 .h-tratado {
-  height: 25em;
+  height: 24em;
 }
 </style>
 

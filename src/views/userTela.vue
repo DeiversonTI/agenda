@@ -1,26 +1,28 @@
 <template>
 <div>
-  <div class="w-full h-full bg-gray-50">
-     <div class="flex items-center justify-end bg-white ">
-        <h1 class="text-sm sm:text-base font-thin  px-2">Olá<span class="font-bold text-red-600 px-1">{{ this.usuario }}</span>Seja Bem Vindo(a)</h1>
-        <router-link to="/Auth">
-          <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
-          shadow-md mr-2 ">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            VOLTAR
-            
+  <div class="w-full h-full bg-gradient-to-l from-white via-Sky-100 to-white">
+    <div class=" w-full flex justify-end wood">
+      <div class=" m-1 w-96 sm:bg-Orange-200 flex items-center justify-end  ">
+          <h1 class="text-sm sm:text-base font-thin  px-2">Olá<span class="font-bold text-red-600 px-1">{{ this.usuario }}</span>Seja Bem Vindo(a)</h1>
+          <router-link to="/Auth">
+            <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
+            shadow-md mr-2 ">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              VOLTAR
+              
+            </div>
+          </router-link>
+          <div>
+            <Logado />
           </div>
-      </router-link>
-        <div>
-          <Logado />
-        </div>
       </div>
+    </div>
       <!-- botão de logout -->
     
       <!-- Navbar -->
-      <div class="py-2 md:py-0 bg-Sky-400 ">
+      <!-- <div class="py-2 md:py-0 bg-Sky-400 ">
         <div class="flex lg:w-3/6 mx-auto px-2 justify-between items-center">
             <div class="ml-2">
               <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>
@@ -29,7 +31,7 @@
               <img src="../assets/Agendamentos.png" alt="" class="w-24 sm:w-44 md:w-44 lg:w-44 xl:w-44 2xl:w-44 "/>
             </div>
         </div>
-      </div>
+      </div> -->
     
     <section>
       <!-- body aplicação -->
@@ -38,8 +40,8 @@
            
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
               <div class="flex flex-col  w-11/12 md:w-8/12 2xl:w-1/2   mx-auto container ">
-                <div class="py-6">
-                  <h1 class="text-red-700 font-sans text-2xl md:text-4xl text-center"> Agendamentos </h1>
+                <div class="py-8">
+                  <h1 class="text-Sky-600 Poppins  text-center"> Agendamentos </h1>
                 </div>
                   
                 <div class=" sm:flex justify-between items-center pl-2">
@@ -201,7 +203,12 @@ export default {
     // let dia = new Date(doc.data().dataNew).getDate(doc.data().dataNew)+1
     let mes = new Date(doc.data().dataNew).getUTCMonth(doc.data().dataNew)+1
     let ano = new Date(doc.data().dataNew).getFullYear(doc.data().dataNew)
-    let todaData = dia+"/"+mes+"/"+ano
+
+    const newDay = dia < 10 ? "0"+dia : ""+dia
+    const newMonth = mes < 10 ? "0"+mes : ""+mes
+    
+
+    let todaData = newDay+"/"+newMonth+"/"+ano
 
     let dateString = todaData.toLocaleString('pt-BR', {}).replace(/\//g, '/')
    
@@ -531,7 +538,12 @@ export default {
           userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
           userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" ||
           userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-I" ||
-          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" )
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Setor-TI" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Tesouraria" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Secretaria" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Eventos Externos" ||
+          userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" )
           {        
             deleteDoc(doc(db, "usuarios", id))
                 .then(()=>{
@@ -679,3 +691,26 @@ export default {
  
   }
 </script>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
+.wood::before{
+  content: "";
+  height: 40px;
+  width: 20px;
+  font-size: 2em;
+  margin-top: 4px;
+  right: -10px;
+  position: relative;
+  background-color: rgb(255, 98, 0);
+}
+.Poppins{
+  font-family: Poppins, sans;
+  font-weight: 500;
+  font-size: 2.1em;
+}
+@media screen and (max-width:640px) {
+  .wood::before{
+  background-color: transparent;
+}
+}
+</style>
