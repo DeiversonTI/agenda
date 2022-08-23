@@ -66,7 +66,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                    <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full  w-full md:w-full pl-2 border-b-2 border-gray-300 rounded " placeholder="Data, Nome, Local, horário...">
+                  <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full  w-full md:w-full pl-2 border-b-2 border-gray-300 rounded " placeholder="Data, Nome, Local, horário...">
                   </div>
                   
               
@@ -197,7 +197,7 @@ export default {
   
   // CÓDIGO PARA ADICIONAR TELA FINAL PARA O USUARIO (userTela)
   const dbUser = getFirestore();
-  const colleUser = collection(dbUser, 'usuarios')
+  const colleUser = collection(dbUser, 'eventos')
   const q = query(colleUser, orderBy('dataNew', 'asc'))
   const user = await getDocs(q);
   
@@ -251,7 +251,6 @@ export default {
     const irlucia = process.env.VUE_APP_FIREBASE_EMAIL_IRLUCIA
     const irservente = process.env.VUE_APP_FIREBASE_EMAIL_IRSERVENTE
     const manutencao = process.env.VUE_APP_FIREBASE_EMAIL_MANUTENCAO
-    const irPastoral = process.env.VUE_APP_FIREBASE_EMAIL_IRPASTORAL
     // console.log(diretoraNew)
    
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
@@ -262,6 +261,10 @@ export default {
         id:doc.id,
         nome:doc.data().nome,
         dataNew:dateString,
+        // horariosFundi:doc.data().horariosFundi,
+        // horariosFundii:doc.data().horariosFundii,
+        // horariosInfantil:doc.data().horariosInfantil,
+        // horariosEventos:doc.data().horariosEventos,
         horariosFull:doc.data().horariosFull,
         responsavel: doc.data().responsavel,
         seguimento: doc.data().seguimento,
@@ -319,141 +322,96 @@ export default {
     }
 
     //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    // else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I"){
-    else if(emailUser === fundi){
+    else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I"){
 
           const dbMonitorUser = {
-        user_id: userTeste,
-        id:doc.id,
-        nome:doc.data().nome,
-        dataNew:dateString,
-        horariosFull:doc.data().horariosFull,
-        responsavel: doc.data().responsavel,
-        seguimento: doc.data().seguimento,
-        situacao: doc.data().situacao,
-        motivo: doc.data().motivo,
-        link: doc.data().link,
-        social:doc.data().social,
-        coordEI:doc.data().coordEI,
-        coordFI:doc.data().coordFI,
-        coordFII:doc.data().coordFII,
-        info:doc.data().info,
-        diretoria:doc.data().diretoria,
-        tesouraria:doc.data().tesouraria,
-        secretaria:doc.data().secretaria,
-        data:doc.data().data,
-        diretora:doc.data().diretora,
-        evExternos: doc.data().evExternos,
-        hourExtFirst:doc.data().hourExtFirst,
-        hourExtSecund: doc.data(). hourExtSecund,
+          user_id: userTeste,
+          id:doc.id,
+          nome:doc.data().nome,
+          dataNew:dateString,
+          horariosFull:doc.data().horariosFull,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
+          link: doc.data().link,
+          data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
-        this.agenda.push(dbMonitorUser);
+          this.agenda.push(dbMonitorUser);
 
     }
 
      //COORDENAÇÃO FUNDAMENTAL II -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    // else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II"){
-    else if(emailUser === fundii){
+    else if(emailUser === fundii && dataUser.seguimento === "Fundamental-II"){
       
 
-        const dbMonitorUser = {
-        user_id: userTeste,
-        id:doc.id,
-        nome:doc.data().nome,
-        dataNew:dateString,
-        horariosFull:doc.data().horariosFull,
-        responsavel: doc.data().responsavel,
-        seguimento: doc.data().seguimento,
-        situacao: doc.data().situacao,
-        motivo: doc.data().motivo,
-        link: doc.data().link,
-        social:doc.data().social,
-        coordEI:doc.data().coordEI,
-        coordFI:doc.data().coordFI,
-        coordFII:doc.data().coordFII,
-        info:doc.data().info,
-        diretoria:doc.data().diretoria,
-        tesouraria:doc.data().tesouraria,
-        secretaria:doc.data().secretaria,
-        data:doc.data().data,
-        diretora:doc.data().diretora,
-        evExternos: doc.data().evExternos,
-        hourExtFirst:doc.data().hourExtFirst,
-        hourExtSecund: doc.data(). hourExtSecund,
+          const dbMonitorUser = {
+          user_id: userTeste,
+          id:doc.id,
+          nome:doc.data().nome,
+          dataNew:dateString,
+          horariosFull:doc.data().horariosFull,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
+          link: doc.data().link,
+          data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
-        this.agenda.push(dbMonitorUser);
+          this.agenda.push(dbMonitorUser);
 
     }
 
      //COORDENAÇÃO EDUCAÇÃO INFANTIL -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
     // else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Professor" || 
     //         emailUser === infantil && dataUser.seguimento === "Edu-Infantil" && dataUser.responsavel === "Assistente-Social" ){
-        // else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil"){
-        else if(emailUser === infantil){
+        else if(emailUser === infantil && dataUser.seguimento === "Edu-Infantil"){
       
 
           const dbMonitorUser = {
-        user_id: userTeste,
-        id:doc.id,
-        nome:doc.data().nome,
-        dataNew:dateString,
-        horariosFull:doc.data().horariosFull,
-        responsavel: doc.data().responsavel,
-        seguimento: doc.data().seguimento,
-        situacao: doc.data().situacao,
-        motivo: doc.data().motivo,
-        link: doc.data().link,
-        social:doc.data().social,
-        coordEI:doc.data().coordEI,
-        coordFI:doc.data().coordFI,
-        coordFII:doc.data().coordFII,
-        info:doc.data().info,
-        diretoria:doc.data().diretoria,
-        tesouraria:doc.data().tesouraria,
-        secretaria:doc.data().secretaria,
-        data:doc.data().data,
-        diretora:doc.data().diretora,
-        evExternos: doc.data().evExternos,
-        hourExtFirst:doc.data().hourExtFirst,
-        hourExtSecund: doc.data(). hourExtSecund,
+          user_id: userTeste,
+          id:doc.id,
+          nome:doc.data().nome,
+          dataNew:dateString,
+          horariosFull:doc.data().horariosFull,
+          responsavel: doc.data().responsavel,
+          seguimento: doc.data().seguimento,
+          situacao: doc.data().situacao,
+          motivo: doc.data().motivo,
+          social:doc.data().social,
+          coordEI:doc.data().coordEI,
+          coordFI:doc.data().coordFI,
+          coordFII:doc.data().coordFII,
+          info:doc.data().info,
+          diretoria:doc.data().diretoria,
+          tesouraria:doc.data().tesouraria,
+          secretaria:doc.data().secretaria,
+          link: doc.data().link,
+          data:doc.data().data,
+          diretora:doc.data().diretora,
         };
 
-        this.agenda.push(dbMonitorUser);
-
-    }
-     //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
-    // else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I"){
-    else if(emailUser === irPastoral){
-
-          const dbMonitorUser = {
-        user_id: userTeste,
-        id:doc.id,
-        nome:doc.data().nome,
-        dataNew:dateString,
-        horariosFull:doc.data().horariosFull,
-        responsavel: doc.data().responsavel,
-        seguimento: doc.data().seguimento,
-        situacao: doc.data().situacao,
-        motivo: doc.data().motivo,
-        link: doc.data().link,
-        social:doc.data().social,
-        coordEI:doc.data().coordEI,
-        coordFI:doc.data().coordFI,
-        coordFII:doc.data().coordFII,
-        info:doc.data().info,
-        diretoria:doc.data().diretoria,
-        tesouraria:doc.data().tesouraria,
-        secretaria:doc.data().secretaria,
-        data:doc.data().data,
-        diretora:doc.data().diretora,
-        evExternos: doc.data().evExternos,
-        hourExtFirst:doc.data().hourExtFirst,
-        hourExtSecund: doc.data(). hourExtSecund,
-        };
-
-        this.agenda.push(dbMonitorUser);
+          this.agenda.push(dbMonitorUser);
 
     }
 
@@ -733,11 +691,10 @@ export default {
   // CODIGOS DO SEARCH
   
   methods:{
-   
-   async deletar(id){
+     async deletar(id){
       const db = getFirestore();
       const userAuth = getAuth().currentUser.uid;
-      const docRef = doc(db, "usuarios", id);
+      const docRef = doc(db, "eventos", id);
       const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
         const snapShot = docSnap.data().user_id;
@@ -772,7 +729,7 @@ export default {
               'Seu Arquivo foi deletado.',
               'success'
             )                
-            deleteDoc(doc(db, "usuarios", id))
+            deleteDoc(doc(db, "eventos", id))
               .then(()=>{
                 setTimeout(() => {
                   this.$router.go({name:'usertela'})
@@ -783,8 +740,6 @@ export default {
         })
       }
     },
-    
-
     // FINAL DO DELETAR
    
 // INICIO VERIFICAR

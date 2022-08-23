@@ -1,5 +1,5 @@
 <template>
-     <div>
+     <div class="corpo">
         <label for="hora">Horário do Evento: </label>
         <select id="hora" name="hora">
                  <option value="07h20/8h">07h20/8h</option>
@@ -9,3 +9,4 @@
              </select>
          </div>
 </template>
+

@@ -15,22 +15,52 @@ import { getAuth, signOut } from "firebase/auth";
 
 export default {
     name: "userLogado",
+    created(){
+        setTimeout(() => {
+            if (!this.signUp()) {
+                this.$swal({
+                     title: 'Sessão Expirou!! ',
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+
+                })
+                // alert("Sessão Expirou... Entre novamente!")
+                setTimeout(() => {
+                    this.$router.replace({name: 'Home'})
+                }, 2000)
+                
+            }
+        },150000)
+    },
+  
     methods:{
+       
         signUp(){
             const auth = getAuth();
             signOut(auth)
             .then(() => {
-                this.$swal({
-                    icon:'success',
-                    title: 'Desconectado com sucesso!!',
-                    showConfirmButton: false,
-                    timer: 2000
-                })
-                .then(()=>{
-                    setTimeout(() => {
-                        this.$router.replace({name: 'Login'})
-                    }, 2000);
-                })
+                  setTimeout(() => {
+                    this.$router.replace({name: 'Home'})
+                }, 2000)
+                // this.$router.replace({name: 'Home'})
+                // setTimeout(() => {
+                //         this.$router.replace({name: 'Home'})
+                //     }, 2000);
+                // this.$swal({
+                //     icon:'success',
+                //     title: 'Desconectado com sucesso!!',
+                //     showConfirmButton: false,
+                //     timer: 2000
+                // })
+                // .then(()=>{
+                //     setTimeout(() => {
+                //         this.$router.replace({name: 'Login'})
+                //     }, 2000);
+                // })
             // Sign-out successful.
             }).catch((error) => {
                 this.error = error.message

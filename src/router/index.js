@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import Registrar from "../components/Registrar.vue"
 import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
+import AuthEventos from "../components/authEventos.vue"
+import userTelaEventos from "../views/userTelaEventos.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
 import Teste from "../components/teste.vue"
@@ -36,6 +38,7 @@ const routes = [
     name: 'Registrar',
     component: Registrar
   },
+ 
   {
     path:'/login',
     name: 'Login',
@@ -54,6 +57,24 @@ const routes = [
     path:'/actionTela',
     name: 'actiontela',
     component: Action,
+    meta:{
+      requiresAuth: true
+    }
+
+  },
+  {
+    path:'/authEventos',
+    name: 'autheventos',
+    component: AuthEventos,
+    meta:{
+      requiresAuth: true
+    }
+
+  },
+  {
+    path:'/userTelaEventos',
+    name: 'usertelaeventos',
+    component: userTelaEventos,
     meta:{
       requiresAuth: true
     }

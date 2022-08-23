@@ -1,18 +1,37 @@
 <template>
     <div>
+      <!-- <div class="flex justify-center items-center  z-50 relative  mt-1 "> -->
+       <!-- <div v-if="textDoc===true" class="fixed animate__animated animate__slideInDown w-full">
+            <div class="w-80 mt-1 flex justify-center items-center mx-auto h-8 bg-red-500 py-8 sm:rounded-md text-white ">{{textError}}</div>
+        </div> -->
+        <div v-if="textDoc===true" class="anime__full">
+            <div class="w-80 sm:mt-1 flex justify-center items-center mx-auto h-8 bg-red-500 py-8 sm:rounded-md text-white ">{{textError}}</div>
+        </div>
+      <!-- </div> -->
+                  
       <div class=" w-full h-auto">
+       
         <div class=" bg-gray-100 w-full">
+          
           <!-- botão de logout -->
           <div class="w-full flex justify-end items-center ">
-            <div class="w-80 wood flex items-center justify-end sm:bg-Orange-200 m-1  ">
-              <h1 class="text-sm sm:text-base font-thin  px-2">
-                Olá
-              <span class="font-bold text-red-600 px-1">{{ this.usuario }}</span> 
-                Seja Bem Vindo(a)
-              </h1>
-                <div>
-                  <Logado />
+            
+            <div class=" flex items-center justify-end  m-1 w-full sm:w-9/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12 ">
+              <div>
+                <div class="flex justify-between items-center sm:bg-Orange-200 w-full  ">
+                  <div>
+                      <p class="sm:bg-Orange-600 w-4 h-12 ">&nbsp;</p>
+                  </div>
+                  <div>
+                    <h1 class="text-sm sm:text-base font-thin px-2">Olá<span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
+                        Seja Bem Vindo(a)
+                    </h1>
+                  </div>
                 </div>
+              </div>
+              <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
+                  <Logado />
+              </div>
             </div>
           </div>
           <!-- botão de logout -->
@@ -31,7 +50,13 @@
 
           <!-- Main -->
           <div class="mt-2 w-full h-auto">
+            
             <div class=" bg-gray-50 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-md 2xl:border  flex flex-col justify-start">
+               <!-- TRATAMENTO DE ERRO  - MODAL -->
+               <!-- <div v-if="textDoc===true" class=" bg-red-600 text-white py-4 px-4 anime transition-all duration-1000 ease-in">
+                  <div>{{textError}}</div>
+               </div> -->
+               
               <!-- Cabeçalho do formulário -->
               <div class="mb-4 mt-8">
                 <h1 class="text-center Poppins text-Sky-600 ">
@@ -49,160 +74,202 @@
                       <input placeholder=" Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border shadow-sm  w-full rounded-md" />
                   </div>
                   
-                  <div>
                     <div>
-                      <label   for="data" class="flex opacity-70">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
-                      <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2  ">
+                      <div>
+                        <label   for="data" class="flex opacity-70">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
+                        <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2  ">
+                      </div>
                     </div>
-                  </div>
-                  <!-- Horário do Evento -->
-                  <div>
+                    <!-- Horário do Evento -->
+                    <div v-if="evExtOld === true">
+                    <div>
+                      
+                      <label class="flex opacity-70"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     
-                    <label class="flex opacity-70"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                   
-                    <!-- <div class=" lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                        <span>Fundamental II</span>
-                      <div v-if="FundII === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                     
-                      <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundii" >
-                        <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
-                        <option value="07h10-07h55">07h10-07h55</option>
-                        <option value="07h55-08h40">07h55-08h40</option>
-                        <option value="08h40-9h25">08h40-9h25</option>
-                        <option value="9h25-10h10">9h25-10h10</option>
-                        <option value="9h45-10h30">9h45-10h30</option>
-                        <option value="10h30-11h15">10h30-11h15</option>
-                        <option value="11h15-12h">11h15-12h</option>
-                        <option value="12h-12h45">12h-12h45</option>
-                      </select>
-                    </div>
-                      <div v-else>
-                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
-                          <div>
-                            <div class="text-xl font-medium text-black">Fundamental II - Descupe! Todo o horário da manhã, já está ocupado!</div>
-                          </div>
-                        </div>
-                    </div>
-                     <span>Fundamental I</span>
-                     <div v-if="FundI === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                      <!-- <div class=" lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                          <span>Fundamental II</span>
+                        <div v-if="FundII === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
                       
-                      <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundi" >                    
-                        <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
-                        <option value="13h15-14h">13h15-14h</option>
-                        <option value="14h-14h45">14h-14h45</option>
-                        <option value="14h25-15h10">14h25-15h10</option>
-                        <option value="14h20-15h15">14h20-15h15</option>
-                        <option value="15h10-15h55">15h10-15h55</option>
-                        <option value="15h15-15h50">15h15-15h50</option>
-                        <option value="15h15-16h">15h15-16h</option>
-                        <option value="16h-16h45">16h-16h45</option>
-                      </select>
-                    </div>
-                     <div v-else>
-                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
-                          <div>
-                            <div class="text-xl font-medium text-black">Fundamental I - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
+                        <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundii" >
+                          <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
+                          <option value="07h10-07h55">07h10-07h55</option>
+                          <option value="07h55-08h40">07h55-08h40</option>
+                          <option value="08h40-9h25">08h40-9h25</option>
+                          <option value="9h25-10h10">9h25-10h10</option>
+                          <option value="9h45-10h30">9h45-10h30</option>
+                          <option value="10h30-11h15">10h30-11h15</option>
+                          <option value="11h15-12h">11h15-12h</option>
+                          <option value="12h-12h45">12h-12h45</option>
+                        </select>
+                      </div>
+                        <div v-else>
+                          <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                            <div>
+                              <div class="text-xl font-medium text-black">Fundamental II - Descupe! Todo o horário da manhã, já está ocupado!</div>
+                            </div>
                           </div>
-                        </div>
-                    </div>
-                  
-                     <span>Edu. Infantil</span>
-                     <div v-if="Inf === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                     
-                      <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosInfantil" >
-                        <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
-                        <option value="12h30-13h15">12h30-13h15</option>
-                        <option value="13h15-14h">13h15-14h</option>
-                        <option value="14h-14h25">14h-14h25</option>
-                        <option value="14h25-15h10">14h25-15h10</option>
-                        <option value="15h10-15h55">15h10-15h55</option>
-                        <option value="15h55-16h40">15h55-16h40</option>
-                      </select>
-                    </div>
-                     <div v-else>
-                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
-                          <div>
-                            <div class="text-xl font-medium text-black">Infantil  - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
-                          </div>
-                        </div>
-                    </div>
-                    <span>Eventos</span>
-                    <div v-if="Eventos === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                      
-                      <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosEventos" >
-                        <option class="text-lg bg-red-600 text-bold text-white">Eventos</option>
-                        <option value="07h10-12h">07h10-12h</option>
-                        <option value="12h30-17h">12h30-17h</option>
-                        <option value="17h30-21h">17h30-21h</option>
-                        <option value="18h-21h">18h-21h</option>
-                      </select>
-                    </div>
-                     <div v-else>
-                        <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
-                          <div>
-                            <div class="text-xl font-medium text-black">Eventos  - Desculpe! Esse horário já está em uso!</div>
-                          </div>
-                        </div>
-                    </div>
-                    </div> -->
-                    
-                    <div  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                      <select @change="getDataNew" name="" id="hora" class="border rounded-md w-auto"  v-model="form.horariosFull" required>
-                        <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
-                        <option value="07h10-07h55">07h10-07h55</option>
-                        <option value="07h55-08h40">07h55-08h40</option>
-                        <option value="08h40-9h25">08h40-9h25</option>
-                        <option value="09h25-10h10">09h25-10h10</option>
-                        <option value="09h45-10h30">09h45-10h30</option>
-                        <option value="10h30-11h15">10h30-11h15</option>
-                        <option value="11h15-12h">11h15-12h</option>
-                        <option value="12h-12h45">12h-12h45</option>
-                      
-                        <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
-                        <option value="13h15-14h">13h15-14h</option>
-                        <option value="14h-14h45">14h-14h45</option>
-                        <option value="14h25-15h10">14h25-15h10</option>
-                        <option value="14h20-15h15">14h20-15h15</option>
-                        <option value="14h20-15h15">15h05-15h50</option>
-                        <option value="15h10-15h55">15h10-15h55</option>
-                        <option value="15h15-16h">15h15-16h</option>
-                        <option value="16h-16h45">16h-16h45</option>
+                      </div>
+                      <span>Fundamental I</span>
+                      <div v-if="FundI === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
                         
-                        <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
-                        <option value="12h30-13h15">12h30-13h15</option>
-                        <option value="13h15-14h">13h15-14h</option>
-                        <option value="14h-14h25">14h-14h25</option>
-                        <option value="14h25-15h10">14h25-15h10</option>
-                        <option value="15h10-15h55">15h10-15h55</option>
-                        <option value="15h55-16h40">15h55-16h40</option>
+                        <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosFundi" >                    
+                          <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
+                          <option value="13h15-14h">13h15-14h</option>
+                          <option value="14h-14h45">14h-14h45</option>
+                          <option value="14h25-15h10">14h25-15h10</option>
+                          <option value="14h20-15h15">14h20-15h15</option>
+                          <option value="15h10-15h55">15h10-15h55</option>
+                          <option value="15h15-15h50">15h15-15h50</option>
+                          <option value="15h15-16h">15h15-16h</option>
+                          <option value="16h-16h45">16h-16h45</option>
+                        </select>
+                      </div>
+                      <div v-else>
+                          <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                            <div>
+                              <div class="text-xl font-medium text-black">Fundamental I - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
+                            </div>
+                          </div>
+                      </div>
+                    
+                      <span>Edu. Infantil</span>
+                      <div v-if="Inf === true"  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                      
+                        <select name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosInfantil" >
+                          <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
+                          <option value="12h30-13h15">12h30-13h15</option>
+                          <option value="13h15-14h">13h15-14h</option>
+                          <option value="14h-14h25">14h-14h25</option>
+                          <option value="14h25-15h10">14h25-15h10</option>
+                          <option value="15h10-15h55">15h10-15h55</option>
+                          <option value="15h55-16h40">15h55-16h40</option>
+                        </select>
+                      </div>
+                      <div v-else>
+                          <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                            <div>
+                              <div class="text-xl font-medium text-black">Infantil  - Descupe! Todos os horários da tarde nesta data, já estão ocupados!</div>
+                            </div>
+                          </div>
+                      </div>
+                      <span>Eventos</span>
+                      <div v-if="Eventos === true" class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                        
+                        <select  name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="form.horariosEventos" >
+                          <option class="text-lg bg-red-600 text-bold text-white">Eventos</option>
+                          <option value="07h10-12h">07h10-12h</option>
+                          <option value="12h30-17h">12h30-17h</option>
+                          <option value="17h30-21h">17h30-21h</option>
+                          <option value="18h-21h">18h-21h</option>
+                        </select>
+                      </div>
+                      <div v-else>
+                          <div class=" my-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex items-start  space-x-4">
+                            <div>
+                              <div class="text-xl font-medium text-black">Eventos  - Desculpe! Esse horário já está em uso!</div>
+                            </div>
+                          </div>
+                      </div>
+                      </div> -->
+                      
+                      <div  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
+                        <select @change="getDataNew" name="" id="hora" class="border rounded-md w-auto"  v-model="form.horariosFull" required>
+                          <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
+                          <option value="07h10-07h55">07h10-07h55</option>
+                          <option value="07h55-08h40">07h55-08h40</option>
+                          <option value="08h40-9h25">08h40-9h25</option>
+                          <option value="09h25-10h10">09h25-10h10</option>
+                          <option value="09h45-10h30">09h45-10h30</option>
+                          <option value="10h30-11h15">10h30-11h15</option>
+                          <option value="11h15-12h">11h15-12h</option>
+                          <option value="12h-12h45">12h-12h45</option>
+                        
+                          <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
+                          <option value="13h15-14h">13h15-14h</option>
+                          <option value="14h-14h45">14h-14h45</option>
+                          <option value="14h25-15h10">14h25-15h10</option>
+                          <option value="14h20-15h15">14h20-15h15</option>
+                          <option value="14h20-15h15">15h05-15h50</option>
+                          <option value="15h10-15h55">15h10-15h55</option>
+                          <option value="15h15-16h">15h15-16h</option>
+                          <option value="16h-16h45">16h-16h45</option>
+                          
+                          <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
+                          <option value="12h30-13h15">12h30-13h15</option>
+                          <option value="13h15-14h">13h15-14h</option>
+                          <option value="14h-14h25">14h-14h25</option>
+                          <option value="14h25-15h10">14h25-15h10</option>
+                          <option value="15h10-15h55">15h10-15h55</option>
+                          <option value="15h55-16h40">15h55-16h40</option>
 
-                        <option class="text-lg bg-red-600 text-bold text-white">Horários de Eventos</option>
-                        <option value="07h10-12h">07h10-12h</option>
-                        <option value="12h30-17h">12h30-17h</option>
-                        <option value="17h30-21h">17h30-21h</option>
-                        <option value="18h-21h">18h-21h</option>
-                      </select>
+                          <option class="text-lg bg-red-600 text-bold text-white">Horários de Eventos</option>
+                          <option value="07h10-12h">07h10-12h</option>
+                          <option value="12h30-17h">12h30-17h</option>
+                          <option value="17h30-21h">17h30-21h</option>
+                          <option value="18h-21h">18h-21h</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                  <!-- Seleção da Situação -->
-                  <div v-if="getDat === true">
-                  <div>
-                    <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
-                     <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
-                      <option value="Salão">Salão</option>
-                      <option value="Jardim Sensorial">Jardim Sensorial</option>
-                      <option value="Agendamentos">Agendamentos</option>
-                      <option value="Ranchinho de Maria">Ranchinho de Maria</option>
-                      <option value="Área Gourmet">Área Gourmet</option>
-                      <option value="Sala_Informatica">Sala Informática</option>
-                      <option value="Outros">Outros</option>
-                      <option value="Piscina">Piscina</option>
-                      <option value="Quadra">Quadra</option>
-                      <option value="Rancho">Rancho</option>
 
-                    </select>
-                  </div> 
+
+                  <!-- ******************************************************* -->
+
+                  <!-- ARÉA RESTRITA A EVENTOS EXTERNOS -->
+                  <div v-if="evExt === true" class="bg-Cyan-200 pl-1 space-y-2 rounded-md py-2 pr-1 ">
+                    <div>
+                      <label class="flex opacity-70"  for="hora2">Horário dos Eventos Externos:</label>
+                      <div class="flex gap-2">
+                        <div>
+                          <span>Inicio </span><input class="px-2 border shadow-sm rounded-md mr-2" type="time" id="hora2" v-model="form.hourExtFirst" > 
+                        </div>
+                        <div>
+                          <span>Término </span><input class="px-2 border shadow-sm rounded-md mr-2" type="time" id="hora3" v-model="form.hourExtSecund" >
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label class="flex opacity-70"  for="hora2">Local do Evento:</label>
+                      <select id="action" name="action" @click.prevent="getDataNew()" v-model="form.evExternos" class="border w-full rounded-md mr-1">
+                        <option value="Salão">Salão</option>
+                        <option value="Area Gourmet">Aréa Gourmet</option>
+                        <option value="Piscina">Piscina</option>
+                        <option value="Parquinho">Parquinho</option>                        
+                        <option value="Outros">Outros</option>                        
+                        <option value="Salão com Aréa Gourmet">Salão + Aréa Gourmet</option>
+                        <option value="Salão, Aréa Gourmet e Piscina">Salão + Aréa Gourmet + Piscina</option>
+                        <option value="Salão, Aréa Gourmet, Piscina e Parquinho">Salão + Aréa Gourmet + Piscina + Parquinho</option>
+                      </select>
+                     
+                    </div>
+                  </div>
+
+
+                  <!-- ******************************************************* -->
+
+
+
+                  <!-- Seleção da Situação -->
+                  <div v-if="evExtOld2 === true">
+                    <div>
+                      <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                      <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
+                      <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
+                        <option value="Salão">Salão</option>
+                        <option value="Jardim Sensorial">Jardim Sensorial</option>
+                        <option value="Agendamentos">Agendamentos</option>
+                        <option value="Ranchinho de Maria">Ranchinho de Maria</option>
+                        <option value="Área Gourmet">Área Gourmet</option>
+                        <option value="Sala_Informatica">Sala Informática</option>
+                        <option value="Outros">Outros</option>
+                        <option value="Piscina">Piscina</option>
+                        <option value="Quadra">Quadra</option>
+                        <option value="Rancho">Rancho</option>
+                        <option value="Inspetor">Inspetor</option>
+
+                      </select>
+                    </div> 
+                  </div>
                   <!-- <Situacao/> -->
 
                   <!-- Setor -->
@@ -214,12 +281,17 @@
                       <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
                       <option value="Coordenadora Fundamental-II">Coordenadora Fundamental-II</option>
                       <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
+                      <option value="Diretora Pedagogica">Diretora Pedagógica</option>
                       <option value="Professor">Professor</option>
                       <option value="Secretaria">Secretaria</option>
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Setor-TI">Setor de TI</option>
                       <option value="Pastoral">Pastoral</option>
-                      <option value="inspetor">Inspetor</option>
+                      <option value="Inspetor">Inspetor</option>
+                      <option value="Ir Servente">Ir. Servente</option>
+                      <option value="Bem Estar">Bem Estar</option>
+                      <option value="Supervisor Manutencao">Supervisor de Manutenção</option>
+
                     </select>
                   </div> 
                   <!-- <Setor/> -->
@@ -239,6 +311,10 @@
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Pastoral">Pastoral</option>
                       <option value="Eventos Externos">Eventos Externos</option>
+                      <option value="Inspetor">Inspetor</option>
+                      <option value="Ir Servente">Ir. Servente</option>
+                      <option value="Bem Estar">Bem Estar</option>
+                      <option value="Supervisor Manutencao">Supervisor de Manutenção</option>
 
                     </select>
                   </div>
@@ -305,10 +381,10 @@
                       />
                     </div>
                   </div>
-                  </div>
-                  <div v-else class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
+                  
+                  <!-- <div class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
                     <h3> A DATA <span style="color:#fff; font-family: sans-serif; font-weight: 600;" >{{form.dataNew}}</span> E O HORÁRIO <span style="color:#fff; font-family: sans-serif; font-weight: 600;">{{form.horariosFundi}}{{form.horariosFundii}}{{form.horariosEventos}}{{form.horariosInfantil}}</span>  JÁ ESTÃO EM USO!</h3>
-                  </div>
+                  </div> -->
                 </form>
               </div>
             </div>
@@ -335,15 +411,12 @@ export default {
         Logado,
         Footer,
     },
-   
-    
     data(){
         return{
-         
             email:'',
             disabled: true,
             dataDia:[],
-            usuario: '',
+            usuario: null,
             fullData: null,
             anoComp:null,
             getDat: true,
@@ -354,6 +427,14 @@ export default {
             anoFull: null,
             disabledData: true,
             disabledDataII: true,
+            textDoc: false,
+            textError: null,
+            // textDoc: true,
+            // textError: "erro messangem!",
+            evExt:false,
+            evExtOld:true,
+            evExtOld2:true,
+            usr: null,
             
 
             form:{                    
@@ -376,6 +457,13 @@ export default {
               horaEventos:null,
               horariosFull:null,
               dataNew:null,
+              evExternos: null,
+              hourExtSecund: null,
+              hourExtFirst: null,
+              evSec:null,
+              evHour:null,
+              hHour:null,
+              sHour:null
 
             }
         }
@@ -386,39 +474,91 @@ export default {
       //  APRESENTA NA TELA O USUÁRIO CONECTADO
             db;
             const dbuser = getAuth();
-                onAuthStateChanged(dbuser, (user) => {
+                onAuthStateChanged(dbuser, (user) => {                
                   if(user.displayName === null){
                      this.usuario = user.email
                   }else{
                     this.usuario = user.displayName
-                  }
-                          
+                  }           
             });
-
-            // this.getDataNew();
-            // this.pegarData()
-            // console.log(this.anoFull)
            
-           
+            // CALCULO PARA DESCOBRIR 4 horas
+            
+            this.eventNew()
+            
+            
             
       },
   
      methods: {
 
-      
+      eventNew(){
+        const dbUser = getAuth()
+          onAuthStateChanged(dbUser, (user) => {                
+            if(user.email === "compras@ersvp.g12.br"){
+                this.evExt = true
+                this.evExtOld = false
+                this.evExtOld2 = false
+            }
+          })
+          this.getDataNew()
+      },
+     
        async getDataNew() { 
         const dbUser = getFirestore();
          const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
 
+            // ***********************************************************
+            // BLOQUEIA DATAS NOS PERÍODOS ALEATÓRIOS
+            // ***********************************************************
+            // let hourNew = doc.data().hourExtFirst
+            // if (hourNew) {
+            //   let hourNewSplit = hourNew.split(":") 
+            //   let h = ((Number(hourNewSplit[0]) * 60) + Number(hourNewSplit[1]))
+            //   // console.log("hourNew", h)
+            //   this.form.hHour = h
+            // }   
+
+            //  let secNew = doc.data().hourExtSecund
+            // if (secNew) {
+            //   let secNewSplit = secNew.split(":") 
+            //   let s = ((Number(secNewSplit[0]) * 60) + Number(secNewSplit[1]))
+            //   // console.log("hourNew", s)
+            //   this.form.sHour = s
+            // }
+
+            // let sHour = this.form.sHour
+            // let hHour = this.form.hHour
+            // let hsTotal = hHour+sHour
+            // console.log("TOTAL DE TUDO",hsTotal)
+
+            // let h1 = this.form.hourExtFirst
+            // let h2 = this.form.hourExtSecund
+            // let h3 = h1.split(":")
+            // let h3m = h2.split(":")
+            // let h4 = ((Number(h3[0]) *60) + Number(h3[1])) + ((Number(h3m[0]) *60) + Number(h3m[1]))
+            // // console.log("TUDO DO H4", h4)
+            
+            // if (h4 === hsTotal) {
+            //   alert("Horário já marcado! BLOQUEADO!")
+              
+            // } 
+
+            // ***********************************************************
+            // FIM DO BLOQUEIO DAS DATAS NOS PERÍODOS ALEATÓRIOS
+            // ***********************************************************
+
             const hFull = doc.data().horariosFull;
             const sitUser = doc.data().situacao;
             const getFull = doc.data().dataNew;
-           
+            // console.log(doc.data())
+      
           //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
           if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
-            
-            alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
+            // alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
             setTimeout(() => {
               this.$router.go({name:'auth'})
             }, 2500);
@@ -438,8 +578,9 @@ export default {
                 this.form.horariosFull === '12h-12h45'
               )
               {
-                alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - FundII')
-
+                // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro!')
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
               }, 2500);
@@ -466,7 +607,9 @@ export default {
                 this.form.horariosFull === '15h55-16h40' 
               )
               {
-                alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
+                // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
 
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -492,13 +635,17 @@ export default {
               hFull === '15h55-16h40' 
               )
               {
-                alert('Desculpa! Horários e datas já em uso!')
+                //  if(this.textDoc === true){
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
+                  // }
+                // alert('Desculpa! Horários e datas já em uso!')
 
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
-          } else if (this.form.dataNew === getFull &&  this.form.horariosFull === '07h10-12h' && this.form.situacao === sitUser) {
+          } else if (this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && this.form.situacao === sitUser) {
             if
             (
               hFull === '07h10-07h55' ||
@@ -511,27 +658,33 @@ export default {
               hFull === '12h-12h45'
             )
             {
-              alert('Desculpa! Datas em uso! - FundII')
+              // alert('Desculpa! Datas em uso! - FundII')
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
             }, 2500);
             } 
             
-          } else if (this.form.dataNew === getFull &&  hFull === '09h25-10h10'  && this.form.situacao === sitUser) {
+          } else if (this.form.dataNew === getFull && hFull === '09h25-10h10' && this.form.situacao === sitUser) {
             if (this.form.horariosFull === '09h45-10h30')
             {
-              alert('Desculpa! Data em uso! - FundII ')
+              // alert('Desculpa! Data em uso! - FundII ')
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
             }, 2500);
             } 
             
-          } else if (this.form.dataNew === getFull &&  hFull === '09h45-10h30'  && this.form.situacao === sitUser) {
+          } else if (this.form.dataNew === getFull && hFull === '09h45-10h30' && this.form.situacao === sitUser) {
             if (this.form.horariosFull === '09h25-10h10')
             {
-              alert('Desculpa! Data em uso! - FundII ')
+              // alert('Desculpa! Data em uso! - FundII ')
+              this.textDoc = true
+              this.textError = "Desculpe! Horários e Datas em uso!"
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
@@ -540,14 +693,19 @@ export default {
             //BLOQUEIOS DO FUNDAMENTAL I - MUITOS HORÁRIOS PICADOS
           } else if (this.form.dataNew === getFull && hFull === '14h-14h45' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '14h25-15h10' || this.form.horariosFull === '14h20-15h15' ) {
-                alert('Data 14h-14h45 em uso!')
+                // alert('Data 14h-14h45 em uso!')
+              this.textDoc = true
+              this.textError = "Data 14h-14h45 em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
           } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
-                alert('Data 14h25-15h10 em uso!')
+                // alert('Data 14h25-15h10 em uso!')
+                this.textDoc = true
+                this.textError = "Data 14h25-15h10 em uso!"
+                
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -555,35 +713,46 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '14h20-15h15' && this.form.situacao === sitUser) {
               if (  this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h25-15h10'
                     ) {
-                alert('Data 14h20-15h15 em uso!')
+                // alert('Data 14h20-15h15 em uso!')
+                this.textDoc = true
+                this.textError = "Data 14h20-15h15 em uso!"
+                
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
           } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
               if (this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
-                alert('Data 14h25-15h10 em uso!')
+                // alert('Data 14h25-15h10 em uso!')
+                this.textDoc = true
+                this.textError = "Data 14h25-15h10 em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
           } else if (this.form.dataNew === getFull && hFull === '15h10-15h55' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h05-15h50' || this.form.horariosFull === '15h15-16h' ) {
-                alert('Data 15h10-15h55 em uso!')
+                // alert('Data 15h10-15h55 em uso!')
+                this.textDoc = true
+                this.textError = "Data 15h10-15h55 em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
           }else if (this.form.dataNew === getFull && hFull === '15h05-15h50' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h15-16h' ) {
-                alert('Data 15h05-15h50 em uso!')
+                // alert('Data 15h05-15h50 em uso!')
+                this.textDoc = true
+                this.textError = "Data 15h05-15h50 em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
               } 
           } else if (this.form.dataNew === getFull && hFull === '15h15-16h' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h05-15h50' ) {
-                alert('Data 15h15-16h em uso!')
+                // alert('Data 15h15-16h em uso!')
+                this.textDoc = true
+                this.textError = "Data 15h15-16h em uso!"
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -677,15 +846,10 @@ export default {
             
         //  }
        },
-
       // FIM FUNÇÃO BLOQUEIO
         clicado(){
-
           this.disabledUser = !this.disabledUser;
-
       },
-      
-
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
             // const dbUser = getFirestore();
@@ -723,9 +887,6 @@ export default {
       // })
 
     },
-
-   
-
      async clicar() {
      try{
    
@@ -756,6 +917,11 @@ export default {
           data:new Date().toLocaleString(),
           horaEventos:this.form.horaEventos,
           dataNew:this.form.dataNew,
+          // CONTEUDO DA TESOURARIA - EVENTOS EXTERNOS
+          evExternos: this.form.evExternos,
+          hourExtFirst: this.form.hourExtFirst,
+          hourExtSecund: this.form.hourExtSecund,
+
         }
        
       
@@ -811,6 +977,9 @@ export default {
               horaEventos:this.form.horaEventos,
               horariosFull:this.form.horariosFull,
               dataNew:this.form.dataNew,
+              evExternos: this.form.evExternos,
+              hourExtFirst: this.form.hourExtFirst,
+              hourExtSecund: this.form.hourExtSecund,
               
         }
 
@@ -827,6 +996,20 @@ export default {
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
+  .anime__full{
+    animation: anima 0.8s forwards ease-in-out;
+    width: 100%;
+    position: fixed;
+    top:-100px;
+  }
+
+  @keyframes anima {
+    to{
+      top:0px;
+      /* opacity:1; */
+    }
+   
+  }
   .elseMensagem {
     width: 100%;
     height: 200px;
@@ -838,15 +1021,7 @@ export default {
     border-radius: 25px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   }
-  .wood::before{
-    content: "";
-    height: 40px;
-    width: 20px;
-    font-size: 2em;
-    right: 23px;
-    position: relative;
-    background-color: rgb(255, 98, 0);
-  }
+  
   .Poppins{
     font-family: Poppins, sans;
     font-weight: 500;
