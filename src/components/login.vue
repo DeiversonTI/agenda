@@ -133,26 +133,37 @@
               >
                 Senha
               </label>
-              <input
-                v-model="password"
-                required
-                class="
-                  shadow
-                  appearance-none
-                  focus:border-red-500
-                  rounded
-                  w-full
-                  py-4
-                  px-3
-                  text-gray-700
-                  opacity-80
-                  leading-tight
-                  focus:outline-none focus:shadow-outline
-                "
-                id="password"
-                type="password"
-                placeholder="Digite sua Senha"
-              />
+              <div class="flex justify-between items-center  rounded shadow">
+                <div>
+                  <input
+                    v-model="password"
+                    required
+                    class="
+                      
+                      appearance-none
+                      focus:border-red-500
+                     
+                      w-full
+                      py-4
+                      px-3
+                      text-gray-700
+                      opacity-80
+                      leading-tight
+                      focus:outline-none focus:shadow-outline
+                    "
+                    id="password"
+                    :type="passField"
+                    placeholder="Digite sua Senha"
+                  />
+                  </div>
+                  <div class="pr-2">
+                    <button @click="toggleShow">
+                      <i @click="passFieldNew" class="opacity-20 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i>
+                    </button>
+                    
+                  </div>
+              </div>
+             
             </div>
             <div class="mb-6">
               <div class="w-full text-left">
@@ -185,13 +196,13 @@
                 sm:pt-4
               "
             >
-              <div>
+              <div class="sm:w-0 bg-gradient-to-r from-Sky-400 to-Sky-600 rounded">
                 <button
                   @click.prevent="login()"
                   class="
-                    bg-gradient-to-r
-                    from-Sky-400
-                    to-Sky-600
+                    sm:bg-gradient-to-r
+                    sm:from-Sky-400
+                    sm:to-Sky-600
                     text-white
                     font-bold
                     py-2
@@ -258,6 +269,7 @@ import * as firebase from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import RegisterView from "../components/Registrar.vue";
 
+
 export default {
   components: {
     RegisterView,
@@ -265,15 +277,26 @@ export default {
   name: "login",
   data() {
     return {
+      showPassword: true,
+      passField: "password",
       email: "",
-      password: "",
+      password: null,
       isDesabled: true,
       trocar: true,
       isView: false
     };
   },
+  
   methods: {
-
+    // FUNÇÃO MOSTRAR A SENHA
+    toggleShow(){
+      this.passField = this.passField === "password" ? "text" : "password"
+    },
+    // FUNÇÃO ALTERAR O EYE VIEW (ABERTO OU FECHADO)
+     passFieldNew(){
+       this.showPassword = !this.showPassword;
+    },
+  
     isViewTrocar() {
       this.isView = !this.isView;
     },

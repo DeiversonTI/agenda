@@ -216,7 +216,7 @@
                   <!-- ******************************************************* -->
 
                   <!-- ARÉA RESTRITA A EVENTOS EXTERNOS -->
-                  <div v-if="evExt === true" class="bg-Cyan-200 pl-1 space-y-2 rounded-md py-2 pr-1 ">
+                  <!-- <div v-if="evExt === true" class="bg-Cyan-200 pl-1 space-y-2 rounded-md py-2 pr-1 ">
                     <div>
                       <label class="flex opacity-70"  for="hora2">Horário dos Eventos Externos:</label>
                       <div class="flex gap-2">
@@ -242,7 +242,7 @@
                       </select>
                      
                     </div>
-                  </div>
+                  </div> -->
 
 
                   <!-- ******************************************************* -->
@@ -250,10 +250,10 @@
 
 
                   <!-- Seleção da Situação -->
-                  <div v-if="evExtOld2 === true">
+                  <!-- <div v-if="evExtOld2 === true"> -->
                     <div>
                       <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                      <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
+                      <select id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
                       <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
                         <option value="Salão">Salão</option>
                         <option value="Jardim Sensorial">Jardim Sensorial</option>
@@ -269,13 +269,13 @@
 
                       </select>
                     </div> 
-                  </div>
+                  <!-- </div> -->
                   <!-- <Situacao/> -->
 
                   <!-- Setor -->
                   <div>
                     <label class="flex opacity-70" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <select  id="setor" name="setor" v-model="form.responsavel" class="border w-full rounded-md" required >
+                    <select   id="setor" name="setor" v-model="form.responsavel" class="border w-full rounded-md" required >
                       <option value="Diretoria">Diretora</option>
                       <option value="Assistente-Social">Assistente-Social</option>
                       <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
@@ -323,6 +323,8 @@
                   <div class="border-gray-800 w-full">
                     <label class="flex opacity-70" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     <textarea
+                    
+                    @click.prevent="getDataNew()"
                       id="motivo" 
                       name="motivo"
                       rows="4"
@@ -484,7 +486,9 @@ export default {
            
             // CALCULO PARA DESCOBRIR 4 horas
             
-            this.eventNew()
+            // this.eventNew()
+
+            // this.testeSend()
             
             
             
@@ -492,62 +496,38 @@ export default {
   
      methods: {
 
-      eventNew(){
-        const dbUser = getAuth()
-          onAuthStateChanged(dbUser, (user) => {                
-            if(user.email === "compras@ersvp.g12.br"){
-                this.evExt = true
-                this.evExtOld = false
-                this.evExtOld2 = false
-            }
-          })
-          this.getDataNew()
-      },
+      // testeSend(){
+
+      //   setTimeout(()=>{
+
+      //     let nr = this.form.dataNew
+      //     let nb = this.form.horariosFull
+      //     let nc = this.form.situacao
+
+      //   console.log(nr + " - " + nb + " - " + nc)
+
+      //   }, 5000)
+
+       
+
+      // },
+
+      // eventNew(){
+      //   const dbUser = getAuth()
+      //     onAuthStateChanged(dbUser, (user) => {                
+      //       if(user.email === "compras@ersvp.g12.br"){
+      //           this.evExt = true
+      //           this.evExtOld = false
+      //           this.evExtOld2 = false
+      //       }
+      //     })
+      //     // this.getDataNew()
+      // },
      
        async getDataNew() { 
         const dbUser = getFirestore();
          const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
-
-            // ***********************************************************
-            // BLOQUEIA DATAS NOS PERÍODOS ALEATÓRIOS
-            // ***********************************************************
-            // let hourNew = doc.data().hourExtFirst
-            // if (hourNew) {
-            //   let hourNewSplit = hourNew.split(":") 
-            //   let h = ((Number(hourNewSplit[0]) * 60) + Number(hourNewSplit[1]))
-            //   // console.log("hourNew", h)
-            //   this.form.hHour = h
-            // }   
-
-            //  let secNew = doc.data().hourExtSecund
-            // if (secNew) {
-            //   let secNewSplit = secNew.split(":") 
-            //   let s = ((Number(secNewSplit[0]) * 60) + Number(secNewSplit[1]))
-            //   // console.log("hourNew", s)
-            //   this.form.sHour = s
-            // }
-
-            // let sHour = this.form.sHour
-            // let hHour = this.form.hHour
-            // let hsTotal = hHour+sHour
-            // console.log("TOTAL DE TUDO",hsTotal)
-
-            // let h1 = this.form.hourExtFirst
-            // let h2 = this.form.hourExtSecund
-            // let h3 = h1.split(":")
-            // let h3m = h2.split(":")
-            // let h4 = ((Number(h3[0]) *60) + Number(h3[1])) + ((Number(h3m[0]) *60) + Number(h3m[1]))
-            // // console.log("TUDO DO H4", h4)
-            
-            // if (h4 === hsTotal) {
-            //   alert("Horário já marcado! BLOQUEADO!")
-              
-            // } 
-
-            // ***********************************************************
-            // FIM DO BLOQUEIO DAS DATAS NOS PERÍODOS ALEATÓRIOS
-            // ***********************************************************
 
             const hFull = doc.data().horariosFull;
             const sitUser = doc.data().situacao;

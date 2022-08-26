@@ -133,7 +133,7 @@
                   <div v-if="evExtOld2 === true">
                     <div>
                       <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                      <select   @click.prevent="getDataNew()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
+                      <select   @click.prevent="getDataNewEvent()" id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
                       <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
                         <option value="Salão">Salão</option>
                         <option value="Jardim Sensorial">Jardim Sensorial</option>
@@ -363,10 +363,10 @@ export default {
                 this.evExtOld2 = false
             }
           })
-          this.getDataNew()
+          // this.getDataNewEvent()
       },
      
-       async getDataNew() { 
+       async getDataNewEvent() { 
         const dbUser = getFirestore();
          const querySnapshot = await getDocs(collection(dbUser, "eventos"));
             querySnapshot.forEach((doc) => {

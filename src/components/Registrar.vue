@@ -71,7 +71,43 @@
           pattern=".+@ersvp\.g12\.br"
         />
       </div>
-      <div class="mb-6 sm:mb-2">
+      <div class="mb-8 sm:mb-2">
+        <label
+          class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+          for="password"
+        >
+          Senha
+        </label>
+        <div class="flex justify-between items-center  rounded shadow">
+            <div>
+              <input
+                v-model="password"
+                required
+                class="
+                  appearance-none
+                  focus:border-red-500
+                  w-full
+                  py-4
+                  px-3
+                  text-gray-700
+                  opacity-80
+                  leading-tight
+                  focus:outline-none focus:shadow-outline
+                "
+                id="password"
+                :type="passField"
+                placeholder="Digite sua Senha"
+              />
+              </div>
+          <div class="pr-2">
+            <button @click="toggleShow">
+              <i @click="passFieldNew" class="opacity-50 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i>
+            </button>
+            
+          </div>
+        </div>
+      </div>
+      <!-- <div class="mb-6 sm:mb-2">
         <label
           class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
           for="password"
@@ -94,12 +130,13 @@
             focus:outline-none focus:shadow-outline
           "
           id="password"
-          type="password"
+          :type="password"
           title="Cadastre uma senha no mínimo com 8 digitos"
           placeholder="Cadastre sua senha com 8 digitos"
         />
-      </div>
-      <div class="flex items-center justify-center sm:justify-start sm:pt-1 xl:mt-1">
+      </div> -->
+      
+      <div class="flex items-center justify-center sm:justify-start sm:pt-1 xl:mt-1 w-full sm:w-0 bg-red-600 rounded ">
         <div>
           <input
             type="submit"
@@ -136,6 +173,8 @@ export default {
   name: "login",
   data() {
     return {
+      showPassword: true,
+      passField: "password",
       email: "",
       password: "",
       name: "",
@@ -143,6 +182,14 @@ export default {
   },
 
   methods: {
+     // FUNÇÃO MOSTRAR A SENHA
+    toggleShow(){
+      this.passField = this.passField === "password" ? "text" : "password"
+    },
+    // FUNÇÃO ALTERAR O EYE VIEW (ABERTO OU FECHADO)
+     passFieldNew(){
+       this.showPassword = !this.showPassword;
+    },
     async login() {
       firebase;
       const userId = getAuth();

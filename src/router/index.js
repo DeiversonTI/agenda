@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Registrar from "../components/Registrar.vue"
 import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
-import AuthEventos from "../components/authEventos.vue"
+import AuthEventos from "../components/EauthEventos.vue"
 import userTelaEventos from "../views/userTelaEventos.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"

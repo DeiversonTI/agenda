@@ -55,18 +55,24 @@
         
            
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
-              <div class="flex flex-col  w-11/12 md:w-8/12 2xl:w-1/2   mx-auto container ">
+              <div class="flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container ">
                 <div class="py-8">
                   <h1 class="text-Sky-600 Poppins  text-center"> Agendamentos </h1>
                 </div>
                   
-                <div class=" sm:flex justify-between items-center pl-2">
+                <div class="flex justify-between items-center pl-2 px-2 ">
                   
-                  <div class="flex justify-start items-center w-full sm:w-4/6 md:w-4/6">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full  w-full md:w-full pl-2 border-b-2 border-gray-300 rounded " placeholder="Data, Nome, Local, horário...">
+                  <div class="flex justify-start items-center  sm:w-4/6 md:w-4/6">
+                    
+                      <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded " placeholder="Data, Nome, Local, horário...">
+                   
+                    
+                  </div>
+                  <div>
+                      <h1 class="text-xs font-bold text-blue-600">NP: {{agenda.length}}</h1>
                   </div>
                   
               
@@ -754,9 +760,9 @@ export default {
         }).then((result) => {
           if (result.isConfirmed) {
             if(userAuth === snapShot ||
-              userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
-              userAuth === 'q3whUxpWc5V8L0hkgoJNsrRZDXt1' && snapShotCoord === "Fundamental-I" || 
-              userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
+              // userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
+              // userAuth === 'q3whUxpWc5V8L0hkgoJNsrRZDXt1' && snapShotCoord === "Fundamental-I" || 
+              // userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-I" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" ||
