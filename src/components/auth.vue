@@ -383,7 +383,7 @@
                       />
                     </div>
                   </div>
-                  
+                                   
                   <!-- <div class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
                     <h3> A DATA <span style="color:#fff; font-family: sans-serif; font-weight: 600;" >{{form.dataNew}}</span> E O HORÁRIO <span style="color:#fff; font-family: sans-serif; font-weight: 600;">{{form.horariosFundi}}{{form.horariosFundii}}{{form.horariosEventos}}{{form.horariosInfantil}}</span>  JÁ ESTÃO EM USO!</h3>
                   </div> -->
@@ -437,7 +437,8 @@ export default {
             evExtOld:true,
             evExtOld2:true,
             usr: null,
-            
+            dbUser:[],
+                        
 
             form:{                    
               nome:null,
@@ -489,11 +490,13 @@ export default {
             // this.eventNew()
 
             // this.testeSend()
-            
+            this.getDataNew()
+           
+           
             
             
       },
-  
+      
      methods: {
 
       // testeSend(){
@@ -528,6 +531,10 @@ export default {
         const dbUser = getFirestore();
          const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
+
+
+            // console.log(this.dbUser)
+            this.dbUser.push(doc.data())
 
             const hFull = doc.data().horariosFull;
             const sitUser = doc.data().situacao;

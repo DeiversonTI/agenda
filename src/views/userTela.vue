@@ -60,19 +60,19 @@
                   <h1 class="text-Sky-600 Poppins  text-center"> Agendamentos </h1>
                 </div>
                   
-                <div class="flex justify-between items-center pl-2 px-2 ">
+                <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">
                   
-                  <div class="flex justify-start items-center  sm:w-4/6 md:w-4/6">
-                    
-                      <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <!--SEARCH-->
+                  <div class="flex justify-start items-center  sm:w-4/6 md:w-96  ">
+                      <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
-                      <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded " placeholder="Data, Nome, Local, horário...">
-                   
-                    
+                      <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded place " placeholder="Data, Nome, Local, horário...">
                   </div>
+                  <!--SEARCH-->
+
                   <div>
-                      <h1 class="text-xs font-bold text-blue-600">NP: {{agenda.length}}</h1>
+                      <h1 class="text-xs font-bold text-white">NP: {{agenda.length}}</h1>
                   </div>
                   
               
@@ -158,6 +158,7 @@ export default {
       nome: false,
       isClose:true,
       usuario: '',
+      dataDb:[]
     };
   },
 
@@ -209,6 +210,7 @@ export default {
   
   user.forEach((doc) => {
 
+   
     // console.log('TUDO DO BANCO DE DADOS ==> ', doc.data())
  
     //****************************************************************************** */
@@ -216,8 +218,7 @@ export default {
     //****************************************************************************** */
     let userData = doc.data()
     userData.id = doc.id
-
-    console.log(doc.data().hourExterno)
+    // console.log(doc.data().hourExterno)
     
 
     //****************************************************************************** */
@@ -237,7 +238,12 @@ export default {
     let todaData = newDay+"/"+newMonth+"/"+ano
 
     let dateString = todaData.toLocaleString('pt-BR', {}).replace(/\//g, '/')
-   
+
+
+    // ***********************************************************************/
+
+               
+                
 
     //****************************************************************************** */
 
@@ -735,7 +741,6 @@ export default {
  
   },
   
-
   // CODIGOS DO SEARCH
   
   methods:{
@@ -771,6 +776,7 @@ export default {
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Secretaria" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Eventos Externos" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Diretoria" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Inspetor" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" )
             {     
             this.$swal(
@@ -927,6 +933,29 @@ export default {
 }
 .largura{
   width: 100%;
+}
+input[type='search']{
+  background-color: #fff;
+  border: 1px solid #fff;
+  color:#000;
+  height: 40px;
+  
+  
+}
+input[type='search']:hover{
+  background-color: #fff;
+  border: 2px solid rgb(49, 135, 248);
+  color:#000;
+  height: 40px;
+  
+  
+}
+input[type='search']::placeholder{
+ color: #ccc;
+}
+
+input[type='search']:focus{
+  outline: none;
 }
 @media screen and (max-width:640px) {
   .wood::before{

@@ -13,7 +13,7 @@
   </svg>
 
   <!-- TELA DE LOGIN -->
-  <div class=" flex justify-center items-center relative z-40">
+  <div class=" flex justify-center items-center absolute z-30">
     <div class="flex gap-4 items-center justify-center w-full lg:h-auto">
       <div class="hidden md:visible md:flex justify-center items-center w-full">
         <div>
@@ -263,6 +263,77 @@
       />
     </svg>
   </router-link>
+  <div v-show="model === true" class=" flex justify-center items-center h-screen fixed  z-40 w-full" style="background-color: rgba(0, 0, 0, .8);">
+    <div class="w-full  lg:w-1/2 xl:w-1/3 h-auto  py-4 rounded-md bg-white   text-center flex-col justify-center items-start mx-2 ">
+       <div class="text-right mb-2 ">
+          <button @click="closeBtn" class="bg-red-700 py-1 px-3 rounded-md text-white mr-4 ">X</button>
+        </div> 
+      <div class="font-sans text-xs md:text-lg px-4 "><b class=" text-xl md:text-2xl">Caro Usuário</b>,<br>Para que possamos ter um melhor aproveitamento do sistema,<br> 
+        faça a limpeza periódica dos cookies e históricos do navegador.<br> Segue abaixo um pequeno tutorial. <br>
+        Qualquer dúvida procure o setor de TI.
+      </div>
+      <div class="flex-col justify-center items-center w-full ">
+        <div class="w-full px-4 ">
+          <div class="flex justify-center items-center gap-12 pt-4 pb-2">
+            <div @click="androidMet"  class="cursor-pointer  bg-gray-300 px-4 rounded-md font-bold">Android</div>
+            <div @click="androidMet"  class="cursor-pointer bg-gray-300 px-4 rounded-md font-bold">iPhone</div>
+          </div>
+          <hr>
+          <div class=" w-full  mx-auto" >
+            <div v-if="android === false"  class="text-sm w-full space-y-2 pt-4">
+              <div class="text-lg md:text-xl text-left">Apagar todos os cookies</div>
+                <ul class="text-left text-xs md:text-sm space-y-2">               
+                    <div>Se você remover os cookies, sairá dos sites, e suas preferências salvas poderão ser excluídas.</div>
+                    <li>1. No smartphone ou tablet Android, abra o app Chrome.</li>
+                    <div class="flex flex-wrap">
+                        <li>2. À direita da barra de endereço, toque em Mais </li>
+                        <li>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+                          </svg>
+                        </li>
+                        <li> > <b>Configurações.</b></li>
+                    </div>
+                    
+                    <li>3. Toque em<b> Privacidade e segurança</b> > <b>Remover dados de navegação.</b></li>
+                    <li>4. Escolha um intervalo de tempo, <b>como Última hora</b> ou <b>Todo o período.</b></li>
+                    <li>5. Marque <b>Cookies e dados do site</b> e desmarque todos os outros itens.</li>
+                    <li>6. Toque em <b>Limpar dados</b> > <b>Limpar.</b></li>
+                </ul>
+            </div>
+              
+            <div v-if="android === true" class="text-sm w-full space-y-2 pt-4">
+                <div class="text-xl text-left">Apagar todos os cookies</div>
+                  <ul class="text-left text-xs md:text-sm space-y-2">               
+                    <div>Se você remover os cookies, precisará fazer login em sites novamente, e as preferências salvas poderão ser excluídas.</div>
+                      <li>1. No iPhone ou iPad, abra o Chrome.</li>
+                      <div class="flex flex-wrap justify-start items-center">
+                        <li>2. Toque em Mais </li>
+                        <li>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                          </svg>
+                        </li>
+                        <li> > Configurações.</li>
+                        
+                      </div>
+                      <li>3. Toque em <b>Privacidade e segurança</b> > <b>Remover dados de navegação.</b></li>
+                      <li>4. Marque a opção <b>Dados do site e arquivos "cookies".</b></li>
+                      <li>5. Desmarque os outros itens.</li>
+                      <li>6. Toque em <b>Remover dados de navegação</b> > <b>Remover dados de navegação.</b></li>
+                      <li>7. Toque em <b>Concluído.</b></li>
+                  </ul>
+            </div>
+            
+          </div>
+        </div>
+         
+        </div>  
+           
+      </div>
+     
+    </div>
+ 
 </template>
 <script>
 import * as firebase from "firebase/app";
@@ -274,6 +345,10 @@ export default {
   components: {
     RegisterView,
   },
+
+  created(){
+    this.model = true
+  },
   name: "login",
   data() {
     return {
@@ -283,7 +358,11 @@ export default {
       password: null,
       isDesabled: true,
       trocar: true,
-      isView: false
+      isView: false,
+      model: false,
+      android: false,
+      modelClose: false
+      
     };
   },
   
@@ -292,6 +371,13 @@ export default {
     toggleShow(){
       this.passField = this.passField === "password" ? "text" : "password"
     },
+    closeBtn(){
+      this.model = false
+    },
+    androidMet(){
+      this.android = !this.android
+    },
+   
     // FUNÇÃO ALTERAR O EYE VIEW (ABERTO OU FECHADO)
      passFieldNew(){
        this.showPassword = !this.showPassword;
@@ -300,7 +386,7 @@ export default {
     isViewTrocar() {
       this.isView = !this.isView;
     },
-
+    
     trocarView() {
       this.trocar = !this.trocar;
     },
@@ -401,7 +487,10 @@ export default {
 .fonte {
   font-family: Fredoka + One;
   font-weight: 700;
+  
 }
+
+
 </style>
 
  

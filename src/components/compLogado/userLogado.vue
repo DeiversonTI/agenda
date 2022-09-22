@@ -16,25 +16,25 @@ import { getAuth, signOut } from "firebase/auth";
 export default {
     name: "userLogado",
     created(){
-        setTimeout(() => {
-            if (!this.signUp()) {
-                this.$swal({
-                     title: 'Sessão Expirou!! ',
-                        showClass: {
-                            popup: 'animate__animated animate__fadeInDown'
-                        },
-                        hideClass: {
-                            popup: 'animate__animated animate__fadeOutUp'
-                        }
+        // setTimeout(() => {
+        //     if (!this.signUp()) {
+        //         this.$swal({
+        //              title: 'Sessão Expirou!! ',
+        //                 showClass: {
+        //                     popup: 'animate__animated animate__fadeInDown'
+        //                 },
+        //                 hideClass: {
+        //                     popup: 'animate__animated animate__fadeOutUp'
+        //                 }
 
-                })
-                // alert("Sessão Expirou... Entre novamente!")
-                setTimeout(() => {
-                    this.$router.replace({name: 'Home'})
-                }, 2000)
+        //         })
+        //         // alert("Sessão Expirou... Entre novamente!")
+        //         setTimeout(() => {
+        //             this.$router.replace({name: 'Home'})
+        //         }, 2000)
                 
-            }
-        },150000)
+        //     }
+        // },180000)
     },
   
     methods:{
