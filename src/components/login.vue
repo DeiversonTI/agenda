@@ -13,16 +13,16 @@
   </svg>
 
   <!-- TELA DE LOGIN -->
-  <div class=" flex justify-center items-center absolute z-30">
-    <div class="flex gap-4 items-center justify-center w-full lg:h-auto">
-      <div class="hidden md:visible md:flex justify-center items-center w-full">
+  <div class=" w-full flex justify-center items-center absolute z-30 ">
+    <div class="flex gap-4 items-center justify-center w-full lg:h-auto ">
+      <div class="hidden md:visible md:flex justify-center items-center w-full ">
         <div>
           <img src="../assets/home-logo.jpg" alt="" style="max-width: 90%" />
         </div>
       </div>
 
       <div class="w-full h-screen sm:bg-gradient-to-l from-Sky-50">
-        <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4 ">
+        <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4  ">
           
           <div @click="isViewTrocar()" v-if="isView===true">
             <p
@@ -263,26 +263,26 @@
       />
     </svg>
   </router-link>
-  <div v-show="model === true" class=" flex justify-center items-center h-screen fixed  z-40 w-full" style="background-color: rgba(0, 0, 0, .8);">
-    <div class="w-full  lg:w-1/2 xl:w-1/3 h-auto  py-4 rounded-md bg-white   text-center flex-col justify-center items-start mx-2 ">
+  <div v-show="model === true" class=" flex justify-center items-center h-screen fixed z-40 w-full  " style="background-color: rgba(0, 0, 0, .8);">
+    <div class="w-full lg:w-1/2 xl:w-1/3  h-auto py-4 rounded-md bg-gray-900 text-center flex-col justify-center items-start mx-2 border-2 border-gray-100 ">
        <div class="text-right mb-2 ">
-          <button @click="closeBtn" class="bg-red-700 py-1 px-3 rounded-md text-white mr-4 ">X</button>
+          <button @click="closeBtn" class="bg-red-700 py-1 px-3 rounded-md text-white mr-4 border">X</button>
         </div> 
-      <div class="font-sans text-xs md:text-lg px-4 "><b class=" text-xl md:text-2xl">Caro Usuário</b>,<br>Para que possamos ter um melhor aproveitamento do sistema,<br> 
+      <div class="font-sans text-gray-50 text-xs md:text-lg px-2 "><b class=" text-gray-50 text-xl md:text-2xl">Caro Usuário</b>,<br>Para que possamos ter um melhor aproveitamento do sistema,<br> 
         faça a limpeza periódica dos cookies e históricos do navegador.<br> Segue abaixo um pequeno tutorial. <br>
         Qualquer dúvida procure o setor de TI.
       </div>
       <div class="flex-col justify-center items-center w-full ">
         <div class="w-full px-4 ">
-          <div class="flex justify-center items-center gap-12 pt-4 pb-2">
-            <div @click="androidMet"  class="cursor-pointer  bg-gray-300 px-4 rounded-md font-bold">Android</div>
-            <div @click="androidMet"  class="cursor-pointer bg-gray-300 px-4 rounded-md font-bold">iPhone</div>
+          <div class="flex justify-center items-center gap-12 pt-4 pb-2 text-gray-800">
+            <div @click="androidMet"  class="cursor-pointer  bg-Sky-500 px-4 rounded-md font-bold border border-Sky-400 shadow-2xl">Android</div>
+            <div @click="androidMet"  class="cursor-pointer bg-Sky-500 px-4 rounded-md font-bold">iPhone</div>
           </div>
           <hr>
           <div class=" w-full  mx-auto" >
-            <div v-if="android === false"  class="text-sm w-full space-y-2 pt-4">
-              <div class="text-lg md:text-xl text-left">Apagar todos os cookies</div>
-                <ul class="text-left text-xs md:text-sm space-y-2">               
+            <div v-if="android === false"  class="text-sm w-full space-y-1 pt-4">
+              <div class="text-lg text-gray-50 text-left">Apagar todos os cookies do <b>Android</b></div>
+                <ul class="text-left text-xs space-y-1 text-gray-50">               
                     <div>Se você remover os cookies, sairá dos sites, e suas preferências salvas poderão ser excluídas.</div>
                     <li>1. No smartphone ou tablet Android, abra o app Chrome.</li>
                     <div class="flex flex-wrap">
@@ -302,9 +302,9 @@
                 </ul>
             </div>
               
-            <div v-if="android === true" class="text-sm w-full space-y-2 pt-4">
-                <div class="text-xl text-left">Apagar todos os cookies</div>
-                  <ul class="text-left text-xs md:text-sm space-y-2">               
+            <div v-if="android === true" class="text-sm w-full space-y-1 pt-4">
+                <div class="text-lg text-left text-gray-50">Apagar todos os cookies do <b>iPhone</b></div>
+                  <ul class="text-left text-xs space-y-1 text-gray-50">               
                     <div>Se você remover os cookies, precisará fazer login em sites novamente, e as preferências salvas poderão ser excluídas.</div>
                       <li>1. No iPhone ou iPad, abra o Chrome.</li>
                       <div class="flex flex-wrap justify-start items-center">
