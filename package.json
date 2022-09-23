@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "firebase": "^9.2.0",
     "firestore": "^1.1.6",
+    "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vue-sweetalert2": "^5.0.2",

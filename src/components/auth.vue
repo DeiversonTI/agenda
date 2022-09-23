@@ -56,12 +56,22 @@
                <!-- <div v-if="textDoc===true" class=" bg-red-600 text-white py-4 px-4 anime transition-all duration-1000 ease-in">
                   <div>{{textError}}</div>
                </div> -->
+
+              
                
               <!-- Cabeçalho do formulário -->
               <div class="mb-4 mt-8">
                 <h1 class="text-center Poppins text-Sky-600 ">
                   Cadastro de Eventos
                 </h1>
+              </div>
+              <!-- <div class="bg-red-50">
+                 <Calendar :attributes='attrs'/>
+              </div> -->
+               <div class="mx-6 mb-6">
+                <label class="flex opacity-70 text-lg " for="nameConnect">Eventos Agendados</label>
+                 <DatePicker :attributes="attributes" is-expanded :timezone="timezone" locale="pt-BR" :mask ="masks" :first-day-of-week="2" />
+                 <!-- <DatePicker v-model="dates"/> -->
               </div>
               <!-- formulario de arquivos logado -->
               <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
@@ -406,15 +416,33 @@ import db from "../components/db/dbConfig";
 import {  collection,  getFirestore, addDoc, getDocs } from "firebase/firestore";
 import Logado from "../components/compLogado/userLogado.vue"
 import Footer from "../components/footer.vue"
+import { DatePicker } from 'v-calendar';
+
 
 export default {
     name:"auth",
     components:{
-        Logado,
-        Footer,
+      Logado,
+      Footer,
+      
+      DatePicker
     },
     data(){
-        return{
+      return {
+           
+            timezone: 'UTC', 
+              masks: {
+                weekdays: 'WWW',
+              },
+
+             attributes: [
+              {
+                // key: ['1', '2', '3'],
+                highlight: 'red',
+                dates: [],
+              },
+            ],
+            dates: [],
             email:'',
             disabled: true,
             dataDia:[],
@@ -437,7 +465,9 @@ export default {
             evExtOld:true,
             evExtOld2:true,
             usr: null,
-            dbUser:[],
+            dbUser: [],
+            // uid: null,
+            
                         
 
             form:{                    
@@ -490,7 +520,9 @@ export default {
             // this.eventNew()
 
             // this.testeSend()
-            this.getDataNew()
+       this.getDataNew()
+      //  console.log(this.attributes[0].dates)
+            
            
            
             
@@ -532,9 +564,11 @@ export default {
          const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
 
-
-            // console.log(this.dbUser)
-            this.dbUser.push(doc.data())
+           
+            this.attributes[0].dates.push(doc.data().dataNew)
+              // this.dates.push(doc.data().dataNew)
+            // console.log(this.dates)
+                         
 
             const hFull = doc.data().horariosFull;
             const sitUser = doc.data().situacao;
