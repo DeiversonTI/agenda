@@ -1,63 +1,57 @@
 <template>
 <div>
-  <div class="w-full h-full bg-gradient-to-l from-white via-Sky-100 to-white">
-    <!-- <div class="w-full flex justify-end items-center"> -->
-      <div class="w-full flex justify-end items-center">    
-        <div class=" flex items-center justify-end  m-1 w-full sm:w-9/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12 ">
-          <div>
-            <div class="flex justify-between items-center sm:bg-Orange-200 w-full  ">
-              <div>
-                  <p class="sm:bg-Orange-600 w-4 h-12 ">&nbsp;</p>
-              </div>
-              <div>
-                  <h1 class="text-sm sm:text-base font-thin  px-2 ">
-                  Olá
-              <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
-                  Seja Bem Vindo(a)
-              </h1>
-              </div>
-              <div>
-                <router-link to="/usertela">
-                <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
-                shadow-md mr-2 ">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  VOLTAR
-                </div>
-                </router-link>
-              </div>
-            </div>
-        </div>
-        <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
+  <div class="bg-gray-500 w-full h-auto">
+    <div class="bg-gray-50 w-full">
+      <div class="flex items-center justify-end">
+        <h1 class="text-base font-thin mr-4 px-4">
+          Olá
+          <span class="font-bold text-red-600 px-1">{{ this.usuario }}</span> Seja
+          Bem Vindo(a)
+        </h1>
+        <div>
           <Logado />
         </div>
       </div>
-    </div>
-         <!-- Main -->
-      <div class="bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col">
-        <div class=" flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container">
-          <div class="py-8">
-            <h1 class="text-Sky-600 Poppins text-center"> Editar Usuário</h1>
+      <!-- botão de logout -->
+
+      <!-- Navbar -->
+      <div class="bg-blue-100 py-8 shadow-md">
+        <div class="flex justify-around items-center">
+            <div class="ml-2">
+              <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>
+            </div>
+            <div class="font-thin text-2xl text-blue-900 mt-4 text-center">
+              <img src="../assets/Agendamentos.png" alt="" class="w-24 sm:w-44 md:w-44 lg:w-44 xl:w-44 2xl:w-44 "/>
+            </div>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="mt-4 w-full h-auto">
+        <div class=" bg-blue-200 sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-xl 2xl:border-2  flex flex-col justify-start">
+            <div class="mb-4 mt-8">
+            <h1 class="text-center font-sans text-3xl">
+              Editar Usuário
+            </h1>
           </div>
           <!-- formulario de arquivos logado -->
           <div class="space-y-4 ml-2 font-thin text-lg mr-1 px-4">
             <form @submit.prevent="updataUser()" class="space-y-6">
               <div>               
-                <label class="flex opacity-70" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="userGetPost.nome" class="border shadow-sm  w-full rounded-md pl-2 py-1" />
+                <label class="flex" for="nameConnect">Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <input placeholder="Nome do Colaborador" required type="text" id="nameConnect" v-model="userGetPost.nome" class="border-2  border-gray-400 w-full rounded-md pl-1" />
               </div>
              
               <div>
-                <label class="flex opacity-70"  for="hora">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <input  type="date" name="" id="hora" v-model="userGetPost.dataNew" class="border shadow-sm  rounded-md pl-2 py-1" >
+                <label class="flex"  for="hora">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <input @mouseout="pegarData()" type="date" name="" id="hora" v-model="userGetPost.dataNew" class="border-2 border-gray-400 rounded-md w-40 pl-1" >
               </div>
 
               <!-- Horário do Evento -->
               <div>
-                <label class="flex opacity-70"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <label class="flex"  for="hora">Horário do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                 <div class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
-                  <select  name="" id="hora" class="border shadow-sm  rounded-md pl-2 py-1"  v-model="userGetPost.horariosFull" required>
+                  <select @mouseout="pegarData()" name="" id="hora" class="border-2 border-gray-400 rounded-md w-auto"  v-model="userGetPost.horariosFull" required>
                     <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
                     <option value="07h10-07h55">07h10-07h55</option>
                     <option value="07h55-08h40">07h55-08h40</option>
@@ -97,8 +91,8 @@
  
                <!-- Seleção da Situação -->
               <div>
-                <label class="flex opacity-70" for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select  id="action" name="action" v-model="userGetPost.situacao" class="border shadow-sm  w-full rounded-md pl-2 py-1" required >
+                <label class="flex" for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <select @mou="pegarData()" id="action" name="action" v-model="userGetPost.situacao" class="border-2 border-gray-400 w-full rounded-md" required >
                   <option value="Salão">Salão</option>
                   <option value="Jardim Sensorial">Jardim Sensorial</option>
                   <option value="Agendamentos">Agendamentos</option>
@@ -111,8 +105,8 @@
 
               <!-- Setor -->
               <div>
-                <label class="flex opacity-70" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select  id="setor" name="setor" v-model="userGetPost.responsavel" class="border shadow-sm  w-full rounded-md pl-2 py-1" required >
+                <label class="flex" for="setor">Função ou Setor do Colaborador:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <select  id="setor" name="setor" v-model="userGetPost.responsavel" class="border-2 border-gray-400 w-full rounded-md" required >
                   <option value="Diretoria">Diretora</option>
                   <option value="Assistente-Social">Assistente-Social</option>
                   <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
@@ -128,8 +122,8 @@
 
               <!-- Seleção de Seguimento -->
               <div>
-                <label class="flex opacity-70" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                <select  id="seg" name="seg" v-model="userGetPost.seguimento" class="border shadow-sm  w-full rounded-md pl-2 py-1" title="Selecione o setor ou seguimento relacionados ao evento. " required >
+                <label class="flex" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <select  id="seg" name="seg" v-model="userGetPost.seguimento" class="border-2 border-gray-400 w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
                   <option value="Fundamental-I">Fundamental-I</option>
                   <option value="Fundamental-II">Fundamental-II</option>
                   <option value="Edu-Infantil">Edu-Infantil</option>
@@ -145,30 +139,29 @@
 
               <!-- Motivo -->
               <div class="border-gray-800 w-full">
-                <label class="flex opacity-70" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
+                <label class="flex" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                 <textarea
                   id="motivo" 
                   name="motivo"
                   rows="4"
                   cols="41"
-                  class=" border shadow-sm  w-full rounded-md pl-2 py-1" 
+                  class=" border-2 border-gray-400 w-full rounded-md pl-2 pt-1" 
                   v-model="userGetPost.motivo"
                   required>
                 </textarea>
               </div>
              
               <div>
-                <label for="linkEnviar opacity-70">Link: </label>
+                <label for="linkEnviar">Link: </label>
                 <input
                   type="text"
                   name="linkEnviar"
                   id="linkEnviar"
                   placeholder="Adicione seu link aqui..."
-                  class=" border shadow-sm  w-full rounded-md pl-2 py-1"
+                  class=" border-gray-300 px-1   border-2  w-full rounded-md"
                   v-model="userGetPost.link"
                 />
               </div>
-             
 
               <div>
                 <div class="flex font-bold text-red-500 items-center justif-start"><p class="text-red-500 ml-1 font-extrabold mr-2">*</p> Obrigatório.</div>
@@ -187,11 +180,10 @@
                  
                   <div>
                     <input
-                      
                       title="Enviar formulário"
                       type="submit"
-                      value="ATUALIZAR"
-                      class="py-2 bg-green-800 text-gray-50 rounded-md cursor-pointer px-8  "
+                      value="Salvar"
+                      class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
                     />
                   </div>
               </div>
@@ -204,15 +196,14 @@
   <div class="relative bottom-0">
     <Footer/>
   </div>
-<!-- </div> -->
+</div>
 </template>
 <script>
 
 import {getAuth, onAuthStateChanged } from "firebase/auth";
 import {  collection,  getFirestore,  getDocs, doc, getDoc,setDoc } from "firebase/firestore";
-import Logado from "../components/compLogado/userLogado.vue"
-import Footer from "../components/footer.vue"
-
+import Logado from "./compLogado/userLogado.vue"
+import Footer from "./footer.vue"
 
 export default {
     name:"auth",
@@ -229,8 +220,8 @@ export default {
             usuario: '',
             userId:null,
             userRef: null,
-            userGetPost:{
-               nome:null,
+            userGetPost:{                    
+                nome:null,
                 dia: null,
                 mes:null,
                 ano:null,
@@ -250,7 +241,7 @@ export default {
                 tesouraria:null,
                 horariosFull:null,
                 dataNew:null,
-            },
+            }
         }            
     },
    
@@ -288,26 +279,8 @@ export default {
       }
       
     },
-    watch: {
-      
-      'userGetPost.horariosFull'(valueOld, value){
-        if(value){
-          this.pegarData()      
-        }
-      },
-       'userGetPost.situacao'(valueOld, value){
-        if(value){
-          this.pegarData() 
-        }
-      },
-      'userGetPost.dataNew'(valueOld, value){
-        if(value){
-          this.pegarData()     
-        }
-      }
-   },
   
-  methods: {
+    methods: {
       
     async updataUser(){
       const db  = getFirestore()
@@ -337,78 +310,78 @@ export default {
     },
 
       // FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
-      //  dataUser(){
-      //   const dataFull =  new Date();
-      //   const dataDia = dataFull.getDate();
-      //   const mesDia = dataFull.getMonth()+1
+       dataUser(){
+        const dataFull =  new Date();
+        const dataDia = dataFull.getDate();
+        const mesDia = dataFull.getMonth()+1
             
-      //    if(this.userGetPost.dataNew < dataDia && this.userGetPost.dataNew <= mesDia){
+         if(this.userGetPost.dataNew < dataDia && this.userGetPost.dataNew <= mesDia){
          
-      //        this.$swal({
-      //          icon:'warning',
-      //          title:'Escolha a Data Recente ou Posterior!',
+             this.$swal({
+               icon:'warning',
+               title:'Escolha a Data Recente ou Posterior!',
             
-      //        })
+             })
                         
-      //    }else if(this.userGetPost.dataNew == dataDia && this.userGetPost.dataNew == mesDia){
+         }else if(this.userGetPost.dataNew == dataDia && this.userGetPost.dataNew == mesDia){
          
-      //        this.$swal({
-      //          icon:'error',
-      //          title:'Marcar com 12hs de antecedência!',
+             this.$swal({
+               icon:'error',
+               title:'Marcar com 12hs de antecedência!',
                     
-      //        })
+             })
             
-      //    }
-      //  },
+         }
+       },
 
       // FIM FUNÇÃO BLOQUEIO
-      clicado(){
-        this.disabledUser = !this.disabledUser;
+        clicado(){
+
+          this.disabledUser = !this.disabledUser;
+
       },
 
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
             const dbUser = getFirestore();
+           
             const querySnapshot =  await getDocs(collection(dbUser, "usuarios"));
+
             querySnapshot.forEach((doc) => {
            
-              let hora = doc.data().horariosFull
-              let sitUser = doc.data().situacao
-              let data = doc.data().dataNew
+            let hora = doc.data().horariosFull
+            let sitUser = doc.data().situacao
+            let data = doc.data().dataNew
+           
+            if(
+            this.userGetPost.dataNew === data &&
+            hora === this.userGetPost.horariosFull &&
+            this.userGetPost.situacao === sitUser)
+            {
+              this.$swal({
+              icon:'error',
+              title: 'Data ou hora em uso!!'
+              })
 
-              try {
-                if(this.userGetPost.dataNew == data &&
-                  hora == this.userGetPost.horariosFull &&
-                  this.userGetPost.situacao == sitUser){
+              setTimeout(() => {
+                this.$router.go({name:'auth'})
+              }, 2500);
 
-                  this.$swal({
-                    icon:'error',
-                    title: 'Data / Hora em USO!!',
-                    showConfirmButton: false,
-                    timer:2000,
-                  })
+                               
+            }else if(this.userGetPost.dataNew != data){
 
-                  
-                  setTimeout(() => {
-                    this.$router.go({name:'auth'})
-                  }, 1500);
-                                  
-                }
-                
-              }catch (error){
-                  console.log(error)
-              }
+              console.log("Continua o fluxo")
+             
+            }else{
+              
+              console.log("Procure o suporte técnico")
+            }
+          })
 
-            })      
-      }, 
-   },
+      },
+      
+   }
+ 
+    
 }
 </script>
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
-.Poppins{
-  font-family: Poppins, sans;
-  font-weight: 500;
-  font-size: 2.1em;
-}
-</style>

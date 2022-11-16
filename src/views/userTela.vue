@@ -2,37 +2,37 @@
 <div>
   <div class="w-full h-full bg-gradient-to-l from-white via-Sky-100 to-white">
     <div class="w-full flex justify-end items-center">    
-            <div class=" flex items-center justify-end  m-1 w-full sm:w-9/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12 ">
+        <div class=" flex items-center justify-end  m-1 w-full sm:w-9/12 md:w-7/12 lg:w-6/12 xl:w-5/12 2xl:w-3/12 ">
+          <div>
+            <div class="flex justify-between items-center sm:bg-Orange-200 w-full  ">
               <div>
-                <div class="flex justify-between items-center sm:bg-Orange-200 w-full  ">
-                  <div>
-                      <p class="sm:bg-Orange-600 w-4 h-12 ">&nbsp;</p>
-                  </div>
-                  <div>
-                     <h1 class="text-sm sm:text-base font-thin  px-2 ">
-                     Olá
-                  <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
-                      Seja Bem Vindo(a)
-                  </h1>
-                  </div>
-                  <div>
-                    <router-link to="/Auth">
-                    <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
-                    shadow-md mr-2 ">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                      </svg>
-                      VOLTAR
-                    </div>
-                    </router-link>
-                  </div>
-                </div>
+                  <p class="sm:bg-Orange-600 w-4 h-12 ">&nbsp;</p>
               </div>
-              <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
-                <Logado />
+              <div>
+                  <h1 class="text-sm sm:text-base font-thin  px-2 ">
+                  Olá
+              <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
+                  Seja Bem Vindo(a)
+              </h1>
+              </div>
+              <div>
+                <router-link to="/Auth">
+                <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
+                shadow-md mr-2 ">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  VOLTAR
+                </div>
+                </router-link>
               </div>
             </div>
-          </div>
+        </div>
+        <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
+          <Logado />
+        </div>
+      </div>
+    </div>
 
 
       <!-- botão de logout -->
@@ -57,7 +57,7 @@
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
               <div class="flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container ">
                 <div class="py-8">
-                  <h1 class="text-Sky-600 Poppins  text-center"> Agendamentos </h1>
+                  <h1 class="text-Sky-600 Poppins text-center"> Agendamentos </h1>
                 </div>
                   
                 <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">
@@ -95,7 +95,13 @@
                       <li class=""><span class="text-xl font-bold">Segmento: </span> {{agendas.seguimento}}</li>
                       <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
                       <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
-                      <li style="margin-top:14px;" class="text-red-600 text-base font-bold text-center bg-Sky-100 shadow-sm rounded-md "><span class=" font-bold text-gray-600  ">Criado em:  </span> {{ agendas.data}}</li>        
+                      <li style="margin-top:14px;" class="text-red-600 text-base font-bold text-center bg-Sky-100 shadow-sm rounded-md "><span class=" font-bold text-gray-600  ">Criado em: </span> {{ agendas.data}}</li>        
+                        
+                        <div>
+                          <div class="text-sm" v-if="agendas.userLogado">Criado pelo Usuário: <b class="text-red-500"> {{agendas.userLogado}}</b></div>
+                          <div v-else></div>
+                        </div>
+                        
                         <div class="flex  items-center space-x-1 pt-4">
                             <router-link :to="{path : `/edituser/${agendas.id}`}" class="bg-Teal-600 w-28 h-8 text-center text-white rounded">
                               <div title="Atualizar!" >
@@ -105,6 +111,7 @@
                             <div v-if="isClose"  @click.prevent="marcar(agendas.id)" title="Botão de Marcar como Recebido!" class="cursor-pointer bg-Sky-600 w-28 h-8 text-center text-white rounded">
                               <span class="text-sm md:text-base">Visto</span>
                             </div>
+                           
                             <div @click.prevent="deletar(agendas.id)" title="Deletar Publicação!" class="cursor-pointer bg-red-600 w-28 h-8 text-center text-white rounded">
                               <span class="text-sm md:text-base">Delete</span>
                             </div>
@@ -158,7 +165,7 @@ export default {
       nome: false,
       isClose:true,
       usuario: '',
-      dataDb:[]
+      dataDb:[],
     };
   },
 
@@ -210,7 +217,7 @@ export default {
   
   user.forEach((doc) => {
 
-   
+   console.log(doc.data())
     // console.log('TUDO DO BANCO DE DADOS ==> ', doc.data())
  
     //****************************************************************************** */
@@ -293,6 +300,7 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        userLogado:doc.data().userLogado //saber qual o usuário que criou o evento
         };
 
         this.agenda.push(dbMonitorUser);
@@ -910,8 +918,7 @@ export default {
     // FIM DO VERIFICAR
     //********************************************************/ 
   },
-    
- 
+  
   }
 </script>
 <style scoped>

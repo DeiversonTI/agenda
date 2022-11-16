@@ -184,39 +184,43 @@
                       
                       <div  class="sm:flex md:justify-start lg:justify-start xl:justify-start 2xl:justify-start  sm:justify-center sm:items-center space-x-1">
                         <select @change="getDataNew" name="" id="hora" class="border rounded-md w-auto"  v-model="form.horariosFull" required>
-                          <option class="text-lg bg-red-600 text-bold text-white ">Fundamental II</option>
-                          <option value="07h10-07h55">07h10-07h55</option>
-                          <option value="07h55-08h40">07h55-08h40</option>
-                          <option value="08h40-9h25">08h40-9h25</option>
-                          <option value="09h25-10h10">09h25-10h10</option>
-                          <option value="09h45-10h30">09h45-10h30</option>
-                          <option value="10h30-11h15">10h30-11h15</option>
-                          <option value="11h15-12h">11h15-12h</option>
-                          <option value="12h-12h45">12h-12h45</option>
-                        
-                          <option class="text-lg bg-red-600 text-bold text-white">Fundamental I</option>
-                          <option value="13h15-14h">13h15-14h</option>
-                          <option value="14h-14h45">14h-14h45</option>
-                          <option value="14h25-15h10">14h25-15h10</option>
-                          <option value="14h20-15h15">14h20-15h15</option>
-                          <option value="14h20-15h15">15h05-15h50</option>
-                          <option value="15h10-15h55">15h10-15h55</option>
-                          <option value="15h15-16h">15h15-16h</option>
-                          <option value="16h-16h45">16h-16h45</option>
                           
-                          <option class="text-lg bg-red-600 text-bold text-white">Educação Infantil</option>
-                          <option value="12h30-13h15">12h30-13h15</option>
-                          <option value="13h15-14h">13h15-14h</option>
-                          <option value="14h-14h25">14h-14h25</option>
-                          <option value="14h25-15h10">14h25-15h10</option>
-                          <option value="15h10-15h55">15h10-15h55</option>
-                          <option value="15h55-16h40">15h55-16h40</option>
+                          <optgroup label="Anos Finais" class="pb-6" >
+                            <option value="07h10-07h55">07h10-07h55</option>
+                            <option value="07h55-08h40">07h55-08h40</option>
+                            <option value="08h40-9h25">08h40-9h25</option>
+                            <option value="09h25-10h10">09h25-10h10</option>
+                            <option value="09h45-10h30">09h45-10h30</option>
+                            <option value="10h30-11h15">10h30-11h15</option>
+                            <option value="11h15-12h">11h15-12h</option>
+                            <option value="12h-12h45">12h-12h45</option>
+                          </optgroup>
+                          <optgroup label="Anos Iniciais" >
+                            <option value="13h15-14h">13h15-14h</option>
+                            <option value="14h-14h45">14h-14h45</option>
+                            <option value="14h25-15h10">14h25-15h10</option>
+                            <option value="14h20-15h15">14h20-15h15</option>
+                            <option value="14h20-15h15">15h05-15h50</option>
+                            <option value="15h10-15h55">15h10-15h55</option>
+                            <option value="15h15-16h">15h15-16h</option>
+                            <option value="16h-16h45">16h-16h45</option>
+                          </optgroup>
+                          
+                          <optgroup  label="Educação Infantil" >
+                            <option value="12h30-13h15">12h30-13h15</option>
+                            <option value="13h15-14h">13h15-14h</option>
+                            <option value="14h-14h25">14h-14h25</option>
+                            <option value="14h25-15h10">14h25-15h10</option>
+                            <option value="15h10-15h55">15h10-15h55</option>
+                            <option value="15h55-16h40">15h55-16h40</option>
+                          </optgroup>
 
-                          <option class="text-lg bg-red-600 text-bold text-white">Horários de Eventos</option>
-                          <option value="07h10-12h">07h10-12h</option>
-                          <option value="12h30-17h">12h30-17h</option>
-                          <option value="17h30-21h">17h30-21h</option>
+                          <optgroup label="Outros" >
+                            <option value="07h10-12h">07h10-12h</option>
+                            <option value="12h30-17h">12h30-17h</option>
+                            <option value="17h30-21h">17h30-21h</option>
                           <option value="18h-21h">18h-21h</option>
+                          </optgroup>
                         </select>
                       </div>
                     </div>
@@ -942,6 +946,7 @@ export default {
           evExternos: this.form.evExternos,
           hourExtFirst: this.form.hourExtFirst,
           hourExtSecund: this.form.hourExtSecund,
+          userLogado : this.usuario
 
         }
        
@@ -1001,6 +1006,7 @@ export default {
               evExternos: this.form.evExternos,
               hourExtFirst: this.form.hourExtFirst,
               hourExtSecund: this.form.hourExtSecund,
+              userLogado : this.usuario
               
         }
 

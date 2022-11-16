@@ -1,7 +1,8 @@
 <template>
+
   <svg
-    class="z-10 sm:hidden"
-    style="position: absolute; top: -170px; left: -170px"
+    class="z-10 sm:hidden  legAnima1 "
+   style=" position: absolute; top: -170px; left: -170px;"
     viewBox="0 0 200 200"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -12,12 +13,14 @@
     />
   </svg>
 
+  
+
   <!-- TELA DE LOGIN -->
   <div class=" w-full flex justify-center items-center absolute z-30 ">
     <div class="flex gap-4 items-center justify-center w-full lg:h-auto ">
       <div class="hidden md:visible md:flex justify-center items-center w-full ">
-        <div>
-          <img src="../assets/home-logo.jpg" alt="" style="max-width: 90%" />
+        <div class="anima">
+          <img src="../assets/home-logo.jpg" alt="" style="max-width: 90%"  class="logo"/>
         </div>
       </div>
 
@@ -74,8 +77,8 @@
           </div>
         </div>
 
-        <div class="h-36 sm:h-7/6 2xl:h-2/5 mx-auto items-center flex justify-center">
-          <img class="w-52 md:w-2/5 " src="../assets/Agendamentos.png" alt="" />
+        <div class="h-36 sm:h-7/6 2xl:h-2/5 mx-auto items-center flex justify-center anima">
+          <img class="w-52 md:w-2/5 agenda" src="../assets/Agendamentos.png" alt="" />
         </div>
 
         <!-- FORMULÁRIO LOGIN -->
@@ -92,9 +95,11 @@
             sm:border-t
             sm:border-opacity-80
             border-gray-200
+            animate
+            
           "
         >
-          <form v-if="trocar == true">
+          <form v-if="trocar == true" >
             <div class="text-center">
               <p class="text-4xl fonte text-blue-900 pb-6 pt-2">login</p>
             </div>
@@ -152,16 +157,17 @@
                       focus:outline-none focus:shadow-outline
                     "
                     id="password"
-                    :type="passField"
+                    :type= "isPwd ? 'password' : 'text'"
                     placeholder="Digite sua Senha"
                   />
-                  </div>
-                  <div class="pr-2">
-                    <button @click="toggleShow">
-                      <i @click="passFieldNew" class="opacity-20 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i>
-                    </button>
+                </div>
+                <div class="pr-2">
+                  <button>
+                    <!-- <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i> -->
+                    <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="isPwd ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                  </button>
                     
-                  </div>
+                </div>
               </div>
              
             </div>
@@ -198,7 +204,7 @@
             >
               <div class="sm:w-0 bg-gradient-to-r from-Sky-400 to-Sky-600 rounded">
                 <button
-                  @click.prevent="login()"
+                  @click.prevent="login"
                   class="
                     sm:bg-gradient-to-r
                     sm:from-Sky-400
@@ -263,7 +269,7 @@
       />
     </svg>
   </router-link>
-  <div v-show="model === true" class=" flex justify-center items-center h-screen fixed z-40 w-full  " style="background-color: rgba(0, 0, 0, .8);">
+  <!-- <div v-show="model === true" class=" flex justify-center items-center h-screen fixed z-40 w-full  " style="background-color: rgba(0, 0, 0, .8);">
     <div class="w-full lg:w-1/2 xl:w-1/3  h-auto py-4 rounded-md bg-gray-900 text-center flex-col justify-center items-start mx-2 border-2 border-gray-100 ">
        <div class="text-right mb-2 ">
           <button @click="closeBtn" class="bg-red-700 py-1 px-3 rounded-md text-white mr-4 border">X</button>
@@ -332,7 +338,7 @@
            
       </div>
      
-    </div>
+    </div> -->
  
 </template>
 <script>
@@ -346,14 +352,14 @@ export default {
     RegisterView,
   },
 
-  created(){
-    this.model = true
-  },
+  // created(){
+  //   this.model = true
+  // },
   name: "login",
   data() {
     return {
       showPassword: true,
-      passField: "password",
+      // passField: "password",
       email: "",
       password: null,
       isDesabled: true,
@@ -361,27 +367,29 @@ export default {
       isView: false,
       model: false,
       android: false,
-      modelClose: false
+      modelClose: false,
+      // password: '',
+      isPwd: true,
       
     };
   },
   
   methods: {
     // FUNÇÃO MOSTRAR A SENHA
-    toggleShow(){
-      this.passField = this.passField === "password" ? "text" : "password"
-    },
-    closeBtn(){
-      this.model = false
-    },
-    androidMet(){
-      this.android = !this.android
-    },
+    // toggleShow(){
+    //   this.passField = this.passField === "password" ? "text" : "password"
+    // },
+    // closeBtn(){
+    //   this.model = false
+    // },
+    // androidMet(){
+    //   this.android = !this.android
+    // },
    
     // FUNÇÃO ALTERAR O EYE VIEW (ABERTO OU FECHADO)
-     passFieldNew(){
-       this.showPassword = !this.showPassword;
-    },
+    //  passFieldNew(){
+    //    this.showPassword = !this.showPassword;
+    // },
   
     isViewTrocar() {
       this.isView = !this.isView;
@@ -488,6 +496,46 @@ export default {
   font-family: Fredoka + One;
   font-weight: 700;
   
+}
+.anima .logo{
+  position: relative;
+  animation: logo 1.5s ease-in-out forwards ;
+}
+
+.anima .agenda{
+  position: relative;
+  animation: agenda 2s ease-in-out forwards;
+}
+.animate{
+  position: relative;
+  animation: animate 1.2s ease-in-out forwards;
+  
+}
+
+
+@keyframes logo {
+  0%{
+    left: -850px;
+  }
+  100%{
+    left: 0;
+  }
+}
+@keyframes agenda {
+  0%{
+    right: -650px;
+  }
+  100%{
+    right: 0;
+  }
+}
+@keyframes animate {
+  0%{
+    right: -930px;
+  }
+  100%{
+    right: 0;
+  }
 }
 
 

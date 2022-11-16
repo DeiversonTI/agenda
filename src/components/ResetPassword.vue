@@ -47,7 +47,6 @@ export default {
             email:'',
             password:'',
             isDesabled: true,
-            
         }
     },
     methods:{
