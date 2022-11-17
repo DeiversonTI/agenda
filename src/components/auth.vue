@@ -396,11 +396,13 @@
                         class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
                       />
                     </div>
+                  
                   </div>
                                    
                   <!-- <div class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
                     <h3> A DATA <span style="color:#fff; font-family: sans-serif; font-weight: 600;" >{{form.dataNew}}</span> E O HORÁRIO <span style="color:#fff; font-family: sans-serif; font-weight: 600;">{{form.horariosFundi}}{{form.horariosFundii}}{{form.horariosEventos}}{{form.horariosInfantil}}</span>  JÁ ESTÃO EM USO!</h3>
                   </div> -->
+                  
                 </form>
               </div>
             </div>
@@ -470,6 +472,8 @@ export default {
             evExtOld2:true,
             usr: null,
             dbUser: [],
+            postDataBlock: [],
+            dataProf:null,
             // uid: null,
             
                         
@@ -532,6 +536,15 @@ export default {
             
             
       },
+      watch:{
+        'form.dataNew'(value){
+          if(value){
+            this.dataUser()
+          }
+          // console.log(value)
+        }
+
+      },
       
      methods: {
 
@@ -577,7 +590,8 @@ export default {
             const hFull = doc.data().horariosFull;
             const sitUser = doc.data().situacao;
             const getFull = doc.data().dataNew;
-            // console.log(doc.data())
+            this.postDataBlock.push(getFull)
+            // console.log(getFull)
       
           //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
           if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
@@ -840,37 +854,41 @@ export default {
        },
          
         
-      // FUNÇÃO DE BLOQUEIO DA DATA ANTERIOR E DATA ATUAL PARA CADASTRO
-       dataUser(){
-        // const dataFull = new Date();
-        // const dataDia = dataFull.getDate();
-        // const mesDia = dataFull.getMonth()+1;
-        // const anoFull = dataFull.getFullYear();
-        // const fullData = mesDia+'/'+dataDia+'/'+anoFull;
-        // this.anoFull = fullData;
-        const newData = new Date().toDateString();
-        // console.log(fullData)
+      // FUNÇÃO DE BLOQUEIO PARA DATAS ATUAIS E ANTERIORES
+      dataUser(){
+
+        const newData = new Date()
+        let d = newData.getDate()
+        let m = newData.getMonth()+1
+        let y = newData.getFullYear()
+        let fullYearBlock = y+"-"+m+"-"+d
+       
         const dataNew = this.form.dataNew
-            
-         if(dataNew <= newData){
-         
+   
+        if(dataNew < fullYearBlock){
+
              this.$swal({
-               icon:'warning',
-               title:'Escolha a Data Recente ou Posterior!',
-            
+                icon:'error',
+                title:'Ops!! Essa Data já Passou!',
              })
+             setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
                         
-         }
-        //  else if(dataNew === fullData){
-         
-        //      this.$swal({
-        //        icon:'error',
-        //        title:'Marcar com 12hs de antecedência!',
-                    
-        //      })
-            
-        //  }
-       },
+        }else if(dataNew === fullYearBlock){
+              
+              this.$swal({
+                icon:'info',
+                title:'Marcar com 12hs de Antecedência!',
+             })
+              
+            setTimeout(() => {
+              this.$router.go({name:'auth'})
+            }, 2500);
+        }
+      
+       
+      },
       // FIM FUNÇÃO BLOQUEIO
         clicado(){
           this.disabledUser = !this.disabledUser;
