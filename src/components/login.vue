@@ -2,7 +2,7 @@
 
   <svg
     class="z-10 sm:hidden  legAnima1 "
-   style=" position: absolute; top: -170px; left: -170px;"
+   style=" position: absolute; top: -250px; left: -260px; width:500px;"
     viewBox="0 0 200 200"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -234,8 +234,8 @@
   </div>
 
   <svg
-    class="z-30 sm:hidden"
-    style="position: fixed; bottom: -150px; right: -170px"
+    class="z-10 sm:hidden"
+    style="position: fixed; bottom: -200px; right: -250px; width:500px;"
     viewBox="0 0 200 200"
     xmlns="http://www.w3.org/2000/svg"
   >

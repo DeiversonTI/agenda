@@ -541,7 +541,7 @@ export default {
           if(value){
             this.dataUser()
           }
-          // console.log(value)
+          console.log(value)
         }
 
       },
@@ -858,12 +858,16 @@ export default {
       dataUser(){
 
         const newData = new Date()
-        let d = newData.getDate()
-        let m = newData.getMonth()+1
+        let d = ("0" + newData.getDate()).slice(-2)
+        let m = ("0" + (newData.getMonth()+1)).slice(-2)
         let y = newData.getFullYear()
         let fullYearBlock = y+"-"+m+"-"+d
+        
        
         const dataNew = this.form.dataNew
+        console.log('Data do digitada',dataNew)
+        console.log('Data Montada(fullYear)',fullYearBlock)
+        console.log('Data do newData',newData)
    
         if(dataNew < fullYearBlock){
 
@@ -872,7 +876,7 @@ export default {
                 title:'Ops!! Essa Data já Passou!',
              })
              setTimeout(() => {
-              this.$router.go({name:'auth'})
+              // this.$router.go({name:'auth'})
             }, 2500);
                         
         }else if(dataNew === fullYearBlock){
@@ -883,7 +887,7 @@ export default {
              })
               
             setTimeout(() => {
-              this.$router.go({name:'auth'})
+              // this.$router.go({name:'auth'})
             }, 2500);
         }
       
