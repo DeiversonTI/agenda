@@ -1,4 +1,16 @@
 <template>
+    <div id="loading">
+      <div class="load-fill flex justify-center items-center h-screen">
+        <div class="load flex flex-col justify-center items-center w-56 h-56 border rounded bg-gray-50">
+            <div class="text-center pt-2 loading-text">
+              <p class="font-semibold text-xl text-Sky-500">Aguarde</p>
+              <p class="text-gray-800">Verificando...</p> 
+            </div>
+            <p class="animation-load mt-5"></p>
+        </div>
+      </div>
+    </div>
+   
     <div>
       <!-- <div class="flex justify-center items-center  z-50 relative  mt-1 "> -->
        <!-- <div v-if="textDoc===true" class="fixed animate__animated animate__slideInDown w-full">
@@ -9,9 +21,9 @@
         </div>
       <!-- </div> -->
                   
-      <div class=" w-full h-auto">
+      <div class="w-full h-auto">
        
-        <div class=" bg-gray-100 w-full">
+        <div class=" bg-gray-100 w-full ">
           
           <!-- botão de logout -->
           <div class="w-full flex justify-end items-center ">
@@ -265,9 +277,9 @@
 
                   <!-- Seleção da Situação -->
                   <!-- <div v-if="evExtOld2 === true"> -->
-                    <div>
+                    <div >
                       <label class="flex opacity-70"  for="action">Local ou Situação:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                      <select id="action" name="action" v-model="form.situacao" class="border w-full rounded-md" required >
+                      <select id="action" name="action" v-model="form.situacao" class="border w-full rounded-md select-after" required >
                       <!-- <select v-if="getDat === true" @mouseout="pegarData()" id="action" name="action" v-model="form.situacao" class="border-2 border-gray-400 w-full rounded-md" required > -->
                         <option value="Salão">Salão</option>
                         <option value="Jardim Sensorial">Jardim Sensorial</option>
@@ -292,8 +304,8 @@
                     <select   id="setor" name="setor" v-model="form.responsavel" class="border w-full rounded-md" required >
                       <option value="Diretoria">Diretora</option>
                       <option value="Assistente-Social">Assistente-Social</option>
-                      <option value="Coordenadora Fundamental-I">Coordenadora Fundamental-I</option>
-                      <option value="Coordenadora Fundamental-II">Coordenadora Fundamental-II</option>
+                      <option value="Coordenadora Anos Iniciais">Coordenadora Anos Iniciais</option>
+                      <option value="Coordenadora Anos Finais">Coordenadora Anos Finais</option>
                       <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
                       <option value="Diretora Pedagogica">Diretora Pedagógica</option>
                       <option value="Professor">Professor</option>
@@ -314,8 +326,8 @@
                   <div>
                     <label class="flex opacity-70" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     <select  id="seg" name="seg" v-model="form.seguimento" class="border w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
-                      <option value="Fundamental-I">Fundamental-I</option>
-                      <option value="Fundamental-II">Fundamental-II</option>
+                      <option value="Anos Iniciais">Anos Iniciais</option>
+                      <option value="Amos Finais">Amos Finais</option>
                       <option value="Edu-Infantil">Edu-Infantil</option>
                       <option value="Diretoria">Diretoria</option>
                       <option value="Secretaria">Secretaria</option>
@@ -334,19 +346,19 @@
                   </div>
 
                   <!-- Motivo -->
-                  <div class="border-gray-800 w-full">
+                  <div @click.once="loading" class="border-gray-800 w-full ">
                     <label class="flex opacity-70" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
-                    <textarea
-                    
-                    @click.prevent="getDataNew()"
-                      id="motivo" 
-                      name="motivo"
-                      rows="4"
-                      cols="41"
-                      class=" border w-full rounded-md pl-2 pt-1" 
-                      v-model="form.motivo"
-                      required>
+                    <textarea                    
+                      @click.once="getDataNew()"
+                        id="motivo" 
+                        name="motivo"
+                        rows="4"
+                        cols="41"
+                        class=" border w-full rounded-md pl-2 pt-1" 
+                        v-model="form.motivo"
+                        required>
                     </textarea>
+                    
                   </div>
                   <!-- <Motivo/> -->
 
@@ -395,14 +407,11 @@
                         value="Enviar"
                         class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
                       />
-                    </div>
-                  
-                  </div>
-                                   
+                    </div>                  
+                  </div>                                   
                   <!-- <div class="elseMensagem" style="margin-bottom: 25px; color: bisque;">
                     <h3> A DATA <span style="color:#fff; font-family: sans-serif; font-weight: 600;" >{{form.dataNew}}</span> E O HORÁRIO <span style="color:#fff; font-family: sans-serif; font-weight: 600;">{{form.horariosFundi}}{{form.horariosFundii}}{{form.horariosEventos}}{{form.horariosInfantil}}</span>  JÁ ESTÃO EM USO!</h3>
-                  </div> -->
-                  
+                  </div> -->                  
                 </form>
               </div>
             </div>
@@ -425,6 +434,8 @@ import Footer from "../components/footer.vue"
 import { DatePicker } from 'v-calendar';
 
 
+
+
 export default {
     name:"auth",
     components:{
@@ -435,7 +446,7 @@ export default {
     },
     data(){
       return {
-           
+       
             timezone: 'UTC', 
               masks: {
                 weekdays: 'WWW',
@@ -529,6 +540,7 @@ export default {
 
             // this.testeSend()
        this.getDataNew()
+       
       //  console.log(this.attributes[0].dates)
             
            
@@ -541,45 +553,81 @@ export default {
           if(value){
             this.dataUser()
           }
-          console.log(value)
-        }
+          // console.log(value)
+        }, 
+        
+        // 'form.motivo'(value){
+        //   if(value){
+        //     this.loading()
+        //     console.log(value)
+        //   }
+        // }
 
       },
       
      methods: {
 
-      // testeSend(){
+      // ***********************
+      // ÁREA DE TESTE
+      // **********************
 
-      //   setTimeout(()=>{
+      
+      // ***********************
+      // ************************
+      
+      async loading(){
+        if(this.form.seguimento){
+          const loader = document.getElementById('loading')
+          loader.style.display = "inline"
+          setTimeout(() => {
+            loader.style.display = "none"
+          }, 2000);          
+        }else{
+          this.$swal({
+            icon: "warning",
+            title: "Oops...",
+            text: "Campo Vazio!",
+            showConfirmButton: false,
+            timer: 1000,
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          });
+        }
+      
+      },
 
-      //     let nr = this.form.dataNew
-      //     let nb = this.form.horariosFull
-      //     let nc = this.form.situacao
-
-      //   console.log(nr + " - " + nb + " - " + nc)
-
-      //   }, 5000)
-
-       
-
-      // },
-
-      // eventNew(){
-      //   const dbUser = getAuth()
-      //     onAuthStateChanged(dbUser, (user) => {                
-      //       if(user.email === "compras@ersvp.g12.br"){
-      //           this.evExt = true
-      //           this.evExtOld = false
-      //           this.evExtOld2 = false
-      //       }
-      //     })
-      //     // this.getDataNew()
-      // },
+      async loadLopping(){
+        const loader = document.getElementById('loading')      
+          loader.style.display = "none"
+              setTimeout(()=>{
+                  this.$swal({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Data ou Horário já em uso!",
+                  showConfirmButton: false,
+                  timer: 3000,
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  }                  
+                });
+              },2000)
+      },
      
+
        async getDataNew() { 
+        // const loader = document.getElementById('loading')
         const dbUser = getFirestore();
          const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
             querySnapshot.forEach((doc) => {
+
+              // console.log('getDataNew')
 
            
             this.attributes[0].dates.push(doc.data().dataNew)
@@ -595,8 +643,11 @@ export default {
       
           //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
           if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+             
+            this.loadLopping()
+              
             // alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
             setTimeout(() => {
               this.$router.go({name:'auth'})
@@ -618,8 +669,9 @@ export default {
               )
               {
                 // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro!')
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+              this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
               }, 2500);
@@ -647,11 +699,12 @@ export default {
               )
               {
                 // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+                this.loadLopping()
 
                 setTimeout(() => {
-                this.$router.go({name:'auth'})
+                  this.$router.go({name:'auth'})
               }, 2500);
               } 
           } else if (this.form.dataNew === getFull && this.form.situacao === sitUser &&  this.form.horariosFull === '12h30-17h') {
@@ -675,10 +728,12 @@ export default {
               )
               {
                 //  if(this.textDoc === true){
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
                   // }
                 // alert('Desculpa! Horários e datas já em uso!')
+
+                this.loadLopping()
 
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -698,8 +753,10 @@ export default {
             )
             {
               // alert('Desculpa! Datas em uso! - FundII')
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+
+              this.loadLopping()
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
@@ -710,8 +767,9 @@ export default {
             if (this.form.horariosFull === '09h45-10h30')
             {
               // alert('Desculpa! Data em uso! - FundII ')
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+              this.loadLopping()
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
@@ -722,8 +780,9 @@ export default {
             if (this.form.horariosFull === '09h25-10h10')
             {
               // alert('Desculpa! Data em uso! - FundII ')
-              this.textDoc = true
-              this.textError = "Desculpe! Horários e Datas em uso!"
+              // this.textDoc = true
+              // this.textError = "Desculpe! Horários e Datas em uso!"
+              this.loadLopping()
 
               setTimeout(() => {
               this.$router.go({name:'auth'})
@@ -733,8 +792,9 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '14h-14h45' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '14h25-15h10' || this.form.horariosFull === '14h20-15h15' ) {
                 // alert('Data 14h-14h45 em uso!')
-              this.textDoc = true
-              this.textError = "Data 14h-14h45 em uso!"
+              // this.textDoc = true
+              // this.textError = "Data 14h-14h45 em uso!"
+              this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -742,8 +802,9 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
                 // alert('Data 14h25-15h10 em uso!')
-                this.textDoc = true
-                this.textError = "Data 14h25-15h10 em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 14h25-15h10 em uso!"
+                this.loadLopping()
                 
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -753,8 +814,9 @@ export default {
               if (  this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h25-15h10'
                     ) {
                 // alert('Data 14h20-15h15 em uso!')
-                this.textDoc = true
-                this.textError = "Data 14h20-15h15 em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 14h20-15h15 em uso!"
+                this.loadLopping()
                 
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
@@ -763,8 +825,9 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
               if (this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
                 // alert('Data 14h25-15h10 em uso!')
-                this.textDoc = true
-                this.textError = "Data 14h25-15h10 em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 14h25-15h10 em uso!"
+                this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -772,8 +835,9 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '15h10-15h55' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h05-15h50' || this.form.horariosFull === '15h15-16h' ) {
                 // alert('Data 15h10-15h55 em uso!')
-                this.textDoc = true
-                this.textError = "Data 15h10-15h55 em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 15h10-15h55 em uso!"
+                this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -781,8 +845,9 @@ export default {
           }else if (this.form.dataNew === getFull && hFull === '15h05-15h50' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h15-16h' ) {
                 // alert('Data 15h05-15h50 em uso!')
-                this.textDoc = true
-                this.textError = "Data 15h05-15h50 em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 15h05-15h50 em uso!"
+                this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -790,8 +855,9 @@ export default {
           } else if (this.form.dataNew === getFull && hFull === '15h15-16h' && this.form.situacao === sitUser) {
               if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h05-15h50' ) {
                 // alert('Data 15h15-16h em uso!')
-                this.textDoc = true
-                this.textError = "Data 15h15-16h em uso!"
+                // this.textDoc = true
+                // this.textError = "Data 15h15-16h em uso!"
+                this.loadLopping()
                 setTimeout(() => {
                 this.$router.go({name:'auth'})
                 }, 2500);
@@ -852,6 +918,9 @@ export default {
         })
        
        },
+      //  **********************
+      //  FIM getDataNew
+      // ************************
          
         
       // FUNÇÃO DE BLOQUEIO PARA DATAS ATUAIS E ANTERIORES
@@ -861,13 +930,9 @@ export default {
         let d = ("0" + newData.getDate()).slice(-2)
         let m = ("0" + (newData.getMonth()+1)).slice(-2)
         let y = newData.getFullYear()
-        let fullYearBlock = y+"-"+m+"-"+d
-        
+        let fullYearBlock = y+"-"+m+"-"+d        
        
         const dataNew = this.form.dataNew
-        console.log('Data do digitada',dataNew)
-        console.log('Data Montada(fullYear)',fullYearBlock)
-        console.log('Data do newData',newData)
    
         if(dataNew < fullYearBlock){
 
@@ -1050,6 +1115,40 @@ export default {
     width: 100%;
     position: fixed;
     top:-100px;
+  }
+  
+
+  #loading{
+    width: 100%;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index:9999 ;
+    display: none;
+  }
+ 
+  .animation-load{
+    border: 10px solid #dad8d8;
+    border-top: 10px solid #3498db;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    animation: loading 1s linear infinite;
+  }
+  @keyframes loading {
+    0%{
+      transform: rotate(0);
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+  .loading-text{
+    font-family: Poppins, sans-serif;
+    font-weight: 300;
+
   }
 
   @keyframes anima {

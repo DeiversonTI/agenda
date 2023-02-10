@@ -51,17 +51,13 @@
     
     <section>
       <!-- body aplicação -->
-      <div class="w-full bg-gray-50">
-        
-           
+      <div class="w-full bg-gray-50">           
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
               <div class="flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container ">
                 <div class="py-8">
                   <h1 class="text-Sky-600 Poppins text-center"> Agendamentos </h1>
-                </div>
-                  
-                <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">
-                  
+                </div>                  
+                <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">                  
                   <!--SEARCH-->
                   <div class="flex justify-start items-center  sm:w-4/6 md:w-96  ">
                       <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,8 +69,7 @@
 
                   <div>
                       <h1 class="text-xs font-bold text-white">NP: {{agenda.length}}</h1>
-                  </div>
-                  
+                  </div>      
               
                 </div>
                                   
@@ -135,8 +130,6 @@
                 </div>
               </div>
             </div>
-       
-      
       </div>
     </section>
   </div>
@@ -785,7 +778,8 @@ export default {
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Eventos Externos" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Diretoria" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Inspetor" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" )
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Ir Servente" )
             {     
             this.$swal(
               'Deletado!',
@@ -844,7 +838,7 @@ export default {
            
            if (pegarUserNew == "coordenadora@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ) {
                await updateDoc(docRefer, {
-                  coordEI: "Coord. Juliana"
+                  coordEI: "Coord. Thais"
                });
               
             }
