@@ -8,13 +8,14 @@ import userTelaEventos from "../views/userTelaEventos.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
 import Teste from "../components/teste.vue"
-import { getAuth } from "firebase/auth"
+// import { getAuth } from "firebase/auth"
 import Footer from "../components/footer.vue"
 import Start from "../components/start.vue"
 import Help from "../components/help.vue"
 import Eventos from "../components/eventos.vue"
 import ResetPassword from "../components/ResetPassword.vue"
 import EditUser from '../components/editUser.vue'
+import useFirebase from '../components/db/dbConfig'
 
 
 
@@ -132,10 +133,6 @@ const routes = [
     component: EditUser,
   },
   
-  
-  
-
- 
    
     // {
     // // path: '/about',
@@ -154,16 +151,32 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next)=>{
-  const userConnected = getAuth().currentUser;
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+// router.beforeEach((to, from, next)=>{
+//   const userConnected = getAuth().currentUser;
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-  if (requiresAuth && !userConnected) next();
-  else if (!requiresAuth && userConnected) next();
+//   if (requiresAuth && !userConnected) next();
+//   else if (!requiresAuth && userConnected) next();
 
-  // if(requiresAuth && !userConnected) next('Login');
-  // else if(!requiresAuth && userConnected) next('Home');
-  else next();
+//   // if(requiresAuth && !userConnected) next('Login');
+//   // else if(!requiresAuth && userConnected) next('Home');
+//   else next();
+// })
+
+router.beforeEach(async (to, from, next) => {
+  const currenteUserGet = useFirebase().getCurrentUser()
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!await currenteUserGet) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() 
+  }
 })
 
 export default router

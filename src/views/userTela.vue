@@ -210,7 +210,7 @@ export default {
   
   user.forEach((doc) => {
 
-   console.log(doc.data())
+  //  console.log(doc.data())
     // console.log('TUDO DO BANCO DE DADOS ==> ', doc.data())
  
     //****************************************************************************** */
@@ -264,6 +264,7 @@ export default {
     const irservente = process.env.VUE_APP_FIREBASE_EMAIL_IRSERVENTE
     const manutencao = process.env.VUE_APP_FIREBASE_EMAIL_MANUTENCAO
     const irPastoral = process.env.VUE_APP_FIREBASE_EMAIL_IRPASTORAL
+
     // console.log(diretoraNew)
    
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
@@ -769,8 +770,8 @@ export default {
               // userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
               // userAuth === 'q3whUxpWc5V8L0hkgoJNsrRZDXt1' && snapShotCoord === "Fundamental-I" || 
               // userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-I" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Finais" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Iniciais" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Setor-TI" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Tesouraria" ||

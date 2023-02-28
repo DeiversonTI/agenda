@@ -1,5 +1,6 @@
 import {initializeApp} from "firebase/app"
 import { getFirestore } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -23,6 +24,22 @@ const firebaseConfig = {
    
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+
+  const dbUser = getAuth()
+    const getCurrentUser = () => {
+      return new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(dbUser, (user) => {
+          unsubscribe()
+          resolve(user)
+        }, reject)
+      })
+    }
   
 
-  export default {db}
+  // export default {db}
+  export default function useFirebase() {
+    return{
+      db,
+      getCurrentUser
+    }
+  }

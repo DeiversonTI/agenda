@@ -24,7 +24,7 @@
         </div>
       </div>
 
-      <div class="w-full h-screen sm:bg-gradient-to-l from-Sky-50">
+      <div class="w-full h-screen sm:bg-gradient-to-l from-Cyan-100 ">
         <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4  ">
           
           <div @click="isViewTrocar()" v-if="isView===true">
@@ -138,16 +138,14 @@
               >
                 Senha
               </label>
-              <div class="flex justify-between items-center  rounded shadow">
+              <div class="  rounded shadow">
                 <div>
                   <input
                     v-model="password"
                     required
-                    class="
-                      
+                    class="                      
                       appearance-none
-                      focus:border-red-500
-                     
+                      focus:border-red-500                     
                       w-full
                       py-4
                       px-3
@@ -156,18 +154,18 @@
                       leading-tight
                       focus:outline-none focus:shadow-outline
                     "
-                    id="password"
-                    :type= "isPwd ? 'password' : 'text'"
+                    
+                    type= "password"
                     placeholder="Digite sua Senha"
                   />
                 </div>
-                <div class="pr-2">
-                  <button>
+                <!-- <div class="pr-2"> -->
+                  <!-- <button> -->
                     <!-- <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i> -->
-                    <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="isPwd ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
-                  </button>
+                    <!-- <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="isPwd ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i> -->
+                  <!-- </button> -->
                     
-                </div>
+                <!-- </div> -->
               </div>
              
             </div>
@@ -369,7 +367,7 @@ export default {
       android: false,
       modelClose: false,
       // password: '',
-      isPwd: true,
+      // isPwd: true,
       
     };
   },

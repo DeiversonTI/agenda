@@ -15,7 +15,7 @@
     "@fullcalendar/interaction": "^5.11.0",
     "@fullcalendar/vue3": "^5.11.1",
     "core-js": "^3.6.5",
-    "firebase": "^9.2.0",
+    "firebase": "^9.17.1",
     "firestore": "^1.1.6",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.0.0",
