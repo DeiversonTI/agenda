@@ -52,7 +52,7 @@
               </div>
               <!-- formulario de arquivos logado -->
               <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
-                <form @submit.prevent="clicar()" class="space-y-6 ">
+                <form @submit.prevent="clicar(), backUp()" class="space-y-6 ">
                   <div>               
                     <label class="flex opacity-70 " for="nameConnect"> Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold ">*</p> </label>
                     <input placeholder=" Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border shadow-sm  w-full rounded-md" />
@@ -318,12 +318,13 @@ export default {
       //  APRESENTA NA TELA O USUÁRIO CONECTADO
       db;
       const dbuser = getAuth();
-          onAuthStateChanged(dbuser, (user) => {                
-            if(user.displayName === null){
-                this.usuario = user.email
-            }else{
-              this.usuario = user.displayName
-            }           
+          onAuthStateChanged(dbuser, (user) => {     
+            this.usuario = user.email   
+            // if(user.displayName === null){
+            //     this.usuario = user.email
+            // }else{
+            //   this.usuario = user.displayName
+            // }           
       })        
       this.getDataNew()
     },
@@ -626,7 +627,7 @@ export default {
             addDoc(collection(dbUser, "usuarios"), usuarioDb)
             .then(()=>{
               setTimeout(() => {
-                this.$router.replace({name: 'usertela'})             
+                this.$router.replace({name: 'usertela'}) 
               }, 1500);
             })
           } else if (result.isDenied) {         
@@ -644,24 +645,36 @@ export default {
       const authentication = getAuth();
       const userConnected = authentication.currentUser.uid;
       const usuarioBackup = {
-          user_id:userConnected,
-          nome:this.form.nome,
-          dataAtual: this.fullData,
-          responsavel: this.form.responsavel,
-          situacao: this.form.situacao,
-          seguimento:this.form.seguimento,
-          motivo: this.form.motivo,
-          link: this.form.link,
-          data:new Date().toLocaleString(),
-          horaEventos:this.form.horaEventos,
-          horariosFull:this.form.horariosFull,
-          dataNew:this.form.dataNew,
-          evExternos: this.form.evExternos,
-          hourExtFirst: this.form.hourExtFirst,
-          hourExtSecund: this.form.hourExtSecund,
-          userLogado : this.usuario            
+        user_id:userConnected,
+        nome:this.form.nome,
+        dataAtual:this.fullData,
+        diretora:this.form.diretora,
+        horariosFull:this.form.horariosFull,
+        responsavel: this.form.responsavel,
+        situacao: this.form.situacao,
+        seguimento:this.form.seguimento,
+        motivo: this.form.motivo,
+        link: this.form.link,
+        info:this.form.info,
+        coordFI:this.form.coordFI,
+        coordFII:this.form.coordFII,
+        coordEI:this.form.coordEI,
+        social:this.form.social,
+        diretoria:this.form.diretoria,
+        secretaria:this.form.secretaria,
+        tesouraria:this.form.tesouraria,
+        data:new Date().toLocaleString(),
+        horaEventos:this.form.horaEventos,
+        dataNew:this.form.dataNew,
+        evExternos: this.form.evExternos,
+        hourExtFirst: this.form.hourExtFirst,
+        hourExtSecund: this.form.hourExtSecund,
+        userLogado : this.usuario,
+        status: "backup"
       }
-      await addDoc(collection(dbUser, "backup"), usuarioBackup)    
+      await addDoc(collection(dbUser, "backup"), usuarioBackup)
+      .then(()=>{})
+      .catch((err)=>console.log(err))   
     } 
   }     
 }

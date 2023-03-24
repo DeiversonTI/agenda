@@ -1,4 +1,13 @@
 <template>
+  <div class="modal__alert" @load="carregar()">
+    <div class="modal__links">
+      <p>
+        <i class="fa-solid fa-triangle-exclamation fa-lg fa-beat-fade" ></i>Atenção</p>
+        <hr>
+      <span><i class="fa-solid fa-desktop"></i> Atualize a página <q>Ctrl</q>+<q>f5</q></span>
+      <span><i class="fa-solid fa-mobile-screen"></i> Usuário mobile, arraste a tela para baixo</span>
+    </div>
+  </div>
 
   <svg
     class="z-10 sm:hidden  legAnima1 "
@@ -371,8 +380,17 @@ export default {
       
     };
   },
+  created(){
+   this.carregar();
+  },
   
   methods: {
+    carregar(){
+      setTimeout(()=>{
+        const load = document.querySelector(".modal__alert");
+        load.style.display = "none";
+      }, 6000)
+    },
     // FUNÇÃO MOSTRAR A SENHA
     // toggleShow(){
     //   this.passField = this.passField === "password" ? "text" : "password"
@@ -489,6 +507,7 @@ export default {
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:ital,wght@0,300;0,700;1,400;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 
 .fonte {
   font-family: Fredoka + One;
@@ -506,8 +525,7 @@ export default {
 }
 .animate{
   position: relative;
-  animation: animate 1.2s ease-in-out forwards;
-  
+  animation: animate 1.2s ease-in-out forwards;  
 }
 
 
@@ -535,8 +553,66 @@ export default {
     right: 0;
   }
 }
+.modal__alert{
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(19, 19, 19, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.modal__alert .modal__links{
+  background-color: rgb(155, 0, 0);
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  animation: load 1.5s ease forwards;
 
+}
+@keyframes load {
+ 0%{
+  transform: translateY(-50px);
+  opacity: 0;
+ }
+100%{
+  transform: translateY(50px);
+  opacity: 1;
+ }
+ 
+}
+.modal__alert .modal__links p{
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #dddddd;
+  margin-bottom: 5px;
+  
+  display: flex;
+  justify-content: flex-start;
+  align-items:center;
+  gap: 10px;
+}
+
+.modal__alert .modal__links span{
+  font-family: Open Sans;
+  font-size: 1.1rem;
+  font-weight: 100;
+  color: #e2e2e2;
+  padding:5px 0;  
+}
+hr{
+  margin-bottom: 15px;
+  color: #e00909;
+}
 </style>
 
  

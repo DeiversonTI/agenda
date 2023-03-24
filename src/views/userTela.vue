@@ -173,7 +173,7 @@ export default {
       var pegar = [];
       pegar = this.agenda.filter((item)=>{
                   
-        return item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+        return  item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                 item.seguimento.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                 item.situacao.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                 item.horariosFull.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
@@ -192,11 +192,12 @@ export default {
     onAuthStateChanged(dbuser, (user) => {
       
       if (user) {
-        if (user.displayName === null) {
-          this.usuario = user.email
-        } else {
-          this.usuario = user.displayName
-        }
+        this.usuario = user.email
+        // if (user.displayName === null) {
+        //   this.usuario = user.email
+        // } else {
+        //   this.usuario = user.displayName
+        // }
     }
 
     });
@@ -767,9 +768,6 @@ export default {
         }).then((result) => {
           if (result.isConfirmed) {
             if(userAuth === snapShot ||
-              // userAuth === 'Tti6zOqlWRTxqDbT0DeA1aofPEs2' && snapShotCoord === "Fundamental-II" ||
-              // userAuth === 'q3whUxpWc5V8L0hkgoJNsrRZDXt1' && snapShotCoord === "Fundamental-I" || 
-              // userAuth === 'wG1FwC6ADOe9E81gN4XW5c4CzA32' && snapShotCoord === "Edu-Infantil" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Finais" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Iniciais" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" ||
@@ -780,7 +778,11 @@ export default {
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Diretoria" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Inspetor" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Ir Servente" )
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Ir Servente" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Bem Estar" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Todos-Seguimentos" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Assistente-Social" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" )
             {     
             this.$swal(
               'Deletado!',
