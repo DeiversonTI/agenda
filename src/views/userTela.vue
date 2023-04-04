@@ -264,10 +264,9 @@ export default {
     const irlucia = process.env.VUE_APP_FIREBASE_EMAIL_IRLUCIA
     const irservente = process.env.VUE_APP_FIREBASE_EMAIL_IRSERVENTE
     const manutencao = process.env.VUE_APP_FIREBASE_EMAIL_MANUTENCAO
-    const irPastoral = process.env.VUE_APP_FIREBASE_EMAIL_IRPASTORAL
+    const pastoral = process.env.VUE_APP_FIREBASE_EMAIL_PASTORAL_NEW
 
-    // console.log(diretoraNew)
-   
+    
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
     if(emailUser === process.env.VUE_APP_FIREBASE_EMAIL_INFORMATICA){
 
@@ -440,7 +439,7 @@ export default {
     }
      //COORDENAÇÃO FUNDAMENTAL I -  RECEBE UMA CÓPIA DAS PUBLICAÇÕES DOS PROFESSORES
     // else if(emailUser === fundi && dataUser.seguimento === "Fundamental-I"){
-    else if(emailUser === irPastoral){
+    else if(emailUser === pastoral){
 
           const dbMonitorUser = {
         user_id: userTeste,
