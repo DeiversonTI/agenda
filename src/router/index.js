@@ -16,9 +16,8 @@ import Eventos from "../components/eventos.vue"
 import ResetPassword from "../components/ResetPassword.vue"
 import EditUser from '../components/editUser.vue'
 import useFirebase from '../components/db/dbConfig'
-
-
-
+import selectMode from '../components/compLogado/selectMode.vue'
+import Selected from '../components/compLogado/dataLogado.vue'
 
 const routes = [
 
@@ -38,6 +37,16 @@ const routes = [
     path:'/registrar',
     name: 'Registrar',
     component: Registrar
+  },
+  {
+    path:'/selected',
+    name: 'selected',
+    component: Selected
+  },
+  {
+    path:'/select-mode',
+    name: 'select-mode',
+    component: selectMode
   },
  
   {

@@ -1,0 +1,23 @@
+
+:root{
+    --bg-opacity: 1;
+    --dark-text-mode: rgb(54, 147, 184);
+    --white-text-mode: #d6d6d6;
+    --dark-bg-mode: rgb(0, 31, 43);
+    --white-bg-mode:#fff;
+}
+
+.text__dark{
+    color: var(--dark-text-mode);
+   
+}
+.text__white{
+    color: var(--white-text-mode);
+}
+.bg__dark{
+    background-color: var(--dark-bg-mode);
+    
+}
+.bg__white{
+    background-color: var(--white-bg-mode);
+}

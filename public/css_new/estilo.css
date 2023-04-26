@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:ital,wght@0,300;0,700;1,400;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
+
+:root{
+    /* tema claro */
+    --dark-text-mode: rgb(95, 107, 110);
+    --white-text-mode: #d6d6d6;
+    --dark-bg-mode: rgb(0, 31, 43);
+    --white-bg-mode:#f5f4f4;
+    --white-bg-form: #ffffff;
+    --dark-bg-form: #083344;
+    --white-opacity:0.2;
+    --dark-opacity: 0.1;
+}
+
+.text__dark{
+    color: var(--dark-text-mode);
+}
+.text__white{
+    color: var(--white-text-mode);
+}
+.bg__dark{
+    background-color: var(--dark-bg-mode);    
+}
+.bg__white{
+    background-color: var(--white-bg-mode);
+}
+.bg__form__dark{
+    background-color: var(--dark-bg-form);
+}
+.bg__form__white{
+    background-color: var(--white-bg-form);
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, var(--dark-opacity));
+}
+
+@media screen and (max-width:440px) {
+    .bg__form__dark{
+        background-color: transparent;
+    }
+    .text__copyright{
+        color: var(--dark-text-mode);
+        font-size: 0.63rem;
+    }
+
+}
+
+

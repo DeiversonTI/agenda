@@ -1,4 +1,5 @@
 <template>
+  
   <div class="modal__alert" @load="carregar()">
     <div class="modal__links">
       <p>
@@ -9,7 +10,7 @@
     </div>
   </div>
 
-  <svg
+  <!-- <svg
     class="z-10 sm:hidden  legAnima1 "
    style=" position: absolute; top: -250px; left: -260px; width:500px;"
     viewBox="0 0 200 200"
@@ -20,22 +21,22 @@
       d="M30.9,-48.6C38.6,-43.2,42.3,-32.1,50.2,-21.1C58.1,-10.1,70.1,0.9,70.4,11.2C70.6,21.6,59.1,31.5,48.6,40.1C38,48.8,28.4,56.4,15.8,65.4C3.2,74.4,-12.4,84.8,-22.8,80.4C-33.2,76,-38.4,56.9,-50,43.4C-61.7,29.9,-79.9,22,-83.6,10.7C-87.4,-0.6,-76.7,-15.4,-66.3,-26.9C-55.8,-38.5,-45.6,-46.8,-34.6,-50.7C-23.6,-54.6,-11.8,-54,-0.1,-53.9C11.6,-53.7,23.3,-54,30.9,-48.6Z"
       transform="translate(100 100)"
     />
-  </svg>
+  </svg> -->
 
   
 
   <!-- TELA DE LOGIN -->
-  <div class=" w-full flex justify-center items-center absolute z-30 ">
-    <div class="flex gap-4 items-center justify-center w-full lg:h-auto ">
-      <div class="hidden md:visible md:flex justify-center items-center w-full ">
+  <div class=" w-full flex justify-center items-center  bg__dark ">
+    <div class="flex gap-4 items-center justify-center w-full lg:h-auto  ">
+      <!-- <div class="hidden md:visible md:flex justify-center items-center w-full ">
         <div class="anima">
-          <img src="../assets/home-logo.jpg" alt="" style="max-width: 90%"  class="logo"/>
+          <img src="../assets/home-logo2.png" alt="" style="max-width: 100%"  class="logo"/>
         </div>
-      </div>
+      </div> -->
 
-      <div class="w-full h-screen sm:bg-gradient-to-l from-Cyan-100 ">
-        <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4  ">
-          
+      <div class="w-full h-screen  ">
+      <!-- <div class="w-full h-screen sm:bg-gradient-to-l from-Cyan-100 "> -->
+        <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4 ">          
           <div @click="isViewTrocar()" v-if="isView===true">
             <p
               @click.prevent="trocarView()"
@@ -86,35 +87,33 @@
           </div>
         </div>
 
-        <div class="h-36 sm:h-7/6 2xl:h-2/5 mx-auto items-center flex justify-center anima">
-          <img class="w-52 md:w-2/5 agenda" src="../assets/Agendamentos.png" alt="" />
+        <div class="h-36 sm:h-7/6 2xl:h-2/5 my-2 sm:mb-8 2xl:my-1 mx-auto items-center flex justify-center anima z-30  ">
+          <img class="w-44 md:w-1/6  agenda" src="../assets/logo_new_agenda_blue.png" alt="" />
         </div>
 
         <!-- FORMULÁRIO LOGIN -->
+        <!-- sm:bg-Cyan-950 -->
         <div
-          class="
-            sm:bg-white
+          class="       
+            bg__form__dark
             px-8
-            sm:py-2
-            mx-1
-            md:mx-8
-            sm:rounded-lg
-            sm:shadow-xl
-            sm:border-l
-            sm:border-t
-            sm:border-opacity-80
-            border-gray-200
-            animate
-            
+            sm:px-6
+            sm:w-2/4
+            2xl:w-1/3
+            w-full
+            sm:py-4           
+            md:mx-auto
+            sm:rounded-lg                      
+            animate            
           "
         >
-          <form v-if="trocar == true" >
+          <form  v-if="trocar == true" >
             <div class="text-center">
-              <p class="text-4xl fonte text-blue-900 pb-6 pt-2">login</p>
+              <p class="text-4xl fonte text__white pb-6 pt-2">login</p>
             </div>
             <div class="mb-4">
               <label
-                class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+                class="block text__white text-md md:text-xl font-bold mb-1"
                 for="username"
               >
                 Email
@@ -122,16 +121,18 @@
               <input
                 v-model="email"
                 required
-                class="
-                  shadow
+                class="                  
                   appearance-none
                   rounded
+                 border-2
+                 
                   w-full
-                  py-4
-                  px-3
+                  py-2
+                  px-2
+                  bg-white
                   text-gray-700
-                  opacity-80
-                  leading-tight
+                  opacity-100
+                  leading-light
                   focus:outline-none focus:shadow-outline
                 "
                 id="email"
@@ -142,39 +143,34 @@
 
             <div>
               <label
-                class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+                class="block text__white text-md md:text-xl font-bold mb-1"
                 for="password"
               >
                 Senha
               </label>
-              <div class="  rounded shadow">
-                <div>
+              <div class="rounded border-2 " >
+                <div class=" text-gray-700 bg-white flex justify-end items-center w-full relative ">
                   <input
                     v-model="password"
                     required
                     class="                      
-                      appearance-none
+                      appearance-none   
+                      relative                   
                       focus:border-red-500                     
                       w-full
-                      py-4
-                      px-3
-                      text-gray-700
-                      opacity-80
+                      py-2
+                      px-2                     
+                      opacity-100
                       leading-tight
                       focus:outline-none focus:shadow-outline
                     "
-                    
+                    id="password"
                     type= "password"
                     placeholder="Digite sua Senha"
                   />
+                  <div id="eye_view" class="view cursor-pointer absolute mr-2 " @click="eyeView()"></div>
                 </div>
-                <!-- <div class="pr-2"> -->
-                  <!-- <button> -->
-                    <!-- <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i> -->
-                    <!-- <i @click="isPwd = !isPwd" class="opacity-20 text-Sky-900" :class="isPwd ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i> -->
-                  <!-- </button> -->
-                    
-                <!-- </div> -->
+                <!-- <div id="eye_view" class="view cursor-pointer " @click="eyeView()"></div> -->
               </div>
              
             </div>
@@ -188,9 +184,9 @@
                       align-baseline
                       font-bold
                       text-xs
-                      md:text-lg
-                      text-blue-500
-                      hover:text-blue-800"
+                      md:text-sm
+                      text__white
+                      hover:text-red-600"
                   >
                     Esqueceu a Senha?
                   </p>
@@ -209,23 +205,25 @@
                 sm:pt-4
               "
             >
-              <div class="sm:w-0 bg-gradient-to-r from-Sky-400 to-Sky-600 rounded">
+              <div class="sm:w-full bg-gradient-to-r from-Sky-400 to-Sky-600 rounded">
                 <button
                   @click.prevent="login"
                   class="
+                    w-full
+                    sm:text-xl
                     sm:bg-gradient-to-r
                     sm:from-Sky-400
                     sm:to-Sky-600
                     text-white
                     font-bold
-                    py-2
+                    py-3
                     px-16
                     rounded
                     focus:outline-none focus:shadow-outline
                     hover:bg-gradient-to-l hover:from-Sky-600 hover:to-Sky-400
                   "
                 >
-                  Logar
+                  ENTRAR
                 </button>
               </div>
             </div>
@@ -238,9 +236,22 @@
         </div>
       </div>
     </div>
+     <!-- BOTÃO DE AJUDA -->
+
+  </div>
+  <div class="flex items-center justify-between w-full z-50" style="position: fixed; bottom: 5px; padding: 2px 8px">
+    <div class="text__dark text__copyright text-xs font-thin sm:text-base">
+      &copy; {{ new Date().getFullYear() }} Escola Rural São Vicente de Paulo - Todos os direitos Resevados.
+    </div>
+    <div>
+      <router-link
+         to="/help">
+        <p class="font-mono text-red-500 font-bold">Ajuda</p>
+      </router-link>
+    </div>
   </div>
 
-  <svg
+  <!-- <svg
     class="z-10 sm:hidden"
     style="position: fixed; bottom: -200px; right: -250px; width:500px;"
     viewBox="0 0 200 200"
@@ -251,16 +262,9 @@
       d="M45.6,-58.6C51,-49.8,41.8,-27.8,42.7,-9.5C43.6,8.8,54.6,23.4,52.7,33.9C50.8,44.4,35.8,51,19.4,59.8C2.9,68.7,-15.2,80,-26.5,75C-37.9,69.9,-42.6,48.6,-45.2,32C-47.7,15.4,-48.1,3.4,-40.4,-1.3C-32.6,-6,-16.7,-3.5,-8.6,-11.8C-0.6,-20.1,-0.3,-39.2,9.9,-51C20.1,-62.8,40.2,-67.3,45.6,-58.6Z"
       transform="translate(100 100)"
     />
-  </svg>
-
-  <!-- BOTÃO DE AJUDA -->
-  <router-link
-    class="flex items-center justify-center z-50"
-    style="position: fixed; bottom: 5px; right: 8px"
-    to="/help"
-  >
-    <p class="font-mono text-red-500 font-bold">Ajuda</p>
-    <svg
+  </svg> -->
+  
+    <!-- <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6 text-red-500 cursor-pointer"
       title="Ajuda"
@@ -274,8 +278,8 @@
         stroke-width="2"
         d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
-    </svg>
-  </router-link>
+    </svg> -->
+  
   <!-- <div v-show="model === true" class=" flex justify-center items-center h-screen fixed z-40 w-full  " style="background-color: rgba(0, 0, 0, .8);">
     <div class="w-full lg:w-1/2 xl:w-1/3  h-auto py-4 rounded-md bg-gray-900 text-center flex-col justify-center items-start mx-2 border-2 border-gray-100 ">
        <div class="text-right mb-2 ">
@@ -351,12 +355,11 @@
 <script>
 import * as firebase from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import RegisterView from "../components/Registrar.vue";
-
+import RegisterView from "../components/Registrar.vue"; 
 
 export default {
   components: {
-    RegisterView,
+    RegisterView
   },
 
   // created(){
@@ -374,7 +377,7 @@ export default {
       isView: false,
       model: false,
       android: false,
-      modelClose: false,
+      modelClose: false
       // password: '',
       // isPwd: true,
       
@@ -391,6 +394,20 @@ export default {
         load.style.display = "none";
       }, 6000)
     },
+     // FUNÇÃO MOSTRAR A SENHA
+     eyeView(){
+      const eyeView = document.getElementById("eye_view");
+      const passwordEye = document.getElementById("password");
+      if(passwordEye.type === "password"){
+        passwordEye.setAttribute("type", "text");
+        eyeView.classList.add("hide")
+      }else{
+        passwordEye.setAttribute("type", "password");
+        eyeView.classList.remove("hide");
+      }
+     },
+     
+    //  },
     // FUNÇÃO MOSTRAR A SENHA
     // toggleShow(){
     //   this.passField = this.passField === "password" ? "text" : "password"
@@ -478,10 +495,10 @@ export default {
               title: "Senha Incorreta!",
             });
             break;
-          case "auth/null-user":
+          case "auth/MISSING_PASSWORD":
             this.$swal({
               icon: "error",
-              title: "Usuário Nulo!",
+              title: "Digite a Senha!",
             });
             break;
           case "auth/invalid-claims":
@@ -506,9 +523,28 @@ export default {
 };
 </script>
 <style scoped>
+/*  */
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:ital,wght@0,300;0,700;1,400;1,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&family=Prompt:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap');
 
+
+.view{  
+  background: url('../assets/eye/hide1.png');
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  cursor: pointer;
+  
+  
+}
+.hide{
+  background: url('../assets/eye/view1.png');
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  cursor: pointer;
+  
+}
 .fonte {
   font-family: Fredoka + One;
   font-weight: 700;
@@ -613,6 +649,24 @@ hr{
   margin-bottom: 15px;
   color: #e00909;
 }
+.btn_dark{
+  background-color: rgb(124, 123, 123);
+  width: 65px;
+  height: 30px;
+  border-radius: 50px;
+  position: relative;
+}
+.btn_dark::before{
+  content: "";
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  background-color: #dddddd;
+  position: absolute;  
+  right: 0;
+}
+
+
 </style>
 
  

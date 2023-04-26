@@ -15,7 +15,7 @@
                   Seja Bem Vindo(a)
               </h1>
               </div>
-              <div>
+              <!-- <div>
                 <router-link to="/Auth">
                 <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
                 shadow-md mr-2 ">
@@ -25,7 +25,7 @@
                   VOLTAR
                 </div>
                 </router-link>
-              </div>
+              </div> -->
             </div>
         </div>
         <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
@@ -54,9 +54,19 @@
       <div class="w-full bg-gray-50">           
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white w-full  2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
               <div class="flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container ">
-                <div class="py-8">
+                <div class="pt-4 pb-0">
                   <h1 class="text-Sky-600 Poppins text-center"> Agendamentos </h1>
-                </div>                  
+                </div>    
+                <div class="py-2">
+                  <router-link to="/Auth">
+                  <div title="Adicionar novo agendamento" class="bg-green-500 py-0 sm:w-52 w-36 float-right rounded-sm  sm:rounded-md flex justify-between items-center">    
+                    <span class="pl-2 text-gray-50 text-xs sm:text-base">Adicionar Novo</span>         
+                    <span class="bg-green-600 text-gray-50 py-1 sm:py-2 px-4 sm:px-4 rounded-r-sm sm:rounded-r-lg text-sm sm:text-2xl">+</span> 
+                    <!-- <i class="fal fa-plus fa-sm bg-green-500 text-gray-50 py-6 px-6 rounded-r-lg" ></i>    -->
+                    <!-- <button >Adicionar Novo</button>                 -->
+                  </div>
+                </router-link>
+                </div>              
                 <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">                  
                   <!--SEARCH-->
                   <div class="flex justify-start items-center  sm:w-4/6 md:w-96  ">
@@ -86,7 +96,41 @@
                       <li class=""><span class="text-xl font-bold">Horário: </span>{{agendas.hourExtFirst }}  {{ agendas.hourExtSecund }}{{ agendas.horariosFull }}</li>
                       <!-- <li class=""><span class="text-xl font-bold">Eventos e Encontros: </span> {{agendas.horaEventos}}</li> -->
                       <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>
-                      <li class=""><span class="text-xl font-bold">Local: </span> {{agendas.situacao || agendas.evExternos}}</li>
+                      <!-- <li  class="flex items-center flex-wrap gap-1">
+                        <span class="flex text-xl font-bold"> Local: </span> 
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50" v-for="sel in agendas.sitUser" :key="sel.id">{{sel}}</p>
+                      </li> -->
+                      <!-- <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p>   
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.jardim}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ranchinho}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.informatica}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.pastoral}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ciencias}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.outros}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
+                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>    
+                      </li> -->                     
+                      <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
+                        <p v-if="agendas.salao" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p> 
+                        <p v-if="agendas.piscina" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>  
+                        <p v-if="agendas.gourmet" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p> 
+                        <p v-if="agendas.agenda" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
+                        <p v-if="agendas.jardim" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.jardim}} </p>    
+                        <p v-if="agendas.ranchinho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ranchinho}} </p>                           
+                        <p v-if="agendas.informatica" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.informatica}} </p>    
+                        <p v-if="agendas.pastoral" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.pastoral}} </p>    
+                        <p v-if="agendas.ciencias" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ciencias}} </p>    
+                        <p v-if="agendas.outros" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.outros}} </p>      
+                        <p v-if="agendas.quadra" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
+                        <p v-if="agendas.rancho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
+                        <p v-if="agendas.inspetor" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>                        
+                      </li>
+                     
                       <li class=""><span class="text-xl font-bold">Segmento: </span> {{agendas.seguimento}}</li>
                       <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
                       <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
@@ -159,6 +203,23 @@ export default {
       isClose:true,
       usuario: '',
       dataDb:[],
+
+      checked:{
+        salao: null,
+        jardim: null,
+        agenda: null,
+        piscina: null,
+        gourmet: null,
+        ranchinho: null,
+        informatica: null,
+        pastoral: null,
+        ciencias: null,
+        outros: null,
+        quadra: null,
+        rancho: null,
+        inspetor: null
+
+      },
     };
   },
 
@@ -172,10 +233,9 @@ export default {
 
       var pegar = [];
       pegar = this.agenda.filter((item)=>{
-                  
+                        
         return  item.nome.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-                item.seguimento.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-                item.situacao.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+                item.seguimento.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||             
                 item.horariosFull.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                 item.responsavel.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
                 item.dataNew.toLowerCase().indexOf(this.search.toLowerCase()) > -1 
@@ -183,33 +243,115 @@ export default {
         return pegar
     }
     // FIM DO CODIGO SEARCH
-
   },
 
    // COMANDO DE USUÁRIO LOGADO - DisplayName e Email
   async created() {
     const dbuser = getAuth();
-    onAuthStateChanged(dbuser, (user) => {
-      
+    onAuthStateChanged(dbuser, (user) => {      
       if (user) {
         this.usuario = user.email
-        // if (user.displayName === null) {
-        //   this.usuario = user.email
-        // } else {
-        //   this.usuario = user.displayName
-        // }
-    }
-
+      }
     });
-
   
   // CÓDIGO PARA ADICIONAR TELA FINAL PARA O USUARIO (userTela)
   const dbUser = getFirestore();
   const colleUser = collection(dbUser, 'usuarios')
   const q = query(colleUser, orderBy('dataNew', 'asc'))
-  const user = await getDocs(q);
-  
+  const user = await getDocs(q); 
   user.forEach((doc) => {
+    if(doc.data().salao){
+      const salao = "Salão"
+      this.checked.salao = salao
+    }else{
+      this.checked.salao  = null
+    }
+
+    if(doc.data().agenda){
+      const agenda = "Agendamento"
+      this.checked.agenda = agenda
+    }
+    else{
+      this.checked.agenda  = null
+    }
+
+    if(doc.data().jardim){
+      const jardim = "Jardim Sensorial"
+      this.checked.jardim = jardim
+    }
+    else{
+      this.checked.jardim  = null
+    }
+    if(doc.data().piscina){
+      const piscina = "Piscina"
+      this.checked.piscina = piscina
+    }
+    else{
+      this.checked.piscina  = null
+    }
+    if(doc.data().gourmet){
+      const gourmet = "Área Gourmet"
+      this.checked.gourmet = gourmet
+    }
+    else{
+      this.checked.gourmet  = null
+    }
+    if(doc.data().ranchinho){
+      const ranchinho = "Ranchinho"
+      this.checked.ranchinho = ranchinho
+    }
+    else{
+      this.checked.ranchinho  = null
+    }
+    if(doc.data().informatica){
+      const informatica = "Sala de Informática"
+      this.checked.informatica = informatica
+    }
+    else{
+      this.checked.informatica  = null
+    }
+    if(doc.data().pastoral){
+      const pastoral = "Sala de Pastoral"
+      this.checked.pastoral = pastoral
+    }
+    else{
+      this.checked.pastoral  = null
+    }
+    if(doc.data().ciencias){
+      const ciencias = "Lab. Ciências"
+      this.checked.ciencias = ciencias
+    }
+    else{
+      this.checked.ciencias  = null
+    }
+    if(doc.data().outros){
+      const outros = "Outros"
+      this.checked.outros = outros
+    }
+    else{
+      this.checked.outros  = null
+    }
+    if(doc.data().quadra){
+      const quadra = "Quadra"
+      this.checked.quadra = quadra
+    }
+    else{
+      this.checked.quadra  = null
+    }
+    if(doc.data().rancho){
+      const rancho = "Rancho"
+      this.checked.rancho = rancho
+    }
+    else{
+      this.checked.rancho  = null
+    }
+    if(doc.data().inspetor){
+      const inspetor = "Inspetor"
+      this.checked.inspetor = inspetor
+    }
+    else{
+      this.checked.inspetor  = null
+    }
 
   //  console.log(doc.data())
     // console.log('TUDO DO BANCO DE DADOS ==> ', doc.data())
@@ -218,9 +360,7 @@ export default {
     //GRAVA O ID DO ARQUIVO GERADO, DENTRO DO BD PARA PODER PEGAR E USAR VIA PARAMETRO
     //****************************************************************************** */
     let userData = doc.data()
-    userData.id = doc.id
-    // console.log(doc.data().hourExterno)
-    
+    userData.id = doc.id    
 
     //****************************************************************************** */
     //CONVERTER A DATA DE INTERNACIONAL PARA PT-BR
@@ -234,8 +374,6 @@ export default {
 
     let newDay = dia < 10 ? "0"+dia : ""+dia
     let newMonth = mes < 10 ? "0"+mes : ""+mes
-    
-
     let todaData = newDay+"/"+newMonth+"/"+ano
 
     let dateString = todaData.toLocaleString('pt-BR', {}).replace(/\//g, '/')
@@ -250,6 +388,8 @@ export default {
 
     const dbAuth = getAuth().currentUser.uid;
     const dataUser = doc.data(); 
+
+
     const userTeste = doc.data().user_id;
     const emailUser = getAuth().currentUser.email;
 
@@ -277,8 +417,24 @@ export default {
         dataNew:dateString,
         horariosFull:doc.data().horariosFull,
         responsavel: doc.data().responsavel,
-        seguimento: doc.data().seguimento,
+        seguimento: doc.data().seguimento,   
         situacao: doc.data().situacao,
+        // *****************************/
+        //AMBIENTE DE TESTE
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
+        //**************************** */
         motivo: doc.data().motivo,
         link: doc.data().link,
         social:doc.data().social,
@@ -326,6 +482,19 @@ export default {
           link: doc.data().link,
           data:doc.data().data,
           diretora:doc.data().diretora,
+          salao: this.checked.salao,
+          jardim: this.checked.jardim,
+          agenda: this.checked.agenda,           
+          ranchinho: this.checked.ranchinho,
+          gourmet: this.checked.gourmet,
+          informatica: this.checked.informatica,
+          pastoral: this.checked.pastoral,
+          ciencias: this.checked.ciencias,
+          outros: this.checked.outros,
+          piscina: this.checked.piscina,
+          quadra: this.checked.quadra,
+          rancho: this.checked.rancho,
+          inspetor: this.checked.inspetor,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -360,6 +529,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -395,6 +577,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -432,6 +627,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -465,6 +673,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -499,6 +720,19 @@ export default {
           evExternos: doc.data().evExternos,
           hourExtFirst:doc.data().hourExtFirst,
           hourExtSecund: doc.data(). hourExtSecund,
+          salao: this.checked.salao,
+          jardim: this.checked.jardim,
+          agenda: this.checked.agenda,           
+          ranchinho: this.checked.ranchinho,
+          gourmet: this.checked.gourmet,
+          informatica: this.checked.informatica,
+          pastoral: this.checked.pastoral,
+          ciencias: this.checked.ciencias,
+          outros: this.checked.outros,
+          piscina: this.checked.piscina,
+          quadra: this.checked.quadra,
+          rancho: this.checked.rancho,
+          inspetor: this.checked.inspetor,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -528,6 +762,19 @@ export default {
           link: doc.data().link,
           data:doc.data().data,
           diretora:doc.data().diretora,
+          salao: this.checked.salao,
+          jardim: this.checked.jardim,
+          agenda: this.checked.agenda,           
+          ranchinho: this.checked.ranchinho,
+          gourmet: this.checked.gourmet,
+          informatica: this.checked.informatica,
+          pastoral: this.checked.pastoral,
+          ciencias: this.checked.ciencias,
+          outros: this.checked.outros,
+          piscina: this.checked.piscina,
+          quadra: this.checked.quadra,
+          rancho: this.checked.rancho,
+          inspetor: this.checked.inspetor,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -560,6 +807,19 @@ export default {
           evExternos: doc.data().evExternos,
           hourExtFirst:doc.data().hourExtFirst,
           hourExtSecund: doc.data(). hourExtSecund,
+          salao: this.checked.salao,
+          jardim: this.checked.jardim,
+          agenda: this.checked.agenda,           
+          ranchinho: this.checked.ranchinho,
+          gourmet: this.checked.gourmet,
+          informatica: this.checked.informatica,
+          pastoral: this.checked.pastoral,
+          ciencias: this.checked.ciencias,
+          outros: this.checked.outros,
+          piscina: this.checked.piscina,
+          quadra: this.checked.quadra,
+          rancho: this.checked.rancho,
+          inspetor: this.checked.inspetor,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -593,6 +853,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -626,6 +899,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -658,6 +944,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -691,6 +990,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -726,6 +1038,19 @@ export default {
         evExternos: doc.data().evExternos,
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
         
         };
 
@@ -746,11 +1071,14 @@ export default {
   // CODIGOS DO SEARCH
   
   methods:{
+
+    
    
    async deletar(id){
       const db = getFirestore();
       const userAuth = getAuth().currentUser.uid;
       const docRef = doc(db, "usuarios", id);
+      // const docRef = doc(db, "ambTest", id);
       const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
         const snapShot = docSnap.data().user_id;
@@ -789,6 +1117,7 @@ export default {
               'success'
             )                
             deleteDoc(doc(db, "usuarios", id))
+            // deleteDoc(doc(db, "ambTest", id))
               .then(()=>{
                 setTimeout(() => {
                   this.$router.go({name:'usertela'})

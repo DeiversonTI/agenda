@@ -7,18 +7,19 @@
       rounded-b-lg
       h-tratado
       md:h-auto
+      pb-5
     "
   >
     <form
       @submit.prevent="login()"
-      class="md:bg-white rounded-lg sm:h-80 px-3 pt-1 pb-6 mb-2 w-full h-full"
+      class="dark__bg__mode rounded-lg sm:h-96 px-3 pt-1 pb-10 mb-2 w-full h-full"
     >
-      <h2 class="text-xl sm:text-2xl fonte text-blue-900 pb-2 pt-1 text-center">
+      <h2 class="text-xl sm:text-2xl fonte text__white pb-2 pt-1 text-center">
         CADASTRO
       </h2>
       <div class="mb-4">
         <label
-          class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md md:text-xl font-bold mb-1"
           for="email"
           >Nome</label
         >
@@ -28,15 +29,15 @@
           title="Entre seu nome "
           required
           class="
-            shadow
+            border-2
             appearance-none
             rounded
             w-full
-            sm:py-3
+            sm:py-2
             py-2
             px-3
             text-gray-700
-            opacity-80
+            opacity-100
             leading-tight
             focus:outline-none focus:shadow-outline
           "
@@ -45,7 +46,7 @@
       </div>
       <div class="mb-4">
         <label
-          class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md md:text-xl font-bold mb-1"
           for="email"
           >Email</label
         >
@@ -55,15 +56,15 @@
           title="Entre com o email da escola "
           required
           class="
-            shadow
+            border-2
             appearance-none
             rounded
             w-full
-            sm:py-3
+            sm:py-2
             py-2
             px-3
             text-gray-700
-            opacity-80
+            opacity-100
             leading-tight
             focus:outline-none focus:shadow-outline
           "
@@ -71,41 +72,37 @@
           pattern=".+@ersvp\.g12\.br"
         />
       </div>
-      <div class="mb-8 sm:mb-2">
+      <div class="mb-8 sm:mb-6">
         <label
-          class="block text-Sky-800 text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md md:text-xl font-bold mb-1"
           for="password"
         >
           Senha
         </label>
-        <div class="flex justify-between items-center  rounded shadow">
-            <div>
-              <input
-                v-model="password"
-                required
-                class="
-                  appearance-none
-                  focus:border-red-500
-                  w-full
-                  py-4
-                  px-3
-                  text-gray-700
-                  opacity-80
-                  leading-tight
-                  focus:outline-none focus:shadow-outline
-                "
-                id="password"
-                :type="passField"
-                placeholder="Digite sua Senha"
-              />
-              </div>
-          <div class="pr-2">
-            <button @click="toggleShow">
-              <i @click="passFieldNew" class="opacity-50 text-Sky-900" :class="{'fa-solid fa-eye-slash': showPassword, 'fa-solid fa-eye': !showPassword}"></i>
-            </button>
-            
+        <div class="rounded border-2 " >
+          <div class=" text-gray-700 bg-white flex justify-end items-center w-full relative ">
+            <input
+              v-model="password"
+              required
+              class="                      
+                appearance-none   
+                relative                   
+                focus:border-red-500                     
+                w-full
+                py-2
+                px-2                     
+                opacity-100
+                leading-tight
+                focus:outline-none focus:shadow-outline
+              "
+              id="password"
+              type= "password"
+              placeholder="Digite sua Senha"
+            />
+            <div id="eye_view" class="view cursor-pointer absolute mr-2 " @click="eyeView()"></div>
           </div>
-        </div>
+          <!-- <div id="eye_view" class="view cursor-pointer " @click="eyeView()"></div> -->
+          </div>
       </div>
       <!-- <div class="mb-6 sm:mb-2">
         <label
@@ -136,9 +133,27 @@
         />
       </div> -->
       
-      <div class="flex items-center justify-center sm:justify-start sm:pt-1 xl:mt-1 w-full sm:w-0 bg-red-600 rounded ">
+      <!-- <div class="flex items-center justify-center sm:justify-start sm:pt-1 xl:mt-1 sm:w-full bg-red-600 rounded "> -->
+      <div class=" sm:w-full bg-red-600 rounded ">
         <div>
-          <input
+          <button 
+          class="
+          cursor-pointer
+              bg-red-600
+              hover:bg-red-500
+              text-white
+              font-bold
+              py-4
+              px-16
+              sm:text-xl              
+              w-full
+              rounded
+              focus:outline-none focus:shadow-outline
+          "
+          >
+            CADASTRAR
+          </button>
+          <!-- <input
             type="submit"
             value="Cadastrar"
             class="
@@ -147,14 +162,14 @@
               hover:bg-red-500
               text-white
               font-bold
-              py-2
-              px-12
-              sm:mt-4
+              py-4
+              px-16
+              sm:text-xl              
               w-full
               rounded
               focus:outline-none focus:shadow-outline
             "
-          />
+          /> -->
         </div>
       </div>
     </form>
@@ -183,13 +198,24 @@ export default {
 
   methods: {
      // FUNÇÃO MOSTRAR A SENHA
-    toggleShow(){
-      this.passField = this.passField === "password" ? "text" : "password"
-    },
+     eyeView(){
+      const eyeView = document.getElementById("eye_view");
+      const passwordEye = document.getElementById("password");
+      if(passwordEye.type === "password"){
+        passwordEye.setAttribute("type", "text");
+        eyeView.classList.add("hide")
+      }else{
+        passwordEye.setAttribute("type", "password");
+        eyeView.classList.remove("hide");
+      }
+     },
+    // toggleShow(){
+    //   this.passField = this.passField === "password" ? "text" : "password"
+    // },
     // FUNÇÃO ALTERAR O EYE VIEW (ABERTO OU FECHADO)
-     passFieldNew(){
-       this.showPassword = !this.showPassword;
-    },
+    //  passFieldNew(){
+    //    this.showPassword = !this.showPassword;
+    // },
     async login() {
       firebase;
       const userId = getAuth();
@@ -265,7 +291,23 @@ export default {
   font-weight: 700;
 }
 .h-tratado {
-  height: 24em;
+  height: auto;
+}
+.view{  
+  background: url('../assets/eye/hide1.png');
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.hide{
+  background: url('../assets/eye/view1.png');
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  cursor: pointer;
+  margin-right: 10px;
 }
 </style>
 
