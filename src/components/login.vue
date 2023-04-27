@@ -87,8 +87,8 @@
           </div>
         </div>
 
-        <div class="h-36 sm:h-7/6 2xl:h-2/5 my-2 sm:mb-8 2xl:my-1 mx-auto items-center flex justify-center anima z-30  ">
-          <img class="w-44 md:w-1/6  agenda" src="../assets/logo_new_agenda_blue.png" alt="" />
+        <div class="h-36 sm:h-28 2xl:h-1/4 my-1 sm:mb-8 2xl:my-1 mx-auto items-center flex justify-center anima z-30  ">
+          <img class="w-40 agenda" src="../assets/logo_new_agenda_blue.png" alt="" />
         </div>
 
         <!-- FORMULÁRIO LOGIN -->
@@ -96,12 +96,12 @@
         <div
           class="       
             bg__form__dark
-            px-8
-            sm:px-6
-            sm:w-2/4
-            2xl:w-1/3
+            px-8            
+            sm:w-1/3
+            2xl:w-1/4
             w-full
-            sm:py-4           
+            sm:py-2
+            sm:pb-4           
             md:mx-auto
             sm:rounded-lg                      
             animate            
@@ -109,11 +109,11 @@
         >
           <form  v-if="trocar == true" >
             <div class="text-center">
-              <p class="text-4xl fonte text__white pb-6 pt-2">login</p>
+              <p class="text-2xl fonte text__white pb-2 ">Login</p>
             </div>
-            <div class="mb-4">
+            <div class="mb-2">
               <label
-                class="block text__white text-md md:text-xl font-bold mb-1"
+                class="block text__white text-md  font-bold mb-0"
                 for="username"
               >
                 Email
@@ -124,10 +124,9 @@
                 class="                  
                   appearance-none
                   rounded
-                 border-2
-                 
+                  border-2                 
                   w-full
-                  py-2
+                  py-1
                   px-2
                   bg-white
                   text-gray-700
@@ -142,13 +141,8 @@
             </div>
 
             <div>
-              <label
-                class="block text__white text-md md:text-xl font-bold mb-1"
-                for="password"
-              >
-                Senha
-              </label>
-              <div class="rounded border-2 " >
+              <label class="block text__white text-md font-bold mb-0" for="password">Senha</label>
+              <div class="rounded border-2">
                 <div class=" text-gray-700 bg-white flex justify-end items-center w-full relative ">
                   <input
                     v-model="password"
@@ -158,7 +152,7 @@
                       relative                   
                       focus:border-red-500                     
                       w-full
-                      py-2
+                      py-1
                       px-2                     
                       opacity-100
                       leading-tight
@@ -171,10 +165,9 @@
                   <div id="eye_view" class="view cursor-pointer absolute mr-2 " @click="eyeView()"></div>
                 </div>
                 <!-- <div id="eye_view" class="view cursor-pointer " @click="eyeView()"></div> -->
-              </div>
-             
+              </div>             
             </div>
-            <div class="mb-6">
+            <div class="mb-3">
               <div class="w-full text-left">
                 <router-link to="resetPassword">
                   <p
@@ -202,7 +195,7 @@
                 m-auto
                 md:flex md:items-center md:justify-start
                 gap-2
-                sm:pt-4
+                sm:pt-1
               "
             >
               <div class="sm:w-full bg-gradient-to-r from-Sky-400 to-Sky-600 rounded">
@@ -240,7 +233,7 @@
 
   </div>
   <div class="flex items-center justify-between w-full z-50" style="position: fixed; bottom: 5px; padding: 2px 8px">
-    <div class="text__dark text__copyright text-xs font-thin sm:text-base">
+    <div class="text__dark text__copyright text-xs font-thin sm:text-sm">
       &copy; {{ new Date().getFullYear() }} Escola Rural São Vicente de Paulo - Todos os direitos Resevados.
     </div>
     <div>

@@ -3,26 +3,28 @@
     class="
       sm:w-full
       h-full
-      sm:h-80 sm:rounded-r-lg sm:rounded-bl-none
+      sm:h-80 
+      sm:rounded-r-lg 
+      sm:rounded-bl-none
       rounded-b-lg
       h-tratado
       md:h-auto
-      pb-5
+      
     "
   >
     <form
       @submit.prevent="login()"
-      class="dark__bg__mode rounded-lg sm:h-96 px-3 pt-1 pb-10 mb-2 w-full h-full"
+      class="dark__bg__mode rounded-lg sm:h-auto px-3 pb-2 pt-0 w-full h-full"
     >
-      <h2 class="text-xl sm:text-2xl fonte text__white pb-2 pt-1 text-center">
+      <h2 class="text-xl fonte text__white pb-1 pt-0 text-center">
         CADASTRO
       </h2>
-      <div class="mb-4">
+      <div class="mb-2">
         <label
-          class="block text__white text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md font-bold mb-0"
           for="email"
-          >Nome</label
-        >
+          >Nome
+        </label>
         <input
           v-model="name"
           type="text"
@@ -32,9 +34,8 @@
             border-2
             appearance-none
             rounded
-            w-full
-            sm:py-2
-            py-2
+            w-full            
+            py-1
             px-3
             text-gray-700
             opacity-100
@@ -44,9 +45,9 @@
           placeholder="Seu Nome"
         />
       </div>
-      <div class="mb-4">
+      <div class="mb-2">
         <label
-          class="block text__white text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md font-bold mb-0"
           for="email"
           >Email</label
         >
@@ -59,9 +60,8 @@
             border-2
             appearance-none
             rounded
-            w-full
-            sm:py-2
-            py-2
+            w-full            
+            py-1
             px-3
             text-gray-700
             opacity-100
@@ -72,9 +72,9 @@
           pattern=".+@ersvp\.g12\.br"
         />
       </div>
-      <div class="mb-8 sm:mb-6">
+      <div class="mb-8 sm:mb-4">
         <label
-          class="block text__white text-md md:text-xl font-bold mb-1"
+          class="block text__white text-md font-bold mb-0"
           for="password"
         >
           Senha
@@ -89,7 +89,7 @@
                 relative                   
                 focus:border-red-500                     
                 w-full
-                py-2
+                py-1
                 px-2                     
                 opacity-100
                 leading-tight
@@ -143,7 +143,7 @@
               hover:bg-red-500
               text-white
               font-bold
-              py-4
+              py-3
               px-16
               sm:text-xl              
               w-full

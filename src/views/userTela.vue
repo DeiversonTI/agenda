@@ -14,18 +14,7 @@
               <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
                   Seja Bem Vindo(a)
               </h1>
-              </div>
-              <!-- <div>
-                <router-link to="/Auth">
-                <div title="Volta para a tela de cadastro" class="bg-Sky-600 text-white flex items-center font-thin text-xs justify-center py-2 px-2 rounded-md cursor-pointer
-                shadow-md mr-2 ">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  VOLTAR
-                </div>
-                </router-link>
-              </div> -->
+              </div>             
             </div>
         </div>
         <div class="sm:bg-Orange-200 h-12 flex justify-center items-center">
@@ -33,22 +22,8 @@
         </div>
       </div>
     </div>
-
-
-      <!-- botão de logout -->
-    
-      <!-- Navbar -->
-      <!-- <div class="py-2 md:py-0 bg-Sky-400 ">
-        <div class="flex lg:w-3/6 mx-auto px-2 justify-between items-center">
-            <div class="ml-2">
-              <img src="../assets/escola.png" alt="" class="w-48  sm:w-64 md:w-64 lg:w-64 xl:w-64 2xl:w-64 "/>
-            </div>
-            <div class="font-thin text-2xl text-blue-900 mt-4 text-center">
-              <img src="../assets/Agendamentos.png" alt="" class="w-24 sm:w-44 md:w-44 lg:w-44 xl:w-44 2xl:w-44 "/>
-            </div>
-        </div>
-      </div> -->
-    
+      <!-- botão de logout -->    
+      <!-- Navbar -->   
     <section>
       <!-- body aplicação -->
       <div class="w-full bg-gray-50">           
@@ -70,108 +45,84 @@
                 <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">                  
                   <!--SEARCH-->
                   <div class="flex justify-start items-center  sm:w-4/6 md:w-96  ">
-                      <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                      <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded place " placeholder="Data, Nome, Local, horário...">
+                    <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded place " placeholder="Data, Nome, Local, horário...">
                   </div>
                   <!--SEARCH-->
-
                   <div>
                       <h1 class="text-xs font-bold text-white">NP: {{agenda.length}}</h1>
-                  </div>      
-              
-                </div>
-                                  
+                  </div>              
+                </div>                                  
                 <!-- <div v-for="(item, key) in filteredAgendas" :key="key"  class="flex justify-end "></div> -->
-              </div>
-              
+              </div>              
               <div class=" mb-1 border border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas, index in filteredAgendas" :key="index" >
                 <div>
                   <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
-                      <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dataNew}}</li>
-                      <li class=""><span class="text-xl font-bold">Nome: </span>   {{agendas.nome}} </li>
-                      <!-- <li class=""><span class="text-xl font-bold">Horário: </span>   {{agendas.horariosFull}}</li> -->
-                      <!-- <li class=""><span class="text-xl font-bold">Horário: </span>   {{agendas.hourExtFirst && agendas.hourExtSecund || agendas.horariosFull }}</li> -->
-                      <li class=""><span class="text-xl font-bold">Horário: </span>{{agendas.hourExtFirst }}  {{ agendas.hourExtSecund }}{{ agendas.horariosFull }}</li>
-                      <!-- <li class=""><span class="text-xl font-bold">Eventos e Encontros: </span> {{agendas.horaEventos}}</li> -->
-                      <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>
-                      <!-- <li  class="flex items-center flex-wrap gap-1">
-                        <span class="flex text-xl font-bold"> Local: </span> 
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50" v-for="sel in agendas.sitUser" :key="sel.id">{{sel}}</p>
-                      </li> -->
-                      <!-- <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p>   
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.jardim}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ranchinho}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.informatica}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.pastoral}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ciencias}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.outros}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
-                        <p class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>    
-                      </li> -->                     
-                      <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
-                        <p v-if="agendas.salao" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p> 
-                        <p v-if="agendas.piscina" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>  
-                        <p v-if="agendas.gourmet" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p> 
-                        <p v-if="agendas.agenda" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
-                        <p v-if="agendas.jardim" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.jardim}} </p>    
-                        <p v-if="agendas.ranchinho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ranchinho}} </p>                           
-                        <p v-if="agendas.informatica" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.informatica}} </p>    
-                        <p v-if="agendas.pastoral" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.pastoral}} </p>    
-                        <p v-if="agendas.ciencias" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ciencias}} </p>    
-                        <p v-if="agendas.outros" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.outros}} </p>      
-                        <p v-if="agendas.quadra" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
-                        <p v-if="agendas.rancho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
-                        <p v-if="agendas.inspetor" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>                        
-                      </li>
-                     
-                      <li class=""><span class="text-xl font-bold">Segmento: </span> {{agendas.seguimento}}</li>
-                      <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
-                      <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
-                      <li style="margin-top:14px;" class="text-red-600 text-base font-bold text-center bg-Sky-100 shadow-sm rounded-md "><span class=" font-bold text-gray-600  ">Criado em: </span> {{ agendas.data}}</li>        
-                        
-                        <div>
-                          <div class="text-sm" v-if="agendas.userLogado">Criado pelo Usuário: <b class="text-red-500"> {{agendas.userLogado}}</b></div>
-                          <div v-else></div>
+                    <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dataNew}}</li>
+                    <li class=""><span class="text-xl font-bold">Nome: </span>   {{agendas.nome}} </li>
+                    <li class=""><span class="text-xl font-bold">Horário: </span>{{agendas.hourExtFirst }}  {{ agendas.hourExtSecund }}{{ agendas.horariosFull }}</li>              
+                    <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>                    
+                    <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
+                      <p v-if="agendas.salao" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p> 
+                      <p v-if="agendas.piscina" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>  
+                      <p v-if="agendas.gourmet" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p> 
+                      <p v-if="agendas.agenda" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
+                      <p v-if="agendas.jardim" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.jardim}} </p>    
+                      <p v-if="agendas.ranchinho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ranchinho}} </p>                           
+                      <p v-if="agendas.informatica" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.informatica}} </p>    
+                      <p v-if="agendas.pastoral" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.pastoral}} </p>    
+                      <p v-if="agendas.ciencias" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ciencias}} </p>    
+                      <p v-if="agendas.outros" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.outros}} </p>      
+                      <p v-if="agendas.quadra" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
+                      <p v-if="agendas.rancho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
+                      <p v-if="agendas.inspetor" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>                        
+                    </li>                     
+                    <li class=""><span class="text-xl font-bold">Segmento: </span> {{agendas.seguimento}}</li>
+                    <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
+                    <li class="break-words"><span class="text-xl font-bold ">Link: </span> {{agendas.link}}</li>
+                    <li style="margin-top:14px;" class="text-red-600 text-base font-bold text-center bg-Sky-100 shadow-sm rounded-md "><span class=" font-bold text-gray-600  ">Criado em: </span> {{ agendas.data}}</li>        
+                      
+                    <div>
+                      <div class="text-sm" v-if="agendas.userLogado">Criado pelo Usuário: <b class="text-red-500"> {{agendas.userLogado}}</b></div>
+                      <div v-else></div>
+                    </div>
+                    
+                    <div class="flex  items-center space-x-1 pt-4">
+                        <router-link :to="{path : `/edituser/${agendas.id}`}" class="bg-Teal-600 w-28 h-8 text-center text-white rounded">
+                          <div title="Atualizar!" >
+                            <span class="text-sm md:text-base">Editar</span>
+                          </div>
+                          </router-link>
+                        <div v-if="isClose"  @click.prevent="marcar(agendas.id)" title="Botão de Marcar como Recebido!" class="cursor-pointer bg-Sky-600 w-28 h-8 text-center text-white rounded">
+                          <span class="text-sm md:text-base">Visto</span>
                         </div>
                         
-                        <div class="flex  items-center space-x-1 pt-4">
-                            <router-link :to="{path : `/edituser/${agendas.id}`}" class="bg-Teal-600 w-28 h-8 text-center text-white rounded">
-                              <div title="Atualizar!" >
-                                <span class="text-sm md:text-base">Editar</span>
-                              </div>
-                              </router-link>
-                            <div v-if="isClose"  @click.prevent="marcar(agendas.id)" title="Botão de Marcar como Recebido!" class="cursor-pointer bg-Sky-600 w-28 h-8 text-center text-white rounded">
-                              <span class="text-sm md:text-base">Visto</span>
-                            </div>
-                           
-                            <div @click.prevent="deletar(agendas.id)" title="Deletar Publicação!" class="cursor-pointer bg-red-600 w-28 h-8 text-center text-white rounded">
-                              <span class="text-sm md:text-base">Delete</span>
-                            </div>
-                            <div class=" py-1 px-2 mt-4 mr-2 w-full  text-right">
-                              <div class=" sm:flex items-center justify-end  ">
-                                <h1 class="sm:text-lg text-sm font-thin mr-1">Visualizado por: </h1>
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-blue-500">{{agendas.info}}</div> 
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-green-600">{{agendas.secretaria}}</div> 
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-pink-500">{{agendas.coordFI}}</div>
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-purple-500">{{agendas.coordFII}}</div>
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
-                                <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretora}}</div>
-                                <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
-                              </div>
-                              
-                            </div>
+                        <div @click.prevent="deletar(agendas.id)" title="Deletar Publicação!" class="cursor-pointer bg-red-600 w-28 h-8 text-center text-white rounded">
+                          <span class="text-sm md:text-base">Delete</span>
                         </div>
+                        <div class=" py-1 px-2 mt-4 mr-2 w-full  text-right">
+                          <div class=" sm:flex items-center justify-end  ">
+                            <h1 class="sm:text-lg text-sm font-thin mr-1">Visualizado por: </h1>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-blue-500">{{agendas.info}}</div> 
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-green-600">{{agendas.secretaria}}</div> 
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-pink-500">{{agendas.coordFI}}</div>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-purple-500">{{agendas.coordFII}}</div>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretora}}</div>
+                            <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
+                          </div>
+                          
+                        </div>
+                    </div>
                   </ul>
                 </div>
+              </div>
+              <div @click="btnTop" id="btn_up">
+                <div class="icon"></div>
               </div>
             </div>
       </div>
@@ -253,6 +204,8 @@ export default {
         this.usuario = user.email
       }
     });
+
+    
   
   // CÓDIGO PARA ADICIONAR TELA FINAL PARA O USUARIO (userTela)
   const dbUser = getFirestore();
@@ -260,6 +213,7 @@ export default {
   const q = query(colleUser, orderBy('dataNew', 'asc'))
   const user = await getDocs(q); 
   user.forEach((doc) => {
+
     if(doc.data().salao){
       const salao = "Salão"
       this.checked.salao = salao
@@ -378,18 +332,12 @@ export default {
 
     let dateString = todaData.toLocaleString('pt-BR', {}).replace(/\//g, '/')
 
-
     // ***********************************************************************/
-
-               
-                
 
     //****************************************************************************** */
 
     const dbAuth = getAuth().currentUser.uid;
-    const dataUser = doc.data(); 
-
-
+    const dataUser = doc.data();
     const userTeste = doc.data().user_id;
     const emailUser = getAuth().currentUser.email;
 
@@ -1057,24 +1005,43 @@ export default {
         this.agenda.push(dbMonitor);
      
     }
+
+    
    
-  });
-  
+  }); 
   
     const verUser = dbuser.currentUser
       if(verUser.uid){
       this.isLoggedIn =  true;
     }
- 
+
+    this.oculto()
+    
   },
   
   // CODIGOS DO SEARCH
   
-  methods:{
-
+  methods:{ 
     
-   
-   async deletar(id){
+    btnTop(){
+      const btn = document.getElementById("btn_up")
+      btn.addEventListener('click', ()=>{
+        window.scrollTo(0,0)        
+      })     
+        
+    }, 
+    oculto(){
+      const btn = document.getElementById("btn_up")
+     btn.style.display = "none"
+     document.addEventListener('scroll', function () {
+        if(window.scrollY > 10){
+          btn.style.display = "flex"
+        }else{
+          btn.style.display = "none"
+        }
+      })
+    },
+    async deletar(id){
       const db = getFirestore();
       const userAuth = getAuth().currentUser.uid;
       const docRef = doc(db, "usuarios", id);
@@ -1127,8 +1094,7 @@ export default {
           }
         })
       }
-    },
-    
+    },    
 
     // FINAL DO DELETAR
    
@@ -1248,6 +1214,7 @@ export default {
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
+
 .wood::before{
   content: "";
   height: 40px;
@@ -1292,6 +1259,9 @@ input[type='search']:focus{
 @media screen and (max-width:640px) {
   .wood::before{
   background-color: transparent;
+  }
 }
-}
+
+
+
 </style>

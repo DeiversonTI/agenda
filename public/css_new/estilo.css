@@ -41,7 +41,116 @@
         color: var(--dark-text-mode);
         font-size: 0.63rem;
     }
-
 }
 
+html, body{
+   scroll-behavior: smooth;
+}
+
+#btn_up{
+    z-index: 500;
+    background-color: rgb(8, 106, 197);
+    position: fixed;
+    right: 250px;
+    bottom: 40px;
+    padding: 20px;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  
+   
+  }
+  #btn_up .icon{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top:3px;
+    background-color: transparent;
+    border-width: 0 5px 5px 0;
+    transform: rotate(-135deg); 
+    cursor: pointer;   
+  }
+
+  @media screen and (max-width: 1025px) {
+    #btn_up{
+        z-index: 500;
+        background-color: rgb(8, 106, 197);
+        position: fixed;
+        right: 9px;
+        bottom: 50px;
+        padding: 10px;
+        border-radius: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;     
+       
+      }
+      #btn_up .icon{
+        width: 15px;
+        height: 15px;
+        position: relative;
+        top:3px;
+        background-color: transparent;
+        border-width: 0 5px 5px 0;
+        transform: rotate(-135deg); 
+        cursor: pointer;   
+      }
+    
+  }
+  @media screen and (min-width: 1032px) and (max-width:1366px){
+    #btn_up{
+        z-index: 500;
+        background-color: rgb(8, 106, 197);
+        position: fixed;
+        right: 100px;
+        bottom: 50px;
+        padding: 15px;
+        border-radius: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;     
+       
+      }
+      #btn_up .icon{
+        width: 15px;
+        height: 15px;
+        position: relative;
+        top:3px;
+        background-color: transparent;
+        border-width: 0 5px 5px 0;
+        transform: rotate(-135deg); 
+        cursor: pointer;   
+      }
+    
+  }
+  @media screen and (min-width: 1367px) and (max-width:1880px) {
+    #btn_up{
+        z-index: 500;
+        background-color: rgb(8, 106, 197);
+        position: fixed;
+        right: 150px;
+        bottom: 50px;
+        padding: 15px;
+        border-radius: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;     
+       
+      }
+      #btn_up .icon{
+        width: 15px;
+        height: 15px;
+        position: relative;
+        top:3px;
+        background-color: transparent;
+        border-width: 0 5px 5px 0;
+        transform: rotate(-135deg); 
+        cursor: pointer;   
+      }
+    }
 
