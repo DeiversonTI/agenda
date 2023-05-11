@@ -11,7 +11,7 @@
               <div>
                   <h1 class="text-sm sm:text-base font-thin  px-2 ">
                   Olá
-              <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
+                  <span class="font-bold text-red-600 px-1 ">{{ this.usuario }}</span> 
                   Seja Bem Vindo(a)
               </h1>
               </div>             
@@ -67,8 +67,8 @@
               </div>              
               <div v-else class=" mb-1 border border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas, index in filteredAgendas" :key="index" >
                 <div>
-                  <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
-                    <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dataNew}}</li>
+                  <ul class="  flex flex-col font-sans text-lg text-gray-900   ">
+                    <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span>{{agendas.dataNew}} </li>
                     <li class=""><span class="text-xl font-bold">Nome: </span>   {{agendas.nome}} </li>
                     <li class=""><span class="text-xl font-bold">Horário: </span>{{agendas.hourExtFirst }}  {{ agendas.hourExtSecund }}{{ agendas.horariosFull }}</li>              
                     <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>                    

@@ -82,7 +82,7 @@
               </div> -->
                <div class="mx-6 mb-6">
                 <label class="flex opacity-70 text-lg " for="nameConnect">Eventos Agendados</label>
-                 <DatePicker :attributes="attributes" is-expanded :timezone="timezone" locale="pt-BR" :mask ="masks" :first-day-of-week="2" />
+                 <DatePicker :attributes="attributes" is-expanded :timezone="jon.timezone" locale="pt-BR" :mask ="jon.masks" :first-day-of-week="2" />
                  <!-- <DatePicker v-model="dates"/> -->
               </div>
               <!-- formulario de arquivos logado -->
@@ -444,147 +444,582 @@
       </div>
     </div>
 </template>
-<script>
 
-
-import {getAuth, onAuthStateChanged } from "firebase/auth";
-import db from "../components/db/dbConfig";
-import {  collection,  getFirestore, addDoc, getDocs } from "firebase/firestore";
+<script setup>
+import {onMounted, ref, computed } from 'vue'
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import db from "../components/db/dbConfig"
+import {  collection,  getFirestore, getDocs, addDoc } from "firebase/firestore"
 import Logado from "../components/compLogado/userLogado.vue"
 import Footer from "../components/footer.vue"
-import { DatePicker } from 'v-calendar';
+import { DatePicker } from 'v-calendar'
 
+const dbUser = getFirestore()
+const dbuser = getAuth()
 
+onMounted(()=>{
+  db  
+  onAuthStateChanged(dbuser, (user) => {                
+    if(user.displayName === null){
+        jon.value.usuario = user.email
+    }else{
+      jon.value.usuario = user.displayName
+    }           
+  })      
+          
+  getDataNew()      
+  console.log(jon.value.dates)
 
+})
 
-export default {
-    name:"auth",
-    components:{
-      Logado,
-      Footer,
-      
-      DatePicker
+const jon = ref({
+  dates: [],
+  // dates: {},
+  email:'',
+  disabled: true,
+  dataDia:[],
+  usuario: null,
+  fullData: null,
+  anoComp:null,
+  getDat: true,
+  FundII: true,
+  FundI: true,
+  Inf: true,
+  Eventos: true,
+  anoFull: null,
+  disabledData: true,
+  disabledDataII: true,
+  textDoc: false,
+  textError: null,
+  // textDoc: true,
+  // textError: "erro messangem!",
+  evExt:false,
+  evExtOld:true,
+  evExtOld2:true,
+  usr: null,
+  dbUser: [],
+  postDataBlock: [],
+  dataProf:null,
+  timezone: 'UTC', 
+    masks: {
+      weekdays: 'WWW',
     },
-    data(){
-      return {
-       
-            timezone: 'UTC', 
-              masks: {
-                weekdays: 'WWW',
-              },
+  sit : null
+})
 
-             attributes: [
-              {
-                // key: ['1', '2', '3'],
-                highlight: 'red',
-                dates: [],
-              },
-            ],
-            dates: [],
-            email:'',
-            disabled: true,
-            dataDia:[],
-            usuario: null,
-            fullData: null,
-            anoComp:null,
-            getDat: true,
-            FundII: true,
-            FundI: true,
-            Inf: true,
-            Eventos: true,
-            anoFull: null,
-            disabledData: true,
-            disabledDataII: true,
-            textDoc: false,
-            textError: null,
-            // textDoc: true,
-            // textError: "erro messangem!",
-            evExt:false,
-            evExtOld:true,
-            evExtOld2:true,
-            usr: null,
-            dbUser: [],
-            postDataBlock: [],
-            dataProf:null,
-            // uid: null,
-            
-                        
+const form = ref({
+                    
+    nome:null,
+    diretora:null,
+    responsavel: null,
+    situacao: null,
+    seguimento:null,
+    motivo: null,
+    arquivo: null,
+    link:null,
+    info:null,
+    coordFI:null,
+    coordFII:null,
+    coordEI:null,
+    social:null,
+    diretoria:null,
+    secretaria:null,
+    tesouraria:null,
+    horaEventos:null,
+    horariosFull:null,
+    dataNew:null,
+    evExternos: null,
+    hourExtSecund: null,
+    hourExtFirst: null,
+    evSec:null,
+    evHour:null,
+    hHour:null,
+    sHour:null
 
-            form:{                    
-              nome:null,
-              diretora:null,
-              responsavel: null,
-              situacao: null,
-              seguimento:null,
-              motivo: null,
-              arquivo: null,
-              link:null,
-              info:null,
-              coordFI:null,
-              coordFII:null,
-              coordEI:null,
-              social:null,
-              diretoria:null,
-              secretaria:null,
-              tesouraria:null,
-              horaEventos:null,
-              horariosFull:null,
-              dataNew:null,
-              evExternos: null,
-              hourExtSecund: null,
-              hourExtFirst: null,
-              evSec:null,
-              evHour:null,
-              hHour:null,
-              sHour:null
 
-            }
-        }
-            
+})
+
+
+const todos = ref([
+  {
+    description: jon.value.sit,
+    // isComplete: false,
+    // dates: new Date().toDateString(), // Every Friday
+    dates: jon.value.dates, // Every Friday
+    color: 'red',
+  },
+]);
+
+const attributes = computed(() => [
+  // Attributes for todos
+  ...todos.value.map(todo => ({
+
+    dates: todo.dates,
+    highlight: todo.color,
+    // dot: {
+    //   color: todo.color,
+    //   class: todo.isComplete ? 'opacity-75' : '',
+    // },
+    popover: {
+      label: todo.description,
     },
+
    
-     async created(){
-      //  APRESENTA NA TELA O USUÁRIO CONECTADO
-            db;
-            const dbuser = getAuth();
-                onAuthStateChanged(dbuser, (user) => {                
-                  if(user.displayName === null){
-                     this.usuario = user.email
-                  }else{
-                    this.usuario = user.displayName
-                  }           
-            });
-           
-            // CALCULO PARA DESCOBRIR 4 horas
-            
-            // this.eventNew()
+  })),
+])
 
-            // this.testeSend()
-       this.getDataNew()
-       
-      //  console.log(this.attributes[0].dates)
-            
-           
-           
-            
-            
-      },
-      watch:{
-        'form.dataNew'(value){
-          if(value){
-            this.dataUser()
-          }
-          // console.log(value)
-        }, 
+const loading = async() => {
+if(this.form.seguimento){
+  const loader = document.getElementById('loading')
+  loader.style.display = "inline"
+  setTimeout(() => {
+    loader.style.display = "none"
+  }, 2000);          
+}else{
+  this.$swal({
+    icon: "warning",
+    title: "Oops...",
+    text: "Campo Vazio!",
+    showConfirmButton: false,
+    timer: 1000,
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    hideClass: {
+      popup: 'animate__animated animate__fadeOutUp'
+    }
+  });
+}
+
+}
+
+const loadLopping = async() => {
+const loader = document.getElementById('loading')      
+loader.style.display = "none"
+    setTimeout(()=>{
+        this.$swal({
+        icon: "error",
+        title: "Oops...",
+        text: "Data ou Horário já em uso!",
+        showConfirmButton: false,
+        timer: 3000,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        }                  
+      });
+    },2000)
+}
+
+const getDataNew = async() => { 
+// const loader = document.getElementById('loading')
+// const dbUser = getFirestore();
+  const querySnapshot = await getDocs(collection(dbUser, "ambTest"));
+    querySnapshot.forEach((doc) => {
+
+      // console.log('getDataNew')
+
+    
+    // this.attributes[0].dates.push(doc.data().dataNew)
+    jon.value.dates.push(doc.data().dataNew)
+
+
+    console.log(doc.data().situacao)
+    jon.value.sit = doc.data().situacao
+    // jon.value.dates = doc.data().dataNew
+
+    // console.log(doc.data())
+   
+      // this.dates.push(doc.data().dataNew)
+    // console.log(this.dates)
+                  
+
+    const hFull = doc.data().horariosFull;
+    const sitUser = doc.data().situacao;
+    const getFull = doc.data().dataNew;
+    // this.postDataBlock.push(getFull)
+    // console.log(getFull)
+
+  //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
+  if (form.value.dataNew === getFull && form.value.horariosFull === hFull && form.value.situacao === sitUser ) {
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      
+   loadLopping()
+      
+    // alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
+    setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
         
-        // 'form.motivo'(value){
-        //   if(value){
-        //     this.loading()
-        //     console.log(value)
-        //   }
-        // }
+          
+  //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO, CASO ALGUÉM USO A DATA FULL        
+  } else if (form.value.dataNew === getFull && hFull === '07h10-12h' && form.value.situacao === sitUser) {
+      if
+      (
+        form.value.horariosFull === '07h10-07h55' ||
+        form.value.horariosFull === '07h55-08h40' ||
+        form.value.horariosFull === '08h40-09h25' ||
+        form.value.horariosFull === '08h40-09h45' ||
+        form.value.horariosFull === '09h25-10h10' ||
+        form.value.horariosFull === '09h45-10h30' ||
+        form.value.horariosFull === '10h30-11h15' ||
+        form.value.horariosFull === '11h15-12h' ||
+        form.value.horariosFull === '12h-12h45'
+      )
+      {
+        // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro!')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      loadLopping()
+        setTimeout(() => {
+        this.$router.go({name:'auth'})
+      }, 2500);
+      } 
+    
+  } else if (form.value.dataNew === getFull && hFull === '12h30-17h' && form.value.situacao === sitUser) {
+      if
+      (
+        //ANOS INICIAIS
+        form.value.horariosFull === '13h20-14h05' ||
+        form.value.horariosFull === '14h05-14h50' ||
+        form.value.horariosFull === '14h25-15h10' ||
+        form.value.horariosFull === '15h10-15h55' ||
+        form.value.horariosFull === '15h55-16h50' ||               
+        //INFANTIL
+        form.value.horariosFull === '12h40-13h25' ||
+        form.value.horariosFull === '13h25-14h10' ||
+        form.value.horariosFull === '14h10-14h35' ||
+        form.value.horariosFull === '14h35-15h20' ||
+        form.value.horariosFull === '15h20-16h05' ||
+        form.value.horariosFull === '16h05-16h50' 
+      )
+      {
+        // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+        loadLopping()
 
-      },
+        setTimeout(() => {
+          this.$router.go({name:'auth'})
+      }, 2500);
+      } 
+  } else if (form.value.dataNew === getFull && form.value.situacao === sitUser &&  form.value.horariosFull === '12h30-17h') {
+      if (
+        //FUNDAMENTAL I
+      hFull === '13h20-14h05' ||
+      hFull === '14h05-14h50' ||
+      hFull === '14h25-15h10' ||
+      hFull === '15h10-15h55' ||
+      hFull === '15h55-16h50' ||    
+      // hFull === '13h15-14h' ||
+      // hFull === '14h-14h45' ||
+      // hFull === '14h25-15h10' ||
+      // hFull === '14h20-15h15' ||
+      // hFull === '15h10-15h55' ||
+      // hFull === '15h05-15h50' ||
+      // hFull === '15h15-16h' ||
+      // hFull === '16h-16h45' ||
+      //INFANTIL
+      hFull === '12h40-13h25' ||
+      hFull === '13h25-14h10' ||
+      hFull === '14h10-14h35' ||
+      hFull === '14h35-15h20' ||
+      hFull === '15h20-16h05' ||
+      hFull === '16h05-16h50' 
+      // hFull === '12h30-13h15' ||
+      // hFull === '13h15-14h' ||
+      // hFull === '14h-14h25' ||
+      // hFull === '14h25-15h10' ||
+      // hFull === '15h10-15h55' ||
+      // hFull === '15h55-16h40' 
+      )
+      {
+        //  if(this.textDoc === true){
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+          // }
+        // alert('Desculpa! Horários e datas já em uso!')
+
+        this.loadLopping()
+
+        setTimeout(() => {
+        this.$router.go({name:'auth'})
+        }, 2500);
+      } 
+  } else if (form.value.dataNew === getFull && form.value.horariosFull === '07h10-12h' && form.value.situacao === sitUser) {
+    if
+    (
+      hFull === '07h55-08h40' ||
+      hFull === '08h40-09h25' ||
+      hFull === '08h40-09h45' ||
+      hFull === '07h10-07h55' ||
+      hFull === '09h25-10h10' ||
+      hFull === '09h45-10h30' ||
+      hFull === '10h30-11h15' ||
+      hFull === '11h15-12h' ||
+      hFull === '12h-12h45'
+      // hFull === '07h10-07h55' ||
+      // hFull === '07h55-08h40' ||
+      // hFull === '08h40-09h25' ||
+      // hFull === '09h25-10h10' ||
+      // hFull === '09h45-10h30' ||
+      // hFull === '10h30-11h15' ||
+      // hFull === '11h15-12h' ||
+      // hFull === '12h-12h45'
+    )
+    {
+      // alert('Desculpa! Datas em uso! - FundII')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+
+      loadLopping()
+
+      setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
+    } 
+
+    /********************************************************** */
+    /*REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
+    /************************************************************ */
+  } else if (form.value.dataNew === getFull && hFull === '08h40-09h25' && form.value.situacao === sitUser) {
+    if (form.value.horariosFull === '08h40-09h45')
+    {
+      // alert('Desculpa! Data em uso! - FundII ')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      loadLopping()
+
+      setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
+    } 
+    
+  }else if (form.value.dataNew === getFull && hFull === '08h40-09h45' && form.value.situacao === sitUser) {
+    if (form.value.horariosFull === '08h40-09h25')
+    {
+      // alert('Desculpa! Data em uso! - FundII ')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      loadLopping()
+
+      setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
+    } 
+    
+  }
+  else if (form.value.dataNew === getFull && hFull === '09h25-10h10' && form.value.situacao === sitUser) {
+    if (form.value.horariosFull === '09h45-10h30')
+    {
+      // alert('Desculpa! Data em uso! - FundII ')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      loadLopping()
+
+      setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
+    } 
+    
+  }else if (form.value.dataNew === getFull && hFull === '09h45-10h30' && form.value.situacao === sitUser) {
+    if (form.value.horariosFull === '09h25-10h10')
+    {
+      // alert('Desculpa! Data em uso! - FundII ')
+      // this.textDoc = true
+      // this.textError = "Desculpe! Horários e Datas em uso!"
+      this.loadLopping()
+
+      setTimeout(() => {
+      this.$router.go({name:'auth'})
+    }, 2500);
+    } 
+    /********************************************************** */
+    /*FIM DAS REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
+    /************************************************************ */
+
+    //BLOQUEIOS DO ANOS INICIAIS - MUITOS HORÁRIOS PICADOS
+  } else if (form.value.dataNew === getFull && hFull === '14h05-14h50' && form.value.situacao === sitUser) {
+      if ( form.value.horariosFull === '14h25-15h10') {
+        
+        loadLopping()
+
+        setTimeout(() => {
+          this.$router.go({name:'auth'})
+        }, 2500);
+      } 
+  } else if (form.value.dataNew === getFull && hFull === '14h25-15h10' && form.value.situacao === sitUser) {
+      if ( form.value.horariosFull === '14h05-14h50') {
+        
+        loadLopping()
+        
+        setTimeout(() => {
+          this.$router.go({name:'auth'})
+        }, 2500);
+      } 
+  }
+  })       
+}
+
+const clicar = async() => {
+     try{
+   
+          // const dbUser = getFirestore();
+          // const authentication = getAuth();
+          const userConnected = dbuser.currentUser.uid; 
+
+        const usuarioDb = {
+
+          user_id:userConnected,
+          nome:form.value.nome,
+          // dataAtual:form.value.dataNew,
+          diretora:form.value.diretora,
+          horariosFull:form.value.horariosFull,
+          responsavel: form.value.responsavel,
+          situacao: form.value.situacao,
+          seguimento:form.value.seguimento,
+          motivo: form.value.motivo,
+          link: form.value.link,
+          info:form.value.info,
+          coordFI:form.value.coordFI,
+          coordFII:form.value.coordFII,
+          coordEI:form.value.coordEI,
+          social:form.value.social,
+          diretoria:form.value.diretoria,
+          secretaria:form.value.secretaria,
+          tesouraria:form.value.tesouraria,
+          data:new Date().toLocaleString(),
+          horaEventos:form.value.horaEventos,
+          dataNew:form.value.dataNew,
+          // CONTEUDO DA TESOURARIA - EVENTOS EXTERNOS
+          evExternos: form.value.evExternos,
+          hourExtFirst: form.value.hourExtFirst,
+          hourExtSecund: form.value.hourExtSecund,
+          userLogado : jon.value.usuario
+
+        }
+
+        console.log(usuarioDb)
+        console.log(userConnected)
+       
+      
+      //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
+        
+      //  this.$swal({
+      //   title: 'As informações estão completas?',
+      //   showCancelButton: true,
+      //   confirmButtonText: 'Salvar',
+        
+      // })
+      alert("Será tudo salvo!")
+      
+     
+       await addDoc(collection(dbUser, "ambTest"), usuarioDb)
+
+        // console.log(pegar)
+    
+        setTimeout(() => {
+          this.$router.replace({name: 'usertela'})             
+        }, 1500)    
+
+
+        console.log("Salvo")
+
+
+
+
+      }catch(error){
+        console.log(error.message)
+      }
+         
+    }
+
+// const dataUser = () => {
+// const newData = new Date()
+// let d = ("0" + newData.getDate()).slice(-2)
+// let m = ("0" + (newData.getMonth()+1)).slice(-2)
+// let y = newData.getFullYear()
+// let fullYearBlock = y+"-"+m+"-"+d        
+
+// const dataNew = form.value.dataNew
+
+// if(dataNew < fullYearBlock){
+
+//      this.$swal({
+//         icon:'error',
+//         title:'Ops!! Essa Data já Passou!',
+//      })
+//      setTimeout(() => {
+//       // this.$router.go({name:'auth'})
+//     }, 2500);
+                
+// }else if(dataNew === fullYearBlock){
+      
+//       this.$swal({
+//         icon:'info',
+//         title:'Marcar com 12hs de Antecedência!',
+//      })
+      
+//     setTimeout(() => {
+//       // this.$router.go({name:'auth'})
+//     }, 2500);
+// }
+
+
+// }
+
+// return {
+//   dataUser,
+//   clicar,
+//   loading,
+//   loadLopping,
+//   getDataNew,
+//   form,
+//   jon,
+
+//   timezone: 'UTC', 
+//   masks: {
+//     weekdays: 'WWW',
+//   }
+
+
+
+
+
+// }
+</script>
+
+<!-- <script>
+export default {
+    // name:"auth",
+    // components:{
+    //   Logado,
+    //   Footer,
+      
+    //   DatePicker
+    // },
+   
+   
+   
+      // watch:{
+      //   'form.dataNew'(value){
+      //     if(value){
+      //       this.dataUser()
+      //     }
+      //     // console.log(value)
+      //   }, 
+        
+      //   // 'form.motivo'(value){
+      //   //   if(value){
+      //   //     this.loading()
+      //   //     console.log(value)
+      //   //   }
+      //   // }
+
+      // },
       
      methods: {
 
@@ -596,386 +1031,397 @@ export default {
       // ***********************
       // ************************
       
-      async loading(){
-        if(this.form.seguimento){
-          const loader = document.getElementById('loading')
-          loader.style.display = "inline"
-          setTimeout(() => {
-            loader.style.display = "none"
-          }, 2000);          
-        }else{
-          this.$swal({
-            icon: "warning",
-            title: "Oops...",
-            text: "Campo Vazio!",
-            showConfirmButton: false,
-            timer: 1000,
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            }
-          });
-        }
+      // async loading(){
+      //   if(this.form.seguimento){
+      //     const loader = document.getElementById('loading')
+      //     loader.style.display = "inline"
+      //     setTimeout(() => {
+      //       loader.style.display = "none"
+      //     }, 2000);          
+      //   }else{
+      //     this.$swal({
+      //       icon: "warning",
+      //       title: "Oops...",
+      //       text: "Campo Vazio!",
+      //       showConfirmButton: false,
+      //       timer: 1000,
+      //       showClass: {
+      //         popup: 'animate__animated animate__fadeInDown'
+      //       },
+      //       hideClass: {
+      //         popup: 'animate__animated animate__fadeOutUp'
+      //       }
+      //     });
+      //   }
       
-      },
+      // },
 
-      async loadLopping(){
-        const loader = document.getElementById('loading')      
-          loader.style.display = "none"
-              setTimeout(()=>{
-                  this.$swal({
-                  icon: "error",
-                  title: "Oops...",
-                  text: "Data ou Horário já em uso!",
-                  showConfirmButton: false,
-                  timer: 3000,
-                  showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                  },
-                  hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                  }                  
-                });
-              },2000)
-      },
+    // async loadLopping(){
+    //   const loader = document.getElementById('loading')      
+    //     loader.style.display = "none"
+    //         setTimeout(()=>{
+    //             this.$swal({
+    //             icon: "error",
+    //             title: "Oops...",
+    //             text: "Data ou Horário já em uso!",
+    //             showConfirmButton: false,
+    //             timer: 3000,
+    //             showClass: {
+    //               popup: 'animate__animated animate__fadeInDown'
+    //             },
+    //             hideClass: {
+    //               popup: 'animate__animated animate__fadeOutUp'
+    //             }                  
+    //           });
+    //         },2000)
+    // },
      
 
-       async getDataNew() { 
-        // const loader = document.getElementById('loading')
-        const dbUser = getFirestore();
-         const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
-            querySnapshot.forEach((doc) => {
+      //  async getDataNew() { 
+      //   // const loader = document.getElementById('loading')
+      //   const dbUser = getFirestore();
+      //    const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
+      //       querySnapshot.forEach((doc) => {
 
-              // console.log('getDataNew')
+      //         // console.log('getDataNew')
 
            
-            this.attributes[0].dates.push(doc.data().dataNew)
-              // this.dates.push(doc.data().dataNew)
-            // console.log(this.dates)
+      //       this.attributes[0].dates.push(doc.data().dataNew)
+
+      //       // console.log(doc.data())
+      //       const audio = {
+      //         nome: doc.data().nome,
+      //         eventos: doc.data().salao,
+      //         data: doc.data().dataNew,
+      //         horario: doc.data().horariosFull
+
+
+      //       }
+      //       console.log(audio)
+      //         // this.dates.push(doc.data().dataNew)
+      //       // console.log(this.dates)
                          
 
-            const hFull = doc.data().horariosFull;
-            const sitUser = doc.data().situacao;
-            const getFull = doc.data().dataNew;
-            this.postDataBlock.push(getFull)
-            // console.log(getFull)
+      //       const hFull = doc.data().horariosFull;
+      //       const sitUser = doc.data().situacao;
+      //       const getFull = doc.data().dataNew;
+      //       this.postDataBlock.push(getFull)
+      //       // console.log(getFull)
       
-          //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
-          if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
+      //     //BLOQUEAR DATAS , HORÁRIOS E LOCAIS REPETIDOS
+      //     if (this.form.dataNew === getFull && this.form.horariosFull === hFull && this.form.situacao === sitUser ) {
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
              
-            this.loadLopping()
+      //       this.loadLopping()
               
-            // alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
-            setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
+      //       // alert(`Não foi possível reservar a data: ${getFull}, pois os horários ${hFull} e o local: ${sitUser}, já estão em uso! `)
+      //       setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
                 
                   
-          //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO, CASO ALGUÉM USO A DATA FULL        
-          } else if (this.form.dataNew === getFull && hFull === '07h10-12h' && this.form.situacao === sitUser) {
-              if
-              (
-                this.form.horariosFull === '07h10-07h55' ||
-                this.form.horariosFull === '07h55-08h40' ||
-                this.form.horariosFull === '08h40-09h25' ||
-                this.form.horariosFull === '08h40-09h45' ||
-                this.form.horariosFull === '09h25-10h10' ||
-                this.form.horariosFull === '09h45-10h30' ||
-                this.form.horariosFull === '10h30-11h15' ||
-                this.form.horariosFull === '11h15-12h' ||
-                this.form.horariosFull === '12h-12h45'
-              )
-              {
-                // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro!')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-              this.loadLopping()
-                setTimeout(() => {
-                this.$router.go({name:'auth'})
-              }, 2500);
-              } 
+      //     //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO, CASO ALGUÉM USO A DATA FULL        
+      //     } else if (this.form.dataNew === getFull && hFull === '07h10-12h' && this.form.situacao === sitUser) {
+      //         if
+      //         (
+      //           this.form.horariosFull === '07h10-07h55' ||
+      //           this.form.horariosFull === '07h55-08h40' ||
+      //           this.form.horariosFull === '08h40-09h25' ||
+      //           this.form.horariosFull === '08h40-09h45' ||
+      //           this.form.horariosFull === '09h25-10h10' ||
+      //           this.form.horariosFull === '09h45-10h30' ||
+      //           this.form.horariosFull === '10h30-11h15' ||
+      //           this.form.horariosFull === '11h15-12h' ||
+      //           this.form.horariosFull === '12h-12h45'
+      //         )
+      //         {
+      //           // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro!')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //         this.loadLopping()
+      //           setTimeout(() => {
+      //           this.$router.go({name:'auth'})
+      //         }, 2500);
+      //         } 
             
-          } else if (this.form.dataNew === getFull && hFull === '12h30-17h' && this.form.situacao === sitUser) {
-              if
-              (
-                //ANOS INICIAIS
-                this.form.horariosFull === '13h20-14h05' ||
-                this.form.horariosFull === '14h05-14h50' ||
-                this.form.horariosFull === '14h25-15h10' ||
-                this.form.horariosFull === '15h10-15h55' ||
-                this.form.horariosFull === '15h55-16h50' ||               
-                //INFANTIL
-                this.form.horariosFull === '12h40-13h25' ||
-                this.form.horariosFull === '13h25-14h10' ||
-                this.form.horariosFull === '14h10-14h35' ||
-                this.form.horariosFull === '14h35-15h20' ||
-                this.form.horariosFull === '15h20-16h05' ||
-                this.form.horariosFull === '16h05-16h50' 
-              )
-              {
-                // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-                this.loadLopping()
+      //     } else if (this.form.dataNew === getFull && hFull === '12h30-17h' && this.form.situacao === sitUser) {
+      //         if
+      //         (
+      //           //ANOS INICIAIS
+      //           this.form.horariosFull === '13h20-14h05' ||
+      //           this.form.horariosFull === '14h05-14h50' ||
+      //           this.form.horariosFull === '14h25-15h10' ||
+      //           this.form.horariosFull === '15h10-15h55' ||
+      //           this.form.horariosFull === '15h55-16h50' ||               
+      //           //INFANTIL
+      //           this.form.horariosFull === '12h40-13h25' ||
+      //           this.form.horariosFull === '13h25-14h10' ||
+      //           this.form.horariosFull === '14h10-14h35' ||
+      //           this.form.horariosFull === '14h35-15h20' ||
+      //           this.form.horariosFull === '15h20-16h05' ||
+      //           this.form.horariosFull === '16h05-16h50' 
+      //         )
+      //         {
+      //           // alert('Desculpa! Infelizmente todo os horarios já estão reservados! Escolha outro! - Inf e FundI')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //           this.loadLopping()
 
-                setTimeout(() => {
-                  this.$router.go({name:'auth'})
-              }, 2500);
-              } 
-          } else if (this.form.dataNew === getFull && this.form.situacao === sitUser &&  this.form.horariosFull === '12h30-17h') {
-              if (
-               //FUNDAMENTAL I
-              hFull === '13h20-14h05' ||
-              hFull === '14h05-14h50' ||
-              hFull === '14h25-15h10' ||
-              hFull === '15h10-15h55' ||
-              hFull === '15h55-16h50' ||    
-              // hFull === '13h15-14h' ||
-              // hFull === '14h-14h45' ||
-              // hFull === '14h25-15h10' ||
-              // hFull === '14h20-15h15' ||
-              // hFull === '15h10-15h55' ||
-              // hFull === '15h05-15h50' ||
-              // hFull === '15h15-16h' ||
-              // hFull === '16h-16h45' ||
-              //INFANTIL
-              hFull === '12h40-13h25' ||
-              hFull === '13h25-14h10' ||
-              hFull === '14h10-14h35' ||
-              hFull === '14h35-15h20' ||
-              hFull === '15h20-16h05' ||
-              hFull === '16h05-16h50' 
-              // hFull === '12h30-13h15' ||
-              // hFull === '13h15-14h' ||
-              // hFull === '14h-14h25' ||
-              // hFull === '14h25-15h10' ||
-              // hFull === '15h10-15h55' ||
-              // hFull === '15h55-16h40' 
-              )
-              {
-                //  if(this.textDoc === true){
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-                  // }
-                // alert('Desculpa! Horários e datas já em uso!')
+      //           setTimeout(() => {
+      //             this.$router.go({name:'auth'})
+      //         }, 2500);
+      //         } 
+      //     } else if (this.form.dataNew === getFull && this.form.situacao === sitUser &&  this.form.horariosFull === '12h30-17h') {
+      //         if (
+      //          //FUNDAMENTAL I
+      //         hFull === '13h20-14h05' ||
+      //         hFull === '14h05-14h50' ||
+      //         hFull === '14h25-15h10' ||
+      //         hFull === '15h10-15h55' ||
+      //         hFull === '15h55-16h50' ||    
+      //         // hFull === '13h15-14h' ||
+      //         // hFull === '14h-14h45' ||
+      //         // hFull === '14h25-15h10' ||
+      //         // hFull === '14h20-15h15' ||
+      //         // hFull === '15h10-15h55' ||
+      //         // hFull === '15h05-15h50' ||
+      //         // hFull === '15h15-16h' ||
+      //         // hFull === '16h-16h45' ||
+      //         //INFANTIL
+      //         hFull === '12h40-13h25' ||
+      //         hFull === '13h25-14h10' ||
+      //         hFull === '14h10-14h35' ||
+      //         hFull === '14h35-15h20' ||
+      //         hFull === '15h20-16h05' ||
+      //         hFull === '16h05-16h50' 
+      //         // hFull === '12h30-13h15' ||
+      //         // hFull === '13h15-14h' ||
+      //         // hFull === '14h-14h25' ||
+      //         // hFull === '14h25-15h10' ||
+      //         // hFull === '15h10-15h55' ||
+      //         // hFull === '15h55-16h40' 
+      //         )
+      //         {
+      //           //  if(this.textDoc === true){
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //             // }
+      //           // alert('Desculpa! Horários e datas já em uso!')
 
-                this.loadLopping()
+      //           this.loadLopping()
 
-                setTimeout(() => {
-                this.$router.go({name:'auth'})
-                }, 2500);
-              } 
-          } else if (this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && this.form.situacao === sitUser) {
-            if
-            (
-              hFull === '07h55-08h40' ||
-              hFull === '08h40-09h25' ||
-              hFull === '08h40-09h45' ||
-              hFull === '07h10-07h55' ||
-              hFull === '09h25-10h10' ||
-              hFull === '09h45-10h30' ||
-              hFull === '10h30-11h15' ||
-              hFull === '11h15-12h' ||
-              hFull === '12h-12h45'
-              // hFull === '07h10-07h55' ||
-              // hFull === '07h55-08h40' ||
-              // hFull === '08h40-09h25' ||
-              // hFull === '09h25-10h10' ||
-              // hFull === '09h45-10h30' ||
-              // hFull === '10h30-11h15' ||
-              // hFull === '11h15-12h' ||
-              // hFull === '12h-12h45'
-            )
-            {
-              // alert('Desculpa! Datas em uso! - FundII')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
+      //           setTimeout(() => {
+      //           this.$router.go({name:'auth'})
+      //           }, 2500);
+      //         } 
+      //     } else if (this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && this.form.situacao === sitUser) {
+      //       if
+      //       (
+      //         hFull === '07h55-08h40' ||
+      //         hFull === '08h40-09h25' ||
+      //         hFull === '08h40-09h45' ||
+      //         hFull === '07h10-07h55' ||
+      //         hFull === '09h25-10h10' ||
+      //         hFull === '09h45-10h30' ||
+      //         hFull === '10h30-11h15' ||
+      //         hFull === '11h15-12h' ||
+      //         hFull === '12h-12h45'
+      //         // hFull === '07h10-07h55' ||
+      //         // hFull === '07h55-08h40' ||
+      //         // hFull === '08h40-09h25' ||
+      //         // hFull === '09h25-10h10' ||
+      //         // hFull === '09h45-10h30' ||
+      //         // hFull === '10h30-11h15' ||
+      //         // hFull === '11h15-12h' ||
+      //         // hFull === '12h-12h45'
+      //       )
+      //       {
+      //         // alert('Desculpa! Datas em uso! - FundII')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
 
-              this.loadLopping()
+      //         this.loadLopping()
 
-              setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
-            } 
+      //         setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
+      //       } 
 
-            /********************************************************** */
-            /*REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
-            /************************************************************ */
-          } else if (this.form.dataNew === getFull && hFull === '08h40-09h25' && this.form.situacao === sitUser) {
-            if (this.form.horariosFull === '08h40-09h45')
-            {
-              // alert('Desculpa! Data em uso! - FundII ')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-              this.loadLopping()
+      //       /********************************************************** */
+      //       /*REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
+      //       /************************************************************ */
+      //     } else if (this.form.dataNew === getFull && hFull === '08h40-09h25' && this.form.situacao === sitUser) {
+      //       if (this.form.horariosFull === '08h40-09h45')
+      //       {
+      //         // alert('Desculpa! Data em uso! - FundII ')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //         this.loadLopping()
 
-              setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
-            } 
+      //         setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
+      //       } 
             
-          }else if (this.form.dataNew === getFull && hFull === '08h40-09h45' && this.form.situacao === sitUser) {
-            if (this.form.horariosFull === '08h40-09h25')
-            {
-              // alert('Desculpa! Data em uso! - FundII ')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-              this.loadLopping()
+      //     }else if (this.form.dataNew === getFull && hFull === '08h40-09h45' && this.form.situacao === sitUser) {
+      //       if (this.form.horariosFull === '08h40-09h25')
+      //       {
+      //         // alert('Desculpa! Data em uso! - FundII ')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //         this.loadLopping()
 
-              setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
-            } 
+      //         setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
+      //       } 
             
-          }
-          else if (this.form.dataNew === getFull && hFull === '09h25-10h10' && this.form.situacao === sitUser) {
-            if (this.form.horariosFull === '09h45-10h30')
-            {
-              // alert('Desculpa! Data em uso! - FundII ')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-              this.loadLopping()
+      //     }
+      //     else if (this.form.dataNew === getFull && hFull === '09h25-10h10' && this.form.situacao === sitUser) {
+      //       if (this.form.horariosFull === '09h45-10h30')
+      //       {
+      //         // alert('Desculpa! Data em uso! - FundII ')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //         this.loadLopping()
 
-              setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
-            } 
+      //         setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
+      //       } 
             
-          }else if (this.form.dataNew === getFull && hFull === '09h45-10h30' && this.form.situacao === sitUser) {
-            if (this.form.horariosFull === '09h25-10h10')
-            {
-              // alert('Desculpa! Data em uso! - FundII ')
-              // this.textDoc = true
-              // this.textError = "Desculpe! Horários e Datas em uso!"
-              this.loadLopping()
+      //     }else if (this.form.dataNew === getFull && hFull === '09h45-10h30' && this.form.situacao === sitUser) {
+      //       if (this.form.horariosFull === '09h25-10h10')
+      //       {
+      //         // alert('Desculpa! Data em uso! - FundII ')
+      //         // this.textDoc = true
+      //         // this.textError = "Desculpe! Horários e Datas em uso!"
+      //         this.loadLopping()
 
-              setTimeout(() => {
-              this.$router.go({name:'auth'})
-            }, 2500);
-            } 
-            /********************************************************** */
-            /*FIM DAS REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
-            /************************************************************ */
+      //         setTimeout(() => {
+      //         this.$router.go({name:'auth'})
+      //       }, 2500);
+      //       } 
+      //       /********************************************************** */
+      //       /*FIM DAS REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
+      //       /************************************************************ */
 
-            //BLOQUEIOS DO ANOS INICIAIS - MUITOS HORÁRIOS PICADOS
-          } else if (this.form.dataNew === getFull && hFull === '14h05-14h50' && this.form.situacao === sitUser) {
-              if ( this.form.horariosFull === '14h25-15h10') {
+      //       //BLOQUEIOS DO ANOS INICIAIS - MUITOS HORÁRIOS PICADOS
+      //     } else if (this.form.dataNew === getFull && hFull === '14h05-14h50' && this.form.situacao === sitUser) {
+      //         if ( this.form.horariosFull === '14h25-15h10') {
                 
-                this.loadLopping()
+      //           this.loadLopping()
 
-                setTimeout(() => {
-                  this.$router.go({name:'auth'})
-                }, 2500);
-              } 
-          } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
-              if ( this.form.horariosFull === '14h05-14h50') {
+      //           setTimeout(() => {
+      //             this.$router.go({name:'auth'})
+      //           }, 2500);
+      //         } 
+      //     } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
+      //         if ( this.form.horariosFull === '14h05-14h50') {
                
-                this.loadLopping()
+      //           this.loadLopping()
                 
-                setTimeout(() => {
-                  this.$router.go({name:'auth'})
-                }, 2500);
-              } 
-          } 
-          // else if (this.form.dataNew === getFull && hFull === '14h20-15h15' && this.form.situacao === sitUser) {
-          //     if (  this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h25-15h10'
-          //           ) {
-          //       this.loadLopping()
+      //           setTimeout(() => {
+      //             this.$router.go({name:'auth'})
+      //           }, 2500);
+      //         } 
+      //     } 
+      //     // else if (this.form.dataNew === getFull && hFull === '14h20-15h15' && this.form.situacao === sitUser) {
+      //     //     if (  this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h25-15h10'
+      //     //           ) {
+      //     //       this.loadLopping()
                 
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
-          //     if (this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
-          //       this.loadLopping()
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } 
-          // else if (this.form.dataNew === getFull && hFull === '15h10-15h55' && this.form.situacao === sitUser) {
-          //     if ( this.form.horariosFull === '15h05-15h50' || this.form.horariosFull === '15h15-16h' ) {
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && hFull === '14h25-15h10' && this.form.situacao === sitUser) {
+      //     //     if (this.form.horariosFull === '14h-14h45' || this.form.horariosFull === '14h20-15h15') {
+      //     //       this.loadLopping()
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } 
+      //     // else if (this.form.dataNew === getFull && hFull === '15h10-15h55' && this.form.situacao === sitUser) {
+      //     //     if ( this.form.horariosFull === '15h05-15h50' || this.form.horariosFull === '15h15-16h' ) {
                
-          //       this.loadLopping()
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // }else if (this.form.dataNew === getFull && hFull === '15h05-15h50' && this.form.situacao === sitUser) {
-          //     if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h15-16h' ) {
-          //       this.loadLopping()
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && hFull === '15h15-16h' && this.form.situacao === sitUser) {
-          //     if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h05-15h50' ) {
-          //       this.loadLopping()
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // }
-          //************************************************************************************************ */
-          //BLOQUEIO FUNDAMETAL I  - HORARIOS PICADOS INVERSO
-          // else if (this.form.dataNew === getFull && this.form.horariosFull === '14h-14h45' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h25-15h10' || hFull === '14h20-15h15' ||
-          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
-          //       alert('Data - INVERSA 14h-14h45 em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h25-15h10' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h-14h45' || hFull === '14h20-15h15' ||
-          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
-          //       alert('Data   INVERSA 14h25-15h10 em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
-          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
-          //       alert('Data  INVERSA 14h20-15h15 em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
-          //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
-          //       alert('Data  INVERSA  14h20-15h15 em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // } else if (this.form.dataNew === getFull && this.form.horariosFull === '15h10-15h55' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
-          //           hFull === '14h20-15h15' || hFull === '15h15-16h') {
-          //       alert('Data  INVERSA 15h10-15h55 em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // }else if (this.form.dataNew === getFull && this.form.horariosFull === '15h15-16h' && this.form.situacao === sitUser) {
-          //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
-          //           hFull === '14h20-15h15' || hFull === '15h10-15h55') {
-          //       alert('Data   INVERSA 15h15-16h em uso, o restante bloqueado')
-          //       setTimeout(() => {
-          //       this.$router.go({name:'auth'})
-          //       }, 2500);
-          //     } 
-          // }
+      //     //       this.loadLopping()
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // }else if (this.form.dataNew === getFull && hFull === '15h05-15h50' && this.form.situacao === sitUser) {
+      //     //     if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h15-16h' ) {
+      //     //       this.loadLopping()
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && hFull === '15h15-16h' && this.form.situacao === sitUser) {
+      //     //     if ( this.form.horariosFull === '15h10-15h55' || this.form.horariosFull === '15h05-15h50' ) {
+      //     //       this.loadLopping()
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // }
+      //     //************************************************************************************************ */
+      //     //BLOQUEIO FUNDAMETAL I  - HORARIOS PICADOS INVERSO
+      //     // else if (this.form.dataNew === getFull && this.form.horariosFull === '14h-14h45' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h25-15h10' || hFull === '14h20-15h15' ||
+      //     //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+      //     //       alert('Data - INVERSA 14h-14h45 em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h25-15h10' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h-14h45' || hFull === '14h20-15h15' ||
+      //     //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+      //     //       alert('Data   INVERSA 14h25-15h10 em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+      //     //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+      //     //       alert('Data  INVERSA 14h20-15h15 em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && this.form.horariosFull === '14h20-15h15' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+      //     //           hFull === '15h10-15h55' || hFull === '15h15-16h') {
+      //     //       alert('Data  INVERSA  14h20-15h15 em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // } else if (this.form.dataNew === getFull && this.form.horariosFull === '15h10-15h55' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+      //     //           hFull === '14h20-15h15' || hFull === '15h15-16h') {
+      //     //       alert('Data  INVERSA 15h10-15h55 em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // }else if (this.form.dataNew === getFull && this.form.horariosFull === '15h15-16h' && this.form.situacao === sitUser) {
+      //     //     if (  hFull === '14h-14h45' || hFull === '14h25-15h10' ||
+      //     //           hFull === '14h20-15h15' || hFull === '15h10-15h55') {
+      //     //       alert('Data   INVERSA 15h15-16h em uso, o restante bloqueado')
+      //     //       setTimeout(() => {
+      //     //       this.$router.go({name:'auth'})
+      //     //       }, 2500);
+      //     //     } 
+      //     // }
            
-        })
+      //   })
        
-       },
+      //  },
       //  **********************
       //  FIM getDataNew
       // ************************
@@ -1017,9 +1463,9 @@ export default {
        
       },
       // FIM FUNÇÃO BLOQUEIO
-        clicado(){
-          this.disabledUser = !this.disabledUser;
-      },
+      //   clicado(){
+      //     this.disabledUser = !this.disabledUser;
+      // },
       //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
        async pegarData(){
             // const dbUser = getFirestore();
@@ -1057,107 +1503,107 @@ export default {
       // })
 
     },
-     async clicar() {
-     try{
+    //  async clicar() {
+    //  try{
    
-          const dbUser = getFirestore();
-          const authentication = getAuth();
-          const userConnected = authentication.currentUser.uid; 
+    //       const dbUser = getFirestore();
+    //       const authentication = getAuth();
+    //       const userConnected = authentication.currentUser.uid; 
 
-        const usuarioDb = {
+    //     const usuarioDb = {
 
-          user_id:userConnected,
-          nome:this.form.nome,
-          dataAtual:this.fullData,
-          diretora:this.form.diretora,
-          horariosFull:this.form.horariosFull,
-          responsavel: this.form.responsavel,
-          situacao: this.form.situacao,
-          seguimento:this.form.seguimento,
-          motivo: this.form.motivo,
-          link: this.form.link,
-          info:this.form.info,
-          coordFI:this.form.coordFI,
-          coordFII:this.form.coordFII,
-          coordEI:this.form.coordEI,
-          social:this.form.social,
-          diretoria:this.form.diretoria,
-          secretaria:this.form.secretaria,
-          tesouraria:this.form.tesouraria,
-          data:new Date().toLocaleString(),
-          horaEventos:this.form.horaEventos,
-          dataNew:this.form.dataNew,
-          // CONTEUDO DA TESOURARIA - EVENTOS EXTERNOS
-          evExternos: this.form.evExternos,
-          hourExtFirst: this.form.hourExtFirst,
-          hourExtSecund: this.form.hourExtSecund,
-          userLogado : this.usuario
+    //       user_id:userConnected,
+    //       nome:this.form.nome,
+    //       dataAtual:this.fullData,
+    //       diretora:this.form.diretora,
+    //       horariosFull:this.form.horariosFull,
+    //       responsavel: this.form.responsavel,
+    //       situacao: this.form.situacao,
+    //       seguimento:this.form.seguimento,
+    //       motivo: this.form.motivo,
+    //       link: this.form.link,
+    //       info:this.form.info,
+    //       coordFI:this.form.coordFI,
+    //       coordFII:this.form.coordFII,
+    //       coordEI:this.form.coordEI,
+    //       social:this.form.social,
+    //       diretoria:this.form.diretoria,
+    //       secretaria:this.form.secretaria,
+    //       tesouraria:this.form.tesouraria,
+    //       data:new Date().toLocaleString(),
+    //       horaEventos:this.form.horaEventos,
+    //       dataNew:this.form.dataNew,
+    //       // CONTEUDO DA TESOURARIA - EVENTOS EXTERNOS
+    //       evExternos: this.form.evExternos,
+    //       hourExtFirst: this.form.hourExtFirst,
+    //       hourExtSecund: this.form.hourExtSecund,
+    //       userLogado : this.usuario
 
-        }
+    //     }
        
       
-      //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
+    //   //  MENSAGEM APRESENTADA ANTES DE GRAVAR NO BANCO DE DADOS
         
-       this.$swal({
-        title: 'As informações estão completas?',
-        showCancelButton: true,
-        confirmButtonText: 'Salvar',
+    //    this.$swal({
+    //     title: 'As informações estão completas?',
+    //     showCancelButton: true,
+    //     confirmButtonText: 'Salvar',
         
-      }).then((result) => {
-          if (result.isConfirmed) {
-          addDoc(collection(dbUser, "usuarios"), usuarioDb)
-       .then(()=>{
-        setTimeout(() => {
-            this.$router.replace({name: 'usertela'})
+    //   }).then((result) => {
+    //       if (result.isConfirmed) {
+    //       addDoc(collection(dbUser, "usuarios"), usuarioDb)
+    //    .then(()=>{
+    //     setTimeout(() => {
+    //         this.$router.replace({name: 'usertela'})
              
-         }, 1500);
-          })
-          console.log("Salvo")
-        } else if (result.isDenied) {
+    //      }, 1500);
+    //       })
+    //       console.log("Salvo")
+    //     } else if (result.isDenied) {
          
-            this.$swal('Não foi salvo', '', 'info')
+    //         this.$swal('Não foi salvo', '', 'info')
           
-        }
+    //     }
         
-      })
+    //   })
       
-      }catch(error){
-        this.error = error.message;
-      }
+    //   }catch(error){
+    //     this.error = error.message;
+    //   }
          
-    },
+    // },
 // *****************************************************************//
     // BACKUP DO BANCO DE DADOS.
-     async backUp() {
+    //  async backUp() {
        
-          const dbUser = getFirestore();
-          const authentication = getAuth();
-          const userConnected = authentication.currentUser.uid; 
+    //       const dbUser = getFirestore();
+    //       const authentication = getAuth();
+    //       const userConnected = authentication.currentUser.uid; 
           
           
-          const usuarioBackup = {
-              user_id:userConnected,
-              nome:this.form.nome,
-              dataAtual: this.fullData,
-              responsavel: this.form.responsavel,
-              situacao: this.form.situacao,
-              seguimento:this.form.seguimento,
-              motivo: this.form.motivo,
-              link: this.form.link,
-              data:new Date().toLocaleString(),
-              horaEventos:this.form.horaEventos,
-              horariosFull:this.form.horariosFull,
-              dataNew:this.form.dataNew,
-              evExternos: this.form.evExternos,
-              hourExtFirst: this.form.hourExtFirst,
-              hourExtSecund: this.form.hourExtSecund,
-              userLogado : this.usuario
+    //       const usuarioBackup = {
+    //           user_id:userConnected,
+    //           nome:this.form.nome,
+    //           dataAtual: this.fullData,
+    //           responsavel: this.form.responsavel,
+    //           situacao: this.form.situacao,
+    //           seguimento:this.form.seguimento,
+    //           motivo: this.form.motivo,
+    //           link: this.form.link,
+    //           data:new Date().toLocaleString(),
+    //           horaEventos:this.form.horaEventos,
+    //           horariosFull:this.form.horariosFull,
+    //           dataNew:this.form.dataNew,
+    //           evExternos: this.form.evExternos,
+    //           hourExtFirst: this.form.hourExtFirst,
+    //           hourExtSecund: this.form.hourExtSecund,
+    //           userLogado : this.usuario
               
-        }
+    //     }
 
-        await addDoc(collection(dbUser, "backup"), usuarioBackup)
+    //     await addDoc(collection(dbUser, "backup"), usuarioBackup)
     
-      }
+    //   }
        //  FIM DO BACKUP DO BANCO DE DADOS
       //  **************************************************************************//
       
@@ -1165,7 +1611,7 @@ export default {
  
     
 }
-</script>
+</script> -->
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
   .anime__full{

@@ -3,16 +3,19 @@ import Home from '../views/Home.vue'
 import Registrar from "../components/Registrar.vue"
 import Login from "../components/login.vue"
 import Auth from "../components/auth.vue"
+import Auth2 from "../components/authOld.vue"
 import AuthEventos from "../components/EauthEventos.vue"
 import userTelaEventos from "../views/userTelaEventos.vue"
 import Action from "../views/actionTela.vue"
 import User from "../views/userTela.vue"
+import UserEmail from "../views/userTelaVisitante.vue"
 import Teste from "../components/teste.vue"
 // import { getAuth } from "firebase/auth"
 import Footer from "../components/footer.vue"
 import Start from "../components/start.vue"
 import Help from "../components/help.vue"
 import Eventos from "../components/eventos.vue"
+// import cal from "../components/calendar.vue"
 import ResetPassword from "../components/ResetPassword.vue"
 import EditUser from '../components/editUser.vue'
 import useFirebase from '../components/db/dbConfig'
@@ -47,7 +50,7 @@ const routes = [
     path:'/select-mode',
     name: 'select-mode',
     component: selectMode
-  },
+  }, 
  
   {
     path:'/login',
@@ -58,6 +61,24 @@ const routes = [
     path:'/auth',
     name: 'Auth',
     component: Auth,
+    meta:{
+      requiresAuth: true
+    }
+   
+  },
+  {
+    path:'/auth2',
+    name: 'Auth2',
+    component: Auth2,
+    meta:{
+      requiresAuth: true
+    }
+   
+  },
+  {
+    path:'/authVis',
+    name: 'AuthVis',
+    component: UserEmail,
     meta:{
       requiresAuth: true
     }

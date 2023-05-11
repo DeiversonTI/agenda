@@ -1,5 +1,4 @@
-<template>
-  
+<template>  
   <div class="modal__alert" @load="carregar()">
     <div class="modal__links">
       <p>
@@ -9,39 +8,16 @@
       <span><i class="fa-solid fa-mobile-screen"></i> Usuário mobile, arraste a tela para baixo</span>
     </div>
   </div>
-
-  <!-- <svg
-    class="z-10 sm:hidden  legAnima1 "
-   style=" position: absolute; top: -250px; left: -260px; width:500px;"
-    viewBox="0 0 200 200"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fill="#38bdf8"
-      d="M30.9,-48.6C38.6,-43.2,42.3,-32.1,50.2,-21.1C58.1,-10.1,70.1,0.9,70.4,11.2C70.6,21.6,59.1,31.5,48.6,40.1C38,48.8,28.4,56.4,15.8,65.4C3.2,74.4,-12.4,84.8,-22.8,80.4C-33.2,76,-38.4,56.9,-50,43.4C-61.7,29.9,-79.9,22,-83.6,10.7C-87.4,-0.6,-76.7,-15.4,-66.3,-26.9C-55.8,-38.5,-45.6,-46.8,-34.6,-50.7C-23.6,-54.6,-11.8,-54,-0.1,-53.9C11.6,-53.7,23.3,-54,30.9,-48.6Z"
-      transform="translate(100 100)"
-    />
-  </svg> -->
-
-  
-
   <!-- TELA DE LOGIN -->
   <div class=" w-full flex justify-center items-center  bg__dark ">
-    <div class="flex gap-4 items-center justify-center w-full lg:h-auto  ">
-      <!-- <div class="hidden md:visible md:flex justify-center items-center w-full ">
-        <div class="anima">
-          <img src="../assets/home-logo2.png" alt="" style="max-width: 100%"  class="logo"/>
-        </div>
-      </div> -->
-
+    <div class="flex gap-4 items-center justify-center w-full lg:h-auto">
       <div class="w-full h-screen  ">
-      <!-- <div class="w-full h-screen sm:bg-gradient-to-l from-Cyan-100 "> -->
         <div class="flex w-full justify-end items-center gap-1 sm:gap-2 sm:mt-2 mt-2 sm:pr-6 pr-4 ">          
           <div @click="isViewTrocar()" v-if="isView===true">
             <p
               @click.prevent="trocarView()"
               class="
-                text-Sky-600
+                text-Sky-500
                 font-bold
                 sm:text-md
                 text-sm
@@ -54,18 +30,19 @@
                 border-Sky-500
                 rounded-md
                 shadow-none
-                hover:bg-Sky-600 hover:text-white
+                hover:bg-Sky-500 
+                hover:text-white
+                hover:border-transparent
               "
             >
-              Login
-              
+              Login              
             </p>
           </div>
           <div @click="isViewTrocar()" v-else>            
             <p
               @click.prevent="trocarView()"
               class="
-                text-red-600
+              text__white
                 font-bold
                 sm:text-md
                 text-sm
@@ -75,14 +52,15 @@
                 py-1
                 sm:px-12
                 px-2
-                border-red-500
+                border-gray-50
                 rounded-md
                 shadow-none
-                hover:bg-red-600 hover:text-white
+                hover:bg-red-600
+                hover:text-white
+                hover:border-transparent
               "
             >
-              Cadastrar
-              
+              Cadastrar              
             </p>
           </div>
         </div>
@@ -428,11 +406,24 @@ export default {
       try {
         firebase;
         const dev = getAuth();
-        await signInWithEmailAndPassword(dev, this.email, this.password).then(
-          () => {
+        await signInWithEmailAndPassword(dev, this.email, this.password)
+        .then(() => {
             const userGet = dev.currentUser.emailVerified;
+            // const userEmail = dev.currentUser.email
 
-            if (userGet === false) {
+            if(this.email === 'visitante@ersvp.g12.br'){
+              this.$swal({
+                icon: "success",
+                title: "Visitante, seja bem-vindo!",
+                showConfirmButton: false,
+                timer: 2500,
+              });
+              setTimeout(() => {
+                this.$router.replace({ name: "AuthVis" });
+              }, 2000);
+            }
+
+            else if (userGet === false) {
               this.$swal({
                 icon: "warning",
                 title: "NEGADO! Verifique seu email!",
