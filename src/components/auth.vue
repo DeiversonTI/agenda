@@ -1,4 +1,12 @@
 <template>
+  <!-- <div @load.once="pop_up()" class="notification_popup">
+    <div class="arrow_box">
+      <div></div>
+    </div>
+    <div class="notification_txt">
+      <span>Sei que estou sendo chato!!<br>Dá um Ctrl + F5 (PC) para carregar um cache novo!<br>Mobile, arraste a tela para baixo!</span>
+    </div>
+  </div> -->
     <div id="loading">
       <div class="load-fill flex justify-center items-center h-screen">
         <div class="load flex flex-col justify-center items-center w-56 h-56 border rounded bg-gray-50 ">
@@ -59,7 +67,8 @@
               </div>
               <!-- formulario de arquivos logado -->
               <div  class="space-y-4 ml-2 font-thin text-lg mr-1 px-4 ">
-                <form @submit.prevent="clicar(), backUp()" class="space-y-6 ">
+                <!-- <form @submit.prevent="clicar(), backUp()" class="space-y-6 "> -->
+                <form @submit.prevent="validaUser(), backUp()" class="space-y-6 ">
                   <div>               
                     <label class="flex opacity-70 " for="nameConnect"> Nome do Colaborador: <p class="text-red-500 ml-1 font-extrabold ">*</p> </label>
                     <input placeholder=" Nome do Colaborador" required type="text" id="nameConnect" v-model="form.nome" class="border shadow-sm  w-full rounded-md" />
@@ -68,6 +77,7 @@
                     <div>
                       <label   for="data" class="flex opacity-70">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
                       <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2  ">
+                      <p id="errorMsgData" class="msgErroData"></p>
                     </div>
                   </div>
                     <!-- Horário do Evento -->
@@ -145,14 +155,7 @@
                           <label id="ranch" for="rancho"><input @change="trocarRancho($event)" v-model="form.rancho" type="checkbox" value="Rancho" id="rancho">Rancho</label> 
                           <label id="insp" for="inspetor"><input @change="trocarInspetor($event)" v-model="form.inspetor" type="checkbox" value="Inspetor" id="inspetor">Inspetor</label> 
                       </div>                      
-                    </div>                      
-                      <!-- <div>
-                        <div class="" >
-                          <ul class="flex flex-wrap" >
-                            <li v-for="(sel, index) in form" :key="index" class="rounded py-0 px-2 mt-1 mr-1 bg-Sky-500 text-gray-50">{{ sel.salao }} - {{ sel.agenda }} - {{ sel.jardim }} </li>                            
-                          </ul>
-                        </div>
-                      </div>     -->
+                  </div>
                   <!-- </div>                   -->
                   <!-- SETOR -->
                   <div>
@@ -163,8 +166,9 @@
                       <option value="Coordenadora Anos Iniciais">Coordenadora Anos Iniciais</option>
                       <option value="Coordenadora Anos Finais">Coordenadora Anos Finais</option>
                       <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
+                      <option value="Coordenadora Integral">Coordenadora Integral</option>
                       <option value="Diretora Pedagogica">Diretora Pedagógica</option>
-                      <option value="Professor">Professor</option>
+                      <option value="Professor">Professor</option>                     
                       <option value="Secretaria">Secretaria</option>
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Setor-TI">Setor de TI</option>
@@ -199,10 +203,10 @@
                   </div>
 
                   <!-- Motivo -->
-                  <div @click.once="loading" class="border-gray-800 w-full ">
+                  <div class="border-gray-800 w-full ">
+                  <!-- <div @click.once="loading" class="border-gray-800 w-full "> -->
                     <label class="flex opacity-70" for="motivo">Descrição do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     <textarea                    
-                      @click.once="getDataNew()"
                         id="motivo" 
                         name="motivo"
                         rows="4"
@@ -234,12 +238,13 @@
                     </router-link>
                     <div>
                       <input
-                        title="Enviar formulário"
+                        id="mySubmit"                        
+                        title="Este botão está bloqueado"
                         type="submit"
                         value="Enviar"
                         class="py-2 bg-red-600 text-gray-50 rounded-md cursor-pointer px-8  "
                       />
-                    </div>                  
+                    </div>                                   
                   </div>                                                
                 </form>
               </div>
@@ -268,7 +273,7 @@ export default {
       DatePicker
     },
     data(){
-      return{       
+      return{  
         timezone: 'UTC', 
         masks: {
           weekdays: 'WWW',
@@ -352,21 +357,55 @@ export default {
     async created(){
       //  APRESENTA NA TELA O USUÁRIO CONECTADO
       db;
-      const dbuser = getAuth();
+      const dbuser = getAuth();      
           onAuthStateChanged(dbuser, (user) => {     
             this.usuario = user.email         
       })        
       this.getDataNew()  
+     
 
     },
     watch:{
       'form.dataNew'(value){
         if(value){
           this.dataUser()
+          this.msgErroData()
         }
       },          
     },      
     methods: {
+    // validação do botão submit
+    async validaUser(){     
+      this.loading()
+      await this.getDataNew()
+      this.clicar()
+    },    
+    msgErroData(){
+      const errorMsgData = document.getElementById('errorMsgData')
+      const mySubmit = document.getElementById('mySubmit')
+      
+      const newData = new Date()
+      let d = ("0" + newData.getDate()).slice(-2)
+      let m = ("0" + (newData.getMonth()+1)).slice(-2)
+      let y = newData.getFullYear()
+      let fullYearBlock = y+"-"+m+"-"+d 
+
+      if(this.form.dataNew == fullYearBlock){  
+        errorMsgData.innerHTML = "<i class='fas fa-exclamation-circle'></i> Precisa marcar com 12h de antecedência."
+        mySubmit.disabled = true
+        mySubmit.style.backgroundColor = "#9DB2BF"
+        mySubmit.style.color = "#fff"
+        mySubmit.style.cursor = "not-allowed"
+        
+      }else{
+        errorMsgData.innerHTML = ""
+        mySubmit.disabled = false
+        mySubmit.style.backgroundColor = "#f00"
+        mySubmit.style.color = "#fff"
+        mySubmit.style.cursor = "pointer"
+      }
+
+    },  
     trocarSal(event){               
       const sal = document.getElementById("sal")       
       if(event.target.value == "Salão" ){          
@@ -613,6 +652,24 @@ export default {
     async getDataNew() { 
     const dbUser = getFirestore();
     const querySnapshot = await getDocs(collection(dbUser, "usuarios"));
+
+    const newData = new Date()
+    let d = ("0" + newData.getDate()).slice(-2)
+    let m = ("0" + (newData.getMonth()+1)).slice(-2)
+    let y = newData.getFullYear()
+    let fullYearBlock = y+"-"+m+"-"+d 
+
+    if(this.form.dataNew == fullYearBlock){              
+        this.$swal({
+          icon:'info',
+          title:'Marcar com 12hs de Antecedência!',
+          showConfirmButton: false         
+        })              
+        setTimeout(() => {
+          this.$router.go({name:'auth'})
+        }, 3500);
+      }
+
       querySnapshot.forEach((doc) => {       
       this.attributes[0].dates.push(doc.data().dataNew)
       const hFull = doc.data().horariosFull;
@@ -621,7 +678,6 @@ export default {
 
       /*********************** */
       //AMBIENTE DE TESTE  
-
       /**************************** */
 
       const salao = doc.data().salao     
@@ -691,6 +747,8 @@ export default {
         insp = "sit"
       }      
     
+    // TRATAMENTO DE ERRO TEMPORÁRIO PARA IPHONE E ANDROID
+   
 
     //BLOQUEAR DATAS, HORÁRIOS E LOCAIS REPETIDOS
     if ( 
@@ -1114,10 +1172,10 @@ export default {
       let d = ("0" + newData.getDate()).slice(-2)
       let m = ("0" + (newData.getMonth()+1)).slice(-2)
       let y = newData.getFullYear()
-      let fullYearBlock = y+"-"+m+"-"+d        
-       
-      const dataNew = this.form.dataNew
-   
+      let fullYearBlock = y+"-"+m+"-"+d 
+
+      const dataNew = this.form.dataNew 
+
       if(dataNew < fullYearBlock){
         this.$swal({
           icon:'error',
@@ -1127,22 +1185,23 @@ export default {
           this.$router.go({name:'auth'})
         }, 2500);
                         
-      } else if(dataNew === fullYearBlock){              
-        this.$swal({
-          icon:'info',
-          title:'Marcar com 12hs de Antecedência!',
-        })              
-        setTimeout(() => {
-          this.$router.go({name:'auth'})
-        }, 2500);
-      }
+      } 
+      /**DESABILITADO POR ESTA APRESENTADO ERRO NO IPHONE(AO CLICAR AO INVÉS DE ABRIR, MARCA COMO SELECIONADO) */
+      // else if(dataNew == fullYearBlock){              
+      //   this.$swal({
+      //     icon:'info',
+      //     title:'Marcar com 12hs de Antecedência!',
+      //   })              
+      //   setTimeout(() => {
+      //     this.$router.go({name:'auth'})
+      //   }, 2500);
+      // }
     },
     // FIM FUNÇÃO BLOQUEIO
 
     clicado(){
       this.disabledUser = !this.disabledUser;
     },
-
     //  FUNÇÃO DE VALIDAÇÃO DE CAMPOS - FUNCIONANDO
     async clicar(){
     try{   
@@ -1211,8 +1270,7 @@ export default {
       }catch(error){
         this.error = error.message;
       }         
-    },
-    
+    },    
     // *****************************************************************//
     //BACKUP DO BANCO DE DADOS.
     async backUp(){       
@@ -1276,6 +1334,7 @@ export default {
     position: fixed;
     top:-100px;
   }
+  
   #loading{
     width: 100%;
     height: 100vh;
@@ -1286,6 +1345,57 @@ export default {
     z-index:9999 ;
     display: none;
   } 
+
+  /* pop_up */
+  /* .notification_popup{
+    display: none;
+    flex-direction:column;
+    align-items: center; 
+    justify-content: center; 
+    position: absolute; 
+    top: -10px; 
+    left:0; 
+    text-align: c0enter; 
+    width:100%;
+  }
+  
+  .notification_txt{
+    background-color: #f00;
+    width: 400px; 
+    height: auto; 
+    border-radius: 8px;
+    padding: 15px;    
+  }
+
+  .notification_txt span{
+    font-family: Roboto;
+    font-size: 1rem;
+    color: #fff;     
+  }
+
+  .notification_txt span::before{
+    content: " \1F605";
+    font-family: Roboto;
+    font-size: 2.1rem;
+    color: #fff;
+    padding-right: 5px;
+  }
+
+  .arrow_box{
+    display:flex;
+    justify-content: end;
+    width: 400px;
+  }
+  
+  .arrow_box div{
+    background-color: #f00;
+    width: 25px;
+    height: 25px;
+    margin-right: 30px;
+    transform: rotate(45deg);
+    position: relative;
+    top:15px;
+  } */
   .animation-load{
     border: 10px solid #dad8d8;
     border-top: 10px solid #3498db;
@@ -1385,16 +1495,45 @@ export default {
 #form-change{
   position: relative;
 }
+
+.msgErroData{
+  margin-top: 2px;
+  border-radius: 3px;
+  width:38%;
+  color:rgb(255, 255, 255);
+  background-color: #f51f1f;
+  padding: 0 5px;  
+}
   
  
   @media screen and (max-width:640px) {
-      .wood::before{
+    .wood::before{
       background-color: transparent;
     }
     .Poppins{
       font-size: 1.5em;
     }
+    .msgErroData{
+      margin-top: 2px;
+      border-radius: 3px;
+      width:100%;
+      color:rgb(255, 255, 255);
+      background-color: #f51f1f;
+      padding: 0 5px; 
+      font-size: .9em; 
+    }    
   }
-
+  @media screen and (min-width:640px) and (max-width: 1901px) {
+   
+    .msgErroData{
+      margin-top: 2px;
+      border-radius: 3px;
+      width:100%;
+      color:rgb(255, 255, 255);
+      background-color: #f51f1f;
+      padding: 0 5px; 
+      font-size: .9em;       
+  }
+}
   
 </style>

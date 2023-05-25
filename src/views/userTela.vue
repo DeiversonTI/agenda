@@ -219,7 +219,7 @@ export default {
   // CÓDIGO PARA ADICIONAR TELA FINAL PARA O USUARIO (userTela)
   const dbUser = getFirestore();
   const colleUser = collection(dbUser, 'usuarios')
-  const q = query(colleUser, orderBy('dataNew', 'asc'))
+  const q = query(colleUser, orderBy("dataNew",'asc'))
   const user = await getDocs(q); 
   user.forEach((doc) => {
 
