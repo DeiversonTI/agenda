@@ -211,7 +211,8 @@
 
   </div>
   <div class="flex items-center justify-between w-full z-50" style="position: fixed; bottom: 5px; padding: 2px 8px">
-    <div class="text__dark text__copyright text-xs font-thin sm:text-sm">
+    <infoFooterHome />
+    <!-- <div class="text__dark text__copyright text-xs font-thin sm:text-sm">
       &copy; {{ new Date().getFullYear() }} Escola Rural São Vicente de Paulo - Todos os direitos Resevados.
     </div>
     <div>
@@ -219,7 +220,7 @@
          to="/help">
         <p class="font-mono text-red-500 font-bold">Ajuda</p>
       </router-link>
-    </div>
+    </div> -->
   </div>
 
   <!-- <svg
@@ -327,10 +328,12 @@
 import * as firebase from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import RegisterView from "../components/Registrar.vue"; 
+import infoFooterHome from "../components/infoFooterHome.vue"
 
 export default {
   components: {
-    RegisterView
+    RegisterView,
+    infoFooterHome
   },
 
   // created(){

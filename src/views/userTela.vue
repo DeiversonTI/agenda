@@ -86,6 +86,7 @@
                       <p v-if="agendas.quadra" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.quadra}} </p>    
                       <p v-if="agendas.rancho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.rancho}} </p>    
                       <p v-if="agendas.inspetor" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.inspetor}} </p>                        
+                      <p v-if="agendas.ingles" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.ingles}} </p>                        
                     </li>                     
                     <li class=""><span class="text-xl font-bold">Segmento: </span> {{agendas.seguimento}}</li>
                     <li class="break-words"><span class="text-xl font-bold">Evento: </span> {{agendas.motivo}}</li>
@@ -177,7 +178,8 @@ export default {
         outros: null,
         quadra: null,
         rancho: null,
-        inspetor: null
+        inspetor: null,
+        ingles: null
 
       },
     };
@@ -222,12 +224,19 @@ export default {
   const q = query(colleUser, orderBy("dataNew",'asc'))
   const user = await getDocs(q); 
   user.forEach((doc) => {
+    console.log(doc.data())
 
     if(doc.data().salao){
       const salao = "Salão"
       this.checked.salao = salao
     }else{
       this.checked.salao  = null
+    }
+    if(doc.data().ingles){
+      const ingles = "Sala Bilíngue"
+      this.checked.ingles = ingles
+    }else{
+      this.checked.ingles  = null
     }
 
     if(doc.data().agenda){
@@ -392,6 +401,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         //**************************** */
         motivo: doc.data().motivo,
         link: doc.data().link,
@@ -453,6 +463,7 @@ export default {
           quadra: this.checked.quadra,
           rancho: this.checked.rancho,
           inspetor: this.checked.inspetor,
+          ingles: this.checked.ingles,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -500,6 +511,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -548,6 +560,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -598,6 +611,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -644,6 +658,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
 
         this.agenda.push(dbMonitorUser);
@@ -691,6 +706,7 @@ export default {
       quadra: this.checked.quadra,
       rancho: this.checked.rancho,
       inspetor: this.checked.inspetor,
+      ingles: this.checked.ingles,
     };
 
     this.agenda.push(dbMonitorUser);
@@ -738,6 +754,7 @@ export default {
           quadra: this.checked.quadra,
           rancho: this.checked.rancho,
           inspetor: this.checked.inspetor,
+          ingles: this.checked.ingles,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -780,6 +797,7 @@ export default {
           quadra: this.checked.quadra,
           rancho: this.checked.rancho,
           inspetor: this.checked.inspetor,
+          ingles: this.checked.ingles,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -825,6 +843,7 @@ export default {
           quadra: this.checked.quadra,
           rancho: this.checked.rancho,
           inspetor: this.checked.inspetor,
+          ingles: this.checked.ingles,
         };
 
           this.agenda.push(dbMonitorUser);
@@ -871,6 +890,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -917,6 +937,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -962,6 +983,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -1008,6 +1030,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         };
          
           this.agenda.push(dbMonitorUser);
@@ -1056,6 +1079,7 @@ export default {
         quadra: this.checked.quadra,
         rancho: this.checked.rancho,
         inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
         
         };
 

@@ -141,16 +141,17 @@
                         <div class="overform"></div>
                       </div>
                       <div v-show="isOpen" id="form-links" class="form__mode">                         
-                        <label id="sal" for="salao"><input @change="trocarSal($event)" v-model="form.salao" type="checkbox" value="Salão" id="salao">Salão</label> 
+                          <label id="sal" for="salao"><input @change="trocarSal($event)" v-model="form.salao" type="checkbox" value="Salão" id="salao">Salão</label> 
+                          <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
+                          <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
+                          <label id="lab" for="labCiencias"><input @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="labCiencias">Lab. Ciências</label> 
+                          <label id="ing" for="SalIngles"><input @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
+                          <label id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
                           <label id="jar" for="jardim"><input @change="trocarJar($event)" v-model="form.jardim" type="checkbox" value="Jardim_Sensorial" id="jardim">Jardim Sensorial</label> 
                           <label id="agend"  for="agenda"><input @change="trocarAg($event)" v-model="form.agenda" type="checkbox" value="Agendamentos" id="agenda">Agendamentos</label>
                           <label id="ran" for="ranchinho"><input @change="trocarRanchinho($event)" v-model="form.ranchinho" type="checkbox" value="Ranchinho" id="ranchinho">Ranchinho</label> 
-                          <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
-                          <label id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
                           <label id="pastor" for="pastoral"><input @change="trocarPastoral($event)" v-model="form.pastoral" type="checkbox" value="Sala Pastoral" id="pastoral">Sala Pastoral</label> 
-                          <label id="lab" for="labCiencias"><input @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="labCiencias">Lab. Ciências</label> 
                           <label id="out" for="outros"><input @change="trocarOutros($event)" v-model="form.outros" type="checkbox" value="Outros" id="outros">Outros</label> 
-                          <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
                           <label id="quad" for="quadra"><input @change="trocarQuadra($event)" v-model="form.quadra" type="checkbox" value="Quadra" id="quadra">Quadra</label> 
                           <label id="ranch" for="rancho"><input @change="trocarRancho($event)" v-model="form.rancho" type="checkbox" value="Rancho" id="rancho">Rancho</label> 
                           <label id="insp" for="inspetor"><input @change="trocarInspetor($event)" v-model="form.inspetor" type="checkbox" value="Inspetor" id="inspetor">Inspetor</label> 
@@ -253,7 +254,7 @@
         </div>
       </div>
       <div class="relative bottom-0 mt-1">
-        <Footer/>
+        <Footer />
       </div>
     </div>
 </template>
@@ -272,6 +273,7 @@ export default {
       Footer,      
       DatePicker
     },
+   
     data(){
       return{  
         timezone: 'UTC', 
@@ -349,7 +351,8 @@ export default {
           piscina: "",
           quadra: "",
           rancho: "",
-          inspetor: ""
+          inspetor: "",
+          ingles: ""
         },       
 
       }            
@@ -410,6 +413,12 @@ export default {
       const sal = document.getElementById("sal")       
       if(event.target.value == "Salão" ){          
           sal.classList.toggle("checked")
+      } 
+    },
+    trocarIngles(event){                      
+      const ing = document.getElementById("ing")       
+      if(event.target.value == "Sala Bilíngue" ){          
+          ing.classList.toggle("checked")         
       } 
     },
     trocarJar(event){
@@ -692,9 +701,11 @@ export default {
       const piscina = doc.data().piscina
       const quadra = doc.data().quadra
       const rancho = doc.data().rancho         
-      const inspetor = doc.data().inspetor   
+      const inspetor = doc.data().inspetor
+      const ingles = doc.data().ingles 
 
       let sal = this.form.salao
+      let ing = this.form.ingles
       let ag = this.form.agenda
       let jar = this.form.jardim
       let ran = this.form.ranchinho
@@ -707,6 +718,10 @@ export default {
       let qua = this.form.quadra
       let ranch = this.form.rancho
       let insp = this.form.inspetor
+      
+      if(ing == ""){
+        ing = "sit"        
+      }
       if(sal == ""){
         sal = "sit"        
       }
@@ -764,7 +779,8 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === hFull && pis == piscina ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && qua == quadra ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && ranch == rancho ||
-      this.form.dataNew === getFull && this.form.horariosFull === hFull && insp == inspetor   
+      this.form.dataNew === getFull && this.form.horariosFull === hFull && insp == inspetor ||  
+      this.form.dataNew === getFull && this.form.horariosFull === hFull && ing == ingles   
     
     ) 
 
@@ -785,7 +801,8 @@ export default {
       this.form.dataNew === getFull && hFull === '07h10-12h' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '07h10-12h' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '07h10-12h' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '07h10-12h' && ing == ingles
       ) 
       {
       if(
@@ -819,7 +836,8 @@ export default {
       this.form.dataNew === getFull && hFull === '07h10-21h' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '07h10-21h' && insp == inspetor      
+      this.form.dataNew === getFull && hFull === '07h10-12h' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '07h10-12h' && ing == ingles      
      
       ) 
       {
@@ -874,7 +892,8 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && pis == piscina ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && qua == quadra ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ranch == rancho ||
-      this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && insp == inspetor     
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && insp == inspetor  ||   
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ing == ingles     
      
       ) 
       {
@@ -928,7 +947,8 @@ export default {
       this.form.dataNew === getFull && hFull === '12h30-17h' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '12h30-17h' && insp == inspetor    
+      this.form.dataNew === getFull && hFull === '12h30-17h' && insp == inspetor  ||  
+      this.form.dataNew === getFull && hFull === '12h30-17h' && ing == ingles   
 
       )
         {
@@ -969,7 +989,8 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && pis == piscina ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && qua == quadra ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ranch == rancho ||
-      this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && insp == inspetor 
+      this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && insp == inspetor ||
+      this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ing == ingles 
       ) 
         {
           if (
@@ -1008,7 +1029,8 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && pis == piscina ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && qua == quadra ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ranch == rancho ||
-      this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && insp == inspetor 
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && insp == inspetor ||
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ing == ingles 
      
       ) {
         if
@@ -1043,7 +1065,8 @@ export default {
       this.form.dataNew === getFull && hFull === '08h40-09h25' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '08h40-09h25' && insp == inspetor   
+      this.form.dataNew === getFull && hFull === '08h40-09h25' && insp == inspetor ||  
+      this.form.dataNew === getFull && hFull === '08h40-09h25' && ing == ingles   
 
     
         ) 
@@ -1066,7 +1089,8 @@ export default {
       this.form.dataNew === getFull && hFull === '09h-09h45' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '09h-09h45' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '09h-09h45' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '09h-09h45' && ing == ingles
      
         ) {
           if (this.form.horariosFull === '08h40-09h25' || this.form.horariosFull === '09h25-10h10' )
@@ -1087,7 +1111,8 @@ export default {
       this.form.dataNew === getFull && hFull === '09h25-10h10' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '09h25-10h10' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '09h25-10h10' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '09h25-10h10' && ing == ingles
     
         ) {
           if (this.form.horariosFull === '09h45-10h30')
@@ -1108,7 +1133,8 @@ export default {
       this.form.dataNew === getFull && hFull === '09h45-10h30' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '09h45-10h30' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '09h45-10h30' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '09h45-10h30' && ing == ingles
       ) 
         {
           if (this.form.horariosFull === '09h25-10h10')
@@ -1135,7 +1161,8 @@ export default {
       this.form.dataNew === getFull && hFull === '14h05-14h50' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '14h05-14h50' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '14h05-14h50' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '14h05-14h50' && ing == ingles
       
         ) {
         if ( this.form.horariosFull === '14h25-15h10') 
@@ -1156,7 +1183,8 @@ export default {
       this.form.dataNew === getFull && hFull === '14h25-15h10' && pis == piscina ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && qua == quadra ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && ranch == rancho ||
-      this.form.dataNew === getFull && hFull === '14h25-15h10' && insp == inspetor
+      this.form.dataNew === getFull && hFull === '14h25-15h10' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '14h25-15h10' && ing == ingles
     
         ) {
           if ( this.form.horariosFull === '14h05-14h50') 
@@ -1238,6 +1266,7 @@ export default {
               quadra: this.form.quadra,
               rancho: this.form.rancho,
               inspetor: this.form.inspetor,
+              ingles: this.form.ingles,
               seguimento:this.form.seguimento,
               motivo: this.form.motivo,
               link: this.form.link,
