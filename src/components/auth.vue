@@ -57,7 +57,7 @@
             <div class=" bg-white sm:container sm:mx-auto sm:w-4/5 md:container md:mx-auto md:w-4/5 lg:container lg:mx-auto lg:w-3/5  xl:mx-auto xl:container  xl:w-7/12 xl:rounded-xl xl:border-2 2xl:mx-auto 2xl:container  2xl:w-6/12 2xl:rounded-md 2xl:border  flex flex-col justify-start">
               <!-- Cabeçalho do formulário -->
               <div class="mb-4 mt-8">
-                <h1 class="text-center Poppins text-Sky-600 ">
+                <h1 class="text-center Poppins text-Sky-600">
                   Cadastro de Eventos
                 </h1>
               </div>
@@ -76,7 +76,7 @@
                   <div>
                     <div>
                       <label   for="data" class="flex opacity-70">Data do Evento:<p class="text-red-500 ml-1 font-extrabold">*</p></label> 
-                      <input  type="date" ref="datanew" name="" id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2  ">
+                      <input type="date" ref="datanew" name="" required id="data" v-model="form.dataNew" class="px-2 border shadow-sm rounded-md mr-2">
                       <p id="errorMsgData" class="msgErroData"></p>
                     </div>
                   </div>
@@ -364,8 +364,8 @@ export default {
           onAuthStateChanged(dbuser, (user) => {     
             this.usuario = user.email         
       })        
-      this.getDataNew()  
-     
+      this.getDataNew()   
+      this.setDate();   
 
     },
     watch:{
@@ -373,10 +373,51 @@ export default {
         if(value){
           this.dataUser()
           this.msgErroData()
+          this.setDate()
         }
-      },          
+      },
+      'form.informatica'(value){
+        if(value){
+          
+          this.setDate()
+        }
+      },            
     },      
     methods: {
+    //função que bloqueia eventos na sala da informatica nas quartas, quintas e sextas.
+    setDate(){
+
+      let newDateInfo =  document.getElementById('data').value;
+      const info = this.form.informatica;  
+
+      //Converter a data do form para o dia da semana(2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
+      const numeroConvertido = new Date(newDateInfo).getDay();
+
+      //verifica se numeroConvertido e info são true, se for, bloqueia o usuario e dá reload na página.
+      if(numeroConvertido === 2 && info || numeroConvertido === 3 && info || numeroConvertido === 4 && info){
+        
+        setTimeout(()=>{
+            this.$swal({
+              icon: "warning",
+              title: "Ops... Desculpe!",
+              html: `
+              <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
+                Sala de Informática liberada para eventos, apenas na 2ª e 3ª feira.
+              </p>`,
+              showConfirmButton: false,              
+              timerProgressBar: true,
+              timer:7500
+            })     
+          },100) 
+          setTimeout(()=>{
+            window.location.reload()
+          },8000)   
+       
+        return false;
+       
+      }
+    },
+
     // validação do botão submit
     async validaUser(){     
       this.loading()
@@ -410,10 +451,10 @@ export default {
 
     },  
     trocarSal(event){               
-      const sal = document.getElementById("sal")       
+      const sal = document.getElementById("sal")
       if(event.target.value == "Salão" ){          
-          sal.classList.toggle("checked")
-      } 
+          sal.classList.toggle("checked")          
+      }
     },
     trocarIngles(event){                      
       const ing = document.getElementById("ing")       
