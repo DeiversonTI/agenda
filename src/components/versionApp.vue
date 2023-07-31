@@ -1,5 +1,5 @@
 <template>
-  <span>v2.0.4</span>
+  <span>v3.0.0</span>
 </template>
 <style scoped>
 span{

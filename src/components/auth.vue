@@ -155,7 +155,47 @@
                           <label id="quad" for="quadra"><input @change="trocarQuadra($event)" v-model="form.quadra" type="checkbox" value="Quadra" id="quadra">Quadra</label> 
                           <label id="ranch" for="rancho"><input @change="trocarRancho($event)" v-model="form.rancho" type="checkbox" value="Rancho" id="rancho">Rancho</label> 
                           <label id="insp" for="inspetor"><input @change="trocarInspetor($event)" v-model="form.inspetor" type="checkbox" value="Inspetor" id="inspetor">Inspetor</label> 
-                      </div>                      
+                      </div> 
+                      <div class="flex justify-start align-center gap-1 flex-wrap">
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.salao">
+                            <label class="cursor-pointer"  id="sal" for="salao"><input  @change="trocarSal($event)" v-model="form.salao" type="checkbox" value="Salão" id="salao">Salão</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.gourmet">
+                            <label class="cursor-pointer"  id="gour" for="gourmet"><input  @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.piscina">
+                            <label class="cursor-pointer"  id="pisc" for="piscina"><input  @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.ciencias">
+                            <label class="cursor-pointer"  id="lag" for="labCiencias"><input  @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="LabCiencias">Lab. Ciências</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.ingles">
+                            <label class="cursor-pointer"  id="ing" for="SalIngles"><input  @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.informatica">
+                            <label class="cursor-pointer"  id="inform" for="info"><input  @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.jardim">
+                            <label class="cursor-pointer"  id="jar" for="jardim"><input  @change="trocarJar($event)" v-model="form.jardim" type="checkbox" value="Jardim_Sensorial" id="jardim">Jardim Sensorial</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.quadra">
+                            <label class="cursor-pointer"  id="quad" for="quadra"><input  @change="trocarQuadra($event)" v-model="form.quadra" type="checkbox" value="Quadra" id="quadra">Quadra</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
+                       
+                        
+                       
+                       
+                      </div>
+
+
                   </div>
                   <!-- </div>                   -->
                   <!-- SETOR -->
@@ -535,7 +575,45 @@ export default {
       }
     },
     changeformed(){
-      this.isOpen = !this.isOpen
+      // this.isOpen = !this.isOpen
+      this.isOpen = true
+      
+      const sal = document.getElementById("salao")
+      sal.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const gourmet = document.getElementById("gourmet")
+      gourmet.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const piscina = document.getElementById("piscina")
+      piscina.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const labCiencias = document.getElementById("labCiencias")
+      labCiencias.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const SalIngles = document.getElementById("SalIngles")
+      SalIngles.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const info = document.getElementById("info")
+      info.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const jardim = document.getElementById("jardim")
+      jardim.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+      const quadra = document.getElementById("quadra")
+      quadra.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
+     
+     
+      // console.log(sal)
+      
     },     
     loading(){
       if(this.form.seguimento){
@@ -1184,7 +1262,7 @@ export default {
           } 
 
       /********************************************************** */
-      /*FIM DAS REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS FINAIS*/ 
+      /*FIM DAS REGRAS DE BLOQUEIO PARA HORÁRIOS ESPECIAIS - ANOS INICIAIS*/ 
       /************************************************************ */
 
       //BLOQUEIOS DO ANOS INICIAIS - MUITOS HORÁRIOS PICADOS
@@ -1206,8 +1284,9 @@ export default {
       this.form.dataNew === getFull && hFull === '14h05-14h50' && ing == ingles
       
         ) {
-        if ( this.form.horariosFull === '14h25-15h10') 
-        {     
+        if (  this.form.horariosFull === '14h25-15h10' ||
+              this.form.horariosFull === '14h10-14h35' || 
+              this.form.horariosFull === '14h35-15h20'){     
               
           this.loadLopping()        
         } 
@@ -1228,11 +1307,57 @@ export default {
       this.form.dataNew === getFull && hFull === '14h25-15h10' && ing == ingles
     
         ) {
-          if ( this.form.horariosFull === '14h05-14h50') 
+          if ( this.form.horariosFull === '14h05-14h50' || this.form.horariosFull === '14h35-15h20' || this.form.horariosFull === '14h10-14h35') 
           {         
             this.loadLopping()           
           } 
-        }         
+          // NOVAS FUNCIONALIDADES DE BLOQUEIO DE CONFLITO PARA HORÁRIOS DOS ANOS INICIAIS E EDUCAÇÃO INFANTIL
+      }else if (
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && ag == agenda ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && jar == jardim ||  
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && ran == ranchinho ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && gou == gourmet ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && info == informatica || 
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && pas == pastoral ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && cie == ciencias ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && out == outros ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && pis == piscina ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && qua == quadra ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && ranch == rancho ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && ing == ingles
+
+        ) {
+        if (  this.form.horariosFull === '14h05-14h50' ||
+              this.form.horariosFull === '14h25-15h10' || 
+              this.form.horariosFull === '15h10-15h55' ){     
+              
+          this.loadLopping()        
+        } 
+      }else if (
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && ag == agenda ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && jar == jardim ||  
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && ran == ranchinho ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && gou == gourmet ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && info == informatica || 
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && pas == pastoral ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && cie == ciencias ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && out == outros ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && pis == piscina ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && qua == quadra ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && ranch == rancho ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && insp == inspetor ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && ing == ingles
+
+        ) {
+        if (  this.form.horariosFull === '14h05-14h50' ||
+              this.form.horariosFull === '14h25-15h10' ){     
+              
+          this.loadLopping()        
+        } 
+      }        
       })       
     },        
       // FUNÇÃO DE BLOQUEIO PARA DATAS ATUAIS E ANTERIORES
@@ -1398,7 +1523,10 @@ export default {
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
-  .anime__full{
+input[type='checkbox']{
+  display: none;
+}  
+.anime__full{
     animation: anima 0.8s forwards ease-in-out;
     width: 100%;
     position: fixed;
