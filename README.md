@@ -6,8 +6,8 @@
 - [ ] - Banco de Dados
 - [ ] - Desenvolvimento do DB com firebase
 - [ ] - Tela de envio da aplicação após enviar o formulário
-- [ ] - Criar informação visível do local ou situação quando for selecionado.
-- [ ] - Corrigir horário que está conflitando com outros horários de outros seguimentos..
+- [x] - Criar informação visível do local ou situação quando for selecionado.
+- [x] - Corrigir horário que está conflitando com outros horários de outros seguimentos..
 
 
 ## Project setup
