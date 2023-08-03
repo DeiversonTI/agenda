@@ -225,8 +225,8 @@
                   <div>
                     <label class="flex opacity-70" for="seg">Segmento ou Setor Correspondente:<p class="text-red-500 ml-1 font-extrabold">*</p> </label>
                     <select  id="seg" name="seg" v-model="form.seguimento" class="border w-full rounded-md" title="Selecione o setor ou seguimento relacionados ao evento. " required >
-                      <option value="Anos Iniciais">Anos Iniciais</option>
-                      <option value="Anos Finais">Anos Finais</option>
+                      <option value="Anos-Iniciais">Anos Iniciais</option>
+                      <option value="Anos-Finais">Anos Finais</option>
                       <option value="Edu-Infantil">Edu-Infantil</option>
                       <option value="Diretoria">Diretoria</option>
                       <option value="Secretaria">Secretaria</option>
@@ -235,11 +235,11 @@
                       <option value="Assistente-Social">Assistente-Social</option>
                       <option value="Tesouraria">Tesouraria</option>
                       <option value="Pastoral">Pastoral</option>
-                      <option value="Eventos Externos">Eventos Externos</option>
+                      <option value="Eventos-Externos">Eventos Externos</option>
                       <option value="Inspetor">Inspetor</option>
-                      <option value="Ir Servente">Ir. Servente</option>
-                      <option value="Bem Estar">Bem Estar</option>
-                      <option value="Supervisor Manutencao">Supervisor de Manutenção</option>
+                      <option value="Ir-Servente">Ir. Servente</option>
+                      <option value="Bem-Estar">Bem Estar</option>
+                      <option value="Supervisor-Manutencao">Supervisor de Manutenção</option>
                     </select>
                   </div>
 
@@ -427,7 +427,8 @@ export default {
     //função que bloqueia eventos na sala da informatica nas quartas, quintas e sextas.
     setDate(){
 
-      let newDateInfo =  document.getElementById('data').value;
+      let newDateInfo =  document.getElementById('data').value;     
+      
       const info = this.form.informatica;  
 
       //Converter a data do form para o dia da semana(2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
@@ -456,6 +457,7 @@ export default {
         return false;
        
       }
+    
     },
 
     // validação do botão submit
@@ -1411,6 +1413,7 @@ export default {
       }).then((result) => {
           if (result.isConfirmed) {
             const newCityRef = doc(collection(dbUser, "usuarios"));
+            // const newCityRef = doc(collection(dbUser, "ambTest"));
             let data = {
               id:newCityRef.id,
               user_id:userConnected,

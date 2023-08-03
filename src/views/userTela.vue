@@ -30,31 +30,50 @@
             <div  class="  bg-gradient-to-l from-white via-Sky-100 to-white   2xl:justify-center  flex 2xl:flex-col 2xl:items-center flex-col ">
               <div class="flex flex-col w-11/12 md:w-8/12 2xl:w-1/2 mx-auto container ">
                 <div class="pt-4 pb-0">
-                  <h1 class="text-Sky-600 Poppins text-center"> Agendamentos </h1>
+                  <h1 class="text-Sky-600 Poppins text-center">Agendamentos </h1>
                 </div>    
                 <div v-if="this.usuario === 'visitante@ersvp.g12.br'"  class="py-2"></div> 
-                <div v-else class="py-2">
+                
+                <div v-else class="py-2 flex  justify-between items-center">
+                  <div v-if="this.usuario !== 'informatica@ersvp.g12.br'">
+                    <span></span>
+                  </div>
+                  <div v-else>
+                    <div v-if="selected_ckecked.length == 0" >
+                        <span></span>
+                    </div>
+                    <div v-else class="box__del_all sm:w-52 w-36 bg-red-600 py-3 px-1 text-center text-xs md:py-3 md:text-base rounded text-white">
+                      <button class="" @click.prevent="delAll()">Apagar Selecionados</button>
+                    </div>                    
+                  </div>
+                 
+                  <!-- <div>
+                    
+                  </div>                                  -->
                   <router-link to="/Auth">
-                  <div title="Adicionar novo agendamento" class="bg-green-500 py-0 sm:w-52 w-36 float-right rounded-sm  sm:rounded-md flex justify-between items-center">    
+                  <div title="Adicionar novo agendamento" class="bg-green-500  sm:w-52 w-36 float-right rounded-sm  sm:rounded-md flex justify-between items-center">    
                     <span class="pl-2 text-gray-50 text-xs sm:text-base">Adicionar Novo</span>         
-                    <span class="bg-green-600 text-gray-50 py-1 sm:py-2 px-4 sm:px-4 rounded-r-sm sm:rounded-r-lg text-sm sm:text-2xl">+</span>                    
+                    <span class="bg-green-600 text-gray-50 py-2.5 sm:py-2 px-4 sm:px-4 rounded-r-sm sm:rounded-r-lg text-sm sm:text-2xl">+</span>                    
                   </div>
                 </router-link>
                 </div>                
                 <div class="flex justify-between items-center pl-2 px-2 py-2 bg-Sky-300 rounded-md ">                  
                   <!--SEARCH-->
                   <!-- <div class="flex justify-start items-center  sm:w-4/6 md:w-96  "> -->
-                  <div class="flex justify-start items-center  sm:w-4/6 md:w-96  ">
+                  <div class="flex justify-start items-center  sm:w-4/6 md:w-3/4  ">
+                    <!-- <button class=" bg-red-600 p-1 md:p-3 md:text-base text-xs rounded mr-2 text-white" @click.prevent="delAll()">Apagar Selecionados</button> -->
                     <svg xmlns="http://www.w3.org/2000/svg" class=" h-5 w-5 sm:h-7 sm:w-7 mr-2 text-gray-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                     <input v-model="search" type="search"  class="  2xl:w-2/3 sm:w-full w-52 pl-4 border-b-2 border-gray-300 rounded place " placeholder="Data, Nome, Local, horário...">
+                    
                   </div>
                   <!--SEARCH-->
                   <div>
                       <h1 class="text-xs font-bold text-white"><small>EVENTOS</small>: {{agenda.length}}</h1>                     
                   </div>              
-                </div>                                  
+                </div>  
+                                         
                 <!-- <div v-for="(item, key) in filteredAgendas" :key="key"  class="flex justify-end "></div> -->
               </div>             
               <div v-if="filteredAgendas.length == 0" class=" mb-1 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4  ">
@@ -65,8 +84,14 @@
                   <button class="px-4 bg-red-500 text-gray-50 mt-2 rounded" @click="refleshPage()">Reflesh</button>
                 </div>
               </div>              
-              <div v-else class=" mb-1 border border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4 bg-gray-50 rounded-lg shadow-xl" v-for="agendas, index in filteredAgendas" :key="index" >
-                <div>
+              <div id="ckecked__color" v-else class="bg__color__event mb-1 border border-gray-300 2xl:w-1/2 lg:container lg:mx-auto  lg:w-2/3 w-11/12 mx-auto container flex flex-col mt-2 px-2 py-4  rounded-lg shadow-xl" v-for="agendas, index in filteredAgendas" :key="index" >
+                <!-- <div> -->
+                  <div v-if="this.usuario !== 'informatica@ersvp.g12.br'" id="ckeck__box">
+                      <span></span>                 
+                  </div>
+                  <div v-else>
+                    <input class="cursor-pointer" type="checkbox" id="del_trash" :value="agendas.id" v-model="selected_ckecked" >
+                  </div>
                   <ul class="  flex flex-col font-sans text-lg text-gray-900 space-y-1  ">
                     <li class=" font-bold text-lg text-red-600 border-red-300 rounded-md "><span class="text-xl font-bold text-gray-900 ">Dia do Evento: </span> {{agendas.dataNew}}</li>
                     <li class=""><span class="text-xl font-bold">Nome: </span>   {{agendas.nome}} </li>
@@ -129,7 +154,7 @@
                         </div>
                     </div>
                   </ul>
-                </div>
+                <!-- </div> -->
               </div>
               <div @click="btnTop" id="btn_up">
                 <div class="icon"></div>
@@ -151,6 +176,7 @@ import { getDocs, getDoc,  collection,  getFirestore, doc, deleteDoc, updateDoc,
 import {getAuth, onAuthStateChanged } from "firebase/auth";
 import Footer from "../components/footer.vue"
 
+
 export default {
   name: "userLogado",
   data() {
@@ -163,7 +189,9 @@ export default {
       nome: false,
       isClose:true,
       usuario: '',
-      dataDb:[],
+      dataDb:[],      
+      trashAll:[],
+      selected_ckecked:[],     
 
       checked:{
         salao: null,
@@ -207,8 +235,10 @@ export default {
     // FIM DO CODIGO SEARCH
   },
 
+ 
    // COMANDO DE USUÁRIO LOGADO - DisplayName e Email
   async created() {
+
     const dbuser = getAuth();
     onAuthStateChanged(dbuser, (user) => {   
       // console.log(user)  
@@ -221,10 +251,11 @@ export default {
   // CÓDIGO PARA ADICIONAR TELA FINAL PARA O USUARIO (userTela)
   const dbUser = getFirestore();
   const colleUser = collection(dbUser, 'usuarios')
+  // const colleUser = collection(dbUser, 'ambTest')
   const q = query(colleUser, orderBy("dataNew",'asc'))
   const user = await getDocs(q); 
   user.forEach((doc) => {
-    console.log(doc.data())
+    // console.log(doc.data())
 
     if(doc.data().salao){
       const salao = "Salão"
@@ -1129,7 +1160,8 @@ export default {
     async deletar(id){
       const db = getFirestore();
       const userAuth = getAuth().currentUser.uid;
-      const docRef = doc(db, "usuarios", id);
+      
+      const docRef = doc(db, "usuarios", id);      
       // const docRef = doc(db, "ambTest", id);
       const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -1147,18 +1179,18 @@ export default {
         }).then((result) => {
           if (result.isConfirmed) {
             if(userAuth === snapShot ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Finais" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos Iniciais" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos-Finais" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Anos-Iniciais" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Edu-Infantil" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Setor-TI" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Tesouraria" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Secretaria" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Eventos Externos" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Eventos-Externos" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Diretoria" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Inspetor" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Pastoral" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Ir Servente" ||
-              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Bem Estar" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Ir-Servente" ||
+              userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Bem-Estar" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Todos-Seguimentos" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Assistente-Social" ||
               userAuth === 'mAjKyPE8CthkTvd4Dz0YFHvKvBo2' && snapShotCoord === "Fundamental-II" )
@@ -1182,7 +1214,50 @@ export default {
     },    
 
     // FINAL DO DELETAR
-   
+/************************************************************************************** */
+
+    // A FUNÇÃO SOMENTE PARA VER COMO O ARRAY ESTA FUNCIONANDO
+    // getTrash(){ 
+    //   console.log(this.selected_ckecked)    
+    // },
+
+    // FUNÇÃO DELETAR ITENS SELECIONADOS(VARIOS EVENTOS)
+    delAll(){
+
+      var sel_checked = this.selected_ckecked
+     //se o array sel_checked for igual a 0 executa uma mensagem de erro, precisa ter pelo menos 1 evento selecionado      
+      if(sel_checked.length == 0){
+        this.$swal('Não Existe Eventos Selecionados','Precisa selecionar os eventos.', 'error')  
+        return false
+      }else{          
+      this.$swal({
+        title: 'Deseja Realmente Deletar os Itens Selecionados?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Deletar', 
+      }).then((result) => {      
+        if (result.isConfirmed) {
+          const db = getFirestore();    
+          var pp = this.selected_ckecked
+          pp.forEach(async (Uid) => {           
+            console.log("Dentro do isConfirmed",  Uid)               
+            this.$swal('Deletado!','Seu Arquivo foi deletado co Sucesso.', 'success') 
+            // await deleteDoc(doc(db, "ambTest", Uid))
+            await deleteDoc(doc(db, "usuarios", Uid))
+              .then(()=>{
+                setTimeout(() => {
+                  this.$router.go({name:'usertela'})                  
+                }, 1000);
+              })           
+          })       
+        }      
+      })
+    } 
+    
+    },
+      
 // INICIO VERIFICAR
 // ***********************************************************/
 
@@ -1190,18 +1265,21 @@ export default {
       const db = getFirestore();
       const docRefer = doc(db, "usuarios", id)
       const pegarUser = await getDoc(docRefer)
+      console.log(pegarUser)
       if(pegarUser.exists()){
         const userName = getAuth()
         const pegarUserNew = userName.currentUser.email
+        console.log(pegarUserNew)
         if(pegarUser.data().coordFI === null){
-            if (pegarUserNew == "coordenadorafund1@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-I" ) {
+            if (pegarUserNew == "coordenadorafund1@ersvp.g12.br" && pegarUser.data().seguimento == "Anos-Iniciais" ) {
                await updateDoc(docRefer, {
                   coordFI: "Coord. Natália"
                });
         }
         if (pegarUser.data().info === null) {
-           if(pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Salão" ||
-              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().situacao == "Sala_Informatica" ) {
+           if(pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().salao == true ||
+              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().informatica == true ||
+              pegarUserNew == "informatica@ersvp.g12.br" && pegarUser.data().ingles == true ) {
                await updateDoc(docRefer, {
                   info: "S.T.I"
              
@@ -1210,7 +1288,7 @@ export default {
         }
         
         if (pegarUser.data().coordFII === null) {
-          if(pegarUserNew == "coordenadorafund2@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-II" ) {
+          if(pegarUserNew == "coordenadorafund2@ersvp.g12.br" && pegarUser.data().seguimento == "Anos-Finais" ) {
                await updateDoc(docRefer, {
                   coordFII: "Coord. Anamaria"
                });
@@ -1218,7 +1296,7 @@ export default {
         }
         if (pegarUser.data().coordEI === null) {
            
-           if (pegarUserNew == "coordenadora@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ) {
+           if (pegarUserNew == "coordenadoraEdInf@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ) {
                await updateDoc(docRefer, {
                   coordEI: "Coord. Thais"
                });
@@ -1226,7 +1304,7 @@ export default {
             }
          }
         if (pegarUser.data().social === null) {
-          if (pegarUserNew == "asocial@ersvp.g12.br" && pegarUser.data().seguimento == "Assistente-Social" && pegarUser.data().situacao == "Agendamentos" ) {
+          if (pegarUserNew == "asocial@ersvp.g12.br" && pegarUser.data().seguimento == "Assistente-Social" && pegarUser.data().agenda == true ) {
                await updateDoc(docRefer, {
                   social: "Assit. Social"
                });
@@ -1259,8 +1337,8 @@ export default {
             }
         } if (pegarUser.data().diretora === null) {
           if (pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Edu-Infantil" ||
-              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-II" ||
-              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Fundamental-I") {
+              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Anos-Finais" ||
+              pegarUserNew == "diretora-pedagogica@ersvp.g12.br" && pegarUser.data().seguimento == "Anos-Iniciais") {
                await updateDoc(docRefer, {
                   diretora: "Dir. Renata"
                });
@@ -1280,7 +1358,7 @@ export default {
           }, 2000);
            
         }else{
-              alert("Sem autorização para marcar essa publicação!")
+          alert("Sem autorização para marcar essa publicação!")
         }
  
       }else{
@@ -1300,6 +1378,45 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,800;1,100&family=Prompt:ital,wght@0,100;0,200;0,400;0,700;0,800;1,500;1,900&display=swap');
 
+#del_trash{
+  width:20px;
+  height:20px; 
+  /* position: absolute;
+  z-index: 1000; 
+  top:0;
+  left:0;
+   */
+ 
+}
+/* #ckeck__box{
+  padding: 10px;
+  background-color: brown !important;
+  border-radius: 3px;
+  cursor:pointer;
+  width:33px;
+  height: 33px;
+  position: relative;
+ 
+  z-index: 9999;
+}
+#ckeck__box input[type="checkbox"]{
+  visibility: visible;
+} */
+/* .ckeck__box_checked{
+  background-color: rgb(5, 167, 126);
+  color:#fff;
+  padding: 5px 15px;
+  width:6%;
+  border-radius: 8px;
+  cursor:pointer
+} */
+.bg__color__event{
+  --tw-bg-opacity: 1;
+  background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+.bg__color__checked{ 
+  background-color: #fda4af;
+}
 .font__text{
   font-family: Poppins, sans-serif;
   font-weight: 300;
