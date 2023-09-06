@@ -1403,12 +1403,7 @@ export default {
 
 #del_trash{
   width:20px;
-  height:20px; 
-  /* position: absolute;
-  z-index: 1000; 
-  top:0;
-  left:0;
-   */
+  height:20px;  
  
 }
 /* #ckeck__box{
