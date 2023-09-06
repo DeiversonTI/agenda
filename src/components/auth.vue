@@ -141,6 +141,7 @@
                         <div class="overform"></div>
                       </div>
                       <div v-show="isOpen" id="form-links" class="form__mode">                         
+                          <label id="car" for="carrinho"><input  @change="trocarCar($event)" v-model="form.carrinho" type="checkbox" value="Carrinho" id="carrinho">Carrinho(Projetor)</label> 
                           <label id="sal" for="salao"><input @change="trocarSal($event)" v-model="form.salao" type="checkbox" value="Salão" id="salao">Salão</label> 
                           <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
                           <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
@@ -157,6 +158,10 @@
                           <label id="insp" for="inspetor"><input @change="trocarInspetor($event)" v-model="form.inspetor" type="checkbox" value="Inspetor" id="inspetor">Inspetor</label> 
                       </div> 
                       <div class="flex justify-start align-center gap-1 flex-wrap">
+                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.carrinho">
+                            <label class="cursor-pointer"  id="car" for="carrinho"><input  @change="trocarCar($event)" v-model="form.carrinho" type="checkbox" value="Carrinho" id="carrinho">Carrinho(Projetor)</label>
+                            <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
+                        </div>
                         <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.salao">
                             <label class="cursor-pointer"  id="sal" for="salao"><input  @change="trocarSal($event)" v-model="form.salao" type="checkbox" value="Salão" id="salao">Salão</label>
                             <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
@@ -382,6 +387,7 @@ export default {
           jardim: "",
           agenda: "",
           salao: "",
+          carrinho: "",
           ranchinho: "",
           gourmet: "",
           informatica: "",
@@ -492,6 +498,12 @@ export default {
       }
 
     },  
+    trocarCar(event){               
+      const car = document.getElementById("car")
+      if(event.target.value == "Carrinho" ){          
+          car.classList.toggle("checked")          
+      }
+    },
     trocarSal(event){               
       const sal = document.getElementById("sal")
       if(event.target.value == "Salão" ){          
@@ -580,6 +592,10 @@ export default {
       // this.isOpen = !this.isOpen
       this.isOpen = true
       
+      const car = document.getElementById("carrinho")
+      car.addEventListener('click', ()=>{
+        this.isOpen = false
+      })
       const sal = document.getElementById("salao")
       sal.addEventListener('click', ()=>{
         this.isOpen = false
@@ -811,6 +827,7 @@ export default {
       /**************************** */
 
       const salao = doc.data().salao     
+      const carrinho = doc.data().carrinho     
       const agenda = doc.data().agenda
       const jardim = doc.data().jardim    
       const ranchinho = doc.data().ranchinho
@@ -825,6 +842,7 @@ export default {
       const inspetor = doc.data().inspetor
       const ingles = doc.data().ingles 
 
+      let car = this.form.carrinho
       let sal = this.form.salao
       let ing = this.form.ingles
       let ag = this.form.agenda
@@ -840,6 +858,9 @@ export default {
       let ranch = this.form.rancho
       let insp = this.form.inspetor
       
+      if(car == ""){
+        car = "sit"        
+      }
       if(ing == ""){
         ing = "sit"        
       }
@@ -889,6 +910,7 @@ export default {
     //BLOQUEAR DATAS, HORÁRIOS E LOCAIS REPETIDOS
     if ( 
       this.form.dataNew === getFull && this.form.horariosFull === hFull && sal == salao ||
+      this.form.dataNew === getFull && this.form.horariosFull === hFull && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && jar == jardim ||  
       this.form.dataNew === getFull && this.form.horariosFull === hFull && ran == ranchinho ||
@@ -911,6 +933,7 @@ export default {
     // //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO, CASO ALGUÉM ESCOLHA SOMENTE UMA DATA.        
     } else if (
       this.form.dataNew === getFull && hFull === '07h10-12h' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '07h10-12h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '07h10-12h' && ran == ranchinho ||
@@ -946,6 +969,7 @@ export default {
       else if (
 
       this.form.dataNew === getFull && hFull === '07h10-21h' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '07h10-21h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '07h10-21h' && ran == ranchinho ||
@@ -1002,6 +1026,7 @@ export default {
         // //LAÇO DE REPETIÇAO PARA BLOQUEAR TODO O SEGUIMENTO,DATA INVERTIDA, HORÁRIO FULL 7H-21H.
       else if (
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && sal == salao ||
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && jar == jardim ||  
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ran == ranchinho ||
@@ -1057,6 +1082,7 @@ export default {
       
       else if (      
       this.form.dataNew === getFull && hFull === '12h30-17h' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '12h30-17h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '12h30-17h' && ran == ranchinho ||
@@ -1099,6 +1125,7 @@ export default {
       else if (
 
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && sal == salao ||
+      this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && jar == jardim ||  
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ran == ranchinho ||
@@ -1139,6 +1166,7 @@ export default {
       else if (
       
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && sal == salao ||
+      this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && jar == jardim ||  
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ran == ranchinho ||
@@ -1175,6 +1203,7 @@ export default {
       } 
       else if (
       this.form.dataNew === getFull && hFull === '08h40-09h25' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '08h40-09h25' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '08h40-09h25' && ran == ranchinho ||
@@ -1199,6 +1228,7 @@ export default {
       } else if (
 
       this.form.dataNew === getFull && hFull === '09h-09h45' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '09h-09h45' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '09h-09h45' && ran == ranchinho ||
@@ -1221,6 +1251,7 @@ export default {
       } else if (
 
       this.form.dataNew === getFull && hFull === '09h25-10h10' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '09h25-10h10' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '09h25-10h10' && ran == ranchinho ||
@@ -1243,6 +1274,7 @@ export default {
       } else if (
 
       this.form.dataNew === getFull && hFull === '09h45-10h30' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '09h45-10h30' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '09h45-10h30' && ran == ranchinho ||
@@ -1271,6 +1303,7 @@ export default {
       } else if (
 
       this.form.dataNew === getFull && hFull === '14h05-14h50' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h05-14h50' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '14h05-14h50' && ran == ranchinho ||
@@ -1294,6 +1327,7 @@ export default {
         } 
       } else if (
       this.form.dataNew === getFull && hFull === '14h25-15h10' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h25-15h10' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '14h25-15h10' && ran == ranchinho ||
@@ -1316,6 +1350,7 @@ export default {
           // NOVAS FUNCIONALIDADES DE BLOQUEIO DE CONFLITO PARA HORÁRIOS DOS ANOS INICIAIS E EDUCAÇÃO INFANTIL
       }else if (
       this.form.dataNew === getFull && hFull === '14h35-15h20' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h35-15h20' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '14h35-15h20' && ran == ranchinho ||
@@ -1339,6 +1374,7 @@ export default {
         } 
       }else if (
       this.form.dataNew === getFull && hFull === '14h10-14h35' && sal == salao ||
+      this.form.dataNew === getFull && hFull === '14h10-14h35' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && jar == jardim ||  
       this.form.dataNew === getFull && hFull === '14h10-14h35' && ran == ranchinho ||
@@ -1423,6 +1459,7 @@ export default {
               horariosFull:this.form.horariosFull,
               responsavel: this.form.responsavel,
               salao: this.form.salao,
+              carrinho: this.form.carrinho,
               jardim: this.form.jardim,
               agenda: this.form.agenda,
               ranchinho: this.form.ranchinho,
@@ -1486,6 +1523,7 @@ export default {
               responsavel: this.form.responsavel,
               situacao: this.form.situacao,
               salao: this.form.salao,
+              carrinho: this.form.carrinho,
               jardim: this.form.jardim,
               agenda: this.form.agenda,
               ranchinho: this.form.ranchinho,

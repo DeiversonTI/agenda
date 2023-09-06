@@ -99,6 +99,7 @@
                     <li class=""><span class="text-xl font-bold">Setor ou Função: </span> {{agendas.responsavel}}</li>                    
                     <li class="flex items-center flex-wrap gap-1"><span class=" flex text-xl font-bold">Local: </span>
                       <p v-if="agendas.salao" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.salao}} </p> 
+                      <p v-if="agendas.carrinho" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.carrinho}} </p> 
                       <p v-if="agendas.piscina" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.piscina}} </p>  
                       <p v-if="agendas.gourmet" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.gourmet}} </p> 
                       <p v-if="agendas.agenda" class="px-3 bg-Sky-500 mx-1 rounded text-gray-50"> {{agendas.agenda }}</p>  
@@ -147,7 +148,7 @@
                             <div class="pr-2 sm:text-lg text-sm font-bold text-green-500">{{agendas.coordEI}}</div>
                             <div class="pr-2 sm:text-lg text-sm font-bold text-yellow-500">{{agendas.social}}</div> 
                             <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretoria}}</div>
-                            <div class="pr-2 sm:text-lg text-sm font-bold text-red-600">{{agendas.diretora}}</div>
+                            <div class="pr-2 sm:text-lg text-sm font-bold text-Orange-800">{{agendas.diretora}}</div>
                             <div class="text-sm  font-bold text-red-600">{{agendas.tesouraria}}</div>
                           </div>
                           
@@ -195,6 +196,7 @@ export default {
 
       checked:{
         salao: null,
+        carrinho: null,
         jardim: null,
         agenda: null,
         piscina: null,
@@ -255,13 +257,19 @@ export default {
   const q = query(colleUser, orderBy("dataNew",'asc'))
   const user = await getDocs(q); 
   user.forEach((doc) => {
-    // console.log(doc.data())
+    console.log(doc.data().salao)
 
     if(doc.data().salao){
       const salao = "Salão"
       this.checked.salao = salao
     }else{
       this.checked.salao  = null
+    }
+    if(doc.data().carrinho){
+      const carrinho = "Carrinho(Projetor)"
+      this.checked.carrinho = carrinho
+    }else{
+      this.checked.carrinho  = null
     }
     if(doc.data().ingles){
       const ingles = "Sala Bilíngue"
@@ -420,6 +428,7 @@ export default {
         // *****************************/
         //AMBIENTE DE TESTE
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -482,6 +491,7 @@ export default {
           data:doc.data().data,
           diretora:doc.data().diretora,
           salao: this.checked.salao,
+          carrinho: this.checked.carrinho,
           jardim: this.checked.jardim,
           agenda: this.checked.agenda,           
           ranchinho: this.checked.ranchinho,
@@ -530,6 +540,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -579,6 +590,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -630,6 +642,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -677,6 +690,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -725,6 +739,7 @@ export default {
       hourExtFirst:doc.data().hourExtFirst,
       hourExtSecund: doc.data(). hourExtSecund,
       salao: this.checked.salao,
+      carrinho: this.checked.carrinho,
       jardim: this.checked.jardim,
       agenda: this.checked.agenda,           
       ranchinho: this.checked.ranchinho,
@@ -773,6 +788,7 @@ export default {
           hourExtFirst:doc.data().hourExtFirst,
           hourExtSecund: doc.data(). hourExtSecund,
           salao: this.checked.salao,
+          carrinho: this.checked.carrinho,
           jardim: this.checked.jardim,
           agenda: this.checked.agenda,           
           ranchinho: this.checked.ranchinho,
@@ -816,6 +832,7 @@ export default {
           data:doc.data().data,
           diretora:doc.data().diretora,
           salao: this.checked.salao,
+          carrinho: this.checked.carrinho,
           jardim: this.checked.jardim,
           agenda: this.checked.agenda,           
           ranchinho: this.checked.ranchinho,
@@ -862,6 +879,7 @@ export default {
           hourExtFirst:doc.data().hourExtFirst,
           hourExtSecund: doc.data(). hourExtSecund,
           salao: this.checked.salao,
+          carrinho: this.checked.carrinho,
           jardim: this.checked.jardim,
           agenda: this.checked.agenda,           
           ranchinho: this.checked.ranchinho,
@@ -909,6 +927,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -956,6 +975,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -1002,6 +1022,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -1049,6 +1070,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
@@ -1098,6 +1120,7 @@ export default {
         hourExtFirst:doc.data().hourExtFirst,
         hourExtSecund: doc.data(). hourExtSecund,
         salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
         jardim: this.checked.jardim,
         agenda: this.checked.agenda,           
         ranchinho: this.checked.ranchinho,
