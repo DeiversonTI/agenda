@@ -209,6 +209,7 @@
                     <select   id="setor" name="setor" v-model="form.responsavel" class="border w-full rounded-md" required >
                       <option value="Diretoria">Diretora</option>
                       <option value="Assistente-Social">Assistente-Social</option>
+                      <option value="Orientadora Pedagógica">Orientadora Pedagógica</option>
                       <option value="Coordenadora Anos Iniciais">Coordenadora Anos Iniciais</option>
                       <option value="Coordenadora Anos Finais">Coordenadora Anos Finais</option>
                       <option value="Coordenadora Educação Infantil">Coordenadora Educação Infantil</option>
@@ -233,6 +234,7 @@
                       <option value="Anos-Iniciais">Anos Iniciais</option>
                       <option value="Anos-Finais">Anos Finais</option>
                       <option value="Edu-Infantil">Edu-Infantil</option>
+                      <option value="Orientadora">Orientadora</option>
                       <option value="Diretoria">Diretoria</option>
                       <option value="Secretaria">Secretaria</option>
                       <option value="Setor-TI">Setor de TI</option>

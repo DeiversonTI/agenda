@@ -411,6 +411,7 @@ export default {
     const manutencao = process.env.VUE_APP_FIREBASE_EMAIL_MANUTENCAO
     const pastoral = process.env.VUE_APP_FIREBASE_EMAIL_PASTORAL_NEW
     const visitante = process.env.VUE_APP_FIREBASE_EMAIL_VISITANTE
+    const orientadora = process.env.VUE_APP_FIREBASE_EMAIL_ORIENTADORA
 
     
     // SOMENTE OS INFORMATICA SERÁ O ADMINISTRADOR E VAI VER TODAS AS PUBLICAÇÕES
@@ -949,6 +950,53 @@ export default {
 
       // IRBERNADETE-  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
         else if(emailUser === irservente){
+        
+        const dbMonitorUser = {
+        user_id: userTeste,
+        id:doc.id,
+        nome:doc.data().nome,
+        dataNew:dateString,
+        horariosFull:doc.data().horariosFull,
+        responsavel: doc.data().responsavel,
+        seguimento: doc.data().seguimento,
+        situacao: doc.data().situacao,
+        motivo: doc.data().motivo,
+        link: doc.data().link,
+        social:doc.data().social,
+        coordEI:doc.data().coordEI,
+        coordFI:doc.data().coordFI,
+        coordFII:doc.data().coordFII,
+        info:doc.data().info,
+        diretoria:doc.data().diretoria,
+        tesouraria:doc.data().tesouraria,
+        secretaria:doc.data().secretaria,
+        data:doc.data().data,
+        diretora:doc.data().diretora,
+        evExternos: doc.data().evExternos,
+        hourExtFirst:doc.data().hourExtFirst,
+        hourExtSecund: doc.data(). hourExtSecund,
+        salao: this.checked.salao,
+        carrinho: this.checked.carrinho,
+        jardim: this.checked.jardim,
+        agenda: this.checked.agenda,           
+        ranchinho: this.checked.ranchinho,
+        gourmet: this.checked.gourmet,
+        informatica: this.checked.informatica,
+        pastoral: this.checked.pastoral,
+        ciencias: this.checked.ciencias,
+        outros: this.checked.outros,
+        piscina: this.checked.piscina,
+        quadra: this.checked.quadra,
+        rancho: this.checked.rancho,
+        inspetor: this.checked.inspetor,
+        ingles: this.checked.ingles,
+        };
+         
+          this.agenda.push(dbMonitorUser);
+
+    }
+      // ORIENTADORA-  RECEBE UMA CÓPIA DAS PUBLICAÇÕES 
+        else if(emailUser === orientadora){
         
         const dbMonitorUser = {
         user_id: userTeste,

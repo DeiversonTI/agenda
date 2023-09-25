@@ -9,4 +9,5 @@
 - [x] - Criar informação visível do local ou situação quando for selecionado.
 - [x] - Corrigir horário que está conflitando com outros horários de outros seguimentos..
 - [x] - Adicionar nova funcionalidade do carrinho do projetor
+- [x] - Liberar acesso full para orientado 
 
