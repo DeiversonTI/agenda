@@ -146,11 +146,12 @@
                           <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
                           <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
                           <label id="lab" for="labCiencias"><input @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="labCiencias">Lab. Ciências</label> 
-                          <label id="ing" for="SalIngles"><input @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
-                          <label id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
+                          <label v-if="usuario == 'ingles-39@ersvp.g12.br' || usuario == 'ingles-edinf-fund1@ersvp.g12.br' || usuario == 'ingles-edinf-pre2b@ersvp.g12.br' || usuario == 'ingles-fund1@ersvp.g12.br'" id="ing" for="SalIngles"><input  @change="trocarIngles($event)"  v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
+                          <label v-else id="ing" for="SalIngles"><input disabled @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>                         
+                          <label  id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
                           <label id="jar" for="jardim"><input @change="trocarJar($event)" v-model="form.jardim" type="checkbox" value="Jardim_Sensorial" id="jardim">Jardim Sensorial</label> 
                           <label id="agend"  for="agenda"><input @change="trocarAg($event)" v-model="form.agenda" type="checkbox" value="Agendamentos" id="agenda">Agendamentos</label>
-                          <label id="ran" for="ranchinho"><input @change="trocarRanchinho($event)" v-model="form.ranchinho" type="checkbox" value="Ranchinho" id="ranchinho">Ranchinho</label> 
+                          <!-- <label id="ran" for="ranchinho"><input @change="trocarRanchinho($event)" v-model="form.ranchinho" type="checkbox" value="Ranchinho" id="ranchinho">Ranchinho</label>  -->
                           <label id="pastor" for="pastoral"><input @change="trocarPastoral($event)" v-model="form.pastoral" type="checkbox" value="Sala Pastoral" id="pastoral">Sala Pastoral</label> 
                           <label id="out" for="outros"><input @change="trocarOutros($event)" v-model="form.outros" type="checkbox" value="Outros" id="outros">Outros</label> 
                           <label id="quad" for="quadra"><input @change="trocarQuadra($event)" v-model="form.quadra" type="checkbox" value="Quadra" id="quadra">Quadra</label> 
@@ -178,8 +179,8 @@
                             <label class="cursor-pointer"  id="lag" for="labCiencias"><input  @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="LabCiencias">Lab. Ciências</label>
                             <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
                         </div>
-                        <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.ingles">
-                            <label class="cursor-pointer"  id="ing" for="SalIngles"><input  @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>
+                        <div  class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.ingles">
+                            <label class="cursor-pointer"  id="ing" for="SalIngles"><input @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>
                             <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
                         </div>
                         <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.informatica">
@@ -193,14 +194,8 @@
                         <div class="relative flex bg-Sky-500 text-white px-5 py-1 rounded  mt-1 gap-1" v-if="form.quadra">
                             <label class="cursor-pointer"  id="quad" for="quadra"><input  @change="trocarQuadra($event)" v-model="form.quadra" type="checkbox" value="Quadra" id="quadra">Quadra</label>
                             <span class="absolute bottom-4 right-1 cursor-pointer"><small>x</small></span>
-                        </div>
-                       
-                        
-                       
-                       
+                        </div>                       
                       </div>
-
-
                   </div>
                   <!-- </div>                   -->
                   <!-- SETOR -->
@@ -390,7 +385,7 @@ export default {
           agenda: "",
           salao: "",
           carrinho: "",
-          ranchinho: "",
+          // ranchinho: "",
           gourmet: "",
           informatica: "",
           pastoral: "",
@@ -425,47 +420,49 @@ export default {
         }
       },
       'form.informatica'(value){
-        if(value){
-          
-          this.setDate()
+        if(this.usuario != 'pct@ersvp.g12.br' && this.usuario != 'pcm@ersvp.g12.br'){
+          if(value){  
+            this.setDate()                  
+          }
         }
-      },            
+    }          
     },      
     methods: {
     //função que bloqueia eventos na sala da informatica nas quartas, quintas e sextas.
-    setDate(){
+    setDate(){      
 
-      let newDateInfo =  document.getElementById('data').value;     
-      
-      const info = this.form.informatica;  
-
-      //Converter a data do form para o dia da semana(2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
-      const numeroConvertido = new Date(newDateInfo).getDay();
-
-      //verifica se numeroConvertido e info são true, se for, bloqueia o usuario e dá reload na página.
-      if(numeroConvertido === 2 && info || numeroConvertido === 3 && info || numeroConvertido === 4 && info){
+        let newDateInfo =  document.getElementById('data').value;     
         
-        setTimeout(()=>{
-            this.$swal({
-              icon: "warning",
-              title: "Ops... Desculpe!",
-              html: `
-              <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
-                Sala de Informática liberada para eventos, apenas na 2ª e 3ª feira.
-              </p>`,
-              showConfirmButton: false,              
-              timerProgressBar: true,
-              timer:7500
-            })     
-          },100) 
+        const info = this.form.informatica;
+
+        //Converter a data do form para o dia da semana(1=terça-feira, 2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
+        const numeroConvertido = new Date(newDateInfo).getDay();  
+        console.log(numeroConvertido)       
+       
+
+        //verifica se numeroConvertido e info são true, se for, bloqueia o usuario e dá reload na página.       
+        if(numeroConvertido != 0 && info ){
+          
           setTimeout(()=>{
-            window.location.reload()
-          },8000)   
+              this.$swal({
+                icon: "warning",
+                title: "Ops... Desculpe!",
+                html: `
+                <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
+                  Sala de Informática liberada para eventos, apenas na 2ª feira.
+                </p>`,
+                showConfirmButton: false,              
+                timerProgressBar: true,
+                timer:7500
+              })     
+            },100) 
+            setTimeout(()=>{
+              location.reload()
+            },8000)   
+        
+          return false;       
+        } 
        
-        return false;
-       
-      }
-    
     },
 
     // validação do botão submit
@@ -530,12 +527,12 @@ export default {
           agenda.classList.toggle("checked")        
       }
     },
-    trocarRanchinho(event){
-      const ranchinho = document.getElementById("ran")       
-      if(event.target.value  == "Ranchinho"){          
-          ranchinho.classList.toggle("checked")        
-      }
-    },
+    // trocarRanchinho(event){
+    //   const ranchinho = document.getElementById("ran")       
+    //   if(event.target.value  == "Ranchinho"){          
+    //       ranchinho.classList.toggle("checked")        
+    //   }
+    // },
     trocarGourmet(event){
       const gourmet = document.getElementById("gour")       
       if(event.target.value  == "Área Gourmet"){          
@@ -832,7 +829,7 @@ export default {
       const carrinho = doc.data().carrinho     
       const agenda = doc.data().agenda
       const jardim = doc.data().jardim    
-      const ranchinho = doc.data().ranchinho
+      // const ranchinho = doc.data().ranchinho
       const gourmet = doc.data().gourmet
       const informatica = doc.data().informatica
       const pastoral = doc.data().pastoral
@@ -849,7 +846,7 @@ export default {
       let ing = this.form.ingles
       let ag = this.form.agenda
       let jar = this.form.jardim
-      let ran = this.form.ranchinho
+      // let ran = this.form.ranchinho
       let gou = this.form.gourmet
       let info = this.form.informatica
       let pas = this.form.pastoral
@@ -875,9 +872,9 @@ export default {
       if(jar == ""){
         jar = "sit"
       }
-      if(ran == ""){
-        ran = "sit"
-      }
+      // if(ran == ""){
+      //   ran = "sit"
+      // }
       if(gou == ""){
         gou = "sit"
       }
@@ -915,7 +912,7 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === hFull && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && jar == jardim ||  
-      this.form.dataNew === getFull && this.form.horariosFull === hFull && ran == ranchinho ||
+      // this.form.dataNew === getFull && this.form.horariosFull === hFull && ran == ranchinho ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && gou == gourmet ||
       this.form.dataNew === getFull && this.form.horariosFull === hFull && info == informatica || 
       this.form.dataNew === getFull && this.form.horariosFull === hFull && pas == pastoral ||
@@ -938,7 +935,7 @@ export default {
       this.form.dataNew === getFull && hFull === '07h10-12h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '07h10-12h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '07h10-12h' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '07h10-12h' && info == informatica || 
       this.form.dataNew === getFull && hFull === '07h10-12h' && pas == pastoral ||
@@ -974,7 +971,7 @@ export default {
       this.form.dataNew === getFull && hFull === '07h10-21h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '07h10-21h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '07h10-21h' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '07h10-21h' && info == informatica || 
       this.form.dataNew === getFull && hFull === '07h10-21h' && pas == pastoral ||
@@ -1031,7 +1028,7 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && jar == jardim ||  
-      this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && ran == ranchinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && gou == gourmet ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && info == informatica || 
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-21h' && pas == pastoral ||
@@ -1087,7 +1084,7 @@ export default {
       this.form.dataNew === getFull && hFull === '12h30-17h' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '12h30-17h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '12h30-17h' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '12h30-17h' && info == informatica || 
       this.form.dataNew === getFull && hFull === '12h30-17h' && pas == pastoral ||
@@ -1130,7 +1127,7 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && jar == jardim ||  
-      this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && ran == ranchinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && gou == gourmet ||
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && info == informatica || 
       this.form.dataNew === getFull && this.form.horariosFull === '12h30-17h' && pas == pastoral ||
@@ -1171,7 +1168,7 @@ export default {
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && car == carrinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ag == agenda ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && jar == jardim ||  
-      this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ran == ranchinho ||
+      // this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && ran == ranchinho ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && gou == gourmet ||
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && info == informatica || 
       this.form.dataNew === getFull && this.form.horariosFull === '07h10-12h' && pas == pastoral ||
@@ -1208,7 +1205,7 @@ export default {
       this.form.dataNew === getFull && hFull === '08h40-09h25' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '08h40-09h25' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '08h40-09h25' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '08h40-09h25' && info == informatica || 
       this.form.dataNew === getFull && hFull === '08h40-09h25' && pas == pastoral ||
@@ -1233,7 +1230,7 @@ export default {
       this.form.dataNew === getFull && hFull === '09h-09h45' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '09h-09h45' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '09h-09h45' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '09h-09h45' && info == informatica || 
       this.form.dataNew === getFull && hFull === '09h-09h45' && pas == pastoral ||
@@ -1256,7 +1253,7 @@ export default {
       this.form.dataNew === getFull && hFull === '09h25-10h10' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '09h25-10h10' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '09h25-10h10' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '09h25-10h10' && info == informatica || 
       this.form.dataNew === getFull && hFull === '09h25-10h10' && pas == pastoral ||
@@ -1279,7 +1276,7 @@ export default {
       this.form.dataNew === getFull && hFull === '09h45-10h30' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '09h45-10h30' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '09h45-10h30' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '09h45-10h30' && info == informatica || 
       this.form.dataNew === getFull && hFull === '09h45-10h30' && pas == pastoral ||
@@ -1308,7 +1305,7 @@ export default {
       this.form.dataNew === getFull && hFull === '14h05-14h50' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '14h05-14h50' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '14h05-14h50' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '14h05-14h50' && info == informatica || 
       this.form.dataNew === getFull && hFull === '14h05-14h50' && pas == pastoral ||
@@ -1332,7 +1329,7 @@ export default {
       this.form.dataNew === getFull && hFull === '14h25-15h10' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '14h25-15h10' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '14h25-15h10' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '14h25-15h10' && info == informatica || 
       this.form.dataNew === getFull && hFull === '14h25-15h10' && pas == pastoral ||
@@ -1355,7 +1352,7 @@ export default {
       this.form.dataNew === getFull && hFull === '14h35-15h20' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '14h35-15h20' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '14h35-15h20' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '14h35-15h20' && info == informatica || 
       this.form.dataNew === getFull && hFull === '14h35-15h20' && pas == pastoral ||
@@ -1379,7 +1376,7 @@ export default {
       this.form.dataNew === getFull && hFull === '14h10-14h35' && car == carrinho ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && ag == agenda ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && jar == jardim ||  
-      this.form.dataNew === getFull && hFull === '14h10-14h35' && ran == ranchinho ||
+      // this.form.dataNew === getFull && hFull === '14h10-14h35' && ran == ranchinho ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && gou == gourmet ||
       this.form.dataNew === getFull && hFull === '14h10-14h35' && info == informatica || 
       this.form.dataNew === getFull && hFull === '14h10-14h35' && pas == pastoral ||
@@ -1464,7 +1461,7 @@ export default {
               carrinho: this.form.carrinho,
               jardim: this.form.jardim,
               agenda: this.form.agenda,
-              ranchinho: this.form.ranchinho,
+              // ranchinho: this.form.ranchinho,
               gourmet: this.form.gourmet,
               informatica: this.form.informatica,
               pastoral: this.form.pastoral,
@@ -1528,7 +1525,7 @@ export default {
               carrinho: this.form.carrinho,
               jardim: this.form.jardim,
               agenda: this.form.agenda,
-              ranchinho: this.form.ranchinho,
+              // ranchinho: this.form.ranchinho,
               gourmet: this.form.gourmet,
               informatica: this.form.informatica,
               pastoral: this.form.pastoral,

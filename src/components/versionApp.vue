@@ -1,5 +1,6 @@
 <template>
-  <span>v3.0.0</span>
+  <!-- Atualizado em 21/03/2024 -->
+  <span>v3.2.0</span>
 </template>
 <style scoped>
 span{
