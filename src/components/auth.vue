@@ -146,7 +146,8 @@
                           <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
                           <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
                           <label id="lab" for="labCiencias"><input @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="labCiencias">Lab. Ciências</label> 
-                          <label v-if="usuario == 'ingles-39@ersvp.g12.br' || usuario == 'ingles-edinf-fund1@ersvp.g12.br' || usuario == 'ingles-edinf-pre2b@ersvp.g12.br' || usuario == 'ingles-fund1@ersvp.g12.br'" id="ing" for="SalIngles"><input  @change="trocarIngles($event)"  v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
+                          <label v-if="usuario == 'ingles-39@ersvp.g12.br' || usuario == 'ingles-edinf-fund1@ersvp.g12.br' || usuario == 'ingles-edinf-pre2b@ersvp.g12.br' || usuario == 'ingles-fund1@ersvp.g12.br'" id="ing" for="SalIngles">
+                            <input  @change="trocarIngles($event)"  v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
                           <label v-else id="ing" for="SalIngles"><input disabled @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>                         
                           <label  id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
                           <label id="jar" for="jardim"><input @change="trocarJar($event)" v-model="form.jardim" type="checkbox" value="Jardim_Sensorial" id="jardim">Jardim Sensorial</label> 
@@ -431,38 +432,59 @@ export default {
     //função que bloqueia eventos na sala da informatica nas quartas, quintas e sextas.
     setDate(){      
 
-        let newDateInfo =  document.getElementById('data').value;     
         
-        const info = this.form.informatica;
+        let newDateInfo =  document.getElementById('data').value;       
+        
+        const info = this.form.informatica;       
+        const hora = this.form.horariosFull;
 
-        //Converter a data do form para o dia da semana(1=terça-feira, 2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
-        const numeroConvertido = new Date(newDateInfo).getDay();  
-        console.log(numeroConvertido)       
-       
-
-        //verifica se numeroConvertido e info são true, se for, bloqueia o usuario e dá reload na página.       
-        if(numeroConvertido != 0 && info ){
-          
+        //Converter a data do form para o dia da semana(0=segunda-feira, 1=terça-feira, 2=quarta-feira, 3=quinta-feira e 4=sexta-feira)
+        const numeroConvertido = new Date(newDateInfo).getDay();        
+        const oldDate = '12:45:00'  
+        
+        if(hora >= oldDate){
           setTimeout(()=>{
-              this.$swal({
-                icon: "warning",
-                title: "Ops... Desculpe!",
-                html: `
-                <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
-                  Sala de Informática liberada para eventos, apenas na 2ª feira.
-                </p>`,
-                showConfirmButton: false,              
-                timerProgressBar: true,
-                timer:7500
-              })     
-            },100) 
-            setTimeout(()=>{
-              location.reload()
-            },8000)   
-        
-          return false;       
+            this.$swal({
+              icon: "warning",
+              title: "Desculpe!",
+              html: `
+              <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
+                Sala de Informática liberada para eventos até 12h.
+              </p>`,
+              showConfirmButton: false,              
+              timerProgressBar: true,
+              timer:7500
+            })     
+          },100) 
+          setTimeout(()=>{
+            location.reload()
+          },8000)
+            return false
         } 
-       
+     
+
+        //verifica se numeroConvertido e info são true, se for, bloqueia o usuario e dá reload na página.  
+        //Converter a data do form para o dia da semana(0=segunda-feira, 1=terça-feira, 2=quarta-feira, 3=quinta-feira e 4=sexta-feira)     
+        if(numeroConvertido != 1  && numeroConvertido != 3  &&  numeroConvertido != 0 && info ){
+         
+          setTimeout(()=>{
+            this.$swal({
+              icon: "warning",
+              title: "Ops... Desculpe!",
+              html: `
+              <p style="font-family: Montserrat; font-weight:300, font-size:2em;">
+                Sala de Informática liberada para eventos, apenas na 2ª, 3ª e 5ª feira.
+              </p>`,
+              showConfirmButton: false,              
+              timerProgressBar: true,
+              timer:7500
+            })     
+          },100) 
+          setTimeout(()=>{
+            location.reload()
+          },8000)           
+          return false
+          }       
     },
 
     // validação do botão submit
