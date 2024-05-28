@@ -146,9 +146,17 @@
                           <label id="gour" for="gourmet"><input @change="trocarGourmet($event)" v-model="form.gourmet" type="checkbox" value="Área Gourmet" id="gourmet">Área Gourmet</label> 
                           <label id="pisc" for="piscina"><input @change="trocarPiscina($event)" v-model="form.piscina" type="checkbox" value="Piscina" id="piscina">Piscina</label> 
                           <label id="lab" for="labCiencias"><input @change="trocarCiencias($event)" v-model="form.ciencias" type="checkbox" value="Lab. Ciências" id="labCiencias">Lab. Ciências</label> 
-                          <label v-if="usuario == 'ingles-39@ersvp.g12.br' || usuario == 'ingles-edinf-fund1@ersvp.g12.br' || usuario == 'ingles-edinf-pre2b@ersvp.g12.br' || usuario == 'ingles-fund1@ersvp.g12.br'" id="ing" for="SalIngles">
+                          <label 
+                            v-show="
+                              usuario == 'ingles-39@ersvp.g12.br' ||
+                              usuario == 'ingles-edinf-fund1@ersvp.g12.br' ||
+                              usuario == 'ingles-edinf-pre2b@ersvp.g12.br' ||
+                              usuario == 'ingles-fund1@ersvp.g12.br' ||
+                              usuario == 'informatica@ersvp.g12.br'"
+                              id="ing" for="SalIngles"
+                            >
                             <input  @change="trocarIngles($event)"  v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label> 
-                          <label v-else id="ing" for="SalIngles"><input disabled @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>                         
+                          <!-- <label v-else id="ing" for="SalIngles"><input disabled @change="trocarIngles($event)" v-model="form.ingles" type="checkbox" value="Sala Bilíngue" id="SalIngles">Sala Bilíngue</label>                          -->
                           <label  id="inform" for="info"><input @change="trocarInfor($event)" v-model="form.informatica" type="checkbox" value="Sala Informática" id="info">Sala Informática</label> 
                           <label id="jar" for="jardim"><input @change="trocarJar($event)" v-model="form.jardim" type="checkbox" value="Jardim_Sensorial" id="jardim">Jardim Sensorial</label> 
                           <label id="agend"  for="agenda"><input @change="trocarAg($event)" v-model="form.agenda" type="checkbox" value="Agendamentos" id="agenda">Agendamentos</label>
