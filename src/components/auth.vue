@@ -149,6 +149,7 @@
                           <label 
                             v-show="
                               usuario == 'ingles-39@ersvp.g12.br' ||
+                              usuario == 'ingles@ersvp.g12.br' ||
                               usuario == 'ingles-edinf-fund1@ersvp.g12.br' ||
                               usuario == 'ingles-edinf-pre2b@ersvp.g12.br' ||
                               usuario == 'ingles-fund1@ersvp.g12.br' ||
